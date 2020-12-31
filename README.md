@@ -1,14 +1,15 @@
 # Definitive Edition Lighting Improvements
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/Telltale-Modding-Group/TelltaleModLauncher)](https://github.com/Telltale-Modding-Group/TelltaleModLauncher/releases)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/changemymindpls/TTDS-Relighting)](https://github.com/changemymindpls/TTDS-Relighting/releases)
 
-### [Download the Mod here](https://github.com/changemymindpls/TTDS-GraphicBlackDisabler/releases)
+### [Download the Mod here](https://github.com/changemymindpls/TTDS-Relighting/releases)
 
 ### Install this mod using the [Telltale Mod Launcher](https://github.com/Telltale-Modding-Group/TelltaleModLauncher).
 
 ## DISCLAIMER
 
 **This only works for 'The Walking Dead Telltale Definitive Edition'.**
+**Not Compatible with [MenuRain](https://github.com/changemymindpls/TTDS-MenuRain) Mod.
 
 ## About
 
@@ -16,7 +17,7 @@ This is the Definitive Edition Lighting Improvements Mod (The Walking Dead Tellt
 
 ## Download
 
-**[Download the mod](https://github.com/changemymindpls/TTDS-GraphicBlackDisabler/releases)**
+**[Download the mod](https://github.com/changemymindpls/TTDS-Relighting/releases)**
 
 **This mod is compatible with the [Telltale Mod Launcher](https://github.com/Telltale-Modding-Group/TelltaleModLauncher) and can be installed using the tool.**
 
