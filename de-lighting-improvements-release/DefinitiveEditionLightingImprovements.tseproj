@@ -1,0 +1,12 @@
+{
+  "formatVersion": "1",
+  "tool": {
+    "game": "TTDS"
+  },
+  "mod": {
+    "name": "Definitive Edition Lighting Improvements",
+    "version": "0.1",
+    "author": "changemymindpls1",
+    "priority": 950
+  }
+}
