@@ -15,6 +15,8 @@
 
 This is the Definitive Edition Lighting Improvements Mod (The Walking Dead Telltale Definitive Edition). This mod sets out to "Relight" and improve the many scenes that are in the Definitive Edition.
 
+NOTE: This is still an early version and some scenes are subject to change, and more are to be added as well.
+
 If there are issues or suggestions with the mod please report them to the [Issues](https://github.com/changemymindpls/TTDS-Relighting/issues) tab of this repository.
 
 ## Download
