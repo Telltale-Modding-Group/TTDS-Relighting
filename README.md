@@ -2,9 +2,9 @@
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/changemymindpls/TTDS-Relighting)](https://github.com/changemymindpls/TTDS-Relighting/releases)
 
-### [Download the Mod here](https://github.com/changemymindpls/TTDS-Relighting/releases)
-
-### Install this mod using the [Telltale Mod Launcher](https://github.com/Telltale-Modding-Group/TelltaleModLauncher).
+### [NEXUS MODS DOWNLOAD](https://www.nexusmods.com/thewalkingdeadthetelltaledefinitiveseries/mods/1)
+### [GITHUB DOWNLOAD](https://github.com/changemymindpls/TTDS-Relighting/releases)
+### This can also be installed by using the [Telltale Mod Launcher](https://github.com/Telltale-Modding-Group/TelltaleModLauncher).
 
 ## DISCLAIMER
 
