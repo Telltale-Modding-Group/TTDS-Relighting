@@ -19,12 +19,6 @@ NOTE: This is still an early version and some scenes are subject to change, and 
 
 If there are issues or suggestions with the mod please report them to the [Issues](https://github.com/changemymindpls/TTDS-Relighting/issues) tab of this repository.
 
-## Download
-
-**[Download the mod](https://github.com/changemymindpls/TTDS-Relighting/releases)**
-
-**This mod is compatible with the [Telltale Mod Launcher](https://github.com/Telltale-Modding-Group/TelltaleModLauncher) and can be installed using the tool.**
-
 ## Editing/Modifying
 
 ***For Modders/Developers Only***
