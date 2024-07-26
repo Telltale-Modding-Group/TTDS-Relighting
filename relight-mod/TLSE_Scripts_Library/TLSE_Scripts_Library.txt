@@ -1,0 +1,9 @@
+TLSE | Telltale Lua Script Extensions
+
+- (.lua) a pre-compiled script that is used by the game to run gameplay logic.
+
+This specific archive stores many Lua scripts that are here to help extend the existing Telltale Lua API of a project.
+
+They enhance existing Telltale Lua API functions, but also implement many new ones as well to make scripting a lot easier and certain tasks more achievable. It's worth noting that not every script in this archive may be used, so treat this archive almost like a toolbox. 
+
+Almost every function in the library also is prefixed with "TLSE_" as Lua does not really support namespaces. NOTE: This could have been circumvented by using a package like system as explained here - https://www.lua.org/pil/15.1.html - however this introduces a bit of scripting complexity so it's simpler to just include the script when you need it, and call the uniquely named function globally.

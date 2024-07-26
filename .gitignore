@@ -1,0 +1,8 @@
+#some pre-production stuff and other stuff that isn't needed
+Archived/
+
+#make sure we don't accidentally include builds in the project
+#builds will be offically put out in the releases page
+relight-mod/[Bb]uilds
+[Bb]uild/
+[Bb]uilds/

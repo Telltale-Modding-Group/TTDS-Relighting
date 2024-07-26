@@ -1,0 +1,40 @@
+[
+  {
+    "mMetaStreamVersion": "6VSM",
+    "mDefaultSectionChunkSize": 1528,
+    "mDebugSectionChunkSize": 0,
+    "mAsyncSectionChunkSize": 0,
+    "mClassNamesLength": 2,
+    "mClassNames": [
+      {
+        "mTypeNameCRC": {
+          "mCrc64": 16494572205536610790
+        },
+        "mVersionCRC": 2938478536
+      },
+      {
+        "mTypeNameCRC": {
+          "mCrc64": 18168016941510070708
+        },
+        "mVersionCRC": 1107160761
+      }
+    ]
+  },
+  {
+    "mName": "TLSE_Development_Editor.imap",
+    "mMappedEvents": [
+      {
+        "mInputCode": 87,
+        "mEvent": 0,
+        "mScriptFunction": "TLSE_Development_Editor_Input_LeftMouseBegin",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 87,
+        "mEvent": 1,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_LeftMouseEnd",
+        "mControllerIndexOverride": -1
+      }
+    ]
+  }
+]

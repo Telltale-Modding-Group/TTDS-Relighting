@@ -1,0 +1,13 @@
+{
+  "formatVersion": "1",
+  "tool": {
+    "game": "TTDS",
+    "legacyBuild": true
+  },
+  "mod": {
+    "name": "Relight Mod",
+    "version": "0.2",
+    "author": "changemymindpls1",
+    "priority": 950
+  }
+}

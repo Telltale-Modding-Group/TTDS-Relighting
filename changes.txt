@@ -1,0 +1,158 @@
+===================================================================================================
+===================================================================================================
+===================================================================================================
+[v0.1 release] 1/12/21
+
+===== AUTHOR NOTES =====
+Inital Release
+
+===== REPLACED =====
+- [REPLACED] 201 Clearing Campfire Rain (Replaced S2 "Rain Spheres" with better rain particles from S4)
+
+===== ADDED =====
+- [Added] 102 Motor Inn (New Lighting)
+- [Added] 102 Meat Locker (New Lighting)
+- [Added] 201 Clearing Campfire (New Lighting)
+- [Added] 205 Power Station (New Lighting)
+
+
+===================================================================================================
+===================================================================================================
+===================================================================================================
+[v0.2 release] 4/12/22
+===== AUTHOR NOTES =====
+Sorry for the lack of updates, got really busy and interests shifted a bit. Hopefully you enjoy this new update. I have adjusted and tweaked many of the original scenes that I relit, as well as added many more scenes that I have since relit but never packaged. It's worth noting that all of these changes are ONLY applied to the scenes that this mod touches, everything else is vanilla. If you want to know what scenes I touch, I have a list at the end of the release notes. All the other scenes are untouched and unharmed :P
+
+This is the biggest update yet for relight, and there are tons of brand new additions with this update along with just simple scene relights, and those are...
+- Replacing the god awful water in S2 with S4 water which has superior shading.
+- Replacing the awful rain effects in S2 (rain spheres, looks very 2D), with better S4 effects (rain particles).
+- Added additional particle effects in some scenes like dust, leaves, etc (those are also borrowed from S4).
+- Enabled Depth of Field on all modified scenes, and wrote a system that intelligently autofocuses on the correct targets and shots for a scene.
+- Enabled Motion Blur on all modified scenes (disabled by default, but can be enabled by the user with adjustable intensity).
+- The same Depth of Field option also ocasionally for some scenes has a high quality option which has bokeh sprites.
+- Added a per scene exposure offset so if a scene is too bright/dark it can be adjusted by the user via config file.
+- Added an option to force bloom effects off (incase you are not a fan of it at all).
+- Added an option to enable/disable a scene relight.
+- Configurable FOV multiplier for all modified scenes. This can be used to widen or narrow all the cameras in the scene.
+- Procedually placed more grass in a couple of scenes to improve the visuals and detail in order make the ground look less flat and barren. 
+- Finally, and most importantly, added an .ini configuration file system so now you can tweak to enable/disable all of these new features/changes if your not a fan of them, like disabling depth of field if you wish. It's up to you to customize and pick what you want.
+- And many, many, many more... (which are all listed in the changes below)
+
+The best feature argueably here is the ini file configuration. Which allows you to really customize this mod however you wish, and not be locked in to what I've done. You can choose to play without any of the "relights" but with Depth of Field or Motion Blur enabled; You can choose to disable some of the relit scenes if your not a fan of my takes, but enable other features that this mod includes; You can choose to enable everything and play as intended; I could go on but you can configure the mod to however you wish to have it, the choice is up to you!
+
+A note on that regard for the INI file, at the end of the notes is a list of all of the POSSIBLE features that a scene might have but not every scene will have the same options. Many scenes are very different and for some I'm unable to get certain effects working so they are omitted.
+
+As a plus I've also included some of my development tools. Which if you want can be enabled if you want to mess about, such as the freecam or full tools. Keep in mind that these tools are primarly designed for my workflow, and are also meant to be used in conjunction with the scripting I'm doing. They will constantly change and even as of this update are work in progress, they are just used for my development. Mind you these are all completely custom, the game does not have any provided editor or any editor like tools.
+
+Additional information, at the time of writing I would like to mention there are some scenes that I won't be able to relight due to various reasons. This might change in the future but one of the main reasons being that some scenes are actually revisited and reused more than once, and there is logic within the level that is meant to change the lighting to fit the desired scenario. I have figured out a workaround for some, however there might be some that will just be impossible to do (at the time of writing anyway). But it's also worth mentioning I am doing all of these relights without ZERO access to a level editor of some kind. It's all just classic geusswork, constant iteration, and trial/error. Even with the tools I created and included in the relight mod its still just mostly geusswork.
+
+As a reminder there is also a github page for this mod, along with all of my other mods for access to the source code so you can use it to modify/create your own mods using the Telltale Script Editor.
+
+As for the future, obviously there will be alot more scenes completed, but with the ini system in place it allows for way more customization and flexibility. I.e. potentially allowing you to choose an alternate relight of a certain scene. For instance I can relight a scene for day, night, or perhaps during a weather event and you can pick and choose. As for the technical part I definetly want to try and find a way to solve the issue regarding scene resuage and not being able to relight those scenes for the different scenarios. I also want to figure out how to properly use the lighting rigs that are often used for characters in a scene. Most of the time I end up just throwing it out of the window because it interferes with my lighting, and I prefer the characters to be enviormentally lit most of the time because it's dynamic and makes them feel way more grounded and blend into the scene way better.
+
+Now on to the actual release notes...
+
+===== MODIFIED SCENES ====
+This mod modifies the following scenes as of this version...
+- 101 Street Outskirts
+- 101 Drugstore Exterior
+- 102 Motor Inn
+- 102 Meat Locker
+- 104 Manor Interior Attic
+- 201 Truck Stop Bathroom
+- 201 Clearing Campfire
+- 201 River Woods
+- 201 River Shore
+- 201 River Camp
+- 201 Shed Interior
+- 204 Hardware Store Exterior Rear
+- 204 Civil War Memorial Center
+- 205 Power Station
+- 205 Stash House Exterior Night
+- 205 Wellington
+
+===== FIXES =====
+- [Fixed] 201 Campfire animation and progression issues caused by enabling the whole season 4 archive. I did this initially so I could get access to S4 particle effects and use them to replace the crappy S2 rain spheres. However additional playtesting revealed that this broke many things that I didn't notice in my testing. The specific particles and assets are now manually included in the relight assets archive to prevent those issues (sadly this will bloat the file size of the archive a bit as I haven't figured out a way to load a specific asset from another archive at will without enabling the whole archive).
+- [Fixed] 102 Motor Inn progression issues caused by removing some important agents in a scene. I avoid removing these agents now and just simply hide/disable them.
+
+===== TWEAKS =====
+- [Tweaked] OVERALL: All previous and new scenes now will try to force graphic black off at the scene start. The reason being that this mod is not designed with graphic black turned on, as its rather destructive image quality wise.
+- [Tweaked] 102 Motor Inn lighting and effects. Added additional features as well as adjusted overall lighting for a better gameplay experience.
+- [Tweaked] 102 Meat Locker lighting and effects. Added additional features as well as adjusted overall lighting for a better gameplay experience.
+- [Tweaked] 201 Campfire lighting and effects. Redid overall lighting and reduced the density of the rain for a better gameplay experience.
+- [Tweaked] 205 Power Station lighting and effects. Adjusted overall lighting for a better gameplay experience.
+
+===== REPLACED =====
+- [REPLACED] 201 River Shore Water (Replaced with water from S4, looks much better)
+- [REPLACED] 201 River Woods Water (Replaced with water from S4, looks much better)
+- [REPLACED] 201 River Woods Rain (Replaced S2 "Rain Spheres" with better rain particles from S4)
+- [REPLACED] 201 Clearing Campfire Rain (Replaced S2 "Rain Spheres" with better rain particles from S4)
+
+===== ADDED FEATURES =====
+- [Added] .ini configuration file for disabling/enabling features.
+
+Global Config Options
+- [Added] "MotionBlurIntensity" - A value for how intense the motion blur when enabled will be.
+- [Added] "FOVMultiplier" - 1.0 by default, higher values mean all cameras will have a wider field of view, opposite for lower values.
+- [Added] "DisableOutlines" - Disables cel shaded outlines on every scene.
+- [Added] "DisablePostProcessing" - Disables all post processing in every scene (useful especially if you are using reshade and want to inject your own post processing).
+- [Added] "DisableFog" - Disables all fog in every scene (useful especially if you are using reshade and want to inject your own post processing).
+- [Added] "RenderScale" - Exposes an internal telltale render function, this value acts like a multiplier for your current screen resolution. (For example, 1.0 at 1080p is 1080p, 2.0 at 1080p is 3840p, 0.5 at 1080p is 720p)
+
+Scene Config Options (note that not all of these options are avaliable for every scene for many reasons, mostly due to limitations)
+- [Added] "EnableRelighting" - Enables the main scene relighting, can disable if your not a fan of the new relight style. (Keep in mind that all other options in relation to a scene will still have an effect even with this disabled).
+- [Added] "EnableDepthOfField" - Enables Depth of Field, and I also created a custom autofocus system to utilize it especially within earlier seasons.
+- [Added] "HighQualityDepthOfField" - When Depth Of Field is enabled this enables a high quality version of it, which has bokeh sprite generation.
+- [Added] "EnableMotionBlur" - Enables Motion Blur on all scenes (disabled by default, but can be enabled in the ini file).
+- [Added] "ExposureOffset" - Can be adjusted for each scene if it's too dark/bright by the user.
+- [Added] "ForceBloomOff" - Forcibly disables bloom in a scene.
+- [Added] "EnableReplaceWater" - Replaces the original water effects in a scene with higher quality water effects from S4.
+- [Added] "EnableReplaceRain" - Replaces the original rain effects in a scene with higher quality rain effects from S4.
+- [Added] "EnableProcedualGrass" - Procedural Grass creation and placement in some scenes to improve the detail/quality.
+- [Added] "EnableAdditionalParticles" - Enables additional particle effects for the scene (like dust motes, smoke, leaves, etc.)
+- [Added] "EnableFlashlights" - Adds flashlights and attaches them to some character's hands in specific scenes that take place at night.
+- [Added] "RelightingThunderRepeatRate" - For some scenes that are stormy/rainy you can adjust the frequency at which a thunderstrike happens.
+- [Added] "EnableContentRestoration" - This enables/restores some cut content left over in a scene.
+
+Relight Development Config Options
+- [Added] "PerformanceMetrics" - Enables a UI that shows performance statistics provided by the engine.
+- [Added] "EditorMode" - Enables the relight editor mode, where you can fly around and adjust lighting and scene post processing and other various things.
+- [Added] "FreeCameraOnlyMode" - Where you can fly through and explore the scene without any interruptions.
+- [Added] "FreeCameraOnlyMode_StartSceneNormally" - When freecamera mode starts, it will attempt to run the telltale scene normally.
+- [Added] "Camera_SnappyMovement" - (Development Camera) This disables smoothing for positioning on the freecam.
+- [Added] "Camera_SnappyRotation" - (Development Camera) This disables smoothing for rotation on the freecam.
+- [Added] "Camera_SnappyZoom" - (Development Camera) This disables smoothing for zooming on the freecam.
+- [Added] "Camera_PositionIncrementDefault" - (Development Camera) Controls how fast the camera moves when flying normally.
+- [Added] "Camera_PositionIncrementShift" - (Development Camera) Controls how fast the camera moves when holding down shift.
+- [Added] "Camera_PositionLerpFactor" - (Development Camera) The smoothing factor for camera movement (higher values = snappier, lower values = smoother).
+- [Added] "Camera_RotationLerpFactor" - (Development Camera) The smoothing factor for camera rotation (higher values = snappier, lower values = smoother).
+- [Added] "Camera_ZoomLerpFactor" - (Development Camera) The smoothing factor for camera zooming (higher values = snappier, lower values = smoother).
+- [Added] "Camera_FovIncrement" - (Development Camera) Controls how fast the camera zooms.
+- [Added] "Camera_FovMin" - (Development Camera) Sets the minimum limit for the field of view of the camera when zooming in.
+- [Added] "Camera_FovMax" - (Development Camera) Sets the maximum limit for the field of view of the camera when zooming out.
+- [Added] "Camera_FarPlane" - (Development Camera) Sets the maximum distance that the camera will render. (objects beyond the far plane will clip/disappear)
+- [Added] "Camera_NearPlane" - (Development Camera) Sets the minimum distance that the camera will render (objects before the near plane will clip/disappear)
+
+
+
+
+
+
+
+
+
+
+
+
+===== ADDED RELIGHT SCENES =====
+- [Added] 101 Street Outskirts
+- [Added] 101 Drugstore Exterior
+- [Added] 104 Manor Interior Attic
+- [Added] 201 Clearing Campfire
+- [Added] 201 River Shore
+- [Added] 201 River Camp
+- [Added] 201 Shed Interior
+- [Added] 204 Hardware Store Exterior Rear
+- [Added] 204 Civil War Memorial Center
+- [Added] 205 Stash House Exterior Night
+- [Added] 205 Wellington 

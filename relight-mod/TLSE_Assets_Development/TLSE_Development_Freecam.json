@@ -1,0 +1,166 @@
+[
+  {
+    "mMetaStreamVersion": "6VSM",
+    "mDefaultSectionChunkSize": 1528,
+    "mDebugSectionChunkSize": 0,
+    "mAsyncSectionChunkSize": 0,
+    "mClassNamesLength": 2,
+    "mClassNames": [
+      {
+        "mTypeNameCRC": {
+          "mCrc64": 16494572205536610790
+        },
+        "mVersionCRC": 2938478536
+      },
+      {
+        "mTypeNameCRC": {
+          "mCrc64": 18168016941510070708
+        },
+        "mVersionCRC": 1107160761
+      }
+    ]
+  },
+  {
+    "mName": "TLSE_Development_Freecam.imap",
+    "mMappedEvents": [
+      {
+        "mInputCode": 87,
+        "mEvent": 0,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_ForwardBegin",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 87,
+        "mEvent": 1,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_ForwardEnd",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 83,
+        "mEvent": 1,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_BackwardEnd",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 65,
+        "mEvent": 0,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_LeftBegin",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 65,
+        "mEvent": 1,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_LeftEnd",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 68,
+        "mEvent": 0,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_RightBegin",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 68,
+        "mEvent": 1,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_RightEnd",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 81,
+        "mEvent": 0,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_DownBegin",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 81,
+        "mEvent": 1,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_DownEnd",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 69,
+        "mEvent": 0,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_UpBegin",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 69,
+        "mEvent": 1,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_UpEnd",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 16,
+        "mEvent": 0,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_SprintBegin",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 16,
+        "mEvent": 1,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_SprintEnd",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 67,
+        "mEvent": 0,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_SlowBegin",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 67,
+        "mEvent": 1,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_SlowEnd",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 17,
+        "mEvent": 0,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_SlowBegin",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 17,
+        "mEvent": 1,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_SlowEnd",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 70,
+        "mEvent": 0,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_FreezeBegin",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 70,
+        "mEvent": 1,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_FreezeEnd",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 816,
+        "mEvent": 0,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_LeftMouseBegin",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 816,
+        "mEvent": 1,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_LeftMouseEnd",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 817,
+        "mEvent": 0,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_RightMouseBegin",
+        "mControllerIndexOverride": -1
+      },
+      {
+        "mInputCode": 817,
+        "mEvent": 1,
+        "mScriptFunction": "TLSE_Development_Freecam_Input_RightMouseEnd",
+        "mControllerIndexOverride": -1
+      }
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+This is a D3DTX (Direct3D Texture) archive for the "Kenny The Boat Master" (KTBM) project.
+
+- (.d3dtx) is Telltale's propetiary texture format for textures used within the game.
+
+These textures were converted from the native telltale d3dtx format, into a standard image format (.dds) which can be edited. After editing these would be converted back into telltale's d3dtx format to be used in the game. The conversion process is handled by our D3DTX Texture conveter tool.
