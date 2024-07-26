@@ -2,9 +2,9 @@
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/changemymindpls/TTDS-Relighting)](https://github.com/changemymindpls/TTDS-Relighting/releases)
 
-### [Download the Mod here](https://github.com/changemymindpls/TTDS-Relighting/releases)
-
-### Install this mod using the [Telltale Mod Launcher](https://github.com/Telltale-Modding-Group/TelltaleModLauncher).
+### [NEXUS MODS DOWNLOAD](https://www.nexusmods.com/thewalkingdeadthetelltaledefinitiveseries/mods/1)
+### [GITHUB DOWNLOAD](https://github.com/changemymindpls/TTDS-Relighting/releases)
+### This can also be installed by using the [Telltale Mod Launcher](https://github.com/Telltale-Modding-Group/TelltaleModLauncher).
 
 ## DISCLAIMER
 
@@ -15,11 +15,9 @@
 
 This is the Definitive Edition Lighting Improvements Mod (The Walking Dead Telltale Definitive Edition). This mod sets out to "Relight" and improve the many scenes that are in the Definitive Edition.
 
-## Download
+NOTE: This is still an early version and some scenes are subject to change, and more are to be added as well.
 
-**[Download the mod](https://github.com/changemymindpls/TTDS-Relighting/releases)**
-
-**This mod is compatible with the [Telltale Mod Launcher](https://github.com/Telltale-Modding-Group/TelltaleModLauncher) and can be installed using the tool.**
+If there are issues or suggestions with the mod please report them to the [Issues](https://github.com/changemymindpls/TTDS-Relighting/issues) tab of this repository.
 
 ## Editing/Modifying
 
