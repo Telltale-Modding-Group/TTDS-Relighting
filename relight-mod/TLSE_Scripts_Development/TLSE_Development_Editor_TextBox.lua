@@ -42,11 +42,11 @@ end
 TLSE_Development_Editor_GetTextBoxString = function(string_inputText, string_description)
     ShowGenericTextBox(string_inputText, string_description, false, 1, false, 0, "OK", "CANCEL");
 
-    WaitForNextFrame();
+    --WaitForNextFrame();
 
-    while not IsGenericTextBoxFinished() do
-        WaitForNextFrame();
-    end
+    --while not IsGenericTextBoxFinished() do
+        --WaitForNextFrame();
+    --end
 
     return nil;
 

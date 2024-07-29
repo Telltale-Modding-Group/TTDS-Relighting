@@ -1,11 +1,14 @@
 --checks if a file exists
 TLSE_FileExists = function(filePathRelativeToGameExe)
+    --return FileExists(filePathRelativeToGameExe);
+    --return FileExistsGlobal(filePathRelativeToGameExe);
+
     --read the given file as a test
-    local f = (io.open)(filePathRelativeToGameExe, "r");
+    local f = io.open(filePathRelativeToGameExe, "r");
     
     --if the file was opened, then it exists
     if f ~= nil then
-        (io.close)(f);
+        io.close(f);
         return true;
     else
         return false;

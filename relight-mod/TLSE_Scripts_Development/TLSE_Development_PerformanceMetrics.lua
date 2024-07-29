@@ -2,13 +2,26 @@
 
 ]]--
 
---(public) dev variables (public because these values need to be persistent)
-TLSE_Development_PerformanceMetrics_Text = nil;
-TLSE_Development_PerformanceMetrics_TextTitle = "[Performance Metrics]";
+--|||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) USER CONFIGURABLE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) USER CONFIGURABLE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) USER CONFIGURABLE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+
 TLSE_Development_PerformanceMetrics_ShowCommonMetrics = true;
 TLSE_Development_PerformanceMetrics_ShowTimeMetrics = true;
 TLSE_Development_PerformanceMetrics_ShowVramMetrics = true;
 TLSE_Development_PerformanceMetrics_ShowHeapMetrics = true;
+
+--|||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) VARIABLES (DONT TOUCH) ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) VARIABLES (DONT TOUCH) ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) VARIABLES (DONT TOUCH) ||||||||||||||||||||||||||||||||||||||||||||||||
+
+--(public) dev variables (public because these values need to be persistent)
+TLSE_Development_PerformanceMetrics_Text = nil;
+TLSE_Development_PerformanceMetrics_TextTitle = "[Performance Metrics]";
+
+--|||||||||||||||||||||||||||||||||||||||||||||||||||| GLOBAL FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||||||| GLOBAL FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||||||| GLOBAL FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 TLSE_Development_PerformanceMetrics_Initalize = function()
     -------------------------------------------------------------

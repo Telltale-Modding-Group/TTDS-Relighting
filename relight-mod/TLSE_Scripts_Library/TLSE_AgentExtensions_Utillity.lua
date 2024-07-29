@@ -136,6 +136,68 @@ TLSE_RemoveSceneAgentsWithPrefix = function(string_scene, string_agentNamePrefix
     end
 end
 
+--||||||||||||||||||||||||| AGENT TYPE |||||||||||||||||||||||||
+--||||||||||||||||||||||||| AGENT TYPE |||||||||||||||||||||||||
+--||||||||||||||||||||||||| AGENT TYPE |||||||||||||||||||||||||
+
+TLSE_AgentIsCamera = function(agent_object)
+    return AgentHasProperty(agent_object, "Field of View");
+end
+
+TLSE_AgentIsLight = function(agent_object)
+    return AgentHasProperty(agent_object, "EnvLight - Type");
+end
+
+TLSE_AgentIsEnvironmentFog = function(agent_object)
+    return AgentHasProperty(agent_object, "Env - Fog Enabled");
+end
+
+TLSE_AgentIsParticle = function(agent_object)
+    return AgentHasProperty(agent_object, "Emitters - Enabled");
+end
+
+TLSE_AgentIsCinematicLight = function(agent_object)
+    return AgentHasProperty(agent_object, "CinLight - Enabled");
+end
+
+TLSE_AgentIsCinematicLightRig = function(agent_object)
+    return AgentHasProperty(agent_object, "CharLightComposer - Enabled");
+end
+
+TLSE_AgentIsMesh = function(agent_object)
+    return AgentHasProperty(agent_object, "D3D Mesh") or AgentHasProperty(agent_object, "D3D Mesh List");
+end
+
+--||||||||||||||||||||||||| GET ALL SCENE AGENTS BY TYPE |||||||||||||||||||||||||
+--||||||||||||||||||||||||| GET ALL SCENE AGENTS BY TYPE |||||||||||||||||||||||||
+--||||||||||||||||||||||||| GET ALL SCENE AGENTS BY TYPE |||||||||||||||||||||||||
+
+TLSE_GetAllLightAgentsInScene = function(string_scene)
+    local agentTable_sceneAgents = SceneGetAgents(string_scene);
+    local agentTable_lightAgents = {};
+
+    for index, agent_sceneAgent in pairs(agentTable_sceneAgents) do
+        if(TLSE_AgentIsLight(agent_sceneAgent)) then
+            table.insert(agentTable_lightAgents, agent_sceneAgent);
+        end
+    end
+
+    return agentTable_lightAgents;
+end
+
+TLSE_GetAllCameraAgentsInScene = function(string_scene)
+    local agentTable_sceneAgents = SceneGetAgents(string_scene);
+    local agentTable_cameraAgents = {};
+
+    for index, agent_sceneAgent in pairs(agentTable_sceneAgents) do
+        if(TLSE_AgentIsCamera(agent_sceneAgent)) then
+            table.insert(agentTable_cameraAgents, agent_sceneAgent);
+        end
+    end
+
+    return agentTable_cameraAgents;
+end
+
 --||||||||||||||||||||||||| UTILITY |||||||||||||||||||||||||
 --||||||||||||||||||||||||| UTILITY |||||||||||||||||||||||||
 --||||||||||||||||||||||||| UTILITY |||||||||||||||||||||||||

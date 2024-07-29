@@ -194,3 +194,7 @@ TLSE_Keycodes_IME_NonConvert = 29; --0x1D IME nonconvert
 TLSE_Keycodes_IME_Accept = 30; --0x1E IME accept
 TLSE_Keycodes_IME_ModeChangeRequest = 31; --0x1F IME mode change request
 TLSE_Keycodes_IME_Process = 229; --0xE5 IME PROCESS key
+
+TLSE_InputKeyPress = function(number_keyCode)
+    return InputPCIsVKeyPressed(number_keyCode);
+end

@@ -42,10 +42,10 @@ TLSE_Development_TransformTool_Initalize = function()
     --||||||||||||||||||||||||||||||||||||| CREATE TRANSFORM POSITION GIZMO |||||||||||||||||||||||||||||||||||||
 
     TLSE_Development_TransformTool_GizmoGroup = AgentCreate("TLSE_Development_TransformTool_GizmoGroup", "group.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_TransformTool_GizmoCenter = AgentCreate("TLSE_Development_TransformTool_GizmoCenter", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_TransformTool_GizmoAgentX = AgentCreate("TLSE_Development_TransformTool_GizmoAgentX", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_TransformTool_GizmoAgentY = AgentCreate("TLSE_Development_TransformTool_GizmoAgentY", "ui_boot_title.prop", Vector(0, 0, 0), Vector(90, 0, 90), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_TransformTool_GizmoAgentZ = AgentCreate("TLSE_Development_TransformTool_GizmoAgentZ", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, -90, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_TransformTool_GizmoCenter = AgentCreate("TLSE_Development_TransformTool_GizmoCenter", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_TransformTool_GizmoAgentX = AgentCreate("TLSE_Development_TransformTool_GizmoAgentX", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_TransformTool_GizmoAgentY = AgentCreate("TLSE_Development_TransformTool_GizmoAgentY", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(90, 0, 90), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_TransformTool_GizmoAgentZ = AgentCreate("TLSE_Development_TransformTool_GizmoAgentZ", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, -90, 0), TLSE_Development_SceneObject, false, false);
     
     AgentSetProperty(TLSE_Development_TransformTool_GizmoCenter, "Render Axis Scale", Vector(1, 1, 1));
     AgentSetProperty(TLSE_Development_TransformTool_GizmoCenter, "Render Global Scale", 1);
@@ -79,10 +79,10 @@ TLSE_Development_TransformTool_Initalize = function()
     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentZ, "Render Depth Write Alpha", false);
     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentZ, "Render Layer", 50);
 
-    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoCenter, "ui_boot_title.d3dtx", "TLSE_Development_SelectionDotWhite.d3dtx");
-    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", "TLSE_Development_TransformPositionGizmoRed.d3dtx");
-    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", "TLSE_Development_TransformPositionGizmoGreen.d3dtx");
-    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", "TLSE_Development_TransformPositionGizmoBlue.d3dtx");
+    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoCenter, TLSE_Development_FlatPlaneOriginalTexture, "TLSE_Development_SelectionDotWhite.d3dtx");
+    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, "TLSE_Development_TransformPositionGizmoRed.d3dtx");
+    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, "TLSE_Development_TransformPositionGizmoGreen.d3dtx");
+    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, "TLSE_Development_TransformPositionGizmoBlue.d3dtx");
 
     AgentAttach(TLSE_Development_TransformTool_GizmoCenter, TLSE_Development_TransformTool_GizmoGroup);
     AgentAttach(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_TransformTool_GizmoGroup);
@@ -303,33 +303,33 @@ TLSE_Development_TransformTool_UpdateGizmo = function()
             end
 
             if(bool_is_X_UnderCursor == true) then
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentY_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentZ_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentY_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentZ_Texture);
 
                 if(TLSE_Development_Editor_Input_LeftMouseHold and (TLSE_Development_TransformTool_GizmoSelectedAxis == "")) then
                     TLSE_Development_TransformTool_GizmoSelectedAxis = "x";
                 end
             elseif(bool_is_Y_UnderCursor == true) then
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentX_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentZ_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentX_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentZ_Texture);
 
                 if(TLSE_Development_Editor_Input_LeftMouseHold and (TLSE_Development_TransformTool_GizmoSelectedAxis == "")) then
                     TLSE_Development_TransformTool_GizmoSelectedAxis = "y";
                 end
             elseif(bool_is_Z_UnderCursor == true) then
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentX_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentY_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentX_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentY_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
 
                 if(TLSE_Development_Editor_Input_LeftMouseHold and (TLSE_Development_TransformTool_GizmoSelectedAxis == "")) then
                     TLSE_Development_TransformTool_GizmoSelectedAxis = "z";
                 end
             else
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentX_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentY_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentZ_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentX_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentY_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentZ_Texture);
             end
 
             --||||||||||||||||||||||||||||||||||||| TRANSFORM POSITION HANDLE BEHAVIOR |||||||||||||||||||||||||||||||||||||
@@ -344,7 +344,7 @@ TLSE_Development_TransformTool_UpdateGizmo = function()
                 local vector_transformedCursorPosition = AgentGetWorldPosFromCursorPos(agent_currentSelectedAgent);
 
                 if(TLSE_Development_TransformTool_GizmoSelectedAxis == "x") then
-                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentX, "Runtime: Visible", true);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentY, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentZ, "Runtime: Visible", false);
@@ -353,7 +353,7 @@ TLSE_Development_TransformTool_UpdateGizmo = function()
                     vector_newPosition = Vector(vector_transformedCursorPosition.x, vector_selectObjectWorldPosition.y, vector_selectObjectWorldPosition.z);
                     AgentSetWorldPos(agent_currentSelectedAgent, vector_newPosition);
                 elseif(TLSE_Development_TransformTool_GizmoSelectedAxis == "y") then
-                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentX, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentY, "Runtime: Visible", true);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentZ, "Runtime: Visible", false);
@@ -362,7 +362,7 @@ TLSE_Development_TransformTool_UpdateGizmo = function()
                     vector_newPosition = Vector(vector_selectObjectWorldPosition.x, vector_transformedCursorPosition.y, vector_selectObjectWorldPosition.z);
                     AgentSetWorldPos(agent_currentSelectedAgent, vector_newPosition);
                 elseif(TLSE_Development_TransformTool_GizmoSelectedAxis == "z") then
-                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentX, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentY, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentZ, "Runtime: Visible", true);
@@ -439,33 +439,33 @@ TLSE_Development_TransformTool_UpdateGizmo = function()
             end
 
             if(bool_is_X_UnderCursor == true) then
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentY_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentZ_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentY_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentZ_Texture);
 
                 if(TLSE_Development_Editor_Input_LeftMouseHold and (TLSE_Development_TransformTool_GizmoSelectedAxis == "")) then
                     TLSE_Development_TransformTool_GizmoSelectedAxis = "x";
                 end
             elseif(bool_is_Y_UnderCursor == true) then
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentX_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentZ_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentX_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentZ_Texture);
 
                 if(TLSE_Development_Editor_Input_LeftMouseHold and (TLSE_Development_TransformTool_GizmoSelectedAxis == "")) then
                     TLSE_Development_TransformTool_GizmoSelectedAxis = "y";
                 end
             elseif(bool_is_Z_UnderCursor == true) then
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentX_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentY_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentX_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentY_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
 
                 if(TLSE_Development_Editor_Input_LeftMouseHold and (TLSE_Development_TransformTool_GizmoSelectedAxis == "")) then
                     TLSE_Development_TransformTool_GizmoSelectedAxis = "z";
                 end
             else
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentX_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentY_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentZ_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentX_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentY_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentZ_Texture);
             end
 
             --||||||||||||||||||||||||||||||||||||| TRANSFORM ROTATION HANDLE BEHAVIOR |||||||||||||||||||||||||||||||||||||
@@ -486,7 +486,7 @@ TLSE_Development_TransformTool_UpdateGizmo = function()
                 local vector_transformedCursorPosition = AgentGetWorldPosFromCursorPos(agent_currentSelectedAgent);
 
                 if(TLSE_Development_TransformTool_GizmoSelectedAxis == "x") then
-                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentX, "Runtime: Visible", true);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentY, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentZ, "Runtime: Visible", false);
@@ -502,7 +502,7 @@ TLSE_Development_TransformTool_UpdateGizmo = function()
                     vector_newRotation = Vector(vector_selectObjectRotation.x + xDifference * 360, vector_selectObjectRotation.y, vector_selectObjectRotation.z);
                     AgentSetWorldRot(agent_currentSelectedAgent, vector_newRotation);
                 elseif(TLSE_Development_TransformTool_GizmoSelectedAxis == "y") then
-                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentX, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentY, "Runtime: Visible", true);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentZ, "Runtime: Visible", false);
@@ -511,7 +511,7 @@ TLSE_Development_TransformTool_UpdateGizmo = function()
                     vector_newRotation = Vector(vector_selectObjectRotation.x, vector_selectObjectRotation.y + xDifference * 360, vector_selectObjectRotation.z);
                     AgentSetWorldRot(agent_currentSelectedAgent, vector_newRotation);
                 elseif(TLSE_Development_TransformTool_GizmoSelectedAxis == "z") then
-                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentX, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentY, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentZ, "Runtime: Visible", true);
@@ -585,33 +585,33 @@ TLSE_Development_TransformTool_UpdateGizmo = function()
             end
 
             if(bool_is_X_UnderCursor == true) then
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentY_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentZ_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentY_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentZ_Texture);
 
                 if(TLSE_Development_Editor_Input_LeftMouseHold and (TLSE_Development_TransformTool_GizmoSelectedAxis == "")) then
                     TLSE_Development_TransformTool_GizmoSelectedAxis = "x";
                 end
             elseif(bool_is_Y_UnderCursor == true) then
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentX_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentZ_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentX_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentZ_Texture);
 
                 if(TLSE_Development_Editor_Input_LeftMouseHold and (TLSE_Development_TransformTool_GizmoSelectedAxis == "")) then
                     TLSE_Development_TransformTool_GizmoSelectedAxis = "y";
                 end
             elseif(bool_is_Z_UnderCursor == true) then
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentX_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentY_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentX_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentY_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
 
                 if(TLSE_Development_Editor_Input_LeftMouseHold and (TLSE_Development_TransformTool_GizmoSelectedAxis == "")) then
                     TLSE_Development_TransformTool_GizmoSelectedAxis = "z";
                 end
             else
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentX_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentY_Texture);
-                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentZ_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentX_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentY_Texture);
+                ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentZ_Texture);
             end
 
             --||||||||||||||||||||||||||||||||||||| TRANSFORM SCALE HANDLE BEHAVIOR |||||||||||||||||||||||||||||||||||||
@@ -620,21 +620,21 @@ TLSE_Development_TransformTool_UpdateGizmo = function()
 
             if(TLSE_Development_Editor_Input_LeftMouseHold == true) then
                 if(TLSE_Development_TransformTool_GizmoSelectedAxis == "x") then
-                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentX, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentX, "Runtime: Visible", true);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentY, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentZ, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoCenter, "Runtime: Visible", false);
 
                 elseif(TLSE_Development_TransformTool_GizmoSelectedAxis == "y") then
-                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentY, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentX, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentY, "Runtime: Visible", true);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentZ, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoCenter, "Runtime: Visible", false);
 
                 elseif(TLSE_Development_TransformTool_GizmoSelectedAxis == "z") then
-                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, "ui_boot_title.d3dtx", TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
+                    ShaderSwapTexture(TLSE_Development_TransformTool_GizmoAgentZ, TLSE_Development_FlatPlaneOriginalTexture, TLSE_Development_TransformTool_GizmoAgentSelect_Texture);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentX, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentY, "Runtime: Visible", false);
                     AgentSetProperty(TLSE_Development_TransformTool_GizmoAgentZ, "Runtime: Visible", true);

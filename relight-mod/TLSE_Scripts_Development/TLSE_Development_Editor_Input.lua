@@ -1,19 +1,7 @@
-local bool_inputClickedOnce = false;
-
-TLSE_Development_Editor_Input_LeftMouseClicked = false;
-TLSE_Development_Editor_Input_LeftMouseHold = false;
-TLSE_Development_Editor_Input_LeftShiftHold = false;
-TLSE_Development_Editor_Input_LeftCtrlHold = false;
+--|||||||||||||||||||||||||||||||||||||||||||||||||| IMAP ||||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||||| IMAP ||||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||||| IMAP ||||||||||||||||||||||||||||||||||||||||||||||||||
 TLSE_Development_Editor_Input_IMAP_File = "TLSE_Development_Editor.imap";
-
---input workaround because season one has different input API
-local TLSE_InputKeyPress = function(keyCode)
-    if(TLSE_Development_UseSeasonOneAPI == true) then
-        return Input_IsPressed(keyCode);
-    else
-        return Input_IsVKeyPressed(keyCode);
-    end
-end
 
 TLSE_Development_Editor_Input_LeftMouseBegin = function()
     --TLSE_Development_Editor_Input_LeftMouseClicked = true;
@@ -22,6 +10,16 @@ end
 TLSE_Development_Editor_Input_LeftMouseEnd = function()
 
 end
+
+--|||||||||||||||||||||||||||||||||||||||||||||||||| RAW INPUT ||||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||||| RAW INPUT ||||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||||| RAW INPUT ||||||||||||||||||||||||||||||||||||||||||||||||||
+local bool_inputClickedOnce = false;
+
+TLSE_Development_Editor_Input_LeftMouseClicked = false;
+TLSE_Development_Editor_Input_LeftMouseHold = false;
+TLSE_Development_Editor_Input_LeftShiftHold = false;
+TLSE_Development_Editor_Input_LeftCtrlHold = false;
 
 TLSE_Development_Editor_Input_Update = function()
     if(TLSE_Development_FreezeEditor) then

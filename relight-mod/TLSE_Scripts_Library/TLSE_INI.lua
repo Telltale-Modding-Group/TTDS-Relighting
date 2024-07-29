@@ -73,7 +73,7 @@ TLSE_INI_SaveINIFile = function(fileName, data)
     assert(type(fileName) == 'string', 'Parameter "fileName" must be a string.');
     assert(type(data) == 'table', 'Parameter "data" must be a table.');
 
-    local file = assert(io.open(fileName, 'w+b'), 'Error loading file :' .. fileName);
+    local file = assert(io.open(fileName, 'w'), 'Error loading file :' .. fileName);
     --local file = io.open(fileName, 'w+b');
     local contents = '';
 

@@ -36,7 +36,7 @@ local ConfigureBoundingBoxSide = function(agent_boundingBoxSide, string_textureF
     AgentSetProperty(agent_boundingBoxSide, "Render Depth Write Alpha", false);
     AgentSetProperty(agent_boundingBoxSide, "Render Cull", false);
     AgentSetProperty(agent_boundingBoxSide, "Render Layer", 45);
-    ShaderSwapTexture(agent_boundingBoxSide, "ui_boot_title.d3dtx", string_textureFileName);
+    ShaderSwapTexture(agent_boundingBoxSide, TLSE_Development_FlatPlaneOriginalTexture, string_textureFileName);
 end
 
 TLSE_Development_Selection_Initalize = function()
@@ -45,12 +45,12 @@ TLSE_Development_Selection_Initalize = function()
     --||||||||||||||||||||||||||||||||||||| CREATE BOUNDS SELECT HIGHLIGHT |||||||||||||||||||||||||||||||||||||
 
     TLSE_Development_Selection_SelectBoundingBoxGroup = AgentCreate("TLSE_Development_Selection_SelectBoundingBoxGroup", "group.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_Selection_SelectBoundingBoxSide1 = AgentCreate("TLSE_Development_Selection_SelectBoundingBoxSide1", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_Selection_SelectBoundingBoxSide2 = AgentCreate("TLSE_Development_Selection_SelectBoundingBoxSide2", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_Selection_SelectBoundingBoxSide3 = AgentCreate("TLSE_Development_Selection_SelectBoundingBoxSide3", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_Selection_SelectBoundingBoxSide4 = AgentCreate("TLSE_Development_Selection_SelectBoundingBoxSide4", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_Selection_SelectBoundingBoxSide5 = AgentCreate("TLSE_Development_Selection_SelectBoundingBoxSide5", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_Selection_SelectBoundingBoxSide6 = AgentCreate("TLSE_Development_Selection_SelectBoundingBoxSide6", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_Selection_SelectBoundingBoxSide1 = AgentCreate("TLSE_Development_Selection_SelectBoundingBoxSide1", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_Selection_SelectBoundingBoxSide2 = AgentCreate("TLSE_Development_Selection_SelectBoundingBoxSide2", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_Selection_SelectBoundingBoxSide3 = AgentCreate("TLSE_Development_Selection_SelectBoundingBoxSide3", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_Selection_SelectBoundingBoxSide4 = AgentCreate("TLSE_Development_Selection_SelectBoundingBoxSide4", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_Selection_SelectBoundingBoxSide5 = AgentCreate("TLSE_Development_Selection_SelectBoundingBoxSide5", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_Selection_SelectBoundingBoxSide6 = AgentCreate("TLSE_Development_Selection_SelectBoundingBoxSide6", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
     
     ConfigureBoundingBoxSide(TLSE_Development_Selection_SelectBoundingBoxSide1, "TLSE_Development_BoundsSelectColor.d3dtx");
     ConfigureBoundingBoxSide(TLSE_Development_Selection_SelectBoundingBoxSide2, "TLSE_Development_BoundsSelectColor.d3dtx");
@@ -71,12 +71,12 @@ TLSE_Development_Selection_Initalize = function()
     --||||||||||||||||||||||||||||||||||||| CREATE BOUNDS HOVER HIGHLIGHT |||||||||||||||||||||||||||||||||||||
 
     TLSE_Development_Selection_HoverBoundingBoxGroup = AgentCreate("TLSE_Development_Selection_HoverBoundingBoxGroup", "group.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_Selection_HoverBoundingBoxSide1 = AgentCreate("TLSE_Development_Selection_HoverBoundingBoxSide1", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_Selection_HoverBoundingBoxSide2 = AgentCreate("TLSE_Development_Selection_HoverBoundingBoxSide2", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_Selection_HoverBoundingBoxSide3 = AgentCreate("TLSE_Development_Selection_HoverBoundingBoxSide3", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_Selection_HoverBoundingBoxSide4 = AgentCreate("TLSE_Development_Selection_HoverBoundingBoxSide4", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_Selection_HoverBoundingBoxSide5 = AgentCreate("TLSE_Development_Selection_HoverBoundingBoxSide5", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
-    TLSE_Development_Selection_HoverBoundingBoxSide6 = AgentCreate("TLSE_Development_Selection_HoverBoundingBoxSide6", "ui_boot_title.prop", Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_Selection_HoverBoundingBoxSide1 = AgentCreate("TLSE_Development_Selection_HoverBoundingBoxSide1", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_Selection_HoverBoundingBoxSide2 = AgentCreate("TLSE_Development_Selection_HoverBoundingBoxSide2", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_Selection_HoverBoundingBoxSide3 = AgentCreate("TLSE_Development_Selection_HoverBoundingBoxSide3", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_Selection_HoverBoundingBoxSide4 = AgentCreate("TLSE_Development_Selection_HoverBoundingBoxSide4", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_Selection_HoverBoundingBoxSide5 = AgentCreate("TLSE_Development_Selection_HoverBoundingBoxSide5", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
+    TLSE_Development_Selection_HoverBoundingBoxSide6 = AgentCreate("TLSE_Development_Selection_HoverBoundingBoxSide6", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
     
     ConfigureBoundingBoxSide(TLSE_Development_Selection_HoverBoundingBoxSide1, "TLSE_Development_BoundsHoverColor.d3dtx");
     ConfigureBoundingBoxSide(TLSE_Development_Selection_HoverBoundingBoxSide2, "TLSE_Development_BoundsHoverColor.d3dtx");
@@ -94,10 +94,18 @@ TLSE_Development_Selection_Initalize = function()
 end
 
 TLSE_Development_Selection_Update = function()  
-    if(TLSE_Development_MainGUI_CursorOverGUI) or (TLSE_Development_Freecam_Frozen == false) or (TLSE_Development_FreezeEditor) then
-        TLSE_Development_Selection_CanSelect = false;
-    else
+    if(TLSE_Development_Freecam_Frozen) then
         TLSE_Development_Selection_CanSelect = true;
+    else
+        TLSE_Development_Selection_CanSelect = false;
+    end
+
+    if(TLSE_Development_GUI_CursorOverGUI) then
+        TLSE_Development_Selection_CanSelect = false;
+    end
+
+    if(TLSE_Development_FreezeEditor) then
+        TLSE_Development_Selection_CanSelect = false;
     end
 
     if(TLSE_Development_TransformTool_GizmoIsTransforming) then

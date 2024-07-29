@@ -18,7 +18,7 @@ RELIGHT_kScene = kScene;
 TLSE_Development_SceneObject = kScene;
 TLSE_Development_SceneObjectAgentName = kScene .. ".scene";
 TLSE_Development_UseSeasonOneAPI = false;
-TLSE_Development_FreecamUseFOVScale = false;
+TLSE_Development_FreecamUseFOVScale = true;
 
 --some relighting variables
 RelightConfigGlobal = RelightConfigData_Main.Global;

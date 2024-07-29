@@ -37,6 +37,14 @@ TLSE_AgentNameSetPosition = function(string_agentName, vector_position, string_s
     AgentSetPos(agent_object, vector_position);
 end
 
+--Finds an agent in a scene by it's name and set's its position and rotation (locally if it's parented to an object).
+--RETURNS: Nothing
+TLSE_AgentNameSetPositionAndRotation = function(string_agentName, vector_position, vector_rotation, string_scene)
+    local agent_object = AgentFindInScene(string_agentName, string_scene);
+    AgentSetPos(agent_object, vector_position);
+    AgentSetRot(agent_object, vector_rotation);
+end
+
 --Finds an agent in a scene by it's name and rotates it in world space.
 --RETURNS: Nothing
 TLSE_AgentNameSetWorldRotation = function(string_agentName, vector_rotation, string_scene)
@@ -49,6 +57,14 @@ end
 TLSE_AgentNameSetWorldPosition = function(string_agentName, vector_position, string_scene)
     local agent_object = AgentFindInScene(string_agentName, string_scene);
     AgentSetWorldPos(agent_object, vector_position);
+end
+
+--Finds an agent in a scene by it's name and set's its position and rotation in world space.
+--RETURNS: Nothing
+TLSE_AgentNameSetWorldPositionAndRotation = function(string_agentName, vector_position, vector_rotation, string_scene)
+    local agent_object = AgentFindInScene(string_agentName, string_scene);
+    AgentSetWorldPos(agent_object, vector_position);
+    AgentSetWorldRot(agent_object, vector_rotation);
 end
 
 --||||||||||||||||||||||||| TRANSFORMATION - GET |||||||||||||||||||||||||
