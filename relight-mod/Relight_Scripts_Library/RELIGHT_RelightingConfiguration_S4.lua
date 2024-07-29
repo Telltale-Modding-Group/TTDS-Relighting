@@ -12,6 +12,14 @@ local GenerateNewINI_Season4 = function()
 ----------------------------------- SEASON 4 EPISODE 1 -----------------------------------
 ----------------------------------- SEASON 4 EPISODE 1 -----------------------------------
 ----------------------------------- SEASON 4 EPISODE 1 -----------------------------------
+        Level_401_TrainStation = 
+        {
+            ExposureOffset = 0.0,
+            EnableRelighting = true, 
+            EnableDepthOfField = true,
+            EnableMotionBlur = false,
+            ForceBloomOff = false
+        },
         Level_401_BoardingSchoolExterior = 
         {
             ExposureOffset = 0.0,

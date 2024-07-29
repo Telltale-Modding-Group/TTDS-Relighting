@@ -221,6 +221,16 @@ TLSE_TabInspector_OnDecrease_RenderAxisScale_Z = function(textButton_button) Mod
 TLSE_TabInspector_OnToggle_Visible = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Runtime: Visible"); end
 
 local OnPress_AgentDelete = function(textButton_button)
+    local agentTable_attachments = AgentGetAttachments(agent_currentSelectedAgent);
+
+    if(agentTable_attachments ~= nil) then
+        local bool_preserveWorldPos = true;
+
+        for index, agent_attachedAgent in pairs(agentTable_attachments) do
+            AgentDetach(agent_attachedAgent, bool_preserveWorldPos);
+        end
+    end
+
     --NOTE TO SELF: Deleting the selected agent directly leads to an instant crash...
     local string_selectedAgentName = AgentGetName(agent_currentSelectedAgent);
     agent_currentSelectedAgent = nil;
@@ -325,6 +335,10 @@ TLSE_Development_GUI_TabInspectorUpdate = function()
         boolField_visible["BooleanPropertyFieldAgent"] = agent_currentSelectedAgent;
         vector3field_agentRenderAxisScale["Vector3PropertyFieldAgent"] = agent_currentSelectedAgent;
         numberField_agentRenderGlobalScale["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
+
+        if(TLSE_Development_Editor_Input_DeleteClicked) then
+            OnPress_AgentDelete(nil);
+        end
     end
 
     boolField_visible["BooleanPropertyFieldVisible"] = bool_inspectingObject;

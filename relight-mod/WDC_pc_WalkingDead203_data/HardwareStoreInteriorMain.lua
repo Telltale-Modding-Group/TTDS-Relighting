@@ -1,0 +1,37 @@
+local kScript = "HardwareStoreInteriorMain"
+local kScene = "adv_hardwareStoreInteriorMain"
+local PreloadAssets = function()
+  if Platform_NeedShaderPreload() then
+    print(">>>>>>>>> PRELOADING SHADERS: " .. kScene)
+    RenderPreloadShader("Mesh_QLo.t3fxb", "6")
+    RenderPreloadShader("Mesh_ENV_LGT_DTL_QLo.t3fxb", "7")
+    RenderPreloadShader("Mesh_QLo.t3fxb", "262")
+    RenderPreloadShader("SceneToonOutline2_QLo.t3fxb", "0")
+    RenderPreloadShader("Mesh_DTL_SDTL_QLo.t3fxb", "3")
+    RenderPreloadShader("Mesh_QLo.t3fxb", "3")
+    RenderPreloadShader("Mesh_QLo.t3fxb", "259")
+    RenderPreloadShader("Mesh_QLo.t3fxb", "134")
+    RenderPreloadShader("Mesh_LGT_QLo.t3fxb", "135")
+    RenderPreloadShader("Mesh_VCOL_QLo.t3fxb", "7")
+    RenderPreloadShader("Mesh_LGT_VCOL_QLo.t3fxb", "7")
+    RenderPreloadShader("Mesh_ENV_LGT_DTL_VCOL_QLo.t3fxb", "7")
+    RenderPreloadShader("Mesh_LGT_VCOL_QLo.t3fxb", "263")
+    RenderPreloadShader("Mesh_VCOL_QLo.t3fxb", "263")
+    RenderPreloadShader("Mesh_VCOL_QLo.t3fxb", "135")
+    RenderPreloadShader("Mesh_LGT_VCOL_QLo.t3fxb", "135")
+    RenderPreloadShader("SceneShadowMap_QLo.t3fxb", "0")
+    RenderPreloadShader("SceneShadowMapAlpha_QLo.t3fxb", "0")
+    RenderPreloadShader("Mesh_LGT_QLo.t3fxb", "7")
+    RenderPreloadShader("Mesh_LGT_QLo.t3fxb", "263")
+    RenderPreloadShader("FX_Null_QLo.t3fxb", "0")
+    RenderPreloadShader("DirectionalLightShadow_QLo.t3fxb", "1024")
+    RenderPreloadShader("ScenePreZ_QLo.t3fxb", "128")
+  end
+end
+function HardwareStoreInteriorMain()
+  Game_NewScene(kScene, kScript)
+  Navigate_Enable(false)
+  PreloadAssets()
+  Game_StartScene()
+end
+SceneOpen(kScene, kScript)

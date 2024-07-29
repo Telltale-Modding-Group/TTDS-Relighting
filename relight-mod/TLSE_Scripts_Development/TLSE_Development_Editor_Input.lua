@@ -21,6 +21,10 @@ TLSE_Development_Editor_Input_LeftMouseHold = false;
 TLSE_Development_Editor_Input_LeftShiftHold = false;
 TLSE_Development_Editor_Input_LeftCtrlHold = false;
 
+local bool_deleteClickedOnce = false;
+TLSE_Development_Editor_Input_DeleteClicked = false;
+TLSE_Development_Editor_Input_DeleteHold = false;
+
 TLSE_Development_Editor_Input_Update = function()
     if(TLSE_Development_FreezeEditor) then
         TLSE_Development_Editor_Input_LeftMouseHold = false;
@@ -34,17 +38,30 @@ TLSE_Development_Editor_Input_Update = function()
     TLSE_Development_Editor_Input_LeftMouseHold = TLSE_InputKeyPress(TLSE_Keycodes_LeftMouse);
 
     if (TLSE_Development_Editor_Input_LeftMouseHold == true) then
-    
         if(bool_inputClickedOnce == false) then
             TLSE_Development_Editor_Input_LeftMouseClicked = true;
             bool_inputClickedOnce = true;
         else
             TLSE_Development_Editor_Input_LeftMouseClicked = false;
         end
-        
     else
         TLSE_Development_Editor_Input_LeftMouseClicked = false;
         bool_inputClickedOnce = false;
+    end
+
+
+    TLSE_Development_Editor_Input_DeleteHold = TLSE_InputKeyPress(TLSE_Keycodes_Delete);
+
+    if (TLSE_Development_Editor_Input_DeleteHold == true) then
+        if(bool_deleteClickedOnce == false) then
+            TLSE_Development_Editor_Input_DeleteClicked = true;
+            bool_deleteClickedOnce = true;
+        else
+            TLSE_Development_Editor_Input_DeleteClicked = false;
+        end
+    else
+        TLSE_Development_Editor_Input_DeleteClicked = false;
+        bool_deleteClickedOnce = false;
     end
 
     TLSE_Development_Editor_Input_LeftShiftHold = TLSE_InputKeyPress(TLSE_Keycodes_LeftShift);

@@ -29,6 +29,7 @@ TLSE_Development_FreecamUseFOVScale = false;
 
 --Relight variables
 RELIGHT_kScene = kScene;
+RELIGHT_SceneObjectAgentName = kScene .. ".scene";
 RelightConfigGlobal = RelightConfigData_Main.Global;
 RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
 RelightConfigLevel = RelightConfigData_Season2.Level_101_ClementineHouseExterior;
