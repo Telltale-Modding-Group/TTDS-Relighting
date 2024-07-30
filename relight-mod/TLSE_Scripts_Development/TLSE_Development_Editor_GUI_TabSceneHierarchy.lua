@@ -25,7 +25,7 @@ local OnPress_FilterCineLightRig = function(textButton_button) TLSE_Development_
 local OnPress_FilterMesh = function(textButton_button) TLSE_Development_SceneAgents_FilterMesh = not TLSE_Development_SceneAgents_FilterMesh; end
 
 TLSE_Development_GUI_TabSceneHierarchyInitalize = function()
-    label_filter = TLSE_Development_Editor_GUI_CreateLabel("Filter: ", Vector(0.758, 0.005, 0.0));
+    label_filter = TLSE_Development_Editor_GUI_CreateLabel("Filter:", Vector(0.758, 0.005, 0.0));
     textButton_filterLights = TLSE_Development_Editor_GUI_CreateTextButton("[Light]", true, Vector(0.780, 0.005, 0.0), OnPress_FilterLights, nil);
     textButton_filterFog = TLSE_Development_Editor_GUI_CreateTextButton("[Fog]", true, Vector(0.805, 0.005, 0.0), OnPress_FilterFog, nil);
     textButton_filterParticle = TLSE_Development_Editor_GUI_CreateTextButton("[Particle]", true, Vector(0.825, 0.005, 0.0), OnPress_FilterParticle, nil);
@@ -47,7 +47,8 @@ end
 
 TLSE_Development_GUI_TabSceneHierarchyUpdate = function()
     local agentTable_sceneAgents = TLSE_Development_SceneAgentsList;
-    local hierarchyItemsCurrentPage = TLSE_NumberClamp(number_hierarchyPageIndex * agent_text_hierarchyItemCount, 0, #agentTable_sceneAgents);
+    local hierarchyItemsCurrentPage = number_hierarchyPageIndex * agent_text_hierarchyItemCount;
+    --local hierarchyItemsCurrentPage = TLSE_NumberClamp(number_hierarchyPageIndex * agent_text_hierarchyItemCount, 0, #agentTable_sceneAgents);
     local hierarchyItemsIndex = 1;
 
     local hierarchyCountText = "";
@@ -77,4 +78,62 @@ TLSE_Development_GUI_TabSceneHierarchyUpdate = function()
 
         hierarchyItemsIndex = hierarchyItemsIndex + 1;
     end
+
+
+
+
+
+
+
+
+    --local label_filter = nil;
+    --local textButton_filterLights = nil;
+    --local textButton_filterFog = nil;
+    --local textButton_filterParticle = nil;
+    --local textButton_filterCineLight = nil;
+    --local textButton_filterCineLightRig = nil;
+    --local textButton_filterMesh = nil;
+
+
+    local vector_startScreenPosition = label_filter["LabelScreenPosition"];
+    local vector_item1Size = TLSE_TextUI_GetTextScreenSize(label_filter["LabelAgentReference"]);
+    local vector_item2Size = TLSE_TextUI_GetTextScreenSize(textButton_filterLights["TextButtonAgentReference"]);
+    local vector_item3Size = TLSE_TextUI_GetTextScreenSize(textButton_filterFog["TextButtonAgentReference"]);
+    local vector_item4Size = TLSE_TextUI_GetTextScreenSize(textButton_filterParticle["TextButtonAgentReference"]);
+    local vector_item5Size = TLSE_TextUI_GetTextScreenSize(textButton_filterCineLight["TextButtonAgentReference"]);
+    local vector_item6Size = TLSE_TextUI_GetTextScreenSize(textButton_filterCineLightRig["TextButtonAgentReference"]);
+    --local vector_item7Size = TLSE_TextUI_GetTextScreenSize(textButton_filterMesh["TextButtonAgentReference"]);
+ 
+    local number_horizontalOffset = 0.003;
+    local vector_guiOffset = Vector(0, 0, 0);
+
+    vector_guiOffset.x = 0;
+    vector_guiOffset.y = 0;
+    label_filter["LabelScreenPosition"] = vector_startScreenPosition;
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_item1Size.x * 2.0) + number_horizontalOffset;
+    textButton_filterLights["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_item2Size.x * 2.0) + number_horizontalOffset;
+    textButton_filterFog["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_item3Size.x * 2.0) + number_horizontalOffset;
+    textButton_filterParticle["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_item4Size.x * 2.0) + number_horizontalOffset;
+    textButton_filterCineLight["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_item5Size.x * 2.0) + number_horizontalOffset;
+    textButton_filterCineLightRig["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_item6Size.x * 2.0) + number_horizontalOffset;
+    textButton_filterMesh["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+
+
+
+
+
+
+
 end

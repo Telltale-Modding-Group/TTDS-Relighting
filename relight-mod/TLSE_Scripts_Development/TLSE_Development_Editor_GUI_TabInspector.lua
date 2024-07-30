@@ -339,6 +339,10 @@ TLSE_Development_GUI_TabInspectorUpdate = function()
         if(TLSE_Development_Editor_Input_DeleteClicked) then
             OnPress_AgentDelete(nil);
         end
+
+        if(TLSE_Development_Editor_Input_DuplicateActionEnter) then
+            OnPress_AgentDuplicate(nil);
+        end
     end
 
     boolField_visible["BooleanPropertyFieldVisible"] = bool_inspectingObject;

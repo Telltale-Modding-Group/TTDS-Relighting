@@ -12,12 +12,20 @@ This is because the current material being used for the "volumetric" planes stil
 So when the surface of the material is oriented away towards the light, it falls in shadow and the light no longer affects the plane.
 This can be sort of fixed and alleviated by changing the light wrap modifier on light sources to its max but this causes obvious shading issues with other objects...
 Ideally the material for the volumetric plane is one that is not affected by NdotL and can recieve shadows from light sources regardless of angle.
+NOTE: One idea is to utilize the built in "lighting groups" that the tool has, and create duplicate meshes in the scene that are only affected by that lighting group.
+Then what we do is on all regular cameras in the scene, there is a "Exclude Agents" which is a container and we just include the duplicated "shadow casting" agents for the volumetric lighting.
+In theory this should be the perfect way to go about lighting the scene... however it means having a duplicate set of lights in the scene, and not only that a duplicate set of meshes... performance wise this sounds like it will be intensive...
+
 2. Regular scene fog affects the result which skews the visuals of the effect quite a bit.
+
 3. All scene lights affect the result, which is physically correct in theory but telltale often makes use of flat "ambient" lights which dramatically affect the result.
 Ambient lights will contribute to the result and make the image appear VERY muddy if done incorrectly.
+
 4. Another issue with this implementation is that there is no possible way to optimize this solution further by having it run mostly on the GPU.
+
 5. In addition to issue #4 of the effect not being implemented as a shader, we can't apply noise or dithering to offset samples and reduce aliasing/stepping artifacts.
 This would be a massive help to both improving quality and performance but unfortnautely we have to deal with brute force.
+
 ]]--
 
 --[[

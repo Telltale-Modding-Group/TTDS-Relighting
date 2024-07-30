@@ -74,7 +74,7 @@ TLSE_Development_GUI_Initalize = function()
 
     label_hierarchyTitle = TLSE_Development_Editor_GUI_CreateLabel("[SCENE HIERARCHY]", Vector(0.685, 0.005, 0.0));
     textButton_inspectorTab = TLSE_Development_Editor_GUI_CreateTextButton("[INSPECTOR]", true, Vector(0.685, 0.5, 0.0), OnPress_SelectInspectorTab, nil);
-    textButton_lightingTab = TLSE_Development_Editor_GUI_CreateTextButton("[LIGHTING]", true, Vector(0.735, 0.5, 0.0), OnPress_SelectLightingTab, nil);
+    textButton_lightingTab = TLSE_Development_Editor_GUI_CreateTextButton("[LIGHT]", true, Vector(0.735, 0.5, 0.0), OnPress_SelectLightingTab, nil);
     textButton_fogTab = TLSE_Development_Editor_GUI_CreateTextButton("[FOG]", true, Vector(0.778, 0.5, 0.0), OnPress_SelectFogTab, nil);
     textButton_renderTab = TLSE_Development_Editor_GUI_CreateTextButton("[RENDER]", true, Vector(0.803, 0.5, 0.0), OnPress_SelectRenderTab, nil);
     textButton_scenePropertiesTab = TLSE_Development_Editor_GUI_CreateTextButton("[SCENE]", true, Vector(0.843, 0.5, 0.0), OnPress_SelectScenePropertiesTab, nil);
@@ -83,7 +83,6 @@ TLSE_Development_GUI_Initalize = function()
     textButton_hideIcons = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE ICONS]", true, Vector(0.635, 0.020, 0.0), OnPress_HideIcons, nil);
     textButton_hideSelectionBox = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE SELECTION BOX]", true, Vector(0.602, 0.035, 0.0), OnPress_HideSelectionBox, nil);
     textButton_hideHoverBox = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE HOVER BOX]", true, Vector(0.615, 0.050, 0.0), OnPress_HideHoverBox, nil);
-
     textButton_disableAllLights = TLSE_Development_Editor_GUI_CreateTextButton("[DISABLE ALL LIGHTS]", true, Vector(0.605, 0.065, 0.0), OnPress_DisableAllLights, nil);
     textButton_enableAllLights = TLSE_Development_Editor_GUI_CreateTextButton("[ENABLE ALL LIGHTS]", true, Vector(0.605, 0.080, 0.0), OnPress_EnableAllLights, nil);
 
@@ -183,6 +182,75 @@ TLSE_Development_GUI_Update = function()
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
 
     label_editorModeTextTopLeft["LabelText"] = string_editorModeTextTopLeftText;
+
+
+
+
+
+
+
+
+
+
+    
+
+ 
+    local vector_startScreenPosition = textButton_inspectorTab["TextButtonScreenPosition"];
+    local vector_screenSizeTab1 = TLSE_TextUI_GetTextScreenSize(textButton_inspectorTab["TextButtonAgentReference"]);
+    local vector_screenSizeTab2 = TLSE_TextUI_GetTextScreenSize(textButton_lightingTab["TextButtonAgentReference"]);
+    local vector_screenSizeTab3 = TLSE_TextUI_GetTextScreenSize(textButton_fogTab["TextButtonAgentReference"]);
+    local vector_screenSizeTab4 = TLSE_TextUI_GetTextScreenSize(textButton_renderTab["TextButtonAgentReference"]);
+    --local vector_screenSizeTab5 = TLSE_TextUI_GetTextScreenSize(textButton_scenePropertiesTab["TextButtonAgentReference"]);
+
+
+    local number_horizontalOffset = 0.003;
+    local vector_guiOffset = Vector(0, 0, 0);
+
+    vector_guiOffset.x = 0;
+    vector_guiOffset.y = 0;
+    textButton_inspectorTab["TextButtonScreenPosition"] = vector_startScreenPosition;
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab1.x * 2.0) + number_horizontalOffset;
+    textButton_lightingTab["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab2.x * 2.0) + number_horizontalOffset;
+    textButton_fogTab["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab3.x * 2.0) + number_horizontalOffset;
+    textButton_renderTab["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab4.x * 2.0) + number_horizontalOffset;
+    textButton_scenePropertiesTab["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

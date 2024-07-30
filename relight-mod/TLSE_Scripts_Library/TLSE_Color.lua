@@ -5,6 +5,24 @@ Including artistic functions for controlling saturation and brightness.
 
 ]]
 
+TLSE_ColorLerp = function(color_a, color_b, number_transition)
+    local number_newColorR = TLSE_NumberLerp(color_a.r, color_b.r, number_transition);
+    local number_newColorG = TLSE_NumberLerp(color_a.g, color_b.g, number_transition);
+    local number_newColorB = TLSE_NumberLerp(color_a.b, color_b.b, number_transition);
+    local number_newColorA = TLSE_NumberLerp(color_a.a, color_b.a, number_transition);
+
+    return Color(number_newColorR, number_newColorG, number_newColorB, number_newColorA);
+end
+
+TLSE_ColorClamp01 = function(color)
+    local number_newColorR = TLSE_NumberClamp(color.r, 0, 1);
+    local number_newColorG = TLSE_NumberClamp(color.g, 0, 1);
+    local number_newColorB = TLSE_NumberClamp(color.b, 0, 1);
+    local number_newColorA = TLSE_NumberClamp(color.a, 0, 1);
+
+    return Color(number_newColorR, number_newColorG, number_newColorB, number_newColorA);
+end
+
 --[[
 This is a "wrapper" around telltale's normal built-in Color type.
 The difference however is that these will take in values from (0 - 255).

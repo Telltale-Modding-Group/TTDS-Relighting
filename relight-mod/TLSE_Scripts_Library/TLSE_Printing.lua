@@ -4,6 +4,43 @@
 --printing functions used to turn types into strings
 --there is also a main function at the end of this script that prints an entire scene
 
+
+TLSE_PropertiesListToStringList = function(agentName, givenPropertyNamesList)
+    local stringValueList = {};
+    
+    --iterate through the list of given property names
+    for i, givenPropertyName in ipairs(givenPropertyNamesList) do
+        --print out the property name
+        local stringValue = givenPropertyName .. ": ";
+    
+        --get the property value and its type
+        local sceneAgentPropertyValue = TLSE_AgentGetProperty(agentName, givenPropertyName, TLSE_RelightDev_SceneObject);
+        local sceneAgentPropertyValueType = tostring(TypeName(sceneAgentPropertyValue));
+
+        --print out the value
+        if (sceneAgentPropertyValueType == "number") then
+            stringValue = stringValue .. TLSE_Number_ToString(givenPropertyName, sceneAgentPropertyValue);
+        elseif (sceneAgentPropertyValueType == "table") then
+            local tableType = TLSE_GetTableType(sceneAgentPropertyValue);
+        
+            if (tableType == "color") then
+                 stringValue = stringValue .. TLSE_ColorToRGBColorToString(sceneAgentPropertyValue);
+            else
+                 stringValue = stringValue .. tableType;
+            end
+        elseif (sceneAgentPropertyValueType == "boolean") then
+            stringValue = stringValue .. tostring(sceneAgentPropertyValue);
+        else
+            stringValue = stringValue .. tostring(sceneAgentPropertyValue);
+        end
+
+        --add it to the string value list
+        table.insert(stringValueList, stringValue);
+    end
+    
+    return stringValueList;
+end
+
 --prints an entire scene and its contents to a text file (and this file is saved in the game directory)
 TLSE_PrintSceneListToTXT = function(kScene, txtName)
     --create (or open) a text file
