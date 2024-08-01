@@ -2,12 +2,12 @@
 --||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT SEASON 1 |||||||||||||||||||||||||||||||||||||||
 --||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT SEASON 1 |||||||||||||||||||||||||||||||||||||||
 
-RELIGHT_GenerateNewINI_Season1 = function()
+RELIGHT_GenerateNewINI_Season1 = function(number_configurationVersion)
     local data = 
     {
         Version = 
         {
-            ConfigurationVersion = RELIGHT_CurrentConfigurationVersion,
+            ConfigurationVersion = number_configurationVersion,
         },
         Level_101_StreetOutskirts = --env_streetOutskirts 1
         {

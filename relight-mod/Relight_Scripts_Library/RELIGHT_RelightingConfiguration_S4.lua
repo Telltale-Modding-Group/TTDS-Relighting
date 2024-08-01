@@ -2,12 +2,12 @@
 --||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT SEASON 4 |||||||||||||||||||||||||||||||||||||||
 --||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT SEASON 4 |||||||||||||||||||||||||||||||||||||||
 
-RELIGHT_GenerateNewINI_Season4 = function()
+RELIGHT_GenerateNewINI_Season4 = function(number_configurationVersion)
     local data = 
     {
         Version = 
         {
-            ConfigurationVersion = RELIGHT_CurrentConfigurationVersion,
+            ConfigurationVersion = number_configurationVersion,
         },
 ----------------------------------- SEASON 4 EPISODE 1 -----------------------------------
 ----------------------------------- SEASON 4 EPISODE 1 -----------------------------------

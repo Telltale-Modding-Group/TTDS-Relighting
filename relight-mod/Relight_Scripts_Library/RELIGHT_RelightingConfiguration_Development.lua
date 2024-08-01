@@ -3,12 +3,12 @@
 --||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT DEVELOPMENT |||||||||||||||||||||||||||||||||||||||
 
 --generates a new ini file
-RELIGHT_GenerateNewINI_Development = function()
+RELIGHT_GenerateNewINI_Development = function(number_configurationVersion)
     local data = 
     {
         Version = 
         {
-            ConfigurationVersion = RELIGHT_CurrentConfigurationVersion,
+            ConfigurationVersion = number_configurationVersion,
         },
         CameraSettings = 
         {

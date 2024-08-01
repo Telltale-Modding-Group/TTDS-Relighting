@@ -1,9 +1,7 @@
 --checks if a file exists
 TLSE_FileExists = function(filePathRelativeToGameExe)
-    return FileExists(filePathRelativeToGameExe);
+    --return FileExists(filePathRelativeToGameExe);
 
-    --[[
-    NOTE: Kept in here for legacy purposes
     local f = io.open(filePathRelativeToGameExe, "r");
     
     if f ~= nil then
@@ -12,7 +10,6 @@ TLSE_FileExists = function(filePathRelativeToGameExe)
     else
         return false;
     end
-    ]]
 end
 
 TLSE_FileDelete = function(filePathRelativeToGameExe)

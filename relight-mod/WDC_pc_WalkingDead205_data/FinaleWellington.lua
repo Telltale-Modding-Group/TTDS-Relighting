@@ -160,6 +160,6 @@ end
 
 SceneOpen(kScene, kScript)
 
-if (RelightConfigDevelopment.EditorMode == false or RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == false) then
+if (RelightConfigDevelopment.EditorMode == false) then
   SceneAdd("ui_nextTimeOn")
 end

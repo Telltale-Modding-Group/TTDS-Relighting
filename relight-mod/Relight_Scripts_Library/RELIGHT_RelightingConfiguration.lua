@@ -47,31 +47,31 @@ do
 
     if TLSE_FileExists(RELIGHT_ConfigFileName_Main) == false then
         TLSE_DirectoryCreate(RELIGHT_FolderName);
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Main, RELIGHT_GenerateNewINI_Main());
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Main, RELIGHT_GenerateNewINI_Main(RELIGHT_CurrentConfigurationVersion));
     end
 
     if TLSE_FileExists(RELIGHT_ConfigFileName_Development) == false then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Development, RELIGHT_GenerateNewINI_Development());
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Development, RELIGHT_GenerateNewINI_Development(RELIGHT_CurrentConfigurationVersion));
     end
 
     if TLSE_FileExists(RELIGHT_ConfigFileName_Season1) == false then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season1, RELIGHT_GenerateNewINI_Season1());
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season1, RELIGHT_GenerateNewINI_Season1(RELIGHT_CurrentConfigurationVersion));
     end
 
     if TLSE_FileExists(RELIGHT_ConfigFileName_Season2) == false then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season2, RELIGHT_GenerateNewINI_Season2());
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season2, RELIGHT_GenerateNewINI_Season2(RELIGHT_CurrentConfigurationVersion));
     end
 
     if TLSE_FileExists(RELIGHT_ConfigFileName_Season3) == false then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season3, RELIGHT_GenerateNewINI_Season3());
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season3, RELIGHT_GenerateNewINI_Season3(RELIGHT_CurrentConfigurationVersion));
     end
 
     if TLSE_FileExists(RELIGHT_ConfigFileName_Season4) == false then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season4, RELIGHT_GenerateNewINI_Season4());
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season4, RELIGHT_GenerateNewINI_Season4(RELIGHT_CurrentConfigurationVersion));
     end
 
     if TLSE_FileExists(RELIGHT_ConfigFileName_SeasonM) == false then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_SeasonM, RELIGHT_GenerateNewINI_SeasonM());
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_SeasonM, RELIGHT_GenerateNewINI_SeasonM(RELIGHT_CurrentConfigurationVersion));
     end
 
     ----------------------------------- LOAD INI FILE DATA -----------------------------------
@@ -89,31 +89,31 @@ do
     --do a version check, and if the version number doesn't match, rebuild the ini file
     --this will revert user changes to the original ini file
 
-    if not (RelightConfigData_Main.Version.ConfigurationVersion == RELIGHT_CurrentConfigurationVersion) then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Main, GenerateNewINI_Main());
+    if not (RelightConfigData_Main["Version"]["ConfigurationVersion"] == RELIGHT_CurrentConfigurationVersion) then
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Main, RELIGHT_GenerateNewINI_Main(RELIGHT_CurrentConfigurationVersion));
     end
 
-    if not (RelightConfigData_Development.Version.ConfigurationVersion == RELIGHT_CurrentConfigurationVersion) then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Development, GenerateNewINI_Development());
+    if not (RelightConfigData_Development["Version"]["ConfigurationVersion"] == RELIGHT_CurrentConfigurationVersion) then
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Development, RELIGHT_GenerateNewINI_Development(RELIGHT_CurrentConfigurationVersion));
     end
 
-    if not (RelightConfigData_Season1.Version.ConfigurationVersion == RELIGHT_CurrentConfigurationVersion) then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season1, GenerateNewINI_Season1());
+    if not (RelightConfigData_Season1["Version"]["ConfigurationVersion"] == RELIGHT_CurrentConfigurationVersion) then
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season1, RELIGHT_GenerateNewINI_Season1(RELIGHT_CurrentConfigurationVersion));
     end
 
-    if not (RelightConfigData_Season2.Version.ConfigurationVersion == RELIGHT_CurrentConfigurationVersion) then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season2, GenerateNewINI_Season2());
+    if not (RelightConfigData_Season2["Version"]["ConfigurationVersion"] == RELIGHT_CurrentConfigurationVersion) then
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season2, RELIGHT_GenerateNewINI_Season2(RELIGHT_CurrentConfigurationVersion));
     end
 
-    if not (RelightConfigData_Season3.Version.ConfigurationVersion == RELIGHT_CurrentConfigurationVersion) then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season3, GenerateNewINI_Season3());
+    if not (RelightConfigData_Season3["Version"]["ConfigurationVersion"] == RELIGHT_CurrentConfigurationVersion) then
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season3, RELIGHT_GenerateNewINI_Season3(RELIGHT_CurrentConfigurationVersion));
     end
 
-    if not (RelightConfigData_Season4.Version.ConfigurationVersion == RELIGHT_CurrentConfigurationVersion) then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season4, GenerateNewINI_Season4());
+    if not (RelightConfigData_Season4["Version"]["ConfigurationVersion"] == RELIGHT_CurrentConfigurationVersion) then
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season4, RELIGHT_GenerateNewINI_Season4(RELIGHT_CurrentConfigurationVersion));
     end
 
-    if not (RelightConfigData_SeasonM.Version.ConfigurationVersion == RELIGHT_CurrentConfigurationVersion) then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_SeasonM, GenerateNewINI_SeasonM());
+    if not (RelightConfigData_SeasonM["Version"]["ConfigurationVersion"] == RELIGHT_CurrentConfigurationVersion) then
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_SeasonM, RELIGHT_GenerateNewINI_SeasonM(RELIGHT_CurrentConfigurationVersion));
     end
 end

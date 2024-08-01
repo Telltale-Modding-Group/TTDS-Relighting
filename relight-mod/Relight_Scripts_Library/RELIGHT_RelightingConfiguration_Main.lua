@@ -3,12 +3,12 @@
 --||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT MAIN |||||||||||||||||||||||||||||||||||||||
 
 --generates a new ini file
-RELIGHT_GenerateNewINI_Main = function()
+RELIGHT_GenerateNewINI_Main = function(number_configurationVersion)
     local data = 
     {
         Version = 
         {
-            ConfigurationVersion = RELIGHT_CurrentConfigurationVersion,
+            ConfigurationVersion = number_configurationVersion,
         },
         Global = 
         {
