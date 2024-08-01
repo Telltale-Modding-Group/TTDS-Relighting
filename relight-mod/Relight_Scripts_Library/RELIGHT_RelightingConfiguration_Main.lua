@@ -3,7 +3,7 @@
 --||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT MAIN |||||||||||||||||||||||||||||||||||||||
 
 --generates a new ini file
-local GenerateNewINI_Main = function()
+RELIGHT_GenerateNewINI_Main = function()
     local data = 
     {
         Version = 

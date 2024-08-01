@@ -3,13 +3,13 @@ RELIGHT_CurrentConfigurationVersion = 100;
 
 --relight config file names
 RELIGHT_FolderName = "RelightMod";
-RELIGHT_ConfigFileName_Main = RELIGHT_FolderName .. "/RelightingConfig_Main.ini";
-RELIGHT_ConfigFileName_Development = RELIGHT_FolderName .. "/RelightingConfig_Development.ini";
-RELIGHT_ConfigFileName_Season1 = RELIGHT_FolderName .. "/RelightingConfig_Season1.ini";
-RELIGHT_ConfigFileName_Season2 = RELIGHT_FolderName .. "/RelightingConfig_Season2.ini";
-RELIGHT_ConfigFileName_Season3 = RELIGHT_FolderName .. "/RelightingConfig_Season3.ini";
-RELIGHT_ConfigFileName_Season4 = RELIGHT_FolderName .. "/RelightingConfig_Season4.ini";
-RELIGHT_ConfigFileName_SeasonM = RELIGHT_FolderName .. "/RelightingConfig_SeasonM.ini";
+RELIGHT_ConfigFileName_Main = RELIGHT_FolderName .. "/RelightConfiguration_Main.ini";
+RELIGHT_ConfigFileName_Development = RELIGHT_FolderName .. "/RelightConfiguration_Development.ini";
+RELIGHT_ConfigFileName_Season1 = RELIGHT_FolderName .. "/RelightConfiguration_Season1.ini";
+RELIGHT_ConfigFileName_Season2 = RELIGHT_FolderName .. "/RelightConfiguration_Season2.ini";
+RELIGHT_ConfigFileName_Season3 = RELIGHT_FolderName .. "/RelightConfiguration_Season3.ini";
+RELIGHT_ConfigFileName_Season4 = RELIGHT_FolderName .. "/RelightConfiguration_Season4.ini";
+RELIGHT_ConfigFileName_SeasonM = RELIGHT_FolderName .. "/RelightConfiguration_SeasonM.ini";
 
 --relight config file data
 RelightConfigData_Main = nil;
@@ -45,33 +45,33 @@ do
     --checks if the ini files relight requires exists.
     --if they don't exist then generate a new ini object and write that to the disk
 
-    if not TLSE_FileExists(RELIGHT_ConfigFileName_Main) then
+    if TLSE_FileExists(RELIGHT_ConfigFileName_Main) == false then
         TLSE_DirectoryCreate(RELIGHT_FolderName);
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Main, GenerateNewINI_Main());
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Main, RELIGHT_GenerateNewINI_Main());
     end
 
-    if not TLSE_FileExists(RELIGHT_ConfigFileName_Development) then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Development, GenerateNewINI_Development());
+    if TLSE_FileExists(RELIGHT_ConfigFileName_Development) == false then
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Development, RELIGHT_GenerateNewINI_Development());
     end
 
-    if not TLSE_FileExists(RELIGHT_ConfigFileName_Season1) then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season1, GenerateNewINI_Season1());
+    if TLSE_FileExists(RELIGHT_ConfigFileName_Season1) == false then
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season1, RELIGHT_GenerateNewINI_Season1());
     end
 
-    if not TLSE_FileExists(RELIGHT_ConfigFileName_Season2) then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season2, GenerateNewINI_Season2());
+    if TLSE_FileExists(RELIGHT_ConfigFileName_Season2) == false then
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season2, RELIGHT_GenerateNewINI_Season2());
     end
 
-    if not TLSE_FileExists(RELIGHT_ConfigFileName_Season3) then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season3, GenerateNewINI_Season3());
+    if TLSE_FileExists(RELIGHT_ConfigFileName_Season3) == false then
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season3, RELIGHT_GenerateNewINI_Season3());
     end
 
-    if not TLSE_FileExists(RELIGHT_ConfigFileName_Season4) then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season4, GenerateNewINI_Season4());
+    if TLSE_FileExists(RELIGHT_ConfigFileName_Season4) == false then
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Season4, RELIGHT_GenerateNewINI_Season4());
     end
 
-    if not TLSE_FileExists(RELIGHT_ConfigFileName_SeasonM) then
-        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_SeasonM, GenerateNewINI_SeasonM());
+    if TLSE_FileExists(RELIGHT_ConfigFileName_SeasonM) == false then
+        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_SeasonM, RELIGHT_GenerateNewINI_SeasonM());
     end
 
     ----------------------------------- LOAD INI FILE DATA -----------------------------------

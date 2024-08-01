@@ -225,6 +225,68 @@ TLSE_Development_Editor_LuaHelper_WriteApplyLightPropertiesFunction = function(a
     return string_codeToWrite;
 end
 
+TLSE_Development_Editor_LuaHelper_WriteApplyMeshPropertiesChunk = function(agent_mesh)
+    local string_codeToWrite = "";
+
+    local string_agentName = AgentGetName(agent_mesh);
+
+    string_codeToWrite = "\n";
+
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Extents Min", TLSE_Development_Editor_LuaHelper_WriteVector3(AgentGetProperty(agent_mesh, "Extents Min")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Extents Max", TLSE_Development_Editor_LuaHelper_WriteVector3(AgentGetProperty(agent_mesh, "Extents Max")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Cull", tostring(AgentGetProperty(agent_mesh, "Render Cull")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Static", tostring(AgentGetProperty(agent_mesh, "Render Static")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Depth Test", tostring(AgentGetProperty(agent_mesh, "Render Depth Test")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Depth Test Function", tostring(AgentGetProperty(agent_mesh, "Render Depth Test Function")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Depth Write", tostring(AgentGetProperty(agent_mesh, "Render Depth Write")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Depth Write Alpha", tostring(AgentGetProperty(agent_mesh, "Render Depth Write Alpha")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render 3D Alpha", tostring(AgentGetProperty(agent_mesh, "Render 3D Alpha")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Constant Alpha", tostring(AgentGetProperty(agent_mesh, "Render Constant Alpha")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Constant Alpha Multiply", tostring(AgentGetProperty(agent_mesh, "Render Constant Alpha Multiply")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Color Write", tostring(AgentGetProperty(agent_mesh, "Render Color Write")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Force As Alpha", tostring(AgentGetProperty(agent_mesh, "Render Force As Alpha")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Shadow Force Visible", tostring(AgentGetProperty(agent_mesh, "Render Shadow Force Visible")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Enlighten Force Visible", tostring(AgentGetProperty(agent_mesh, "Render Enlighten Force Visible")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render EnvLight Shadow Cast Enable", tostring(AgentGetProperty(agent_mesh, "Render EnvLight Shadow Cast Enable")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render FX Color Enabled", tostring(AgentGetProperty(agent_mesh, "Render FX Color Enabled")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Diffuse Color", TLSE_Development_Editor_LuaHelper_WriteColor(AgentGetProperty(agent_mesh, "Render Diffuse Color")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Layer", tostring(AgentGetProperty(agent_mesh, "Render Layer")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Material Time", tostring(AgentGetProperty(agent_mesh, "Render Material Time")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Auto Focus Enable", tostring(AgentGetProperty(agent_mesh, "Render Auto Focus Enable")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render After Anti-Aliasing", tostring(AgentGetProperty(agent_mesh, "Render After Anti-Aliasing")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Camera Facing", tostring(AgentGetProperty(agent_mesh, "Camera Facing")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Camera Facing Type", tostring(AgentGetProperty(agent_mesh, "Camera Facing Type")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Motion Blur Enabled", tostring(AgentGetProperty(agent_mesh, "Motion Blur Enabled")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Fog Override settings", tostring(AgentGetProperty(agent_mesh, "Fog Override settings")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Fog Mesh Enabled", tostring(AgentGetProperty(agent_mesh, "Fog Mesh Enabled")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Fog Mesh Color", TLSE_Development_Editor_LuaHelper_WriteColor(AgentGetProperty(agent_mesh, "Fog Mesh Color")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Fog Mesh Near Plane", tostring(AgentGetProperty(agent_mesh, "Fog Mesh Near Plane")), "string_scene") .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Fog Mesh Far Plane", tostring(AgentGetProperty(agent_mesh, "Fog Mesh Far Plane")), "string_scene") .. ";\n";
+
+    return string_codeToWrite;
+end
+
+TLSE_Development_Editor_LuaHelper_WriteApplyMeshPropertiesFunction = function(agentsArray_sceneAgents)
+    local string_codeToWrite = "";
+
+    string_codeToWrite = "\n";
+    string_codeToWrite = string_codeToWrite .. "TLSE_ApplyMeshSettings = function(string_scene)";
+    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "\n";
+
+    for i, agent_sceneAgent in pairs(agentsArray_sceneAgents) do
+        if(TLSE_AgentIsMesh(agent_sceneAgent)) then
+            string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteApplyMeshPropertiesChunk(agent_sceneAgent) .. "\n";
+        end
+    end
+
+    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "end";
+    string_codeToWrite = string_codeToWrite .. "\n";
+
+    return string_codeToWrite;
+end
+
 TLSE_Development_Editor_LuaHelper_WriteApplyEnvironmentFogModulePropertiesFunction = function(agent_environmentFog)
     local string_codeToWrite = "";
 
@@ -795,6 +857,7 @@ TLSE_Development_Editor_LuaHelper_ExportSceneChangesToScript = function(string_s
     end
 
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteApplyLightPropertiesFunction(TLSE_Development_SceneAgentsList);
+    string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteApplyMeshPropertiesFunction(TLSE_Development_SceneAgentsList);
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteSceneAgentsTransformationsFunction(TLSE_Development_SceneAgentsList);
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteSceneCleanupFunction(TLSE_Development_SceneAgentsList);
 
@@ -805,6 +868,7 @@ TLSE_Development_Editor_LuaHelper_ExportSceneChangesToScript = function(string_s
     string_codeToWrite = string_codeToWrite .. "    TLSE_DuplicateAgentsInScene(string_scene); \n";
     --string_codeToWrite = string_codeToWrite .. "    TLSE_ApplySceneSettings(agent_sceneAgent); \n";
     string_codeToWrite = string_codeToWrite .. "    TLSE_ApplyLightingSettings(string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "    TLSE_ApplyMeshSettings(string_scene); \n";
     string_codeToWrite = string_codeToWrite .. "    TLSE_TransformAgentsInScene(string_scene); \n";
     string_codeToWrite = string_codeToWrite .. "    --TLSE_DeleteAllAgentsInScene(string_scene); \n";
     string_codeToWrite = string_codeToWrite .. "\n";

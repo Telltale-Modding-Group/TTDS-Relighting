@@ -2,7 +2,7 @@
 --||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT SEASON 4 |||||||||||||||||||||||||||||||||||||||
 --||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT SEASON 4 |||||||||||||||||||||||||||||||||||||||
 
-local GenerateNewINI_Season4 = function()
+RELIGHT_GenerateNewINI_Season4 = function()
     local data = 
     {
         Version = 

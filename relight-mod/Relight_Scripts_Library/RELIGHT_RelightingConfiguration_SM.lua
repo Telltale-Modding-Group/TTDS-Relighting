@@ -1,8 +1,8 @@
---||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT SEASON 3 |||||||||||||||||||||||||||||||||||||||
---||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT SEASON 3 |||||||||||||||||||||||||||||||||||||||
---||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT SEASON 3 |||||||||||||||||||||||||||||||||||||||
+--||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT SEASON M |||||||||||||||||||||||||||||||||||||||
+--||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT SEASON M |||||||||||||||||||||||||||||||||||||||
+--||||||||||||||||||||||||||||||||||||||| INI GENERATION - RELIGHT SEASON M |||||||||||||||||||||||||||||||||||||||
 
-local GenerateNewINI_SeasonM = function()
+RELIGHT_GenerateNewINI_SeasonM = function()
     local data = 
     {
         Version = 

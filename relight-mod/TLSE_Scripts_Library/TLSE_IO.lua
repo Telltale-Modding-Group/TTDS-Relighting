@@ -1,28 +1,17 @@
 --checks if a file exists
 TLSE_FileExists = function(filePathRelativeToGameExe)
-    --return FileExists(filePathRelativeToGameExe);
-    --return FileExistsGlobal(filePathRelativeToGameExe);
+    return FileExists(filePathRelativeToGameExe);
 
-    --read the given file as a test
+    --[[
+    NOTE: Kept in here for legacy purposes
     local f = io.open(filePathRelativeToGameExe, "r");
     
-    --if the file was opened, then it exists
     if f ~= nil then
         io.close(f);
         return true;
     else
         return false;
     end
-
-    --[[
-    local ok, err, code = os.rename(filePathRelativeToGameExe, filePathRelativeToGameExe)
-    if not ok then
-       if code == 13 then
-          -- Permission denied, but it exists
-          return true
-       end
-    end
-    return ok, err
     ]]
 end
 
