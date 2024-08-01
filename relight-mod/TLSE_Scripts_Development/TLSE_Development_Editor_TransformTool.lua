@@ -156,8 +156,7 @@ TLSE_Development_TransformTool_UpdateGizmo = function()
     local vector_selectObjectPosition = Vector(0, 0, 0);
     local vector_selectObjectRotation = Vector(0, 0, 0);
 
-    local number_globalScale = 0.25;
-    local number_distanceToSelection = VectorDistance(vector_selectObjectPosition, vector_sceneCameraPosition);
+    local number_globalScale = 0.075;
 
     if(bool_selectedAgent == true) then
         boundsAABB_currentSelectedAgentWorldBounds = TLSE_Bounds_GetAgentWorldBounds_AABB(agent_currentSelectedAgent);
@@ -176,7 +175,7 @@ TLSE_Development_TransformTool_UpdateGizmo = function()
 
         vector_selectObjectRotation = vector_selectObjectWorldRotation;
 
-        number_globalScale = number_distanceToSelection * 0.05;
+        number_globalScale = 0.025 * VectorDistance(vector_selectObjectPosition, vector_sceneCameraPosition);
     else
         boundsAABB_currentSelectedAgentWorldBounds = nil;
         boundsAABB_currentSelectedAgentLocalBounds = nil;

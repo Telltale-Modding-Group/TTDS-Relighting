@@ -89,6 +89,14 @@ TLSE_MultiplyRGBColor = function(color_input, number_amount)
     return color_input;
 end
 
+TLSE_MultiplyColorWithColorRGB = function(color_input, color_toMultiply)
+    color_input.r = color_input.r * color_toMultiply.r;
+    color_input.g = color_input.g * color_toMultiply.g;
+    color_input.b = color_input.b * color_toMultiply.b;
+    
+    return color_input;
+end
+
 --[[
 This multiplies a Color object, which depending on the value can brighten or darken the color.
 NOTE: This will affect the alpha channel.

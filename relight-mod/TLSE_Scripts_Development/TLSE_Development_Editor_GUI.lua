@@ -73,11 +73,11 @@ TLSE_Development_GUI_Initalize = function()
     agent_bg_hierarchyArea = AgentCreate("TLSE_Development_bg_hierarchyArea", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
 
     label_hierarchyTitle = TLSE_Development_Editor_GUI_CreateLabel("[SCENE HIERARCHY]", Vector(0.685, 0.005, 0.0));
-    textButton_inspectorTab = TLSE_Development_Editor_GUI_CreateTextButton("[INSPECTOR]", true, Vector(0.685, 0.5, 0.0), OnPress_SelectInspectorTab, nil);
-    textButton_lightingTab = TLSE_Development_Editor_GUI_CreateTextButton("[LIGHT]", true, Vector(0.735, 0.5, 0.0), OnPress_SelectLightingTab, nil);
-    textButton_fogTab = TLSE_Development_Editor_GUI_CreateTextButton("[FOG]", true, Vector(0.778, 0.5, 0.0), OnPress_SelectFogTab, nil);
-    textButton_renderTab = TLSE_Development_Editor_GUI_CreateTextButton("[RENDER]", true, Vector(0.803, 0.5, 0.0), OnPress_SelectRenderTab, nil);
-    textButton_scenePropertiesTab = TLSE_Development_Editor_GUI_CreateTextButton("[SCENE]", true, Vector(0.843, 0.5, 0.0), OnPress_SelectScenePropertiesTab, nil);
+    textButton_inspectorTab = TLSE_Development_Editor_GUI_CreateTextButton("[Agent]", true, Vector(0.685, 0.5, 0.0), OnPress_SelectInspectorTab, nil);
+    textButton_lightingTab = TLSE_Development_Editor_GUI_CreateTextButton("[EnvLight]", true, Vector(0.735, 0.5, 0.0), OnPress_SelectLightingTab, nil);
+    textButton_fogTab = TLSE_Development_Editor_GUI_CreateTextButton("[EnvFog]", true, Vector(0.778, 0.5, 0.0), OnPress_SelectFogTab, nil);
+    textButton_renderTab = TLSE_Development_Editor_GUI_CreateTextButton("[Mesh]", true, Vector(0.803, 0.5, 0.0), OnPress_SelectRenderTab, nil);
+    textButton_scenePropertiesTab = TLSE_Development_Editor_GUI_CreateTextButton("[Scene]", true, Vector(0.843, 0.5, 0.0), OnPress_SelectScenePropertiesTab, nil);
 
     textButton_exportSceneToLuaScript = TLSE_Development_Editor_GUI_CreateTextButton("[EXPORT SCENE CHANGES TO LUA]", true, Vector(0.558, 0.005, 0.0), OnPress_ExportSceneChangesToScript, nil);
     textButton_hideIcons = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE ICONS]", true, Vector(0.635, 0.020, 0.0), OnPress_HideIcons, nil);
@@ -179,6 +179,10 @@ TLSE_Development_GUI_Update = function()
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "R Key - Unfreeze Camera / Hide Cursor";
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "F Key - Freeze Camera / Show Cursor";
+    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
+    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Del Key - Delete Selected Agent (Inspector Tab Active)";
+    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
+    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Ctrl + D Key - Duplicate Selected Agent (Inspector Tab Active)";
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
 
     label_editorModeTextTopLeft["LabelText"] = string_editorModeTextTopLeftText;

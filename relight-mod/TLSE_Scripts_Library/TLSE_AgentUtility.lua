@@ -14,7 +14,10 @@
 --RETURNS: Nothing
 TLSE_AgentNameHide = function(string_agentName, string_scene)
     local agent_object = AgentFindInScene(string_agentName, string_scene);
-    AgentHide(agent_object);
+
+    if(agent_object ~= nil) then
+        AgentHide(agent_object);
+    end
 end
 
 --Sets the visibility of a given agent.

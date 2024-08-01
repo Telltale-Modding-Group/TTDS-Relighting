@@ -213,7 +213,7 @@ TLSE_Development_Editor_LuaHelper_WriteApplyLightPropertiesFunction = function(a
     string_codeToWrite = string_codeToWrite .. "\n";
 
     for i, agent_sceneAgent in pairs(agentsArray_sceneAgents) do
-        if(AgentHasProperty(agent_sceneAgent, "EnvLight - Type")) then
+        if(TLSE_AgentIsLight(agent_sceneAgent)) then
             string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteApplyLightPropertiesChunk(agent_sceneAgent) .. "\n";
         end
     end
@@ -797,6 +797,19 @@ TLSE_Development_Editor_LuaHelper_ExportSceneChangesToScript = function(string_s
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteApplyLightPropertiesFunction(TLSE_Development_SceneAgentsList);
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteSceneAgentsTransformationsFunction(TLSE_Development_SceneAgentsList);
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteSceneCleanupFunction(TLSE_Development_SceneAgentsList);
+
+    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "TLSE_SceneRelight = function(string_scene) \n"
+    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "    TLSE_DeleteAgentsInScene(string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "    TLSE_DuplicateAgentsInScene(string_scene); \n";
+    --string_codeToWrite = string_codeToWrite .. "    TLSE_ApplySceneSettings(agent_sceneAgent); \n";
+    string_codeToWrite = string_codeToWrite .. "    TLSE_ApplyLightingSettings(string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "    TLSE_TransformAgentsInScene(string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "    --TLSE_DeleteAllAgentsInScene(string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "end \n";
+    string_codeToWrite = string_codeToWrite .. "\n";
 
     main_lua_file:write(string_codeToWrite);
     main_lua_file:close();

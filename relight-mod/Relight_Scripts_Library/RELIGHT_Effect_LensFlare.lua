@@ -1,3 +1,5 @@
+local LensFlareEffect_ElementPropFile = "fx_glowWhite.prop";
+
 LensFlareEffect_SourcesCount = 1;
 LensFlareEffect_Sources = 
 {
@@ -10,219 +12,370 @@ LensFlareEffect_Sources =
   },
 };
 
-local CreateLensFlareElement = function(elementAgentName, elementGroupAgent, elementSize, elementColor, elementTexture)
-  local lensFlareElement = AgentCreate(elementAgentName, "fx_glowWhite.prop", Vector(0,0,0), Vector(0,0,0), LensFlareEffect_kScene, false, false)
-  local newElementColor = Color(elementColor.r, elementColor.g, elementColor.b, 1.0);
-
-  --RELIGHT_PrintValidPropertyNames(AgentFindInScene(elementAgentName, LensFlareEffect_kScene));
-  --RELIGHT_PrintProperties(AgentFindInScene(elementAgentName, LensFlareEffect_kScene));
-
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Global Scale", elementSize, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Cull", false, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Layer", 105, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Constant Alpha Multiply", -1, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Constant Alpha", -1, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render After Anti-Aliasing", true, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render EnvLight Shadow Cast Enable", false, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Depth Test", false, LensFlareEffect_kScene) --this must be disabled otherwise it intersects with scene geo.
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Static", false, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Depth Write", false, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Depth Write Alpha", false, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render 3D Alpha", false, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Color Write", true, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Force As Alpha", false, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Depth Test Function", 4, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render FX Color Enabled", true, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Shadow Force Visible", false, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Enlighten Force Visible", false, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Camera Facing", false, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Camera Facing Type", 0, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Receive Shadows", false, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Motion Blur Enabled", false, LensFlareEffect_kScene)
-
-  RELIGHT_AgentSetProperty(elementAgentName, "Fog Mesh Near Plane", 0, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Fog Mesh Far Plane", 0.1, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Fog Mesh Color", newElementColor, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Fog Mesh Enabled", false, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "Fog Override settings", false, LensFlareEffect_kScene)
-  
-  RELIGHT_AgentSetProperty(elementAgentName, "Render Diffuse Color", newElementColor, LensFlareEffect_kScene)
-  RELIGHT_AgentSetProperty(elementAgentName, "fx_glowWhite - Light Color Diffuse", newElementColor, LensFlareEffect_kScene)
-
-  if not (elementTexture == "default") then
-    RELIGHT_AgentSetProperty(elementAgentName, "fx_glowWhite - Texture", elementTexture, LensFlareEffect_kScene)
-  end
-
-  AgentAttach(lensFlareElement, elementGroupAgent);
-
+LensFlareEffect_FlareProfileElements = 1;
+LensFlareEffect_FlareProfile = 
+{
+  Element1 = 
+  {
+    ElementAgent = nil,
+    ElementColor = Color(1, 1, 1, 1),
+    ElementIntensity = 0.5,
+    ElementSize = 100,
+    ElementTexture = "RELIGHT_Texture_LensFlare_burstA",
+    ElementDistance = 0,
+    ElementStickToLight = true,
+  },
   --[[
-  --||||||||||||||||||||||||||||||| PROPERTY SYMBOLS - BOOLEANS |||||||||||||||||||||||||||||||
-  --||||||||||||||||||||||||||||||| PROPERTY SYMBOLS - BOOLEANS |||||||||||||||||||||||||||||||
-  --||||||||||||||||||||||||||||||| PROPERTY SYMBOLS - BOOLEANS |||||||||||||||||||||||||||||||
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "29917189130296323", false, LensFlareEffect_kScene) --false
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "337441776042619735", true, LensFlareEffect_kScene) --true
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "438000414546183936", false, LensFlareEffect_kScene) --false
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "1717554548013318519", false, LensFlareEffect_kScene) --false
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "3968320025434101793", true, LensFlareEffect_kScene) --true
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "4255471446328962866", true, LensFlareEffect_kScene) --true
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "6241934050521616540", false, LensFlareEffect_kScene) --false
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "7592540816388186066", true, LensFlareEffect_kScene) --true
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "9342519259510289425", true, LensFlareEffect_kScene) --true
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "11123420019994007728", false, LensFlareEffect_kScene) --false
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "11135290454403634481", false, LensFlareEffect_kScene) --false
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "12111892677656515207", false, LensFlareEffect_kScene) --false
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "12146612972960654343", false, LensFlareEffect_kScene) --false
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "13551425408333398071", false, LensFlareEffect_kScene) --false
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "13653337939902208949", true, LensFlareEffect_kScene) --true
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "13708738983771659377", true, LensFlareEffect_kScene) --true
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "14500962918222475984", false, LensFlareEffect_kScene) --false
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "15013745883174092217", true, LensFlareEffect_kScene) --true
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "15534494750857814442", false, LensFlareEffect_kScene) --false
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "16931290600450383317", false, LensFlareEffect_kScene) --false
-  
-  --||||||||||||||||||||||||||||||| PROPERTY SYMBOLS - TABLE |||||||||||||||||||||||||||||||
-  --||||||||||||||||||||||||||||||| PROPERTY SYMBOLS - TABLE |||||||||||||||||||||||||||||||
-  --||||||||||||||||||||||||||||||| PROPERTY SYMBOLS - TABLE |||||||||||||||||||||||||||||||
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "4586858520413531639", newElementColor, LensFlareEffect_kScene)
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "13633044676319598032", newElementColor, LensFlareEffect_kScene)
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "16257061689241178640", newElementColor, LensFlareEffect_kScene)
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "17878855090176314958", newElementColor, LensFlareEffect_kScene)
-  
-  --||||||||||||||||||||||||||||||| PROPERTY SYMBOLS - NUMBERS |||||||||||||||||||||||||||||||
-  --||||||||||||||||||||||||||||||| PROPERTY SYMBOLS - NUMBERS |||||||||||||||||||||||||||||||
-  --||||||||||||||||||||||||||||||| PROPERTY SYMBOLS - NUMBERS |||||||||||||||||||||||||||||||
-  
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "175974362136292770", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "1054157711913007758", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "1172836864953362732", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "1257070699733080104", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "2113086045989180411", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "2580150169153207299", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "3207112697218146358", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "3476438023795460075", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "3777130608026885374", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "4974401288743784843", 25, LensFlareEffect_kScene) --25
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "5066756895947174386", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "5228041480347995870", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "5896821838924833897", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "7015250035810543342", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "7480742303957645383", -1, LensFlareEffect_kScene) ---1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "7961783782750803347", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "8735055588785055762", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "8777722706473887450", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "9318400394721951400", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "9482770390863453857", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "9744484105360491661", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "9779227109534659805", -1, LensFlareEffect_kScene) ---1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "9979872214271496197", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "10879226931621513095", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "11846756784333938959", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "11982405709027802459", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "11990377687850657584", 200, LensFlareEffect_kScene) --200
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "13702207346332971943", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "13745441773436534127", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "13985869843448871498", 0.5, LensFlareEffect_kScene) --0.5
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "14484707811718378985", 3, LensFlareEffect_kScene) --3
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "14519789570618437401", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "14533182957841965371", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "14639541458681579632", -1, LensFlareEffect_kScene) ---1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "15223114978632247858", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "15598246489076376875", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "16059560486961196643", 0.1, LensFlareEffect_kScene) --0.1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "16490950358619660555", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "16974302554826177411", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "17811714305327045726", 0, LensFlareEffect_kScene) --0
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "18017837635776104114", 1, LensFlareEffect_kScene) --1
-  RELIGHT_AgentSetPropertyBySymbol(elementAgentName, "18181622419412755329", 1, LensFlareEffect_kScene) --1
-  ]]--
+  Element2 = 
+  {
+    ElementAgent = nil,
+    ElementColor = Color(1, 1, 1, 1),
+    ElementIntensity = 0.25,
+    ElementSize = 3.5,
+    ElementTexture = "default",
+    ElementDistance = 1.5
+    ElementStickToLight = false,
+  },
+  Element3 = 
+  {
+    ElementAgent = nil,
+    ElementColor = Color(1, 1, 1, 1),
+    ElementIntensity = 0.5,
+    ElementSize = 4.5,
+    ElementTexture = "bokeh_hex",
+    ElementDistance = 1.35,
+    ElementStickToLight = false,
+  },
+  Element4 = 
+  {
+    ElementAgent = nil,
+    ElementColor = Color(1, 1, 1, 1),
+    ElementIntensity = 0.75,
+    ElementSize = 5.5,
+    ElementTexture = "bokeh_circle",
+    ElementDistance = 1.1,
+    ElementStickToLight = false,
+  },
+  Element5 = 
+  {
+    ElementAgent = nil,
+    ElementColor = Color(1, 1, 1, 1),
+    ElementIntensity = 0.5,
+    ElementSize = 7.5,
+    ElementTexture = "bokeh_hex",
+    ElementDistance = 0.75,
+    ElementStickToLight = false,
+  },
+  Element6 = 
+  {
+    ElementAgent = nil,
+    ElementColor = Color(1, 1, 1, 1),
+    ElementIntensity = 0.2,
+    ElementSize = 5.5,
+    ElementTexture = "bokeh_circle",
+    ElementDistance = 0.25,
+    ElementStickToLight = false,
+  },
+  Element7 = 
+  {
+    ElementAgent = nil,
+    ElementColor = Color(1, 1, 1, 1),
+    ElementIntensity = 0.25,
+    ElementSize = 9.0,
+    ElementTexture = "bokeh_circle",
+    ElementDistance = -0.25,
+    ElementStickToLight = false,
+  },
+  Element8 = 
+  {
+    ElementAgent = nil,
+    ElementColor = Color(1, 1, 1, 1),
+    ElementIntensity = 0.35,
+    ElementSize = 10.0,
+    ElementTexture = "bokeh_circle",
+    ElementDistance = -0.1,
+    ElementStickToLight = false,
+  },
+  Element9 = 
+  {
+    ElementAgent = nil,
+    ElementColor = Color(1, 1, 1, 1),
+    ElementIntensity = 0.25,
+    ElementSize = 9.0,
+    ElementTexture = "bokeh_hex",
+    ElementDistance = -0.15,
+    ElementStickToLight = false,
+  },
+  Element10 = 
+  {
+    ElementAgent = nil,
+    ElementColor = Color(1, 1, 1, 1),
+    ElementIntensity = 0.35,
+    ElementSize = 175.0,
+    ElementTexture = "default",
+    ElementDistance = -0.75,
+    ElementStickToLight = false,
+  }
+  ]]
+};
+
+LensFlareEffect_FlareInstances = {};
+
+local CreateLensFlareElement = function(string_elementName, flareElement_reference)
+  local flareElement_newElement =
+  {
+    ElementAgent = AgentCreate(string_elementName, LensFlareEffect_ElementPropFile, Vector(0, 0, 0), Vector(0, 0, 0), RELIGHT_SceneObject, false, false),
+    ElementColor = flareElement_reference["ElementColor"],
+    ElementIntensity = flareElement_reference["ElementIntensity"],
+    ElementSize = flareElement_reference["ElementSize"],
+    ElementTexture = flareElement_reference["ElementTexture"],
+    ElementDistance = flareElement_reference["ElementDistance"]
+  };
+
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Global Scale", flareElement_newElement["ElementSize"]);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Cull", false);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Layer", 75);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Constant Alpha Multiply", -1);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Constant Alpha", -1);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render After Anti-Aliasing", true);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render EnvLight Shadow Cast Enable", false);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Depth Test", false); --this must be disabled otherwise it intersects with scene geo.
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Static", false);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Depth Write", false);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Depth Write Alpha", false);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render 3D Alpha", false);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Color Write", true)
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Force As Alpha", false);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Depth Test Function", 4);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render FX Color Enabled", true);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Shadow Force Visible", false);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Enlighten Force Visible", false);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Camera Facing", false);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Camera Facing Type", 0);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Receive Shadows", false);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Motion Blur Enabled", false);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Fog Mesh Near Plane", -1000);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Fog Mesh Far Plane", -1000);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Fog Mesh Enabled", true);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Fog Override settings", true);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "Render Diffuse Color", flareElement_newElement["ElementColor"]);
+  AgentSetProperty(flareElement_newElement["ElementAgent"], "fx_glowWhite - Light Color Diffuse", flareElement_newElement["ElementColor"]);
+
+  if not (flareElement_newElement["ElementTexture"] == "default") then
+    ShaderOverrideTexture(flareElement_newElement["ElementAgent"], "fx_glowWhite.d3dtx", flareElement_newElement["ElementTexture"]);
+  end
+
+  AgentAttach(flareElement_newElement["ElementAgent"], agent_elementGroup);
+
+  return flareElement_newElement;
 end
 
-LensFlareEffect_Initalize = function()
-  for index = 1, LensFlareEffect_SourcesCount, 1 do 
-    local lensFlareSourceGroup = LensFlareEffect_Sources["Source" .. tostring(index)];
-    local lensFlareSourceAgentName = lensFlareSourceGroup.LightAgentName;
-    local lensFlareLightIntensityModifier = lensFlareSourceGroup.LightIntensityModifier;
+local CreateFlareForLightSource = function()
+  local flare_newInstance = {};
 
-    LensFlareEffect_CreateFlareForLightSource(lensFlareSourceAgentName, lensFlareLightIntensityModifier);
+  for index = 1, LensFlareEffect_FlareProfileElements, 1 do 
+    local string_newElementName = "Element" .. tostring(index);
+    local string_referenceElementName = "Element" .. tostring(index);
+    local flareElement_referenceElement = LensFlareEffect_FlareProfile[string_referenceElementName];
+
+    flare_newInstance[string_newElementName] = CreateLensFlareElement(string_newElementName, flareElement_referenceElement);
+  end
+
+  table.insert(LensFlareEffect_FlareInstances, flare_newInstance);
+end
+
+RELIGHT_LensFlareEffect_Initalize = function()
+  for index = 1, LensFlareEffect_SourcesCount, 1 do 
+    CreateFlareForLightSource();
   end
 end
 
-LensFlareEffect_CreateFlareForLightSource = function(lightSourceAgentName, intensityModifer)
-  local flareGroupName = "LENSFLARE_GROUP_" .. lightSourceAgentName;
-  local flareElementName = "LENSFLARE_GROUP_" .. lightSourceAgentName .. "_ELEMENT";
+RELIGHT_LensFlareEffect_Update = function()
+  local agent_currentCamera = SceneGetCamera(RELIGHT_SceneObject); --Agent type
+  local vector_currentCameraPosition = AgentGetWorldPos(agent_currentCamera); --Vector type
+  local vector_currentCameraForward = AgentGetForwardVec(agent_currentCamera); --Vector type
+  local vector_currentCameraRotation = AgentGetWorldRot(agent_currentCamera); --Vector type
 
-  local flareGroup = AgentCreate(flareGroupName, "group.prop", Vector(0,0,0), Vector(0,0,0), LensFlareEffect_kScene, false, false)
+  local number_elementDistanceToCamera = 50;
+  local number_lightSourceReferenceIndex = 1;
 
-  local lightColor = AgentGetProperty(lightSourceAgentName, "EnvLight - Color");
-  local lightIntensity = AgentGetProperty(lightSourceAgentName, "EnvLight - Intensity");
-  
-  --lightColor.r = lightColor.r * lightIntensity * intensityModifer;
-  --lightColor.g = lightColor.g * lightIntensity * intensityModifer;
-  --lightColor.b = lightColor.b * lightIntensity * intensityModifer;
-  --lightColor.a = lightColor.a * lightIntensity * intensityModifer;
+  for key, flare_instance in pairs(LensFlareEffect_FlareInstances) do
+    local string_lightSourceReferenceName = "Source" .. tostring(number_lightSourceReferenceIndex);
+    local source_lightSourceReference = LensFlareEffect_Sources[string_lightSourceReferenceName];
+    local string_lightSourceAgentName = source_lightSourceReference["LightAgentName"];
+    local string_lightSourceType = source_lightSourceReference["LightType"];
+    local number_lightSourceOcclusionAngle = source_lightSourceReference["LightOcclusionAngle"];
+    local number_lightSourceIntensityModifier = source_lightSourceReference["LightIntensityModifier"];
+    local agent_lightSourceAgent = AgentFindInScene(string_lightSourceAgentName, RELIGHT_SceneObject);
+    local number_lightSourceIntensity = AgentGetProperty(agent_lightSourceAgent, "EnvLight - Intensity");
+    local color_lightSourceColor = AgentGetProperty(agent_lightSourceAgent, "EnvLight - Color");
 
-  --lightColor.r = lightColor.r * intensityModifer;
-  --lightColor.g = lightColor.g * intensityModifer;
-  --lightColor.b = lightColor.b * intensityModifer;
+    local vector_lightSourceDirection = nil;
 
-  CreateLensFlareElement(flareElementName .. "1", flareGroup, 100.0, Multiplier_RGBColor(lightColor, 1), "default");
-  CreateLensFlareElement(flareElementName .. "2", flareGroup, 3.5, Multiplier_RGBColor(lightColor, 0.25), "default");
-  CreateLensFlareElement(flareElementName .. "3", flareGroup, 4.5, Multiplier_RGBColor(lightColor, 0.5), "bokeh_hex");
-  CreateLensFlareElement(flareElementName .. "4", flareGroup, 5.5, Multiplier_RGBColor(lightColor, 0.75), "bokeh_circle");
-  CreateLensFlareElement(flareElementName .. "5", flareGroup, 7.5, Multiplier_RGBColor(lightColor, 0.5), "bokeh_hex");
-  CreateLensFlareElement(flareElementName .. "6", flareGroup, 5.5, Multiplier_RGBColor(lightColor, 0.2), "bokeh_circle");
-  CreateLensFlareElement(flareElementName .. "7", flareGroup, 9.0, Multiplier_RGBColor(lightColor, 0.25), "bokeh_circle");
-  CreateLensFlareElement(flareElementName .. "8", flareGroup, 10.0, Multiplier_RGBColor(lightColor, 0.35), "bokeh_circle");
-  CreateLensFlareElement(flareElementName .. "9", flareGroup, 9.0, Multiplier_RGBColor(lightColor, 0.25), "bokeh_hex");
-  CreateLensFlareElement(flareElementName .. "10", flareGroup, 175.0, Multiplier_RGBColor(lightColor, 0.35), "default");
-end
-
-LensFlareEffect_Update = function()
-  local currentCamera_agent = SceneGetCamera(LensFlareEffect_kScene); --Agent type
-  local currentCamera_position_vector = AgentGetWorldPos(currentCamera_agent); --Vector type
-  local currentCamera_forward_vector = AgentGetForwardVec(currentCamera_agent); --Vector type
-  local currentCamera_rotation_vector = AgentGetWorldRot(currentCamera_agent); --Vector type
-
-  for index = 1, LensFlareEffect_SourcesCount, 1 do 
-    local lensFlareSourceGroup = LensFlareEffect_Sources["Source" .. tostring(index)];
-    local lensFlareSourceAgentName = lensFlareSourceGroup.LightAgentName;
-    local lensFlareSourceLightType = lensFlareSourceGroup.LightType;
-    local lensFlareSourceOcclusionAngle = lensFlareSourceGroup.LightOcclusionAngle;
-
-    local property_distanceToCamera = 50;
-
-    local lightSourceAgent = AgentFindInScene(lensFlareSourceAgentName, LensFlareEffect_kScene);
-    local lightSourceDirectionVector = nil;
-
-    if(lensFlareSourceLightType == "directional") then
-      lightSourceDirectionVector = AgentGetForwardVec(lightSourceAgent);
+    if(string_lightSourceType == "directional") then
+      vector_lightSourceDirection = AgentGetForwardVec(agent_lightSourceAgent);
     else
-      lightSourceDirectionVector = VectorNormalize(currentCamera_position_vector - AgentGetWorldPos(lightSourceAgent));
+      vector_lightSourceDirection = VectorNormalize(VectorSubtract(vector_currentCameraPosition, AgentGetWorldPos(agent_lightSourceAgent)));
     end
 
-    local flareElementName = "LENSFLARE_GROUP_" .. lensFlareSourceAgentName .. "_ELEMENT";
+    for index = 1, LensFlareEffect_FlareProfileElements, 1 do 
+      local string_elementName = "Element" .. tostring(index);
+      local flareElement_element = flare_instance[string_elementName];
+      local vector_elementPosition = Vector(0, 0, 0);
 
-    local elementAgent1 = AgentFindInScene(flareElementName .. "1", LensFlareEffect_kScene);
-    local elementAgent2 = AgentFindInScene(flareElementName .. "2", LensFlareEffect_kScene);
-    local elementAgent3 = AgentFindInScene(flareElementName .. "3", LensFlareEffect_kScene);
-    local elementAgent4 = AgentFindInScene(flareElementName .. "4", LensFlareEffect_kScene);
-    local elementAgent5 = AgentFindInScene(flareElementName .. "5", LensFlareEffect_kScene);
-    local elementAgent6 = AgentFindInScene(flareElementName .. "6", LensFlareEffect_kScene);
-    local elementAgent7 = AgentFindInScene(flareElementName .. "7", LensFlareEffect_kScene);
-    local elementAgent8 = AgentFindInScene(flareElementName .. "8", LensFlareEffect_kScene);
-    local elementAgent9 = AgentFindInScene(flareElementName .. "9", LensFlareEffect_kScene);
-    local elementAgent10 = AgentFindInScene(flareElementName .. "10", LensFlareEffect_kScene);
+      if(flareElement_element["ElementStickToLight"] == true) then
+        --vector_elementPosition = VectorSubtract(vector_currentCameraPosition, VectorScale(vector_lightSourceDirection, number_elementDistanceToCamera));
+        --vector_elementPosition = vector_currentCameraPosition - vector_lightSourceDirection * number_elementDistanceToCamera;
+      else
+        --vector_elementPosition = vector_currentCameraPosition - ((vector_lightSourceDirection * flareElement_element["ElementDistance"]) - vector_currentCameraForward) * number_elementDistanceToCamera;
+      end
 
-    local elementPos1 = currentCamera_position_vector - lightSourceDirectionVector * property_distanceToCamera;
-    local elementPos2 = currentCamera_position_vector - ((lightSourceDirectionVector * 1.5) - currentCamera_forward_vector) * property_distanceToCamera;
-    local elementPos3 = currentCamera_position_vector - ((lightSourceDirectionVector * 1.35) - currentCamera_forward_vector) * property_distanceToCamera;
-    local elementPos4 = currentCamera_position_vector - ((lightSourceDirectionVector * 1.1) - currentCamera_forward_vector) * property_distanceToCamera;
-    local elementPos5 = currentCamera_position_vector - ((lightSourceDirectionVector * 0.75) - currentCamera_forward_vector) * property_distanceToCamera;
-    local elementPos6 = currentCamera_position_vector - ((lightSourceDirectionVector * 0.25) - currentCamera_forward_vector) * property_distanceToCamera;
-    local elementPos7 = currentCamera_position_vector - ((lightSourceDirectionVector * -0.25) - currentCamera_forward_vector) * property_distanceToCamera;
-    local elementPos8 = currentCamera_position_vector - ((lightSourceDirectionVector * -0.1) - currentCamera_forward_vector) * property_distanceToCamera;
-    local elementPos9 = currentCamera_position_vector - ((lightSourceDirectionVector * -0.15) - currentCamera_forward_vector) * property_distanceToCamera;
-    local elementPos10 = currentCamera_position_vector - ((lightSourceDirectionVector * -0.75) - currentCamera_forward_vector) * property_distanceToCamera;
+      vector_elementPosition = VectorSubtract(vector_currentCameraPosition, VectorScale(vector_lightSourceDirection, number_elementDistanceToCamera));
+
+      local vector_elementRotation = Vector(vector_currentCameraRotation.x + 180, vector_currentCameraRotation.y, vector_currentCameraRotation.z);
+      local bool_occlusionTest = VectorDot(vector_currentCameraForward, vector_lightSourceDirection) < number_lightSourceOcclusionAngle;
+
+      local color_newColor = TLSE_MultiplyRGBColor(color_lightSourceColor, number_lightSourceIntensity);
+      color_newColor = TLSE_MultiplyRGBColor(color_newColor, number_lightSourceIntensityModifier);
+      color_newColor = TLSE_MultiplyRGBColor(color_newColor, flareElement_element["ElementIntensity"]);
+      color_newColor = TLSE_MultiplyColorWithColorRGB(color_newColor, flareElement_element["ElementColor"]);
+
+      AgentSetWorldPos(flareElement_element["ElementAgent"], vector_elementPosition);
+      AgentSetWorldRot(flareElement_element["ElementAgent"], vector_elementRotation);
+      AgentSetProperty(flareElement_element["ElementAgent"], "Runtime: Visible", bool_occlusionTest);
+      AgentSetProperty(flareElement_element["ElementAgent"], "Fog Mesh Color", color_newColor);
+    end
+
+    number_lightSourceReferenceIndex = number_lightSourceReferenceIndex + 1;
+  end
+end
+
+--[[
+local CreateLensFlareElement = function(string_elementName, agent_elementGroup, number_elementSize, color_elementColor, string_elementTexture)
+  local agent_flareElement = AgentCreate(string_elementName, "fx_glowWhite.prop", Vector(0, 0, 0), Vector(0, 0, 0), RELIGHT_SceneObject, false, false);
+  local color_flareElementColor = Color(color_elementColor.r, color_elementColor.g, color_elementColor.b, 1.0);
+
+  AgentSetProperty(agent_flareElement, "Render Global Scale", number_elementSize);
+  AgentSetProperty(agent_flareElement, "Render Cull", false);
+  AgentSetProperty(agent_flareElement, "Render Layer", 75);
+  AgentSetProperty(agent_flareElement, "Render Constant Alpha Multiply", -1);
+  AgentSetProperty(agent_flareElement, "Render Constant Alpha", -1);
+  AgentSetProperty(agent_flareElement, "Render After Anti-Aliasing", true);
+  AgentSetProperty(agent_flareElement, "Render EnvLight Shadow Cast Enable", false);
+  AgentSetProperty(agent_flareElement, "Render Depth Test", false); --this must be disabled otherwise it intersects with scene geo.
+  AgentSetProperty(agent_flareElement, "Render Static", false);
+  AgentSetProperty(agent_flareElement, "Render Depth Write", false);
+  AgentSetProperty(agent_flareElement, "Render Depth Write Alpha", false);
+  AgentSetProperty(agent_flareElement, "Render 3D Alpha", false);
+  AgentSetProperty(agent_flareElement, "Render Color Write", true)
+  AgentSetProperty(agent_flareElement, "Render Force As Alpha", false);
+  AgentSetProperty(agent_flareElement, "Render Depth Test Function", 4);
+  AgentSetProperty(agent_flareElement, "Render FX Color Enabled", true);
+  AgentSetProperty(agent_flareElement, "Render Shadow Force Visible", false);
+  AgentSetProperty(agent_flareElement, "Render Enlighten Force Visible", false);
+  AgentSetProperty(agent_flareElement, "Camera Facing", false);
+  AgentSetProperty(agent_flareElement, "Camera Facing Type", 0);
+  AgentSetProperty(agent_flareElement, "Receive Shadows", false);
+  AgentSetProperty(agent_flareElement, "Motion Blur Enabled", false);
+
+  AgentSetProperty(agent_flareElement, "Fog Mesh Near Plane", -1000);
+  AgentSetProperty(agent_flareElement, "Fog Mesh Far Plane", -1000);
+  AgentSetProperty(agent_flareElement, "Fog Mesh Color", color_flareElementColor);
+  AgentSetProperty(agent_flareElement, "Fog Mesh Enabled", true);
+  AgentSetProperty(agent_flareElement, "Fog Override settings", true);
+  
+  AgentSetProperty(agent_flareElement, "Render Diffuse Color", color_flareElementColor);
+  AgentSetProperty(agent_flareElement, "fx_glowWhite - Light Color Diffuse", color_flareElementColor);
+
+  if not (string_elementTexture == "default") then
+    --AgentSetProperty(agent_flareElement, "fx_glowWhite - Texture", string_elementTexture);
+    ShaderOverrideTexture(agent_flareElement, "fx_glowWhite.d3dtx", string_elementTexture);
+  end
+
+  AgentAttach(agent_flareElement, agent_elementGroup);
+end
+
+local CreateFlareForLightSource = function(string_lightSourceAgentName, number_intensityModifer)
+  local string_flareGroupName = "LENSFLARE_GROUP_" .. string_lightSourceAgentName;
+  local string_flareElementName = "LENSFLARE_GROUP_" .. string_lightSourceAgentName .. "_ELEMENT";
+
+  local agent_flareGroup = AgentCreate(string_flareGroupName, "group.prop", Vector(0, 0, 0), Vector(0, 0, 0), RELIGHT_SceneObject, false, false)
+
+  local color_lightColor = AgentGetProperty(string_lightSourceAgentName, "EnvLight - Color");
+  local number_lightIntensity = AgentGetProperty(string_lightSourceAgentName, "EnvLight - Intensity");
+  
+  color_lightColor.r = color_lightColor.r * number_lightIntensity * number_intensityModifer;
+  color_lightColor.g = color_lightColor.g * number_lightIntensity * number_intensityModifer;
+  color_lightColor.b = color_lightColor.b * number_lightIntensity * number_intensityModifer;
+
+  CreateLensFlareElement(string_flareElementName .. "1", agent_flareGroup, 100.0, TLSE_MultiplyRGBColor(color_lightColor, 0.5), "default");
+  CreateLensFlareElement(string_flareElementName .. "2", agent_flareGroup, 3.5, TLSE_MultiplyRGBColor(color_lightColor, 0.25), "default");
+  CreateLensFlareElement(string_flareElementName .. "3", agent_flareGroup, 4.5, TLSE_MultiplyRGBColor(color_lightColor, 0.5), "bokeh_hex");
+  CreateLensFlareElement(string_flareElementName .. "4", agent_flareGroup, 5.5, TLSE_MultiplyRGBColor(color_lightColor, 0.75), "bokeh_circle");
+  CreateLensFlareElement(string_flareElementName .. "5", agent_flareGroup, 7.5, TLSE_MultiplyRGBColor(color_lightColor, 0.5), "bokeh_hex");
+  CreateLensFlareElement(string_flareElementName .. "6", agent_flareGroup, 5.5, TLSE_MultiplyRGBColor(color_lightColor, 0.2), "bokeh_circle");
+  CreateLensFlareElement(string_flareElementName .. "7", agent_flareGroup, 9.0, TLSE_MultiplyRGBColor(color_lightColor, 0.25), "bokeh_circle");
+  CreateLensFlareElement(string_flareElementName .. "8", agent_flareGroup, 10.0, TLSE_MultiplyRGBColor(color_lightColor, 0.35), "bokeh_circle");
+  CreateLensFlareElement(string_flareElementName .. "9", agent_flareGroup, 9.0, TLSE_MultiplyRGBColor(color_lightColor, 0.25), "bokeh_hex");
+  CreateLensFlareElement(string_flareElementName .. "10", agent_flareGroup, 175.0, TLSE_MultiplyRGBColor(color_lightColor, 0.35), "default");
+end
+
+RELIGHT_LensFlareEffect_Initalize = function()
+  for index = 1, LensFlareEffect_SourcesCount, 1 do 
+    local lensFlareSourceGroup = LensFlareEffect_Sources["Source" .. tostring(index)];
+    local string_lensFlareSourceAgentName = lensFlareSourceGroup.LightAgentName;
+    local number_lensFlareLightIntensityModifier = lensFlareSourceGroup.LightIntensityModifier;
+
+    CreateFlareForLightSource(string_lensFlareSourceAgentName, number_lensFlareLightIntensityModifier);
+  end
+end
+
+RELIGHT_LensFlareEffect_Update = function()
+  local agent_currentCamera = SceneGetCamera(RELIGHT_SceneObject); --Agent type
+  local vector_currentCameraPosition = AgentGetWorldPos(agent_currentCamera); --Vector type
+  local vector_currentCameraForward = AgentGetForwardVec(agent_currentCamera); --Vector type
+  local vector_currentCameraRotation = AgentGetWorldRot(agent_currentCamera); --Vector type
+
+  for index = 1, LensFlareEffect_SourcesCount, 1 do 
+    local lensFlareSourceGroup = LensFlareEffect_Sources["Source" .. tostring(index)];
+    local string_lensFlareSourceAgentName = lensFlareSourceGroup.LightAgentName;
+    local string_lensFlareSourceLightType = lensFlareSourceGroup.LightType;
+    local number_lensFlareSourceOcclusionAngle = lensFlareSourceGroup.LightOcclusionAngle;
+
+    local number_elementDistanceToCamera = 50;
+
+    local agent_lightSource = AgentFindInScene(string_lensFlareSourceAgentName, RELIGHT_SceneObject);
+    local vector_lightSourceDirection = nil;
+
+    if(string_lensFlareSourceLightType == "directional") then
+      vector_lightSourceDirection = AgentGetForwardVec(agent_lightSource);
+    else
+      vector_lightSourceDirection = VectorNormalize(vector_currentCameraPosition - AgentGetWorldPos(agent_lightSource));
+    end
+
+    local string_flareElementName = "LENSFLARE_GROUP_" .. string_lensFlareSourceAgentName .. "_ELEMENT";
+
+    local elementAgent1 = AgentFindInScene(string_flareElementName .. "1", RELIGHT_SceneObject);
+    local elementAgent2 = AgentFindInScene(string_flareElementName .. "2", RELIGHT_SceneObject);
+    local elementAgent3 = AgentFindInScene(string_flareElementName .. "3", RELIGHT_SceneObject);
+    local elementAgent4 = AgentFindInScene(string_flareElementName .. "4", RELIGHT_SceneObject);
+    local elementAgent5 = AgentFindInScene(string_flareElementName .. "5", RELIGHT_SceneObject);
+    local elementAgent6 = AgentFindInScene(string_flareElementName .. "6", RELIGHT_SceneObject);
+    local elementAgent7 = AgentFindInScene(string_flareElementName .. "7", RELIGHT_SceneObject);
+    local elementAgent8 = AgentFindInScene(string_flareElementName .. "8", RELIGHT_SceneObject);
+    local elementAgent9 = AgentFindInScene(string_flareElementName .. "9", RELIGHT_SceneObject);
+    local elementAgent10 = AgentFindInScene(string_flareElementName .. "10", RELIGHT_SceneObject);
+
+    local elementPos1 = vector_currentCameraPosition - vector_lightSourceDirection * number_elementDistanceToCamera;
+    local elementPos2 = vector_currentCameraPosition - ((vector_lightSourceDirection * 1.5) - vector_currentCameraForward) * number_elementDistanceToCamera;
+    local elementPos3 = vector_currentCameraPosition - ((vector_lightSourceDirection * 1.35) - vector_currentCameraForward) * number_elementDistanceToCamera;
+    local elementPos4 = vector_currentCameraPosition - ((vector_lightSourceDirection * 1.1) - vector_currentCameraForward) * number_elementDistanceToCamera;
+    local elementPos5 = vector_currentCameraPosition - ((vector_lightSourceDirection * 0.75) - vector_currentCameraForward) * number_elementDistanceToCamera;
+    local elementPos6 = vector_currentCameraPosition - ((vector_lightSourceDirection * 0.25) - vector_currentCameraForward) * number_elementDistanceToCamera;
+    local elementPos7 = vector_currentCameraPosition - ((vector_lightSourceDirection * -0.25) - vector_currentCameraForward) * number_elementDistanceToCamera;
+    local elementPos8 = vector_currentCameraPosition - ((vector_lightSourceDirection * -0.1) - vector_currentCameraForward) * number_elementDistanceToCamera;
+    local elementPos9 = vector_currentCameraPosition - ((vector_lightSourceDirection * -0.15) - vector_currentCameraForward) * number_elementDistanceToCamera;
+    local elementPos10 = vector_currentCameraPosition - ((vector_lightSourceDirection * -0.75) - vector_currentCameraForward) * number_elementDistanceToCamera;
 
     AgentSetWorldPos(elementAgent1, elementPos1);
     AgentSetWorldPos(elementAgent2, elementPos2);
@@ -235,44 +388,32 @@ LensFlareEffect_Update = function()
     AgentSetWorldPos(elementAgent9, elementPos9);
     AgentSetWorldPos(elementAgent10, elementPos10);
 
-    local elementRotation = Vector(currentCamera_rotation_vector.x + 180, currentCamera_rotation_vector.y, currentCamera_rotation_vector.z);
+    local elementRotation = Vector(vector_currentCameraRotation.x + 180, vector_currentCameraRotation.y, vector_currentCameraRotation.z);
 
-    AgentSetRot(elementAgent1, elementRotation);
-    AgentSetRot(elementAgent2, elementRotation);
-    AgentSetRot(elementAgent3, elementRotation);
-    AgentSetRot(elementAgent4, elementRotation);
-    AgentSetRot(elementAgent5, elementRotation);
-    AgentSetRot(elementAgent6, elementRotation);
-    AgentSetRot(elementAgent7, elementRotation);
-    AgentSetRot(elementAgent8, elementRotation);
-    AgentSetRot(elementAgent9, elementRotation);
-    AgentSetRot(elementAgent10, elementRotation);
+    AgentSetWorldRot(elementAgent1, elementRotation);
+    AgentSetWorldRot(elementAgent2, elementRotation);
+    AgentSetWorldRot(elementAgent3, elementRotation);
+    AgentSetWorldRot(elementAgent4, elementRotation);
+    AgentSetWorldRot(elementAgent5, elementRotation);
+    AgentSetWorldRot(elementAgent6, elementRotation);
+    AgentSetWorldRot(elementAgent7, elementRotation);
+    AgentSetWorldRot(elementAgent8, elementRotation);
+    AgentSetWorldRot(elementAgent9, elementRotation);
+    AgentSetWorldRot(elementAgent10, elementRotation);
 
     --occlusion by angle
-    local occlusionTest1 = VectorDot(currentCamera_forward_vector, lightSourceDirectionVector) < lensFlareSourceOcclusionAngle;
+    local occlusionTest1 = VectorDot(vector_currentCameraForward, vector_lightSourceDirection) < number_lensFlareSourceOcclusionAngle;
 
-    if occlusionTest1 then
-      AgentSetProperty(flareElementName .. "1", "Runtime: Visible", true);
-      AgentSetProperty(flareElementName .. "2", "Runtime: Visible", true);
-      AgentSetProperty(flareElementName .. "3", "Runtime: Visible", true);
-      AgentSetProperty(flareElementName .. "4", "Runtime: Visible", true);
-      AgentSetProperty(flareElementName .. "5", "Runtime: Visible", true);
-      AgentSetProperty(flareElementName .. "6", "Runtime: Visible", true);
-      AgentSetProperty(flareElementName .. "7", "Runtime: Visible", true);
-      AgentSetProperty(flareElementName .. "8", "Runtime: Visible", true);
-      AgentSetProperty(flareElementName .. "9", "Runtime: Visible", true);
-      AgentSetProperty(flareElementName .. "10", "Runtime: Visible", true);
-    else
-      AgentSetProperty(flareElementName .. "1", "Runtime: Visible", false);
-      AgentSetProperty(flareElementName .. "2", "Runtime: Visible", false);
-      AgentSetProperty(flareElementName .. "3", "Runtime: Visible", false);
-      AgentSetProperty(flareElementName .. "4", "Runtime: Visible", false);
-      AgentSetProperty(flareElementName .. "5", "Runtime: Visible", false);
-      AgentSetProperty(flareElementName .. "6", "Runtime: Visible", false);
-      AgentSetProperty(flareElementName .. "7", "Runtime: Visible", false);
-      AgentSetProperty(flareElementName .. "8", "Runtime: Visible", false);
-      AgentSetProperty(flareElementName .. "9", "Runtime: Visible", false);
-      AgentSetProperty(flareElementName .. "10", "Runtime: Visible", false);
-    end
+    AgentSetProperty(string_flareElementName .. "1", "Runtime: Visible", occlusionTest1);
+    AgentSetProperty(string_flareElementName .. "2", "Runtime: Visible", occlusionTest1);
+    AgentSetProperty(string_flareElementName .. "3", "Runtime: Visible", occlusionTest1);
+    AgentSetProperty(string_flareElementName .. "4", "Runtime: Visible", occlusionTest1);
+    AgentSetProperty(string_flareElementName .. "5", "Runtime: Visible", occlusionTest1);
+    AgentSetProperty(string_flareElementName .. "6", "Runtime: Visible", occlusionTest1);
+    AgentSetProperty(string_flareElementName .. "7", "Runtime: Visible", occlusionTest1);
+    AgentSetProperty(string_flareElementName .. "8", "Runtime: Visible", occlusionTest1);
+    AgentSetProperty(string_flareElementName .. "9", "Runtime: Visible", occlusionTest1);
+    AgentSetProperty(string_flareElementName .. "10", "Runtime: Visible", occlusionTest1);
   end
 end
+]]

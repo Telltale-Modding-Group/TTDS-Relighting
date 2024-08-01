@@ -241,6 +241,7 @@ end
 
 local OnPress_AgentDuplicate = function(textButton_button)
     agent_currentSelectedAgent = TLSE_Development_Editor_AgentDuplicate(agent_currentSelectedAgent);
+    --NOTE TO SELF: Tried to retain the currently selected agent position/rotation before duplication, and applying it after (with AgentSetWorldPos AND Scene: Location Info AND transform gizmo...) but to no sucess
 end
 
 local OnPress_AgentMoveToCamera = function(textButton_button)

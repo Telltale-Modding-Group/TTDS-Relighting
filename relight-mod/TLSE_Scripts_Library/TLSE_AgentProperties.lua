@@ -21,21 +21,34 @@
 --RETURNS: Dynamic type depending on the property
 TLSE_AgentNameGetProperty = function(string_agentName, string_propertyName, string_scene)
     local agent_object = AgentFindInScene(string_agentName, string_scene);
-    return AgentGetProperty(agent_object, string_propertyName);
+
+    if(agent_object ~= nil) then
+        return AgentGetProperty(agent_object, string_propertyName);
+    else
+        return nil;
+    end
 end
 
 --This finds an agent in a scene by its name, and checks if it has the given property.
 --RETURNS: Boolean (True/False)
 TLSE_AgentNameHasProperty = function(string_agentName, string_propertyName, string_scene)
     local agent_object = AgentFindInScene(string_agentName, string_scene);
-    return AgentHasProperty(agent_object, string_propertyName);
+
+    if(agent_object ~= nil) then
+        return AgentHasProperty(agent_object, string_propertyName);
+    else
+        return false;
+    end
 end
 
 --This finds an agent in a scene by its name, and sets the given property.
 --RETURNS: Nothing
 TLSE_AgentNameSetProperty = function(string_agentName, string_propertyName, type_propertyValue, string_scene)
     local agent_object = AgentFindInScene(string_agentName, string_scene);
-    AgentSetProperty(agent_object, string_propertyName, type_propertyValue);
+
+    if(agent_object ~= nil) then
+        AgentSetProperty(agent_object, string_propertyName, type_propertyValue);
+    end
 end
 
 --||||||||||||||||||||||||| CLASS PROPERTIES |||||||||||||||||||||||||

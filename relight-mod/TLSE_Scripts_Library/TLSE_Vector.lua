@@ -98,3 +98,10 @@ TLSE_VectorSignedAngle = function(vector_from, vector_to, vector_axis)
 
     return unsignedAngle * sign;
 end
+
+TLSE_VectorAverage = function(vector_a, vector_b)
+    local averaged_x = (vector_a.x + vector_b.x) / 2.0;
+    local averaged_y = (vector_a.y + vector_b.y) / 2.0;
+    local averaged_z = (vector_a.z + vector_b.z) / 2.0;
+    return Vector(averaged_x, averaged_y, averaged_z);
+end

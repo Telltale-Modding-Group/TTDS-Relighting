@@ -2,6 +2,10 @@ agent_currentSelectedAgent = nil;
 boundsAABB_currentSelectedAgentWorldBounds = nil;
 boundsAABB_currentSelectedAgentLocalBounds = nil;
 
+--agent_currentSelectedAgentPosition = Vector(0, 0, 0);
+--agent_currentSelectedAgentRotation = Vector(0, 0, 0);
+--agent_currentSelectedAgentLocationInfo = nil; --Scene: Location Info
+
 agent_currentHoverAgent = nil;
 boundsAABB_currentHoverAgentWorldBounds = nil;
 boundsAABB_currentHoverAgentLocalBounds = nil;
@@ -146,6 +150,10 @@ TLSE_Development_Selection_Update = function()
 
         if(TLSE_Development_Editor_Input_LeftMouseClicked == true) then
             agent_currentSelectedAgent = agent_currentHoverAgent;
+
+            --agent_currentSelectedAgentLocationInfo = TLSE_AgentGetRuntimeProperty(agent_currentSelectedAgent, "Scene: Location Info");
+            --agent_currentSelectedAgentPosition = AgentGetWorldPos(agent_currentHoverAgent);
+            --agent_currentSelectedAgentRotation = AgentGetWorldRot(agent_currentHoverAgent);
         end
     else
         agent_currentHoverAgent = nil;

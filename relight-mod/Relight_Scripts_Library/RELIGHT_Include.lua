@@ -15,9 +15,10 @@ require("RELIGHT_RelightingConfiguration_S4.lua");
 require("RELIGHT_RelightingConfiguration_SM.lua");
 require("RELIGHT_RelightingConfiguration.lua");
 
---require("RELIGHT_Effect_DepthOfFieldAutofocus");
---require("RELIGHT_Effect_HackyCameraVolumetrics");
---require("RELIGHT_Effect_LensFlare");
---require("RELIGHT_Effect_ProcedualGrass");
+require("RELIGHT_Effect_DepthOfFieldAutofocus.lua");
+require("RELIGHT_Effect_HackyCameraVolumetrics.lua");
+require("RELIGHT_Effect_LensFlare.lua");
+require("RELIGHT_Effect_ProcedualGrass.lua");
+require("RELIGHT_Effect_SkydomeReplacement.lua");
 require("RELIGHT_GlobalAdjustments.lua");
 require("RELIGHT_SceneAdjustments.lua");

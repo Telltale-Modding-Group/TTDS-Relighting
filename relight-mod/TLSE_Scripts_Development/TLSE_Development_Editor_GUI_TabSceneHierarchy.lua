@@ -26,11 +26,11 @@ local OnPress_FilterMesh = function(textButton_button) TLSE_Development_SceneAge
 
 TLSE_Development_GUI_TabSceneHierarchyInitalize = function()
     label_filter = TLSE_Development_Editor_GUI_CreateLabel("Filter:", Vector(0.758, 0.005, 0.0));
-    textButton_filterLights = TLSE_Development_Editor_GUI_CreateTextButton("[Light]", true, Vector(0.780, 0.005, 0.0), OnPress_FilterLights, nil);
-    textButton_filterFog = TLSE_Development_Editor_GUI_CreateTextButton("[Fog]", true, Vector(0.805, 0.005, 0.0), OnPress_FilterFog, nil);
+    textButton_filterLights = TLSE_Development_Editor_GUI_CreateTextButton("[EnvLight]", true, Vector(0.780, 0.005, 0.0), OnPress_FilterLights, nil);
+    textButton_filterFog = TLSE_Development_Editor_GUI_CreateTextButton("[EnvFog]", true, Vector(0.805, 0.005, 0.0), OnPress_FilterFog, nil);
     textButton_filterParticle = TLSE_Development_Editor_GUI_CreateTextButton("[Particle]", true, Vector(0.825, 0.005, 0.0), OnPress_FilterParticle, nil);
-    textButton_filterCineLight = TLSE_Development_Editor_GUI_CreateTextButton("[Cine Light]", true, Vector(0.860, 0.005, 0.0), OnPress_FilterCineLight, nil);
-    textButton_filterCineLightRig = TLSE_Development_Editor_GUI_CreateTextButton("[Cine Light Rig]", true, Vector(0.902, 0.005, 0.0), OnPress_FilterCineLightRig, nil);
+    textButton_filterCineLight = TLSE_Development_Editor_GUI_CreateTextButton("[CinLight]", true, Vector(0.860, 0.005, 0.0), OnPress_FilterCineLight, nil);
+    textButton_filterCineLightRig = TLSE_Development_Editor_GUI_CreateTextButton("[LightRig]", true, Vector(0.902, 0.005, 0.0), OnPress_FilterCineLightRig, nil);
     textButton_filterMesh = TLSE_Development_Editor_GUI_CreateTextButton("[Mesh]", true, Vector(0.955, 0.005, 0.0), OnPress_FilterMesh, nil);
 
     textButton_hierarchyPrevious = TLSE_Development_Editor_GUI_CreateTextButton("[PREVIOUS]", false, Vector(0.685, 0.465, 0.0), OnPress_CyclePreviousHierarchyItems, nil);
@@ -85,7 +85,6 @@ TLSE_Development_GUI_TabSceneHierarchyUpdate = function()
 
 
 
-
     --local label_filter = nil;
     --local textButton_filterLights = nil;
     --local textButton_filterFog = nil;
@@ -93,7 +92,6 @@ TLSE_Development_GUI_TabSceneHierarchyUpdate = function()
     --local textButton_filterCineLight = nil;
     --local textButton_filterCineLightRig = nil;
     --local textButton_filterMesh = nil;
-
 
     local vector_startScreenPosition = label_filter["LabelScreenPosition"];
     local vector_item1Size = TLSE_TextUI_GetTextScreenSize(label_filter["LabelAgentReference"]);
@@ -129,11 +127,10 @@ TLSE_Development_GUI_TabSceneHierarchyUpdate = function()
     vector_guiOffset.x = vector_guiOffset.x + (vector_item6Size.x * 2.0) + number_horizontalOffset;
     textButton_filterMesh["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
-
-
-
-
-
-
-
+    --textButton_filterLights["TextButtonSelected"] = TLSE_Development_SceneAgents_FilterLights;
+    --textButton_filterFog["TextButtonSelected"] = TLSE_Development_SceneAgents_FilterFog;
+    --textButton_filterParticle["TextButtonSelected"] = TLSE_Development_SceneAgents_FilterParticle;
+    --textButton_filterCineLight["TextButtonSelected"] = TLSE_Development_SceneAgents_FilterCineLight;
+    --textButton_filterCineLightRig["TextButtonSelected"] = TLSE_Development_SceneAgents_FilterCineLightRig;
+    --textButton_filterMesh["TextButtonSelected"] = TLSE_Development_SceneAgents_FilterMesh;
 end
