@@ -1,6 +1,7 @@
 local label_inspectorInfoText = nil;
 
 local boolField_visible = nil; --(boolean) Runtime: Visible
+local boolField_groupVisible = nil; --(boolean) Group - Visible
 local vector3field_agentLocalPosition = nil;
 local vector3field_agentLocalRotation = nil;
 local vector3field_agentWorldPosition = nil;
@@ -219,6 +220,7 @@ TLSE_TabInspector_OnDecrease_RenderAxisScale_Y = function(textButton_button) Mod
 TLSE_TabInspector_OnDecrease_RenderAxisScale_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Render Axis Scale", 2, -numberPropertyFieldAdjustmentValue); end
 
 TLSE_TabInspector_OnToggle_Visible = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Runtime: Visible"); end
+TLSE_TabInspector_OnToggle_GroupVisible = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Group - Visible"); end
 
 local OnPress_AgentDelete = function(textButton_button)
     local agentTable_attachments = AgentGetAttachments(agent_currentSelectedAgent);
@@ -279,16 +281,18 @@ TLSE_Development_GUI_TabInspectorInitalize = function()
     label_inspectorInfoText = TLSE_Development_Editor_GUI_CreateLabel("Inspector Info", Vector(0.685, 0.515, 0.0));
 
     boolField_visible = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "Runtime: Visible", "Runtime: Visible", Vector(0.685, 0.525, 0.0), TLSE_TabInspector_OnToggle_Visible);
-    vector3field_agentLocalPosition = TLSE_Development_Editor_GUI_CreateVector3PropertyField(nil, "Local Position", "", Vector(0.685, 0.535, 0.0), true, OnIncrease_LocalPositionX, OnIncrease_LocalPositionY, OnIncrease_LocalPositionZ, OnDecrease_LocalPositionX, OnDecrease_LocalPositionY, OnDecrease_LocalPositionZ);
-    vector3field_agentLocalRotation = TLSE_Development_Editor_GUI_CreateVector3PropertyField(nil, "Local Rotation", "", Vector(0.685, 0.565, 0.0), true, OnIncrease_LocalRotationX, OnIncrease_LocalRotationY, OnIncrease_LocalRotationZ, OnDecrease_LocalRotationX, OnDecrease_LocalRotationY, OnDecrease_LocalRotationZ);
-    vector3field_agentWorldPosition = TLSE_Development_Editor_GUI_CreateVector3PropertyField(nil, "World Position", "", Vector(0.685, 0.595, 0.0), true, OnIncrease_WorldPositionX, OnIncrease_WorldPositionY, OnIncrease_WorldPositionZ, OnDecrease_WorldPositionX, OnDecrease_WorldPositionY, OnDecrease_WorldPositionZ);
-    vector3field_agentWorldRotation = TLSE_Development_Editor_GUI_CreateVector3PropertyField(nil, "World Rotation", "", Vector(0.685, 0.625, 0.0), true, OnIncrease_WorldRotationX, OnIncrease_WorldRotationY, OnIncrease_WorldRotationZ, OnDecrease_WorldRotationX, OnDecrease_WorldRotationY, OnDecrease_WorldRotationZ);
-    numberField_agentRenderGlobalScale = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "Render Global Scale", Vector(0.685, 0.655, 0.0), true, OnIncrease_RenderGlobalScale, OnDecrease_RenderGlobalScale);
-    vector3field_agentRenderAxisScale = TLSE_Development_Editor_GUI_CreateVector3PropertyField(nil, "Render Axis Scale", "Render Axis Scale", Vector(0.685, 0.665, 0.0), true, TLSE_TabInspector_OnIncrease_RenderAxisScale_X, TLSE_TabInspector_OnIncrease_RenderAxisScale_Y, TLSE_TabInspector_OnIncrease_RenderAxisScale_Z, TLSE_TabInspector_OnDecrease_RenderAxisScale_X, TLSE_TabInspector_OnDecrease_RenderAxisScale_Y, TLSE_TabInspector_OnDecrease_RenderAxisScale_Z);
+    boolField_groupVisible = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "Group - Visible", "Group - Visible", Vector(0.685, 0.535, 0.0), TLSE_TabInspector_OnToggle_GroupVisible);
 
-    textButton_agentMoveToCamera = TLSE_Development_Editor_GUI_CreateTextButton("[MOVE AGENT TO CAMERA]", false, Vector(0.685, 0.705, 0.0), OnPress_AgentMoveToCamera, nil);
-    textButton_agentDelete = TLSE_Development_Editor_GUI_CreateTextButton("[DELETE AGENT]", false, Vector(0.685, 0.725, 0.0), OnPress_AgentDelete, nil);
-    textButton_agentDuplicate = TLSE_Development_Editor_GUI_CreateTextButton("[DUPLICATE AGENT]", false, Vector(0.685, 0.745, 0.0), OnPress_AgentDuplicate, nil);
+    vector3field_agentLocalPosition = TLSE_Development_Editor_GUI_CreateVector3PropertyField(nil, "Local Position", "", Vector(0.685, 0.545, 0.0), true, OnIncrease_LocalPositionX, OnIncrease_LocalPositionY, OnIncrease_LocalPositionZ, OnDecrease_LocalPositionX, OnDecrease_LocalPositionY, OnDecrease_LocalPositionZ);
+    vector3field_agentLocalRotation = TLSE_Development_Editor_GUI_CreateVector3PropertyField(nil, "Local Rotation", "", Vector(0.685, 0.575, 0.0), true, OnIncrease_LocalRotationX, OnIncrease_LocalRotationY, OnIncrease_LocalRotationZ, OnDecrease_LocalRotationX, OnDecrease_LocalRotationY, OnDecrease_LocalRotationZ);
+    vector3field_agentWorldPosition = TLSE_Development_Editor_GUI_CreateVector3PropertyField(nil, "World Position", "", Vector(0.685, 0.605, 0.0), true, OnIncrease_WorldPositionX, OnIncrease_WorldPositionY, OnIncrease_WorldPositionZ, OnDecrease_WorldPositionX, OnDecrease_WorldPositionY, OnDecrease_WorldPositionZ);
+    vector3field_agentWorldRotation = TLSE_Development_Editor_GUI_CreateVector3PropertyField(nil, "World Rotation", "", Vector(0.685, 0.635, 0.0), true, OnIncrease_WorldRotationX, OnIncrease_WorldRotationY, OnIncrease_WorldRotationZ, OnDecrease_WorldRotationX, OnDecrease_WorldRotationY, OnDecrease_WorldRotationZ);
+    numberField_agentRenderGlobalScale = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "Render Global Scale", Vector(0.685, 0.665, 0.0), true, OnIncrease_RenderGlobalScale, OnDecrease_RenderGlobalScale);
+    vector3field_agentRenderAxisScale = TLSE_Development_Editor_GUI_CreateVector3PropertyField(nil, "Render Axis Scale", "Render Axis Scale", Vector(0.685, 0.675, 0.0), true, TLSE_TabInspector_OnIncrease_RenderAxisScale_X, TLSE_TabInspector_OnIncrease_RenderAxisScale_Y, TLSE_TabInspector_OnIncrease_RenderAxisScale_Z, TLSE_TabInspector_OnDecrease_RenderAxisScale_X, TLSE_TabInspector_OnDecrease_RenderAxisScale_Y, TLSE_TabInspector_OnDecrease_RenderAxisScale_Z);
+
+    textButton_agentMoveToCamera = TLSE_Development_Editor_GUI_CreateTextButton("[MOVE AGENT TO CAMERA]", false, Vector(0.685, 0.715, 0.0), OnPress_AgentMoveToCamera, nil);
+    textButton_agentDelete = TLSE_Development_Editor_GUI_CreateTextButton("[DELETE AGENT]", false, Vector(0.685, 0.735, 0.0), OnPress_AgentDelete, nil);
+    textButton_agentDuplicate = TLSE_Development_Editor_GUI_CreateTextButton("[DUPLICATE AGENT]", false, Vector(0.685, 0.755, 0.0), OnPress_AgentDuplicate, nil);
     --textButton_agentRename = TLSE_Development_Editor_GUI_CreateTextButton("[RENAME AGENT]", false, Vector(0.685, 0.765, 0.0), OnPress_AgentRename, nil);
 end
 
@@ -298,6 +302,8 @@ TLSE_Development_GUI_TabInspectorUpdate = function()
     label_inspectorInfoText["LabelVisible"] = bool_inspectorTabActive;
 
     boolField_visible["BooleanPropertyFieldVisible"] = bool_inspectorTabActive;
+    boolField_groupVisible["BooleanPropertyFieldVisible"] = bool_inspectorTabActive;
+    
     vector3field_agentLocalPosition["Vector3FieldVisible"] = bool_inspectorTabActive;
     vector3field_agentLocalRotation["Vector3FieldVisible"] = bool_inspectorTabActive;
     vector3field_agentWorldPosition["Vector3FieldVisible"] = bool_inspectorTabActive;
@@ -334,6 +340,7 @@ TLSE_Development_GUI_TabInspectorUpdate = function()
         vector3field_agentWorldRotation["Vector3PropertyValue"] = AgentGetWorldRot(agent_currentSelectedAgent);
 
         boolField_visible["BooleanPropertyFieldAgent"] = agent_currentSelectedAgent;
+        boolField_groupVisible["BooleanPropertyFieldAgent"] = agent_currentSelectedAgent;
         vector3field_agentRenderAxisScale["Vector3PropertyFieldAgent"] = agent_currentSelectedAgent;
         numberField_agentRenderGlobalScale["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
 
@@ -347,6 +354,7 @@ TLSE_Development_GUI_TabInspectorUpdate = function()
     end
 
     boolField_visible["BooleanPropertyFieldVisible"] = bool_inspectingObject;
+    boolField_groupVisible["BooleanPropertyFieldVisible"] = bool_inspectingObject;
     vector3field_agentLocalPosition["Vector3FieldVisible"] = bool_inspectingObject;
     vector3field_agentLocalRotation["Vector3FieldVisible"] = bool_inspectingObject;
     vector3field_agentWorldPosition["Vector3FieldVisible"] = bool_inspectingObject;
