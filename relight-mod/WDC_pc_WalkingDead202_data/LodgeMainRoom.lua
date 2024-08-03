@@ -5,7 +5,6 @@
 --This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
 
 require("RELIGHT_Include.lua");
-require("adv_lodgeMainRoom_SceneChanges.lua");
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -33,7 +32,7 @@ RELIGHT_SceneObject = kScene;
 RELIGHT_SceneObjectAgentName = kScene .. ".scene";
 RelightConfigGlobal = RelightConfigData_Main.Global;
 RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
-RelightConfigLevel = RelightConfigData_Season2.Level_202_LodgeMainRoom;
+--RelightConfigLevel = RelightConfigData_Season2.Level_202_LodgeMainRoom;
 
 --Relight DOF
 RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
@@ -59,10 +58,10 @@ RELIGHT_DOF_AUTOFOCUS_BokehSettings =
 {
     BokehBrightnessDeltaThreshold = 0.02,
     BokehBrightnessThreshold = 0.02,
-    BokehBlurThreshold = 0.02,
+    BokehBlurThreshold = 0.05,
     BokehMinSize = 0.0,
-    BokehMaxSize = 0.035,
-    BokehFalloff = 0.5,
+    BokehMaxSize = 0.03,
+    BokehFalloff = 0.75,
     MaxBokehBufferAmount = 1.0,
     BokehPatternTexture = "bokeh_circle.d3dtx"
 };
@@ -71,7 +70,7 @@ RELIGHT_DOF_AUTOFOCUS_BokehSettings =
 RELIGHT_HackyCameraVolumetrics_Settings = 
 {
     Samples = 256,
-    SampleOffset = 0.1,
+    SampleOffset = 0.15,
     SampleStartOffset = 1.0,
     FogColor = Color(0.1, 0.1, 0.1, 0.1)
 };
@@ -182,18 +181,9 @@ end
 --This is where we will setup and execute everything that we want to do!
 
 function LodgeMainRoom()
-  --RELIGHT_SetupConfigurationFiles();
-
-  --Apply freecamera settings from ini dev file
-  RELIGHT_ApplyFreecameraSettingsFromINI();
+  RELIGHT_ConfigurationStart();
 
   RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
-
-  RELIGHT_HackyCameraVolumetrics_Initalize();
-  Callback_OnPostUpdate:Add(RELIGHT_HackyCameraVolumetrics_Update);
-
-  RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF(nil);
-  Callback_OnPostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus);
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then

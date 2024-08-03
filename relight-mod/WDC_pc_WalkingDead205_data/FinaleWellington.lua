@@ -5,7 +5,6 @@
 --This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
 
 require("RELIGHT_Include.lua");
-require("RELIGHT_FinaleWellington.lua");
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -112,23 +111,9 @@ end
 --This is where we will setup and execute everything that we want to do!
 
 function FinaleWellington()
-  --RELIGHT_SetupConfigurationFiles();
-
-  --Apply freecamera settings from ini dev file
-  RELIGHT_ApplyFreecameraSettingsFromINI();
+  RELIGHT_ConfigurationStart();
 
   RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
-
-  RELIGHT_SkydomeReplacement_Initalize();
-
-  --RELIGHT_LensFlareEffect_Initalize();
-  --Callback_OnPostUpdate:Add(RELIGHT_LensFlareEffect_Update);
-
-  --RELIGHT_HackyCameraVolumetrics_Initalize();
-  --Callback_OnPostUpdate:Add(RELIGHT_HackyCameraVolumetrics_Update);
-
-  --RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF(nil);
-  --Callback_OnPostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus);
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then
@@ -160,6 +145,6 @@ end
 
 SceneOpen(kScene, kScript);
 
-if (RelightConfigDevelopment.EditorMode == false) or (RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == true) then
+if not (RelightConfigDevelopment.EditorMode == true or RelightConfigDevelopment.FreeCameraOnlyMode == true) then
   SceneAdd("ui_nextTimeOn");
 end

@@ -1,10 +1,92 @@
+--|||||||||||||||||||||||||||||||||||||||||||||||| INCLUDES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| INCLUDES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| INCLUDES ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here we include the relight include file, and this file will include all of the dependencies with the relight mod.
+--This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
+
+require("RELIGHT_Include.lua");
+
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here telltale declares these two variables at the top of every level script.
+--NOTE: That we are only intrested in kScene which is a reference to the actual scene file.
+--This is CRITICAL as getting a reference to it means we can do everything that we need to do in the scene.
+
 local kScript = "HardwareStoreExterior"
 local kScene = "adv_hardwareStoreExterior"
+
+--|||||||||||||||||||||||||||||||||||||||||||||||| CUSTOM VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| CUSTOM VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| CUSTOM VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here we declare our own variables related to Relight and Telltale Lua Script Extensions (TLSE) development tools.
+--NOTE: These are declared globally so they can be used throughout all scripts.
+
+--Telltale Lua Script Extensions (TLSE) Development variables
+TLSE_Development_SceneObject = kScene;
+TLSE_Development_SceneObjectAgentName = kScene .. ".scene";
+TLSE_Development_FreecamUseFOVScale = false;
+
+--Relight variables
+RELIGHT_SceneObject = kScene;
+RELIGHT_SceneObjectAgentName = kScene .. ".scene";
+RelightConfigGlobal = RelightConfigData_Main.Global;
+RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
+--RelightConfigLevel = RelightConfigData_Season2.Level_202_LodgeMainRoom;
+
+--Relight DOF
+RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
+RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = false;
+RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
+RELIGHT_DOF_AUTOFOCUS_FocalRange = 1.0;
+RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = {};
+RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
+{
+    "Clementine"
+};
+RELIGHT_DOF_AUTOFOCUS_Settings =
+{
+    TargetValidation_IsOnScreen = true,
+    TargetValidation_IsVisible = true,
+    TargetValidation_IsWithinDistance = true,
+    TargetValidation_IsFacingCamera = true,
+    TargetValidation_IsOccluded = false,
+    TargetValidation_RejectionAngle = 0.0, --goes from -1 to 1 (less than 0 is within the 180 forward facing fov of the given object)
+    TargetValidation_RejectionDistance = 40.0, --the max distance before the agent is too far from camera to do autofocus
+};
+RELIGHT_DOF_AUTOFOCUS_BokehSettings =
+{
+    BokehBrightnessDeltaThreshold = 0.02,
+    BokehBrightnessThreshold = 0.02,
+    BokehBlurThreshold = 0.05,
+    BokehMinSize = 0.0,
+    BokehMaxSize = 0.03,
+    BokehFalloff = 0.75,
+    MaxBokehBufferAmount = 1.0,
+    BokehPatternTexture = "bokeh_circle.d3dtx"
+};
+
+--Relight Volumetrics
+RELIGHT_HackyCameraVolumetrics_Settings = 
+{
+    Samples = 256,
+    SampleOffset = 0.15,
+    SampleStartOffset = 1.0,
+    FogColor = Color(0.1, 0.1, 0.1, 0.1)
+};
+
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here is alot of the original (decompiled) telltale lua script logic for the level.
+--We are leaving this untouched because we still want the level to function normally as intended.
+
 local kShoeStoreZombieHitSoundChores = {
   "env_shoeStoreInterior_use_zombie1_1a.chore",
   "env_shoeStoreInterior_use_zombie1_1b.chore",
   "env_shoeStoreInterior_use_zombie1_1c.chore"
 }
+
 local kClemShelfMoveDeathTime = 1.5
 local kClemShelfMoveZombieKillTriggerDelay = 1
 local kClemBackAwayTimeLimit = 4
@@ -45,6 +127,7 @@ local kComicStoreLookats = {
     "obj_ventUsePoint"
   }
 }
+
 local kCableStruggleConsoleMulti = 4.5
 local kScrewdriverStruggleConsoleMulti = 1.3333
 local kShoeStoreSoundEmitters = {
@@ -54,11 +137,13 @@ local kShoeStoreSoundEmitters = {
   "sound_zombie_3",
   "sound_zombie_group"
 }
+
 local mbIsConsole = IsPlatformPS3() or IsPlatformXbox360()
 local mControllerClemBacksAwayFromZombie
 local mControllerTimeClemBacksAwayFromZombie = 0
 local mControllerStruggleCableLightChore, mShelfSqueezeKillWatchThread, mControllerTroyTimer, mDialogTroyTimer
 local mShoeStoreZombieHitSoundsActive = {}
+
 local PreloadAssets = function()
   PreLoad("clementine_face_default.chore")
   if LogicGet(kAct) == 2 then
@@ -263,6 +348,7 @@ local PreloadAssets = function()
     RenderPreloadShader("Mesh_LGT_DTL_VCOL_CC_QLo.t3fxb", "71")
   end
 end
+
 local ConsoleStruggleBoost = function()
   if mbIsConsole then
     print(">>> Adjusting struggle values for console - CABLE <<<")
@@ -274,6 +360,7 @@ local ConsoleStruggleBoost = function()
     kScrewdriverStruggleMashFailDelta = kScrewdriverStruggleMashFailDelta * kScrewdriverStruggleConsoleMulti
   end
 end
+
 local function CheckFirstZombieSelectability(propertyKey, bPropertyValue)
   if bPropertyValue then
     AgentSetProperty("ZombieShoeStore", "Game Selectable", false)
@@ -285,6 +372,7 @@ local function CheckFirstZombieSelectability(propertyKey, bPropertyValue)
     LogicRemoveKeyCallback(propertyKey, CheckFirstZombieSelectability)
   end
 end
+
 local CableStruggleIncreaseZombieStrength = function()
   AgentSetProperty("struggle_cable", "Button Mash - Max Percentage", kCableStruggleMaxPercent)
   AgentSetProperty("struggle_cable", "Struggle - Max Time Between Mashes", kCableStruggleMaxMashTimeInt)
@@ -325,6 +413,7 @@ local CableStruggleIncreaseZombieStrength = function()
     Yield()
   end
 end
+
 local TimedDelay = function(delay)
   if not delay or type(delay) ~= "number" then
     delay = 3
@@ -338,62 +427,7 @@ local TimedDelay = function(delay)
     Yield()
   end
 end
-function HardwareStoreExterior()
-  Game_NewScene(kScene, kScript)
-  PreloadAssets()
-  local bRestoreNode = false
-  if Game_GetDebug() then
-    if LogicGet(kAct) == 2 then
-      if LogicGet("2 - Entered Shoe Store") then
-        Game_SetSceneDialog("env_shoeStoreInterior.dlog")
-        bRestoreNode = true
-        Yield()
-      elseif LogicGet("2 - Trapped Behind Shelf") then
-        LogicSet("2 - Entered Shoe Store", true)
-        Game_SetSceneDialog("env_shoeStoreInterior.dlog")
-        Game_SetSceneDialogNode("cs_clemSpotsMoreZombies")
-        bRestoreNode = true
-        Yield()
-        Reticle_EnableCombatMode()
-        AgentHide("Zombie1", false)
-        AgentHide("Zombie2", false)
-        AgentHide("Zombie3", false)
-        AgentHide("ZombieArrow", false)
-        AgentHide("obj_bucketNails_clementine", true)
-      elseif LogicGet("2 - Grabbed at Comic Store") then
-        LogicSet("2 - Entered Shoe Store", true)
-        Game_SetSceneDialogNode("cs_exitShoreStore")
-        bRestoreNode = true
-        Yield()
-        AgentHide("obj_bucketNails_clementine", true)
-      end
-    else
-      Game_SetSceneDialog("env_comicStoreInterior")
-      Game_SetSceneDialogNode("cs_lukeMissing")
-      bRestoreNode = true
-      Yield()
-    end
-  end
-  Game_StartScene()
-  ConsoleStruggleBoost()
-  if IsPlatformIOS() or Input_UseTouch() then
-    AgentSetProperty("cam_closeUp_grabSomething", "Pan Cam - Reticle Position Horizontal", 0.5)
-    AgentSetProperty("cam_closeUp_grabSomething", "Pan Cam - Reticle Position Vertical", 0.5)
-  else
-    PropertyRemove(AgentGetProperties("cam_closeUp_grabSomething"), "Pan Cam - Reticle Position Horizontal")
-    PropertyRemove(AgentGetProperties("cam_closeUp_grabSomething"), "Pan Cam - Reticle Position Vertical")
-  end
-  if bRestoreNode then
-    Game_SetSceneDialogNode("cs_enter")
-  end
-  if LogicGet(kAct) == 2 then
-    LogicAddKeyCallback("2 - Zombie Shoe Store 1 Too Close For Another Hit", CheckFirstZombieSelectability)
-  elseif LogicGet(kAct) == 3 then
-    for key, value in pairs(kShoeStoreSoundEmitters) do
-      AgentSetProperty(value, "Sound - Volume", 0)
-    end
-  end
-end
+
 function HardwareStoreExterior_ShoeStoreZombieHit()
   local numActiveChores = #mShoeStoreZombieHitSoundsActive
   if numActiveChores == 0 then
@@ -412,10 +446,12 @@ function HardwareStoreExterior_ShoeStoreZombieHit()
     print("BONK! playing sound chore " .. tostring(chore))
   end
 end
+
 function HardwareStoreExterior_StartComicStoreTroyTimer()
   mDialogTroyTimer = Game_RunDialog("bg_timerTroyArrival", false)
   mControllerTroyTimer = Dialog_GetController(mDialogTroyTimer)
 end
+
 function HardwareStoreExterior_KillComicStoreExitTrigger()
   AgentSetProperty("trigger_dialog_tryToLeaveComicShop", "Trigger Enabled", false)
   if Game_GetMode() == eModeCutscene then
@@ -426,9 +462,11 @@ function HardwareStoreExterior_KillComicStoreExitTrigger()
     ControllerPlay(mControllerTroyTimer)
   end
 end
+
 function HardwareStoreExterior_ShelfSqueezeTriggeredClemDeath()
   Game_RunDialog("logic_shelfSqueezeDeath", false)
 end
+
 function HardwareStoreExterior_EnableComicStoreLookats(bEnable, subset)
   if bEnable == nil then
     bEnable = true
@@ -445,9 +483,11 @@ function HardwareStoreExterior_EnableComicStoreLookats(bEnable, subset)
     end
   end
 end
+
 function HardwareStoreExterior_ShowShelfSqueezeHint()
   Notification_ShowTutorial("tut_shoeStoreShelfSqueeze", 0, 4.5)
 end
+
 function HardwareStoreExterior_MoveBehindShelf()
   local lastMoveTime = 0
   local curMoveTime = 0
@@ -508,12 +548,14 @@ function HardwareStoreExterior_MoveBehindShelf()
   Yield()
   mShelfSqueezeKillWatchThread = ThreadStart(KillWatch)
 end
+
 function HardwareStoreExterior_MoveBehindShelf_Abort()
   AgentSetProperty(Game_GetPlayer(), "Chored Movement - Dialog End", "")
   Yield()
   ThreadKill(mShelfSqueezeKillWatchThread)
   ChoredMovement_Stop()
 end
+
 function HardwareStoreExterior_ClemBackingUpChorePlay(bPause, bInit)
   if bInit then
     mControllerClemBacksAwayFromZombie = ChorePlay("env_shoeStoreInterior_bg_clemBacksUp_1.chore")
@@ -524,9 +566,11 @@ function HardwareStoreExterior_ClemBackingUpChorePlay(bPause, bInit)
     ControllerPlay(mControllerClemBacksAwayFromZombie)
   end
 end
+
 function HardwareStoreExterior_ClemBackingUpHitWallCheck()
   return mControllerTimeClemBacksAwayFromZombie > kClemBackAwayTimeLimit
 end
+
 function HardwareStoreExterior_StruggleScrewdriverLoseOnPushback()
   local lastCheckMashPercent = 0
   local curCheckMashPercent = 0.5
@@ -543,6 +587,7 @@ function HardwareStoreExterior_StruggleScrewdriverLoseOnPushback()
   end
   print("Screwdriver struggle -- IT'S OVER")
 end
+
 function HardwareStoreExterior_StruggleCableTimedWin(winDelay)
   local StruggleEndWatch = function()
     local winPercent = kCableStruggleVictoryEndPercent
@@ -568,15 +613,18 @@ function HardwareStoreExterior_StruggleCableTimedWin(winDelay)
   LogicSet("2 - Survived Cable Struggle", true)
   ThreadStart(StruggleEndWatch)
 end
+
 function HardwareStoreExterior_StruggleCableKillLighting()
   ControllerKill(mControllerStruggleCableLightChore)
 end
+
 function HardwareStoreExterior_StruggleLukeTimer(delay)
   TimedDelay(delay)
   if Game_GetMode() == eModeStruggle then
     Struggle_Exit()
   end
 end
+
 function HardwareStoreExterior_FakeStruggle(duration)
   AgentSetProperty("struggleFake", "Struggle - Complete", false)
   AgentSetProperty("struggleFake", "Struggle - Won", false)
@@ -584,4 +632,101 @@ function HardwareStoreExterior_FakeStruggle(duration)
   TimedDelay(duration)
   Struggle_Exit()
 end
+
+local OriginalTelltaleLevelStartLogic = function()
+  Game_NewScene(kScene, kScript)
+  PreloadAssets()
+  local bRestoreNode = false
+  if Game_GetDebug() then
+    if LogicGet(kAct) == 2 then
+      if LogicGet("2 - Entered Shoe Store") then
+        Game_SetSceneDialog("env_shoeStoreInterior.dlog")
+        bRestoreNode = true
+        Yield()
+      elseif LogicGet("2 - Trapped Behind Shelf") then
+        LogicSet("2 - Entered Shoe Store", true)
+        Game_SetSceneDialog("env_shoeStoreInterior.dlog")
+        Game_SetSceneDialogNode("cs_clemSpotsMoreZombies")
+        bRestoreNode = true
+        Yield()
+        Reticle_EnableCombatMode()
+        AgentHide("Zombie1", false)
+        AgentHide("Zombie2", false)
+        AgentHide("Zombie3", false)
+        AgentHide("ZombieArrow", false)
+        AgentHide("obj_bucketNails_clementine", true)
+      elseif LogicGet("2 - Grabbed at Comic Store") then
+        LogicSet("2 - Entered Shoe Store", true)
+        Game_SetSceneDialogNode("cs_exitShoreStore")
+        bRestoreNode = true
+        Yield()
+        AgentHide("obj_bucketNails_clementine", true)
+      end
+    else
+      Game_SetSceneDialog("env_comicStoreInterior")
+      Game_SetSceneDialogNode("cs_lukeMissing")
+      bRestoreNode = true
+      Yield()
+    end
+  end
+  Game_StartScene()
+  ConsoleStruggleBoost()
+  if IsPlatformIOS() or Input_UseTouch() then
+    AgentSetProperty("cam_closeUp_grabSomething", "Pan Cam - Reticle Position Horizontal", 0.5)
+    AgentSetProperty("cam_closeUp_grabSomething", "Pan Cam - Reticle Position Vertical", 0.5)
+  else
+    PropertyRemove(AgentGetProperties("cam_closeUp_grabSomething"), "Pan Cam - Reticle Position Horizontal")
+    PropertyRemove(AgentGetProperties("cam_closeUp_grabSomething"), "Pan Cam - Reticle Position Vertical")
+  end
+  if bRestoreNode then
+    Game_SetSceneDialogNode("cs_enter")
+  end
+  if LogicGet(kAct) == 2 then
+    LogicAddKeyCallback("2 - Zombie Shoe Store 1 Too Close For Another Hit", CheckFirstZombieSelectability)
+  elseif LogicGet(kAct) == 3 then
+    for key, value in pairs(kShoeStoreSoundEmitters) do
+      AgentSetProperty(value, "Sound - Volume", 0)
+    end
+  end
+end
+
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here is the main function that gets called when the level starts.
+--This is where we will setup and execute everything that we want to do!
+
+function HardwareStoreExterior()
+  RELIGHT_ConfigurationStart();
+
+  RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
+
+  --If configured in the development ini, enable the TLSE editor
+  if (RelightConfigDevelopment.EditorMode == true) then
+    TLSE_Development_Editor_Start();
+    Callback_OnPostUpdate:Add(TLSE_Development_Editor_Update);
+    do return end --don't continue
+  end
+
+  --If configured in the development ini, enable freecamera (if editor is not enabled)
+  if (RelightConfigDevelopment.FreeCameraOnlyMode == true) then     
+    TLSE_Development_CreateFreeCamera();
+    Callback_OnPostUpdate:Add(TLSE_Development_UpdateFreeCamera);
+  end
+
+  --If configured in the development ini, enable a performance metrics overlay
+  if (RelightConfigDevelopment.PerformanceMetrics == true) then     
+    TLSE_Development_PerformanceMetrics_Initalize();
+    Callback_OnPostUpdate:Add(TLSE_Development_PerformanceMetrics_Update);
+  end
+
+  --If it's configured in the development ini to be in freecamera mode...
+  if (RelightConfigDevelopment.FreeCameraOnlyMode == true and RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == false) then
+    return --don't start the scene normally as the user wants to fly around the scene but not have it attempt to run the original level logic
+  end
+
+  --execute the original telltale level start logic
+  OriginalTelltaleLevelStartLogic();
+end
+
 SceneOpen(kScene, kScript)

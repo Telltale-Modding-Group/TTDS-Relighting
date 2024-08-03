@@ -1,6 +1,88 @@
+--|||||||||||||||||||||||||||||||||||||||||||||||| INCLUDES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| INCLUDES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| INCLUDES ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here we include the relight include file, and this file will include all of the dependencies with the relight mod.
+--This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
+
+require("RELIGHT_Include.lua");
+
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here telltale declares these two variables at the top of every level script.
+--NOTE: That we are only intrested in kScene which is a reference to the actual scene file.
+--This is CRITICAL as getting a reference to it means we can do everything that we need to do in the scene.
+
 local kScript = "RestStop"
 local kScene = "adv_restStop"
+
+--|||||||||||||||||||||||||||||||||||||||||||||||| CUSTOM VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| CUSTOM VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| CUSTOM VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here we declare our own variables related to Relight and Telltale Lua Script Extensions (TLSE) development tools.
+--NOTE: These are declared globally so they can be used throughout all scripts.
+
+--Telltale Lua Script Extensions (TLSE) Development variables
+TLSE_Development_SceneObject = kScene;
+TLSE_Development_SceneObjectAgentName = kScene .. ".scene";
+TLSE_Development_FreecamUseFOVScale = false;
+
+--Relight variables
+RELIGHT_SceneObject = kScene;
+RELIGHT_SceneObjectAgentName = kScene .. ".scene";
+RelightConfigGlobal = RelightConfigData_Main.Global;
+RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
+--RelightConfigLevel = RelightConfigData_Season2.Level_202_LodgeMainRoom;
+
+--Relight DOF
+RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
+RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = false;
+RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
+RELIGHT_DOF_AUTOFOCUS_FocalRange = 1.0;
+RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = {};
+RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
+{
+    "Clementine"
+};
+RELIGHT_DOF_AUTOFOCUS_Settings =
+{
+    TargetValidation_IsOnScreen = true,
+    TargetValidation_IsVisible = true,
+    TargetValidation_IsWithinDistance = true,
+    TargetValidation_IsFacingCamera = true,
+    TargetValidation_IsOccluded = false,
+    TargetValidation_RejectionAngle = 0.0, --goes from -1 to 1 (less than 0 is within the 180 forward facing fov of the given object)
+    TargetValidation_RejectionDistance = 40.0, --the max distance before the agent is too far from camera to do autofocus
+};
+RELIGHT_DOF_AUTOFOCUS_BokehSettings =
+{
+    BokehBrightnessDeltaThreshold = 0.02,
+    BokehBrightnessThreshold = 0.02,
+    BokehBlurThreshold = 0.05,
+    BokehMinSize = 0.0,
+    BokehMaxSize = 0.03,
+    BokehFalloff = 0.75,
+    MaxBokehBufferAmount = 1.0,
+    BokehPatternTexture = "bokeh_circle.d3dtx"
+};
+
+--Relight Volumetrics
+RELIGHT_HackyCameraVolumetrics_Settings = 
+{
+    Samples = 256,
+    SampleOffset = 0.15,
+    SampleStartOffset = 1.0,
+    FogColor = Color(0.1, 0.1, 0.1, 0.1)
+};
+
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here is alot of the original (decompiled) telltale lua script logic for the level.
+--We are leaving this untouched because we still want the level to function normally as intended.
+
 local mZombieHeads
+
 local ZombieMonitor = function()
   local worldPos = AgentGetWorldPos(Game_GetPlayer())
   for _, head in ipairs(mZombieHeads) do
@@ -12,6 +94,7 @@ local ZombieMonitor = function()
     end
   end
 end
+
 local PreloadAssets = function()
   local kPreLoadList = {
     "env_restStop_cs_enterSnowstorm_1.chore",
@@ -132,7 +215,46 @@ local PreloadAssets = function()
     RenderPreloadShader("Mesh_VCOL_QLo.t3fxb", "3")
   end
 end
-function RestStop()
+
+function RestStop_FaceZombie(zombieNum)
+  PathAgentFacePos(Game_GetPlayer(), AgentGetSelectionCenter("ZombieSnowstorm" .. zombieNum, true))
+end
+
+function RestStop_DisableZombieWalkBoxes(zombieNum)
+  WalkBoxesDisableAreaAroundAgent(kScene, "ZombieSnowstorm" .. zombieNum)
+end
+
+function RestStop_ResetZombies()
+  if mZombieHeads then
+    for _, zombieHead in ipairs(mZombieHeads) do
+      AgentSetSelectable(zombieHead, true)
+    end
+  end
+  WalkBoxesEnableAll(kScene)
+end
+
+function RestStop_ZombieMonitor(bStart)
+  if bStart then
+    mZombieHeads = {
+      AgentFind("obj_zombieSnowstormHead1"),
+      AgentFind("obj_zombieSnowstormHead2"),
+      AgentFind("obj_zombieSnowstormHead3"),
+      AgentFind("obj_zombieSnowstormHead4"),
+      AgentFind("obj_zombieSnowstormHead5")
+    }
+    Callback_OnPostUpdate:Add(ZombieMonitor)
+  else
+    Callback_OnPostUpdate:Remove(ZombieMonitor)
+    if mZombieHeads then
+      for _, zombieHead in ipairs(mZombieHeads) do
+        AgentHide(zombieHead, true)
+      end
+      mZombieHeads = nil
+    end
+  end
+end
+
+local OriginalTelltaleLevelStartLogic = function()
   Game_NewScene(kScene, kScript)
   local bFightStarted = LogicGet("3 - Fight Started")
   if Game_GetLoaded() and bFightStarted then
@@ -155,38 +277,44 @@ function RestStop()
   PreloadAssets()
   Game_StartScene()
 end
-function RestStop_FaceZombie(zombieNum)
-  PathAgentFacePos(Game_GetPlayer(), AgentGetSelectionCenter("ZombieSnowstorm" .. zombieNum, true))
-end
-function RestStop_DisableZombieWalkBoxes(zombieNum)
-  WalkBoxesDisableAreaAroundAgent(kScene, "ZombieSnowstorm" .. zombieNum)
-end
-function RestStop_ResetZombies()
-  if mZombieHeads then
-    for _, zombieHead in ipairs(mZombieHeads) do
-      AgentSetSelectable(zombieHead, true)
-    end
+
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here is the main function that gets called when the level starts.
+--This is where we will setup and execute everything that we want to do!
+
+function RestStop()
+  RELIGHT_ConfigurationStart();
+
+  RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
+
+  --If configured in the development ini, enable the TLSE editor
+  if (RelightConfigDevelopment.EditorMode == true) then
+    TLSE_Development_Editor_Start();
+    Callback_OnPostUpdate:Add(TLSE_Development_Editor_Update);
+    do return end --don't continue
   end
-  WalkBoxesEnableAll(kScene)
-end
-function RestStop_ZombieMonitor(bStart)
-  if bStart then
-    mZombieHeads = {
-      AgentFind("obj_zombieSnowstormHead1"),
-      AgentFind("obj_zombieSnowstormHead2"),
-      AgentFind("obj_zombieSnowstormHead3"),
-      AgentFind("obj_zombieSnowstormHead4"),
-      AgentFind("obj_zombieSnowstormHead5")
-    }
-    Callback_OnPostUpdate:Add(ZombieMonitor)
-  else
-    Callback_OnPostUpdate:Remove(ZombieMonitor)
-    if mZombieHeads then
-      for _, zombieHead in ipairs(mZombieHeads) do
-        AgentHide(zombieHead, true)
-      end
-      mZombieHeads = nil
-    end
+
+  --If configured in the development ini, enable freecamera (if editor is not enabled)
+  if (RelightConfigDevelopment.FreeCameraOnlyMode == true) then     
+    TLSE_Development_CreateFreeCamera();
+    Callback_OnPostUpdate:Add(TLSE_Development_UpdateFreeCamera);
   end
+
+  --If configured in the development ini, enable a performance metrics overlay
+  if (RelightConfigDevelopment.PerformanceMetrics == true) then     
+    TLSE_Development_PerformanceMetrics_Initalize();
+    Callback_OnPostUpdate:Add(TLSE_Development_PerformanceMetrics_Update);
+  end
+
+  --If it's configured in the development ini to be in freecamera mode...
+  if (RelightConfigDevelopment.FreeCameraOnlyMode == true and RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == false) then
+    return --don't start the scene normally as the user wants to fly around the scene but not have it attempt to run the original level logic
+  end
+
+  --execute the original telltale level start logic
+  OriginalTelltaleLevelStartLogic();
 end
+
 SceneOpen(kScene, kScript)

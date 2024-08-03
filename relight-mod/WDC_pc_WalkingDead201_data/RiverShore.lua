@@ -5,7 +5,6 @@
 --This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
 
 require("RELIGHT_Include.lua");
-require("RELIGHT_RiverShore.lua");
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -59,10 +58,10 @@ RELIGHT_DOF_AUTOFOCUS_BokehSettings =
 {
     BokehBrightnessDeltaThreshold = 0.02,
     BokehBrightnessThreshold = 0.02,
-    BokehBlurThreshold = 0.02,
+    BokehBlurThreshold = 0.05,
     BokehMinSize = 0.0,
-    BokehMaxSize = 0.035,
-    BokehFalloff = 1.0,
+    BokehMaxSize = 0.03,
+    BokehFalloff = 0.75,
     MaxBokehBufferAmount = 1.0,
     BokehPatternTexture = "bokeh_circle.d3dtx"
 };
@@ -71,15 +70,10 @@ RELIGHT_DOF_AUTOFOCUS_BokehSettings =
 RELIGHT_HackyCameraVolumetrics_Settings = 
 {
     Samples = 256,
-    SampleOffset = 0.1,
+    SampleOffset = 0.15,
     SampleStartOffset = 1.0,
     FogColor = Color(0.1, 0.1, 0.1, 0.1)
 };
-
-RELIGHT_ProcedualGrass_PropFile = "obj_grassHIRiverCampWalk.prop";
-RELIGHT_ProcedualGrass_DensityPerUnit = 0.4;
-RELIGHT_ProcedualGrass_GrassScale = 0.5;
-RELIGHT_ProcedualGrass_IgnoreZones = {};
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -290,40 +284,9 @@ end
 --This is where we will setup and execute everything that we want to do!
 
 function RiverShore()
-  --RELIGHT_SetupConfigurationFiles();
-
-  --Apply freecamera settings from ini dev file
-  RELIGHT_ApplyFreecameraSettingsFromINI();
+  RELIGHT_ConfigurationStart();
 
   RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
-
-  RELIGHT_WaterReplacement_Initalize();
-  --RELIGHT_ProcedualGrass_Initalize(Vector(-23, 5, 6), Vector(25, 0, 25));
-
-  RELIGHT_SkydomeReplacement_Initalize();
-
-
-  RELIGHT_LensFlareEffect_Initalize();
-  Callback_OnPostUpdate:Add(RELIGHT_LensFlareEffect_Update);
-
-
-  AgentSetProperty(RELIGHT_SceneObjectAgentName, "LightEnv Reflection Texture", "RELIGHT_Cubemap_spruit_sunrise.d3dtx");
-
-
-
-
-
-
-
-
-
-
-
-  --RELIGHT_HackyCameraVolumetrics_Initalize();
-  --Callback_OnPostUpdate:Add(RELIGHT_HackyCameraVolumetrics_Update);
-
-  --RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF(nil);
-  --Callback_OnPostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus);
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then
@@ -355,6 +318,6 @@ end
 
 SceneOpen(kScene, kScript)
 
-if (RelightConfigDevelopment.EditorMode == false) or (RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == false) then
+if not (RelightConfigDevelopment.EditorMode == true or RelightConfigDevelopment.FreeCameraOnlyMode == true) then
   SceneAdd("ui_openingCredits")
 end

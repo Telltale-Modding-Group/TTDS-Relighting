@@ -58,10 +58,10 @@ RELIGHT_DOF_AUTOFOCUS_BokehSettings =
 {
     BokehBrightnessDeltaThreshold = 0.02,
     BokehBrightnessThreshold = 0.02,
-    BokehBlurThreshold = 0.02,
+    BokehBlurThreshold = 0.05,
     BokehMinSize = 0.0,
-    BokehMaxSize = 0.035,
-    BokehFalloff = 0.5,
+    BokehMaxSize = 0.03,
+    BokehFalloff = 0.75,
     MaxBokehBufferAmount = 1.0,
     BokehPatternTexture = "bokeh_circle.d3dtx"
 };
@@ -70,9 +70,9 @@ RELIGHT_DOF_AUTOFOCUS_BokehSettings =
 RELIGHT_HackyCameraVolumetrics_Settings = 
 {
     Samples = 256,
-    SampleOffset = 0.035,
+    SampleOffset = 0.15,
     SampleStartOffset = 1.0,
-    FogColor = Color(0.2, 0.2, 0.2, 0.2)
+    FogColor = Color(0.1, 0.1, 0.1, 0.1)
 };
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -80,7 +80,6 @@ RELIGHT_HackyCameraVolumetrics_Settings =
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
 --Here is alot of the original (decompiled) telltale lua script logic for the level.
 --We are leaving this untouched because we still want the level to function normally as intended.
-
 
 local mDialogID, mbPanicOn
 
@@ -195,12 +194,6 @@ function CabinInterior_RunPanicMeter()
   end
 end
 
---|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
---|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
---|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
---Here is the main function that gets called when the level starts.
---This is where we will setup and execute everything that we want to do!
-
 local OriginalTelltaleLevelStartLogic = function()
   Game_NewScene(kScene, kScript)
   PreloadAssets()
@@ -213,19 +206,16 @@ local OriginalTelltaleLevelStartLogic = function()
   Game_StartScene(true)
 end
 
-function CabinInterior()
-  --RELIGHT_SetupConfigurationFiles();
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here is the main function that gets called when the level starts.
+--This is where we will setup and execute everything that we want to do!
 
-  --Apply freecamera settings from ini dev file
-  RELIGHT_ApplyFreecameraSettingsFromINI();
+function CabinInterior()
+  RELIGHT_ConfigurationStart();
 
   RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
-
-  RELIGHT_HackyCameraVolumetrics_Initalize();
-  Callback_OnPostUpdate:Add(RELIGHT_HackyCameraVolumetrics_Update);
-
-  --RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF(nil);
-  --Callback_OnPostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus);
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then

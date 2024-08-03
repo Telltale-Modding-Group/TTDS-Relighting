@@ -1,61 +1,48 @@
---include our custom scripts/extensions
+--|||||||||||||||||||||||||||||||||||||||||||||||| INCLUDES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| INCLUDES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| INCLUDES ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here we include the relight include file, and this file will include all of the dependencies with the relight mod.
+--This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
+
 require("RELIGHT_Include.lua");
---require("RELIGHT_Camera_DepthOfFieldAutofocus.lua");
---require("RELIGHT_Effect_HackyCameraVolumetrics.lua");
---require("RELIGHT_Effect_LensFlare.lua");
 
---coreesponding level
---require("RELIGHT_ClearingCampfire.lua");
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here telltale declares these two variables at the top of every level script.
+--NOTE: That we are only intrested in kScene which is a reference to the actual scene file.
+--This is CRITICAL as getting a reference to it means we can do everything that we need to do in the scene.
 
---ResourceSetEnable("ProjectSeason1")
---ResourceSetEnable("WalkingDead101")
+local kScript = "ClearingCampfire"
+local kScene = "adv_clearingCampfire"
 
---original telltale level variables
-local kScript = "ClearingCampfire";
-local kScene = "adv_clearingCampfire";
-RELIGHT_kScene = kScene;
+--|||||||||||||||||||||||||||||||||||||||||||||||| CUSTOM VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| CUSTOM VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| CUSTOM VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here we declare our own variables related to Relight and Telltale Lua Script Extensions (TLSE) development tools.
+--NOTE: These are declared globally so they can be used throughout all scripts.
 
+--Telltale Lua Script Extensions (TLSE) Development variables
 TLSE_Development_SceneObject = kScene;
 TLSE_Development_SceneObjectAgentName = kScene .. ".scene";
-TLSE_Development_UseSeasonOneAPI = false;
-TLSE_Development_FreecamUseFOVScale = true;
+TLSE_Development_FreecamUseFOVScale = false;
 
---some relighting variables
+--Relight variables
+RELIGHT_SceneObject = kScene;
+RELIGHT_SceneObjectAgentName = kScene .. ".scene";
 RelightConfigGlobal = RelightConfigData_Main.Global;
 RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
-RelightConfigLevel = RelightConfigData_Season2.Level_201_ClearingCampfire;
+--RelightConfigLevel = RelightConfigData_Season2.Level_202_LodgeMainRoom;
 
---[[
---relighting dof autofocus variables
-RELIGHT_DOF_AUTOFOCUS_SceneObject = kScene;
-RELIGHT_DOF_AUTOFOCUS_SceneObjectAgentName = kScene .. ".scene";
+--Relight DOF
 RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
 RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = false;
 RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
 RELIGHT_DOF_AUTOFOCUS_FocalRange = 1.0;
-RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = 
-{ 
-    "cam_nav_fireArea",
-    "cam_nav_fireArea_parent",
-    "cam_nav_Clementine_chaseToCampfire",
-    "cam_nav_Clementine_chaseToCampfire_parent",
-    "cam_nav_backpackArea",
-    "cam_nav_backpackArea_parent",
-    "cam_pan_fireInDistance",
-    "cam_pan_fireInDistance_parent",
-    "cam_closeUp_rummageBackpack_parent",
-    "cam_closeUp_rummageBackpack",
-    "cam_Clementine_track",
-    "cam_pan_examineTheFire",
-    "cam_pan_examineTheFire_parent"
-};
+RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = {};
 RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
 {
-    "Clementine",
-    "Christa",
-    "Victor",
-    "Ralph",
-    "Winston"
+    "Clementine"
 };
 RELIGHT_DOF_AUTOFOCUS_Settings =
 {
@@ -63,87 +50,81 @@ RELIGHT_DOF_AUTOFOCUS_Settings =
     TargetValidation_IsVisible = true,
     TargetValidation_IsWithinDistance = true,
     TargetValidation_IsFacingCamera = true,
-    TargetValidation_IsOccluded = false
+    TargetValidation_IsOccluded = false,
+    TargetValidation_RejectionAngle = 0.0, --goes from -1 to 1 (less than 0 is within the 180 forward facing fov of the given object)
+    TargetValidation_RejectionDistance = 40.0, --the max distance before the agent is too far from camera to do autofocus
 };
 RELIGHT_DOF_AUTOFOCUS_BokehSettings =
 {
-    BokehBrightnessDeltaThreshold = 0.01,
-    BokehBrightnessThreshold = 0.01,
-    BokehBlurThreshold = 0.01,
+    BokehBrightnessDeltaThreshold = 0.02,
+    BokehBrightnessThreshold = 0.02,
+    BokehBlurThreshold = 0.05,
     BokehMinSize = 0.0,
-    BokehMaxSize = 0.035,
-    BokehFalloff = 0.5,
+    BokehMaxSize = 0.03,
+    BokehFalloff = 0.75,
     MaxBokehBufferAmount = 1.0,
     BokehPatternTexture = "bokeh_circle.d3dtx"
 };
-]]
 
---[[
-HackyCameraVolumetrics_kScene = kScene;
-HackyCameraVolumetrics_Settings = 
+--Relight Volumetrics
+RELIGHT_HackyCameraVolumetrics_Settings = 
 {
     Samples = 256,
-    SampleOffset = 0.095,
-    SampleStartOffset = 1.5,
-    FogColor = Color(0.035, 0.035, 0.035, 1.0) --fog color is additive, alpha doesn't do anything
+    SampleOffset = 0.15,
+    SampleStartOffset = 1.0,
+    FogColor = Color(0.1, 0.1, 0.1, 0.1)
 };
-]]
 
---LensFlareEffect_kScene = kScene;
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here is alot of the original (decompiled) telltale lua script logic for the level.
+--We are leaving this untouched because we still want the level to function normally as intended.
 
 local kDragHintDelay = 0.5
 local mbIsKindlingBurning = false
-local mBanterDialogID = nil
+local mBanterDialogID
 local multiAgents = {}
-
 multiAgents.kindling = {}
--- DECOMPILER ERROR at PC13: Confused about usage of register: R6 in 'UnsetPending'
+multiAgents.kindling.agents = {
+  "obj_kindlingClearingCampfire",
+  "obj_kindlingClearingCampfire_clementineWristL"
+}
 
-;
-(multiAgents.kindling).agents = {"obj_kindlingClearingCampfire", "obj_kindlingClearingCampfire_clementineWristL", "newFireLight"}
--- DECOMPILER ERROR at PC15: Confused about usage of register: R6 in 'UnsetPending'
-
-;
-(multiAgents.kindling).lastUpdateTime = -1
+multiAgents.kindling.lastUpdateTime = -1
 multiAgents.lighter = {}
--- DECOMPILER ERROR at PC24: Confused about usage of register: R6 in 'UnsetPending'
+multiAgents.lighter.agents = {
+  "obj_lighterWD",
+  "obj_lighterWD_clementine",
+  "obj_lighterWD_christa"
+}
 
-;
-(multiAgents.lighter).agents = {"obj_lighterWD", "obj_lighterWD_clementine", "obj_lighterWD_christa"}
--- DECOMPILER ERROR at PC26: Confused about usage of register: R6 in 'UnsetPending'
-
-;
-(multiAgents.lighter).lastUpdateTime = -1
+multiAgents.lighter.lastUpdateTime = -1
 multiAgents.backpack = {}
--- DECOMPILER ERROR at PC34: Confused about usage of register: R6 in 'UnsetPending'
+multiAgents.backpack.agents = {
+  "obj_backpackClearingCampfire",
+  "obj_backpackClearingCampfire_clementine"
+}
 
-;
-(multiAgents.backpack).agents = {"obj_backpackClearingCampfire", "obj_backpackClearingCampfire_clementine"}
--- DECOMPILER ERROR at PC36: Confused about usage of register: R6 in 'UnsetPending'
-
-;
-(multiAgents.backpack).lastUpdateTime = -1
+multiAgents.backpack.lastUpdateTime = -1
 multiAgents.drawings = {}
--- DECOMPILER ERROR at PC45: Confused about usage of register: R6 in 'UnsetPending'
+multiAgents.drawings.agents = {
+  "obj_drawingClementineClearingCampfireA",
+  "obj_drawingClementineClearingCampfireA_clementine",
+  "obj_drawingClementineClearingCampfireA_backpack"
+}
 
-;
-(multiAgents.drawings).agents = {"obj_drawingClementineClearingCampfireA", "obj_drawingClementineClearingCampfireA_clementine", "obj_drawingClementineClearingCampfireA_backpack"}
--- DECOMPILER ERROR at PC47: Confused about usage of register: R6 in 'UnsetPending'
-
-;
-(multiAgents.drawings).lastUpdateTime = -1
+multiAgents.drawings.lastUpdateTime = -1
 multiAgents.photo = {}
--- DECOMPILER ERROR at PC56: Confused about usage of register: R6 in 'UnsetPending'
+multiAgents.photo.agents = {
+  "obj_photoTornLeeClearingCampfire",
+  "obj_photoTornLeeClearingCampfire_clementine",
+  "obj_photoTornLeeClearingCampfire_backpack"
+}
 
-;
-(multiAgents.photo).agents = {"obj_photoTornLeeClearingCampfire", "obj_photoTornLeeClearingCampfire_clementine", "obj_photoTornLeeClearingCampfire_backpack"}
--- DECOMPILER ERROR at PC58: Confused about usage of register: R6 in 'UnsetPending'
-
-;
-(multiAgents.photo).lastUpdateTime = -1
+multiAgents.photo.lastUpdateTime = -1
 
 local UpdateContextSensitiveComment = function()
-  -- function num : 0_0 , upvalues : _ENV
   local choice = DlgEvaluateToNode(Game_GetSceneDialog(), "use_winston_contextual", "exchange", false)
   local text = DlgGetExchangeNodeText(Game_GetSceneDialog(), choice.NodeID, false)
   if text[1] then
@@ -157,67 +138,54 @@ local UpdateContextSensitiveComment = function()
 end
 
 local ShowDragTut = function()
-  -- function num : 0_1 , upvalues : _ENV
   Notification_ShowTutorial("tut_campfireClearing_holdAndDrag")
 end
 
-ClearingCampfire_DragHintDelay = function()
-  -- function num : 0_2 , upvalues : _ENV, kDragHintDelay
+function ClearingCampfire_DragHintDelay()
   Sleep(kDragHintDelay)
   LogicSet("1Campfire - Okay for Drag Hint", true)
 end
 
-ClearingCampfire_MultiAgents_Init = function()
-  -- function num : 0_3 , upvalues : _ENV, multiAgents
+function ClearingCampfire_MultiAgents_Init()
   print("Clearing Campfire: multi agents INIT")
-  local multiAgentKey, multiAgentValue = nil, nil
+  local multiAgentKey, multiAgentValue
   local actionTime = 0
-  for multiAgentKey,multiAgentValue in pairs(multiAgents) do
-    do
-      for key,value in pairs(multiAgentValue.agents) do
-        local agent = value
-        do
-          local MultiAgentsVisCheck = function(propKey, bVisible)
-    -- function num : 0_3_0 , upvalues : multiAgentValue, _ENV, multiAgents, multiAgentKey, agent
-    if bVisible then
-      if multiAgentValue.lastUpdateTime == GetTotalTime() then
-        return 
-      end
-      for key,value in pairs((multiAgents[multiAgentKey]).agents) do
-        if value ~= agent then
-          AgentHide(value, true)
+  for multiAgentKey, multiAgentValue in pairs(multiAgents) do
+    for key, value in pairs(multiAgentValue.agents) do
+      local agent = value
+      local MultiAgentsVisCheck = function(propKey, bVisible)
+        if bVisible then
+          if multiAgentValue.lastUpdateTime == GetTotalTime() then
+            return
+          end
+          for key, value in pairs(multiAgents[multiAgentKey].agents) do
+            if value ~= agent then
+              AgentHide(value, true)
+            end
+          end
+          multiAgentValue.lastUpdateTime = GetTotalTime()
         end
       end
-      multiAgentValue.lastUpdateTime = GetTotalTime()
-    end
-  end
-
-          PropertyAddKeyCallback(AgentGetProperties(agent), "Runtime: Visible", MultiAgentsVisCheck)
-        end
-      end
+      PropertyAddKeyCallback(AgentGetProperties(agent), "Runtime: Visible", MultiAgentsVisCheck)
     end
   end
 end
 
-ClearingCampfire_MultiAgents_Off = function()
-  -- function num : 0_4 , upvalues : _ENV, multiAgents
-  for multiAgentKey,multiAgentValue in pairs(multiAgents) do
-    for key,value in pairs(multiAgentValue.agents) do
+function ClearingCampfire_MultiAgents_Off()
+  for multiAgentKey, multiAgentValue in pairs(multiAgents) do
+    for key, value in pairs(multiAgentValue.agents) do
       PropertyClearKeyCallbacks(AgentGetProperties(value), "Runtime: Visible")
     end
   end
   print("Clearing Campfire: multi agents OFF")
 end
 
-ClearingCampfire_BanterStart = function()
-  -- function num : 0_5 , upvalues : mBanterDialogID, _ENV, UpdateContextSensitiveComment
+function ClearingCampfire_BanterStart()
   mBanterDialogID = Dialog_Run(Game_GetSceneDialog(), "cs_banter", false)
   print("^^STARTING^^ scavenger banter!  Dialog ID: " .. tostring(mBanterDialogID))
   PropertyAddKeyCallback(AgentGetProperties("logic_game"), "1Campfire - Clem Context Comment Group to Winston", UpdateContextSensitiveComment)
 end
-
-ClearingCampfire_BanterPause = function(bPause)
-  -- function num : 0_6 , upvalues : _ENV, mBanterDialogID
+function ClearingCampfire_BanterPause(bPause)
   if not bPause then
     print("** RESUMING ** scavenger banter!  Dialog ID: " .. tostring(mBanterDialogID))
     DlgResume(mBanterDialogID)
@@ -227,18 +195,15 @@ ClearingCampfire_BanterPause = function(bPause)
   end
 end
 
-ClearingCampfire_BanterEnd = function()
-  -- function num : 0_7 , upvalues : _ENV, UpdateContextSensitiveComment
+function ClearingCampfire_BanterEnd()
   PropertyRemoveKeyCallback(AgentGetProperties("logic_game"), "1Campfire - Clem Context Comment Group to Winston", UpdateContextSensitiveComment)
 end
 
-ClearingCampfire_IsKindlingBurning = function()
-  -- function num : 0_8 , upvalues : mbIsKindlingBurning
+function ClearingCampfire_IsKindlingBurning()
   return mbIsKindlingBurning
 end
 
-ClearingCampfire_SetKindlingBurning = function(bool)
-  -- function num : 0_9 , upvalues : mbIsKindlingBurning
+function ClearingCampfire_SetKindlingBurning(bool)
   if not bool then
     mbIsKindlingBurning = false
   else
@@ -246,198 +211,136 @@ ClearingCampfire_SetKindlingBurning = function(bool)
   end
 end
 
-ClearingCampfire_StartWalkToFire = function()
-  -- function num : 0_10 , upvalues : _ENV
-  AgentSetPos(Game_GetPlayer(), Vector(6.962573, 1e-006, 14.51492))
+function ClearingCampfire_StartWalkToFire()
+  AgentSetPos(Game_GetPlayer(), Vector(6.962573, 1.0E-6, 14.514923))
   AgentSetRot(Game_GetPlayer(), Vector(-180, -7.4572, -180))
   Navigate_Enable(true)
   TargetedWalk_Start("tgtWalk_ClemToCampfire")
   CameraActivate("cam_nav_Clementine_chaseToCampfire")
 end
 
-ClearingCampfire_MakeAllObjsUnselectable = function()
-  -- function num : 0_11 , upvalues : _ENV, kScene
-  for key,value in pairs(SceneGetAgents(kScene)) do
+function ClearingCampfire_MakeAllObjsUnselectable()
+  for key, value in pairs(SceneGetAgents(kScene)) do
     if AgentHasProperty(value, "Game Selectable") then
       AgentSetSelectable(value, false)
     end
   end
 end
 
-ClearingCampfire_SpecialAgentFocus = function()
-  -- function num : 0_12 , upvalues : _ENV, kScene, ShowDragTut
+function ClearingCampfire_SpecialAgentFocus()
   if AgentGetName(SceneGetCamera(kScene)) == "cam_closeUp_burnYourMemories" then
     if AgentGetName(Reticle_GetSelectedAgent()) == "obj_drawingClementineClearingCampfireA_clementine" then
-      print("Clem\'s looking at the drawings!")
+      print("Clem's looking at the drawings!")
+    elseif AgentGetName(Reticle_GetSelectedAgent()) == "obj_photoTornLeeClearingCampfire_clementine" then
+      print("Clem's looking at the photo!")
     else
-      if AgentGetName(Reticle_GetSelectedAgent()) == "obj_photoTornLeeClearingCampfire_clementine" then
-        print("Clem\'s looking at the photo!")
-      else
-        print("Clem\'s looking at NEITHER burnable object!")
-      end
+      print("Clem's looking at NEITHER burnable object!")
     end
-  else
-    if AgentGetName(Reticle_GetSelectedAgent()) == "obj_lighterUsePoint" and LogicGet("1Campfire - Okay for Drag Hint") then
-      LogicSet("1Campfire - Okay for Drag Hint", false)
-      ShowDragTut()
-    end
+  elseif AgentGetName(Reticle_GetSelectedAgent()) == "obj_lighterUsePoint" and LogicGet("1Campfire - Okay for Drag Hint") then
+    LogicSet("1Campfire - Okay for Drag Hint", false)
+    ShowDragTut()
   end
 end
 
---telltale asset level preload (moved into a seperate function because it's big and annoying)
-local LevelAssetPreload = function()
-    if Platform_NeedShaderPreload() then
-        RenderPreloadShader("SceneShadowMap_QLo.t3fxb", "0")
-        RenderPreloadShader("SceneShadowMapAlpha_QLo.t3fxb", "0")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "78")
-        RenderPreloadShader("Mesh_LGT_CC_TINT_QLo.t3fxb", "71")
-        RenderPreloadShader("Mesh_LGT_CC_TINT_QLo.t3fxb", "70")
-        RenderPreloadShader("Mesh_LGT_DTL_CC_TINT_QLo.t3fxb", "70")
-        RenderPreloadShader("Mesh_LGT_DTL_CC_TINT_QLo.t3fxb", "71")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "326")
-        RenderPreloadShader("FX_Null_QLo.t3fxb", "0")
-        RenderPreloadShader("DirectionalLightShadow_QLo.t3fxb", "1024")
-        RenderPreloadShader("SceneToonOutline2_CC_TINT_QLo.t3fxb", "0")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "3")
-        RenderPreloadShader("Mesh_DTL_CC_TINT_SDTL_QLo.t3fxb", "3")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "259")
-        RenderPreloadShader("Mesh_1SKN_CC_TINT_QLo.t3fxb", "326")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "206")
-        RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "135")
-        RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "334")
-        RenderPreloadShader("SceneShadowMap_VCOL_QLo.t3fxb", "0")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "10")
-        RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "78")
-        RenderPreloadShader("Mesh_LGT_CC_TINT_QLo.t3fxb", "78")
-        RenderPreloadShader("Mesh_LGT_CC_TINT_QLo.t3fxb", "7")
-        RenderPreloadShader("Mesh_LGT_VCOL_CC_TINT_QLo.t3fxb", "7")
-        RenderPreloadShader("Mesh_1SKN_CC_TINT_QLo.t3fxb", "3")
-        RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "134")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "134")
-        RenderPreloadShader("Mesh_LGT_CC_TINT_QLo.t3fxb", "206")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "131")
-        RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "206")
-        RenderPreloadShader("Mesh_LGT_VCOL_CC_TINT_QLo.t3fxb", "135")
-        RenderPreloadShader("Mesh_1SKN_CC_TINT_QLo.t3fxb", "135")
-        RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "7")
-        RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "263")
-        RenderPreloadShader("Mesh_1SKN_CC_TINT_QLo.t3fxb", "262")
-        RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "270")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "74")
-        RenderPreloadShader("Mesh_1SKN_CC_TINT_QLo.t3fxb", "67")
-        RenderPreloadShader("SceneToonOutline2_CC_TINT_QLo.t3fxb", "64")
-        RenderPreloadShader("Mesh_DTL_CC_TINT_SDTL_QLo.t3fxb", "67")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "323")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "195")
-        RenderPreloadShader("ScenePreZ_QLo.t3fxb", "128")
-        RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "142")
-        RenderPreloadShader("Mesh_DTL_CC_TINT_SDTL_QLo.t3fxb", "10")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "266")
-        RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "198")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "198")
-        RenderPreloadShader("Mesh_1SKN_CC_TINT_QLo.t3fxb", "199")
-        RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "138")
-    end
+local OriginalTelltaleLevelStartLogic = function()
+  Game_NewScene(kScene, kScript)
+  if Platform_NeedShaderPreload() then
+    RenderPreloadShader("SceneShadowMap_QLo.t3fxb", "0")
+    RenderPreloadShader("SceneShadowMapAlpha_QLo.t3fxb", "0")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "78")
+    RenderPreloadShader("Mesh_LGT_CC_TINT_QLo.t3fxb", "71")
+    RenderPreloadShader("Mesh_LGT_CC_TINT_QLo.t3fxb", "70")
+    RenderPreloadShader("Mesh_LGT_DTL_CC_TINT_QLo.t3fxb", "70")
+    RenderPreloadShader("Mesh_LGT_DTL_CC_TINT_QLo.t3fxb", "71")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "326")
+    RenderPreloadShader("FX_Null_QLo.t3fxb", "0")
+    RenderPreloadShader("DirectionalLightShadow_QLo.t3fxb", "1024")
+    RenderPreloadShader("SceneToonOutline2_CC_TINT_QLo.t3fxb", "0")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "3")
+    RenderPreloadShader("Mesh_DTL_CC_TINT_SDTL_QLo.t3fxb", "3")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "259")
+    RenderPreloadShader("Mesh_1SKN_CC_TINT_QLo.t3fxb", "326")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "206")
+    RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "135")
+    RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "334")
+    RenderPreloadShader("SceneShadowMap_VCOL_QLo.t3fxb", "0")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "10")
+    RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "78")
+    RenderPreloadShader("Mesh_LGT_CC_TINT_QLo.t3fxb", "78")
+    RenderPreloadShader("Mesh_LGT_CC_TINT_QLo.t3fxb", "7")
+    RenderPreloadShader("Mesh_LGT_VCOL_CC_TINT_QLo.t3fxb", "7")
+    RenderPreloadShader("Mesh_1SKN_CC_TINT_QLo.t3fxb", "3")
+    RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "134")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "134")
+    RenderPreloadShader("Mesh_LGT_CC_TINT_QLo.t3fxb", "206")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "131")
+    RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "206")
+    RenderPreloadShader("Mesh_LGT_VCOL_CC_TINT_QLo.t3fxb", "135")
+    RenderPreloadShader("Mesh_1SKN_CC_TINT_QLo.t3fxb", "135")
+    RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "7")
+    RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "263")
+    RenderPreloadShader("Mesh_1SKN_CC_TINT_QLo.t3fxb", "262")
+    RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "270")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "74")
+    RenderPreloadShader("Mesh_1SKN_CC_TINT_QLo.t3fxb", "67")
+    RenderPreloadShader("SceneToonOutline2_CC_TINT_QLo.t3fxb", "64")
+    RenderPreloadShader("Mesh_DTL_CC_TINT_SDTL_QLo.t3fxb", "67")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "323")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "195")
+    RenderPreloadShader("ScenePreZ_QLo.t3fxb", "128")
+    RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "142")
+    RenderPreloadShader("Mesh_DTL_CC_TINT_SDTL_QLo.t3fxb", "10")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "266")
+    RenderPreloadShader("Mesh_VCOL_CC_TINT_QLo.t3fxb", "198")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "198")
+    RenderPreloadShader("Mesh_1SKN_CC_TINT_QLo.t3fxb", "199")
+    RenderPreloadShader("Mesh_CC_TINT_QLo.t3fxb", "138")
+  end
+  Game_StartScene(true)
+  Callback_OnSetReticleAgent:Add(ClearingCampfire_SpecialAgentFocus)
 end
 
-OriginalLevelLogic_ClearingCampfire = function()
-  Game_NewScene(kScene, kScript);
-        
-  LevelAssetPreload();
-  Callback_OnSetReticleAgent:Add(ClearingCampfire_SpecialAgentFocus);
-        
-  Game_StartScene(true);
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here is the main function that gets called when the level starts.
+--This is where we will setup and execute everything that we want to do!
+
+function ClearingCampfire()
+  RELIGHT_ConfigurationStart();
+
+  RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
+
+  --If configured in the development ini, enable the TLSE editor
+  if (RelightConfigDevelopment.EditorMode == true) then
+    TLSE_Development_Editor_Start();
+    Callback_OnPostUpdate:Add(TLSE_Development_Editor_Update);
+    do return end --don't continue
+  end
+
+  --If configured in the development ini, enable freecamera (if editor is not enabled)
+  if (RelightConfigDevelopment.FreeCameraOnlyMode == true) then     
+    TLSE_Development_CreateFreeCamera();
+    Callback_OnPostUpdate:Add(TLSE_Development_UpdateFreeCamera);
+  end
+
+  --If configured in the development ini, enable a performance metrics overlay
+  if (RelightConfigDevelopment.PerformanceMetrics == true) then     
+    TLSE_Development_PerformanceMetrics_Initalize();
+    Callback_OnPostUpdate:Add(TLSE_Development_PerformanceMetrics_Update);
+  end
+
+  --If it's configured in the development ini to be in freecamera mode...
+  if (RelightConfigDevelopment.FreeCameraOnlyMode == true and RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == false) then
+    return --don't start the scene normally as the user wants to fly around the scene but not have it attempt to run the original level logic
+  end
+
+  --execute the original telltale level start logic
+  OriginalTelltaleLevelStartLogic();
 end
 
---main level
-ClearingCampfire = function()
-    --RELIGHT_PrintProperties(AgentFindInScene("Clementine", kScene));
-    --RELIGHT_GetCacheObjectNamesFromProperties(AgentFindInScene("Clementine", kScene), "cacheObjectNamesPart2Cleaned.txt");
-    --RELIGHT_PrintValidPropertyNames(AgentFindInScene("Clementine", kScene));
-    --RELIGHT_PrintProperties(AgentFindInScene("module_lightprobe", kScene));
-    --RELIGHT_PrintSceneListToTXT(kScene, "sceneobject_201-clearingcampfire.txt")
-    --RELIGHT_PrintValidPropertyNames(AgentFindInScene("Winston", kScene));
+SceneOpen(kScene, kScript)
 
-    --RELIGHT FUNCTIONS
-    --scene
-    --Apply_Scene_RelightScene(relightConfigLevel);
-    --Apply_Scene_ApplyExposureAdjustment(relightConfigLevel);
-    --Apply_Scene_ReplaceRain(relightConfigLevel);
-    --Apply_Scene_AddProcedualGrass(relightConfigLevel);
-    --Apply_Scene_MotionBlur(relightConfigGlobal, relightConfigLevel);
-    --Apply_Scene_ForceBloomOff(relightConfigLevel);
-
-    --LensFlareEffect_Initalize();
-    --Callback_OnPostUpdate:Add(LensFlareEffect_Update);
-    
-    --if (relightConfigLevel.EnableVolumetricLighting == true) then
-      --HackyCameraVolumetrics_Initalize();
-      --Callback_OnPostUpdate:Add(HackyCameraVolumetrics_Update);
-    --end
-    
-    --if (relightConfigLevel.EnableFlashlights == true) then
-      --Apply_Scene_CreateFlashlights();
-      --Callback_OnPostUpdate:Add(Apply_Scene_UpdateFlashlights);
-    --end
-
-    --RELIGHTING DEPTH OF FIELD
-    --RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = relightConfigLevel.HighQualityDepthOfField;
-    --RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF(relightConfigLevel);
-
-    --if (relightConfigLevel.EnableDepthOfField == true) then
-        --Callback_OnPostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus);
-    --end
-    
-    --global (apply global after so it overrides anything set in scene)
-    RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
-    Callback_OnPostUpdate:Add(RELIGHT_Global_ForceGraphicBlackOffUpdate);
-    
-    --if someone only wants the freecam and not the tools
-    --if (relightConfigDev.RelightTools_FreecamOnly == true) then
-        --RELIGHT_Development_CreateFreeCamera(kScene);
-        --Callback_OnPostUpdate:Add(RELIGHT_Development_UpdateFreeCamera);
-        
-        --do return end --don't continue
-    --end
-    
-    --development tools enabled in config
-    --if (RelightConfigDevelopment.RelightTools == true) then        
-        --RELIGHT_Development_CreateFreeCamera(kScene);
-        --RELIGHT_Development_InitalizeRelightTools(kScene);
-
-        --Callback_OnPostUpdate:Add(RELIGHT_Development_UpdateFreeCamera);
-        --Callback_OnPostUpdate:Add(RELIGHT_Development_UpdateRelightTools_Input);
-        --Callback_OnPostUpdate:Add(RELIGHT_Development_UpdateRelightTools_Main);
-    --else
-        --continue the scene like telltale intended
-        --Game_NewScene(kScene, kScript);
-        
-        --LevelAssetPreload();
-        --Callback_OnSetReticleAgent:Add(ClearingCampfire_SpecialAgentFocus);
-        
-        --Game_StartScene(true);
-    --end
-
-    if (RelightConfigDevelopment.FreeCameraOnlyMode == true) or (RelightConfigDevelopment.EditorMode == true) then     
-      TLSE_Development_CreateFreeCamera();
-      Callback_OnPostUpdate:Add(TLSE_Development_UpdateFreeCamera);
-    end
-
-    if (RelightConfigDevelopment.PerformanceMetrics == true) then     
-      TLSE_Development_PerformanceMetrics_Initalize();
-      Callback_OnPostUpdate:Add(TLSE_Development_PerformanceMetrics_Update);
-    end
-
-    if (RelightConfigDevelopment.EditorMode == true) then
-      TLSE_Development_Editor_Start();
-      Callback_OnPostUpdate:Add(TLSE_Development_Editor_Update);
-      do return end --don't continue
-    end
-
-    if (RelightConfigDevelopment.EditorMode == false) or (RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == true) then
-      OriginalLevelLogic_ClearingCampfire();
-    end
+if not (RelightConfigDevelopment.EditorMode == true or RelightConfigDevelopment.FreeCameraOnlyMode == true) then
+  SceneAdd("ui_openingCredits")
 end
-
-SceneOpen(kScene, kScript);
---SceneAdd("ui_openingCredits");
