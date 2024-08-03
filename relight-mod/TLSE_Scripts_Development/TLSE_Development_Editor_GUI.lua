@@ -32,6 +32,7 @@ local textButton_hideHoverBox = nil;
 local textButton_exportSceneToLuaScript = nil;
 local textButton_disableAllLights = nil;
 local textButton_enableAllLights = nil;
+local textButton_killAllControllers = nil;
 
 local OnPress_HideIcons = function(textButton_button) TLSE_Development_Editor_ObjectIcons_Visible = not TLSE_Development_Editor_ObjectIcons_Visible; end
 local OnPress_HideSelectionBox = function(textButton_button) TLSE_Development_Selection_HideSelectBox = not TLSE_Development_Selection_HideSelectBox; end
@@ -53,6 +54,18 @@ local OnPress_EnableAllLights = function(textButton_button)
     for index, agent_sceneAgent in pairs(TLSE_Development_SceneAgentsList) do
         if(AgentHasProperty(agent_sceneAgent, "EnvLight - Enabled")) then
             AgentSetProperty(agent_sceneAgent, "EnvLight - Enabled", true);
+        end
+    end
+end
+
+local OnPress_KillAllControllers = function(textButton_button) 
+    local agentTable_sceneAgents = SceneGetAgents(TLSE_Development_SceneObject); --NOTE: Getting all agents rather than filtered from TLSE_Development_SceneAgentsList
+
+    for index, agent_sceneAgent in pairs(agentTable_sceneAgents) do
+        local controllers_agentControllers = AgentGetControllers(agent_sceneAgent);
+
+        for index2, controller_controllerOnAgent in pairs(controllers_agentControllers) do
+            ControllerKill(controller_controllerOnAgent);
         end
     end
 end
@@ -85,6 +98,7 @@ TLSE_Development_GUI_Initalize = function()
     textButton_hideHoverBox = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE HOVER BOX]", true, Vector(0.615, 0.050, 0.0), OnPress_HideHoverBox, nil);
     textButton_disableAllLights = TLSE_Development_Editor_GUI_CreateTextButton("[DISABLE ALL LIGHTS]", true, Vector(0.605, 0.065, 0.0), OnPress_DisableAllLights, nil);
     textButton_enableAllLights = TLSE_Development_Editor_GUI_CreateTextButton("[ENABLE ALL LIGHTS]", true, Vector(0.605, 0.080, 0.0), OnPress_EnableAllLights, nil);
+    textButton_killAllControllers = TLSE_Development_Editor_GUI_CreateTextButton("[KILL ALL CONTROLLERS]", true, Vector(0.594, 0.095, 0.0), OnPress_KillAllControllers, nil);
 
     label_editorModeTextTopLeft = TLSE_Development_Editor_GUI_CreateLabel("", Vector(0, 0, 0));
 
