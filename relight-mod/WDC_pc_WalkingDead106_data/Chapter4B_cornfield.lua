@@ -1,9 +1,91 @@
-require("Rain.lua")
-require("mode_drag.lua")
-require("VirtualStick.lua")
+--|||||||||||||||||||||||||||||||||||||||||||||||| INCLUDES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| INCLUDES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| INCLUDES ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here we include the relight include file, and this file will include all of the dependencies with the relight mod.
+--This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
+
+require("RELIGHT_Include.lua");
+
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here telltale declares these two variables at the top of every level script.
+--NOTE: That we are only intrested in kScene which is a reference to the actual scene file.
+--This is CRITICAL as getting a reference to it means we can do everything that we need to do in the scene.
+
 local kScript = "Chapter4B"
 local kScene = "adv_cornfieldCh4"
 local kSceneAgent = "adv_cornfieldCh4.scene"
+
+--|||||||||||||||||||||||||||||||||||||||||||||||| CUSTOM VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| CUSTOM VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| CUSTOM VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here we declare our own variables related to Relight and Telltale Lua Script Extensions (TLSE) development tools.
+--NOTE: These are declared globally so they can be used throughout all scripts.
+
+--Telltale Lua Script Extensions (TLSE) Development variables
+TLSE_Development_SceneObject = kScene;
+TLSE_Development_SceneObjectAgentName = kScene .. ".scene";
+TLSE_Development_FreecamUseFOVScale = false;
+
+--Relight variables
+RELIGHT_SceneObject = kScene;
+RELIGHT_SceneObjectAgentName = kScene .. ".scene";
+RelightConfigGlobal = RelightConfigData_Main.Global;
+RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
+--RelightConfigLevel = RelightConfigData_Season2.Level_202_LodgeMainRoom;
+
+--Relight DOF
+RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
+RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = false;
+RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
+RELIGHT_DOF_AUTOFOCUS_FocalRange = 1.0;
+RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = {};
+RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
+{
+    "Clementine"
+};
+RELIGHT_DOF_AUTOFOCUS_Settings =
+{
+    TargetValidation_IsOnScreen = true,
+    TargetValidation_IsVisible = true,
+    TargetValidation_IsWithinDistance = true,
+    TargetValidation_IsFacingCamera = true,
+    TargetValidation_IsOccluded = false,
+    TargetValidation_RejectionAngle = 0.0, --goes from -1 to 1 (less than 0 is within the 180 forward facing fov of the given object)
+    TargetValidation_RejectionDistance = 40.0, --the max distance before the agent is too far from camera to do autofocus
+};
+RELIGHT_DOF_AUTOFOCUS_BokehSettings =
+{
+    BokehBrightnessDeltaThreshold = 0.02,
+    BokehBrightnessThreshold = 0.02,
+    BokehBlurThreshold = 0.05,
+    BokehMinSize = 0.0,
+    BokehMaxSize = 0.03,
+    BokehFalloff = 0.75,
+    MaxBokehBufferAmount = 1.0,
+    BokehPatternTexture = "bokeh_circle.d3dtx"
+};
+
+--Relight Volumetrics
+RELIGHT_HackyCameraVolumetrics_Settings = 
+{
+    Samples = 256,
+    SampleOffset = 0.15,
+    SampleStartOffset = 1.0,
+    FogColor = Color(0.1, 0.1, 0.1, 0.1)
+};
+
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here is alot of the original (decompiled) telltale lua script logic for the level.
+--We are leaving this untouched because we still want the level to function normally as intended.
+
+require("Rain.lua")
+require("mode_drag.lua")
+require("VirtualStick.lua")
+
 local kCutsceneAnchor = "obj_cornfieldCutsceneAnchor"
 local kbDoConsolePrints = true
 local kSpawnPursuers = true
@@ -16,11 +98,13 @@ local kPursuerSpawnPosToBlockHeadOn = {
   4,
   5
 }
+
 local kPursuerSpawnOffsetZ_headOn = 28.5
 local kPursuerSpawnOffsetZ_fromSide = 20
 local kPursuerSpawnOffsetZ_fromSideClose = 15.5
 local kPlayerInCornrowBaseWorldPosX = 82.25
 local kPursuerSpawnOffsets = {}
+
 kPursuerSpawnOffsets.HeadOn = {
   Forward = {
     x = 0,
@@ -33,6 +117,7 @@ kPursuerSpawnOffsets.HeadOn = {
     z = -1 * kPursuerSpawnOffsetZ_headOn
   }
 }
+
 kPursuerSpawnOffsets.HeadOnInLeftRow = {
   Forward = {
     x = 2,
@@ -45,6 +130,7 @@ kPursuerSpawnOffsets.HeadOnInLeftRow = {
     z = -1 * kPursuerSpawnOffsetZ_headOn
   }
 }
+
 kPursuerSpawnOffsets.HeadOnInRightRow = {
   Forward = {
     x = -2,
@@ -57,6 +143,7 @@ kPursuerSpawnOffsets.HeadOnInRightRow = {
     z = -1 * kPursuerSpawnOffsetZ_headOn
   }
 }
+
 kPursuerSpawnOffsets.FromLeft = {
   Forward = {
     x = 14,
@@ -69,6 +156,7 @@ kPursuerSpawnOffsets.FromLeft = {
     z = -1 * kPursuerSpawnOffsetZ_fromSide
   }
 }
+
 kPursuerSpawnOffsets.FromRight = {
   Forward = {
     x = -14,
@@ -81,6 +169,7 @@ kPursuerSpawnOffsets.FromRight = {
     z = -1 * kPursuerSpawnOffsetZ_fromSide
   }
 }
+
 kPursuerSpawnOffsets.FromLeftClose = {
   Forward = {
     x = 14,
@@ -93,6 +182,7 @@ kPursuerSpawnOffsets.FromLeftClose = {
     z = -1 * kPursuerSpawnOffsetZ_fromSideClose
   }
 }
+
 kPursuerSpawnOffsets.FromRightClose = {
   Forward = {
     x = -14,
@@ -105,6 +195,7 @@ kPursuerSpawnOffsets.FromRightClose = {
     z = -1 * kPursuerSpawnOffsetZ_fromSideClose
   }
 }
+
 local kPursuerOverrideFlashlightAttach = false
 local kPursuerDeeTrigger = "trigger_PursuerDeeReachesTractor"
 local kEnablePursuerDeeTrigger = true
@@ -136,10 +227,12 @@ local kPlayerInactivityTimerMulti = 1
 local kPursuerDeeIdleLoopsBeforeApproach = 0
 local kPursuerDeeMinRestartTime = 30.5
 local kPursuerDeeMaxRestartTime = 30.5
+
 if Input_IsUsingTouch() then
   kPursuerDeeMinRestartTime = 27.5
   kPursuerDeeMaxRestartTime = kPursuerDeeMinRestartTime
 end
+
 local kPursuerBanterMinDelay = 3
 local kPursuerBanterMaxDelay = 8
 local kPursuerFactorForCeleb = 0.25
@@ -151,6 +244,7 @@ local kAmbientRustleSoundsMin = 4
 local kAmbientRustleSoundsMax = 16
 local kPursuerSoundEmittersAllowedMax = 4
 local kCornEndChoreTimeTargetIncrement = 3
+
 local kCamsToScaleInRain = {
   names = {
     "cam_Dee_CU",
@@ -158,6 +252,7 @@ local kCamsToScaleInRain = {
   },
   scales = {1, 0.25}
 }
+
 local kCornfieldInputMap = "Cornfield.imap"
 local anchorPos = Vector()
 local pAnchorPos = Vector()
@@ -174,11 +269,13 @@ playerAgentWalkAnims.Stealth = {}
 playerAgentWalkAnims.Stealth.Forward = "sk55_bonnie_sneak.anm"
 playerAgentWalkAnims.Stealth.Idle = "sk55_idle_bonnie_cornfield_stealth.chore"
 local kCornrowAgentsMaster = "obj_corn_ScrollingStalks_All"
+
 local kCornrowAgentsCentral = {
   "obj_corn_ScrollingStalks_chunkN1",
   "obj_corn_ScrollingStalks_chunkC",
   "obj_corn_ScrollingStalks_chunkS1"
 }
+
 local kCornrowVisTriggers = {
   "trigger_cornVisCenter",
   "trigger_cornVisNorth",
@@ -190,26 +287,31 @@ local kCornrowVisTriggers = {
   "trigger_cornVisNorth7",
   "trigger_cornVisSouth"
 }
+
 local kCornrowMaxChunks = 7
 local kCornfieldIdleAnims = {}
+
 kCornfieldIdleAnims.chores = {
   "obj_cornstalk_leanfront.chore",
   "obj_cornstalk_leanback.chore",
   "obj_cornstalk_leanleft.chore",
   "obj_cornstalk_leanright.chore"
 }
+
 kCornfieldIdleAnims.rots = {
   90,
   -90,
   0,
   0
 }
+
 local kCampCharacters = {
   "Clive",
   "Roman",
   "Shel",
   "Stephanie"
 }
+
 local kEnvAgentsForNormalGameplay = {
   "adv_cornfieldCh4_meshesA",
   "adv_cornfieldCh4_meshesB",
@@ -230,12 +332,14 @@ local kEnvAgentsForNormalGameplay = {
   "obj_backdropCornfieldCh4",
   "fx_rainSphereWD"
 }
+
 local kEnvAgentsForStealthGameplay = {
   "obj_corn_ScrollingStalks_All",
   "obj_skydomeCornfieldCh4",
   "obj_backdropCornfieldCh4",
   "fx_rainSphereWD"
 }
+
 local kEnvAgentsForClearingGameplay = {
   "obj_folliageCornfieldCh4C",
   "dummy_attach_Bonnie",
@@ -260,6 +364,7 @@ local kEnvAgentsForClearingGameplay = {
   "obj_grassCornfieldDeeDeath06",
   "obj_grassCornfieldDeeDeath07"
 }
+
 local numGuys = 6
 local numCelebGuys = 4
 local CelebGuyIDsToSkip = {2, 4}
@@ -272,19 +377,23 @@ local kPursuerPanicMeterRampDownDecrement = 0.025
 local kPursuerPanicMeterRampDownCoolDown = 1.5
 local kPursuerPanicMeterTriggerExtentsMax = Vector(0.3, 2, 29)
 local kPanicMeterUpdateFudgeFactor = 0.2
+
 local kCornfieldFogColor = {
   r = 0.42745,
   g = 0.42745,
   b = 0.42745,
   a = 1
 }
+
 local kCornfieldFogFarPlane = 14
 local kCornfieldFogNearPlane = 2
+
 local kUIvibratePos = {
   x = 0,
   y = -1.1,
   z = 0
 }
+
 local kChanceForBonnieReaction = 0.7
 local kChanceForBonnieReactionMulti = 0.95
 gChapter4B_Cornfield_ChoredMovesStartTime = 90
@@ -295,12 +404,14 @@ gChapter4B_Cornfield_BonnieIsReacting = false
 gChapter4B_Cornfield_DeeCaughtBonnie = false
 gChapter4B_Cornfield_TriedAClearingObj = false
 gChapter4B_Cornfield_DeadFromInactivity = false
+
 local mOutsideCornfieldFogColor = {
   r = 0.309804,
   g = 0.301961,
   b = 0.423529,
   a = 1
 }
+
 local mOutsideCornfieldFogFarPlane = 1400
 local mOutsideCornfieldFogNearPlane = 2
 local mSequenceActive = false
@@ -353,11 +464,13 @@ local mbOKForCampPeopleConfab = false
 local mbScriptedEventActive = false
 local mPlayerLookingBack = false
 local mStealthMoveController
+
 local consolePrint = function(str)
   if kbDoConsolePrints then
     print(str)
   end
 end
+
 local LeadingZero = function(number)
   if not number then
     return ""
@@ -368,6 +481,7 @@ local LeadingZero = function(number)
     return tostring(number)
   end
 end
+
 local TimedDelay = function(timerAgent, delay)
   AgentSetProperty(timerAgent, "Timer Enabled", false)
   AgentSetProperty(timerAgent, "Timer Progress", 0)
@@ -379,6 +493,7 @@ local TimedDelay = function(timerAgent, delay)
     Yield()
   end
 end
+
 local DoScriptedEvent = function(dlogNode, banterReturnDelay, tCharacterAgents, bForceEndStealth)
   if mbPlayerIsDying then
     return
@@ -427,6 +542,7 @@ local DoScriptedEvent = function(dlogNode, banterReturnDelay, tCharacterAgents, 
     Chapter4B_Cornfield_StartPursuerBanter(banterReturnDelay)
   end
 end
+
 local HideCornForMysteryShots = function(bHide)
   bHide = bHide or false
   local objPrefix = "obj_cornStalk"
@@ -440,6 +556,7 @@ local HideCornForMysteryShots = function(bHide)
     end
   end
 end
+
 local UpdateSneakyFlashlight = function()
   mSneakyFlashlightPosBase = AgentGetPos(kPlayerInactivityFlashlightAgent)
   local sneakLightCurPos
@@ -460,6 +577,7 @@ local UpdateSneakyFlashlight = function()
     Yield()
   end
 end
+
 local IsPursuerOnScreen = function(i)
   local pursuer = "Pursuer" .. i
   local pursuerFlashlight = "Flashlight" .. i
@@ -480,6 +598,7 @@ local IsPursuerOnScreen = function(i)
   end
   return false
 end
+
 local WaitForNoCrossingHeadonPursuers = function()
   local okToProceed = true
   repeat
@@ -498,6 +617,7 @@ local WaitForNoCrossingHeadonPursuers = function()
     Yield()
   until okToProceed == true
 end
+
 local WaitForAllPursuersToBeOffscreen = function()
   local okToProceed = true
   repeat
@@ -514,6 +634,7 @@ local WaitForAllPursuersToBeOffscreen = function()
     Yield()
   until okToProceed == true
 end
+
 local WaitForAllPursuersToDespawn = function()
   local okToProceed = true
   repeat
@@ -527,6 +648,7 @@ local WaitForAllPursuersToDespawn = function()
     Yield()
   until okToProceed == true
 end
+
 local AssignCornfieldIdles = function(chunk)
   if not chunk then
     return
@@ -576,6 +698,7 @@ local AssignCornfieldIdles = function(chunk)
     end
   end
 end
+
 local PlayBonnieNeedsWeaponAmbient = function()
   TimedDelay("timer_BonnieWeaponHint", kDelayForBonnieNeedsWeaponAmbient)
   if not mbShownPressAndHoldTut and not Logic["4 - Got the Rebar"] and not mbPlayerIsDying and not gChapter4B_Cornfield_DeeCaughtBonnie then
@@ -586,6 +709,7 @@ local PlayBonnieNeedsWeaponAmbient = function()
     Dialog_Play("ambient_BonnieInClearing")
   end
 end
+
 local UI_Vibrate_Callback = function(propSet, bEnabled)
   local vibration = function()
     while SceneIsActive(kScene) and mOkayToVibrateUI do
@@ -619,6 +743,7 @@ local UI_Vibrate_Callback = function(propSet, bEnabled)
     consolePrint("UI vibrate stopped!")
   end
 end
+
 local SetupPressAndHoldUIVibration = function()
   while not AgentExists(mUIvibrateAgent) do
     Yield()
@@ -626,6 +751,7 @@ local SetupPressAndHoldUIVibration = function()
   consolePrint("UI vibrate agent pos set! it's " .. kUIvibratePos.x .. ", " .. kUIvibratePos.y .. ", " .. kUIvibratePos.z)
   PropertyAddKeyCallback(AgentGetProperties(mUIvibrateAgent), "Motion Blur Enabled", UI_Vibrate_Callback)
 end
+
 local LoopPressAndHoldUIChore = function()
   while SceneIsActive(kScene) do
     consolePrint("Looping UI anim!")
@@ -634,12 +760,14 @@ local LoopPressAndHoldUIChore = function()
     Sleep(ChoreGetLength("ui_reticle_pressAndHold_loop.chore"))
   end
 end
+
 local ResetHeadOnPursuerTimer = function()
   AgentSetProperty(kPursuerHeadOnTimerAgent, "Timer Enabled", false)
   AgentSetProperty(kPursuerHeadOnTimerAgent, "Timer Length", kPursuerHeadOnTimerLength)
   AgentSetProperty(kPursuerHeadOnTimerAgent, "Timer Progress", 0)
   AgentSetProperty(kPursuerHeadOnTimerAgent, "Timer Enabled", true)
 end
+
 local AssignRandomPursuerEmittingSound = function(agent)
   if not AgentHasProperty(agent, "Sound Emitter - File") then
     return
@@ -657,6 +785,7 @@ local AssignRandomPursuerEmittingSound = function(agent)
   mPursuerSoundEmittersActive = mPursuerSoundEmittersActive + 1
   consolePrint("Sound Emitters active: " .. mPursuerSoundEmittersActive)
 end
+
 local AssignRandomFootstepSounds = function(agent)
   local steps = {
     0,
@@ -684,6 +813,7 @@ local AssignRandomFootstepSounds = function(agent)
     stepsFiles[i] = kDirtFootstepSoundPrefix .. steps[i] .. kSoundSuffix
   end
 end
+
 local CornfieldPursuerPanicMeter_RampDown = function()
   mPanicMeterRampDownActive = true
   while SceneIsActive(kScene) and mPursuerPanicMeterLastProgress > 0 do
@@ -697,12 +827,14 @@ local CornfieldPursuerPanicMeter_RampDown = function()
   mPanicMeterRampDownActive = false
   mPursuerPanicMeterRampDownThread = nil
 end
+
 local CornfieldInactivityPanicMeter_Update = function(progress)
   if mbPlayerIsDying or mbScriptedEventActive then
     return
   end
   AgentSetProperty(kPursuerPanicMeterTimer, "Timer Progress", progress)
 end
+
 local CornfieldPursuerPanicMeter_Update = function(pursuerAgent, pursuerAgentTrigger, pursuerAgentKillTrigger)
   if not (not mbPlayerIsDying and not kSuppressPursuerPanicMeter and pursuerAgent) or not pursuerAgentTrigger then
     return
@@ -722,6 +854,7 @@ local CornfieldPursuerPanicMeter_Update = function(pursuerAgent, pursuerAgentTri
     AgentSetProperty(kPursuerPanicMeterTimer, "Timer Progress", mPursuerPanicMeterLastProgress)
   end
 end
+
 local SetupEnvironment = function(mode)
   local bStealthMode = false
   local bClearingMode = false
@@ -765,6 +898,7 @@ local SetupEnvironment = function(mode)
     end
   end
 end
+
 local CreateCornfieldAssets = function()
   for key, value in pairs(kCornrowAgentsCentral) do
     AssignCornfieldIdles(value)
@@ -819,6 +953,7 @@ local CreateCornfieldAssets = function()
     AgentSetProperty(panicTriggerAgent, "Extents Max", kPursuerPanicMeterTriggerExtentsMax)
   end
 end
+
 local StealthSeqChoredMovementTracker = function()
   while mSequenceActive and not mbPlayerIsDying do
     local delta = 0
@@ -856,6 +991,7 @@ local StealthSeqChoredMovementTracker = function()
     Yield()
   end
 end
+
 local StealthSeqInactivityTimerEnable = function(bEnable)
   if bEnable then
     AgentSetProperty(kPlayerInactivityTimerAgent, "Timer Progress", 0)
@@ -875,6 +1011,7 @@ local StealthSeqInactivityTimerEnable = function(bEnable)
     mAdvanceSneakyFlashlight = false
   end
 end
+
 local PlayerLooksBack = function()
   mPlayerLookingBack = true
   Yield()
@@ -885,6 +1022,7 @@ local PlayerLooksBack = function()
   mPlayerLookingBack = false
   Yield()
 end
+
 local HideHeadOnPursuerBeforeRoman = function(delay)
   if delay and type(delay) == "number" then
     Sleep(delay)
@@ -894,6 +1032,7 @@ local HideHeadOnPursuerBeforeRoman = function(delay)
     AgentSetPos(mPursuerHeadOnBeforeRomanArrives, Vector(0, 0, 0))
   end
 end
+
 local UpdateDirection = function(dir)
   if not mbOkayToUpdateDirection or dir == eUp or mbPlayerIsDying then
     return
@@ -958,12 +1097,14 @@ local UpdateDirection = function(dir)
   Yield()
   consolePrint("Player movement ^^^END^^^")
 end
+
 local UpdateVirtualStick = function(dir)
   if not (not mStealthPositionChangeActive and Mode_IsActive(mode_Main)) or not mSequenceActive then
     return
   end
   ThreadStart(UpdateDirection, Input_GetJoystickDir(dir))
 end
+
 local pursuerTimer = function(delayOverride, bRunOnlyOnce)
   consolePrint("oh no bad guys!  PURSUER TIMER ACTIVATED")
   while mOkayToSpawnPursuers or bRunOnlyOnce do
@@ -1225,6 +1366,7 @@ local pursuerTimer = function(delayOverride, bRunOnlyOnce)
     bRunOnlyOnce = false
   end
 end
+
 local EndStealthBackupTimer = function()
   TimedDelay(kStealthSeqTimerAgent, kEndStealthBackupTimerTime)
   if mSequenceActive then
@@ -1233,6 +1375,7 @@ local EndStealthBackupTimer = function()
     mPursuerTimerThread = ThreadStart(pursuerTimer, 0, true)
   end
 end
+
 local cornEnd = function()
   if mCornEndFired then
     return
@@ -1295,6 +1438,7 @@ local cornEnd = function()
   Yield()
   Dialog_Play("cs_findClearing")
 end
+
 local CornEndPrep = function()
   WaitForAllPursuersToBeOffscreen()
   Yield()
@@ -1315,9 +1459,11 @@ local CornEndPrep = function()
     ThreadStart(cornEnd)
   end
 end
+
 function Chapter4B_Cornfield_ArePursuerKillsEnabled()
   return not kPreventPursuerKills
 end
+
 function Chapter4B_Cornfield_ReticleNoiseEnable(bEnable)
   if bEnable then
     if not mReticleNoiseController then
@@ -1330,6 +1476,7 @@ function Chapter4B_Cornfield_ReticleNoiseEnable(bEnable)
     Yield()
   end
 end
+
 function Chapter4B_Cornfield_EnableNeedWeaponAmbient(bEnable, delay)
   if delay and type(delay) == "number" then
     Sleep(delay)
@@ -1340,6 +1487,7 @@ function Chapter4B_Cornfield_EnableNeedWeaponAmbient(bEnable, delay)
     mbOKForNeedWeaponAmbient = false
   end
 end
+
 function Chapter4B_Cornfield_CamChangeCallback()
   Chapter4B_Cornfield_RainScaler()
   if mbMysteryShotsFiring and not mbMysteryShotsFired and AgentGetName(SceneGetCamera(kScene)) == "cam_mysteryShots" then
@@ -1348,6 +1496,7 @@ function Chapter4B_Cornfield_CamChangeCallback()
     HideCornForMysteryShots(true)
   end
 end
+
 function Chapter4B_Cornfield_RainScaler()
   local cam = AgentGetName(SceneGetCamera(kScene))
   local bScaleRain = false
@@ -1364,6 +1513,7 @@ function Chapter4B_Cornfield_RainScaler()
     AgentSetProperty("fx_rainSphereWD", "Render Global Scale", mRainScale)
   end
 end
+
 function Chapter4B_Cornfield_RebarDragStart_OnLeft()
   if mGotADirForRebarDrag then
     return
@@ -1377,6 +1527,7 @@ function Chapter4B_Cornfield_RebarDragStart_OnLeft()
     Dialog_Play("logic_dragRebar_startLeft")
   end
 end
+
 function Chapter4B_Cornfield_RebarDragStart_OnRight()
   if mGotADirForRebarDrag then
     return
@@ -1390,6 +1541,7 @@ function Chapter4B_Cornfield_RebarDragStart_OnRight()
     Dialog_Play("logic_dragRebar_startRight")
   end
 end
+
 function Chapter4B_Cornfield_PursuerTriggersEnable(bEnable)
   if not bEnable then
     bEnable = false
@@ -1404,6 +1556,7 @@ function Chapter4B_Cornfield_PursuerTriggersEnable(bEnable)
   AgentSetProperty("trigger_CloseCall_cutscene", "Trigger Enabled", bEnable)
   AgentSetProperty("trigger_PanicMeter_CloseCall", "Trigger Enabled", bEnable)
 end
+
 function Chapter4B_Cornfield_RebarDrag_ChooseStartDir()
   if Input_IsUsingTouch() or Platform_IsWiiU() or Input_UseCursor() and Platform_HasTVRemote() then
     Dialog_Play("cs_freeRebar")
@@ -1454,6 +1607,7 @@ function Chapter4B_Cornfield_RebarDrag_ChooseStartDir()
     Dialog_Play("logic_dragRebarEnd")
   end
 end
+
 function Chapter4B_Cornfield_ShouldBonnieReact()
   local dieRoll = math.random()
   if dieRoll < mChanceForBonnieReaction then
@@ -1464,6 +1618,7 @@ function Chapter4B_Cornfield_ShouldBonnieReact()
     mChanceForBonnieReaction = kChanceForBonnieReaction
   end
 end
+
 function Chapter4B_Cornfield_PursuerDeePause(bPause)
   if mPursuerDeeController then
     if bPause then
@@ -1481,6 +1636,7 @@ function Chapter4B_Cornfield_PursuerDeePause(bPause)
     end
   end
 end
+
 function Chapter4B_Cornfield_ActivateRebarTut(agent)
   if AgentGetName(agent) == "obj_rebar_usePoint" and not mbShownPressAndHoldTut then
     mbShownPressAndHoldTut = true
@@ -1488,6 +1644,7 @@ function Chapter4B_Cornfield_ActivateRebarTut(agent)
     Callback_OnItemFocus:Remove(Chapter4B_Cornfield_ActivateRebarTut)
   end
 end
+
 function Chapter4B_Cornfield_ActivatePressAndHoldUI(agent, bActivateOverride)
   local bGotAPressNHoldObj = false
   for key, value in ipairs(kPressAndHoldAgents) do
@@ -1518,6 +1675,7 @@ function Chapter4B_Cornfield_ActivatePressAndHoldUI(agent, bActivateOverride)
     AgentSetProperty(mUIvibrateAgent, "Render Axis Scale", Vector(1, 1, 1))
   end
 end
+
 function Chapter4B_Cornfield_SetPlayerWalkAnims(animKey)
   if not AgentHasProperty(playerAgent, "Walk Animation - Idle") then
     consolePrint("Error - player agent has no walk animator!")
@@ -1537,6 +1695,7 @@ function Chapter4B_Cornfield_SetPlayerWalkAnims(animKey)
   AgentSetProperty(playerAgent, "Walk Animation - Forward", playerAgentWalkAnims[animKey].Forward)
   AgentSetProperty(playerAgent, "Walk Animation - Idle", playerAgentWalkAnims[animKey].Idle)
 end
+
 function Chapter4B_Cornfield_EnableVisTriggers(bEnable)
   bEnable = bEnable or false
   Yield()
@@ -1545,6 +1704,7 @@ function Chapter4B_Cornfield_EnableVisTriggers(bEnable)
   end
   Yield()
 end
+
 function Chapter4B_Cornfield_SetPlayerLocation(trigger)
   if trigger == nil then
     consolePrint("Chapter4B_Cornfield_SetPlayerLocation() didn't get a valid trigger!")
@@ -1553,6 +1713,7 @@ function Chapter4B_Cornfield_SetPlayerLocation(trigger)
   consolePrint("Chapter4B_Cornfield_SetPlayerLocation() called by trigger " .. trigger)
   gChapter4B_Cornfield_CurrentLocTrigger = trigger
 end
+
 function Chapter4B_Cornfield_ChunksOnOff(agent, visTrigger, bTurningAround)
   local trigger = visTrigger
   if trigger == nil then
@@ -1689,6 +1850,7 @@ function Chapter4B_Cornfield_ChunksOnOff(agent, visTrigger, bTurningAround)
       chunkBehind2 = chunkPrefix .. "S" .. chunkBehind2Index
     end
   end
+
   if not bTurningAround then
     consolePrint("Corn Vis update - player NOT turning around!")
     consolePrint("Unhiding " .. chunkForward .. " and " .. chunkForward2)
@@ -1720,20 +1882,24 @@ function Chapter4B_Cornfield_ChunksOnOff(agent, visTrigger, bTurningAround)
     end
   end
 end
+
 function Chapter4B_Cornfield_NextPursuerHeadOn(bEnable)
   if bEnable == nil then
     bEnable = false
   end
   mPursuerForceNextToBeHeadOn = bEnable
 end
+
 function Chapter4B_Cornfield_PeekUI_Add()
   if not SceneIsActive("ui_peek.scene") then
     SceneAdd("ui_peek.scene")
   end
 end
+
 function Chapter4B_Cornfield_PeekUI_Remove()
   SceneRemove("ui_peek.scene")
 end
+
 function Chapter4B_Cornfield_PeekUI_HideArrowsShowNextArrow(...)
   local arg = {
     n = select("#", ...),
@@ -1753,6 +1919,7 @@ function Chapter4B_Cornfield_PeekUI_HideArrowsShowNextArrow(...)
     end
   end
 end
+
 function Chapter4B_Cornfield_PursuerPanicMeter_Activate(pursuerAgent, pursuerAgentTrigger, pursuerAgentKillTrigger)
   consolePrint("panic meter --ACTIVATE-- called by " .. pursuerAgent .. " and " .. pursuerAgentTrigger)
   if mbHeadOnPursuerTriggerActivated then
@@ -1770,6 +1937,7 @@ function Chapter4B_Cornfield_PursuerPanicMeter_Activate(pursuerAgent, pursuerAge
     mPursuerPanicMeterThread = ThreadStart(CornfieldPursuerPanicMeter_Update, pursuerAgent, pursuerAgentTrigger, pursuerAgentKillTrigger)
   end
 end
+
 function Chapter4B_Cornfield_PursuerPanicMeter_Deactivate(bInstant)
   mbHeadOnPursuerTriggerActivated = false
   consolePrint("PANIC METER OFF!!")
@@ -1790,6 +1958,7 @@ function Chapter4B_Cornfield_PursuerPanicMeter_Deactivate(bInstant)
     StealthSeqInactivityTimerEnable(true)
   end
 end
+
 function Chapter4B_Cornfield_HideAllCornrows(bHide)
   if bHide == nil then
     bHide = false
@@ -1799,6 +1968,7 @@ function Chapter4B_Cornfield_HideAllCornrows(bHide)
     AgentHide(value, bHide, true)
   end
 end
+
 function Chapter4B_Cornfield_DeeApproachAsPursuer()
   AgentHide("PursuerDee", false, true)
   mPursuerDeeController = ChorePlay("env_cornfield2_mysteryPursuerIdle.chore", 100)
@@ -1811,6 +1981,7 @@ function Chapter4B_Cornfield_DeeApproachAsPursuer()
   ThreadStart(PlayBonnieNeedsWeaponAmbient)
   consolePrint("Here comes Dee!")
 end
+
 function Chapter4B_Cornfield_TimerCallback(key, val)
   consolePrint("Chapter4B_Cornfield_TimerCallback() invoked!")
   if val == true then
@@ -1837,6 +2008,7 @@ function Chapter4B_Cornfield_TimerCallback(key, val)
     ThreadStart(CornEndPrep)
   end
 end
+
 function camAnchorPosition()
   while mCornfieldCameraActive do
     Yield()
@@ -1844,6 +2016,7 @@ function camAnchorPosition()
     AgentSetWorldPos("obj_camAnchor", anchorPos)
   end
 end
+
 function badGuysMoveRight(key, val)
   mbBadGuysShifting = val
   if val == true then
@@ -1861,6 +2034,7 @@ function badGuysMoveRight(key, val)
     end
   end
 end
+
 function badGuysMoveLeft(key, val)
   mbBadGuysShifting = val
   if val == true then
@@ -1878,49 +2052,12 @@ function badGuysMoveLeft(key, val)
     end
   end
 end
-function Chapter4B()
-  Mode(mode_Main)
-  Game_EnableMovement(false)
-  local agent = ""
-  for i = 1, numGuys do
-    agent = "Pursuer" .. i
-    ShaderOverrideTexture(agent, "sk54_banditA_body.d3dtx", "sk54_banditAnoLogo_body.d3dtx")
-  end
-  Rain("fx_rainSphereWD")
-  mRainScale = AgentGetProperty("fx_rainSphereWD", "Render Global Scale")
-  Chapter4B_Cornfield_PursuerTriggersEnable(false)
-  if not Input_IsUsingTouch() then
-    Callback_OnItemFocus:Add(Chapter4B_Cornfield_ActivateRebarTut)
-  end
-  SceneAddOnCameraChangeCallback(kScene, "Chapter4B_Cornfield_CamChangeCallback")
-  AgentSetProperty(kPursuerDeeTrigger, "Trigger Enabled", kEnablePursuerDeeTrigger)
-  AgentHide("ui_overlayCornfield", true, true)
-  if SaveLoad_IsFromLoad() then
-    return
-  end
-  SetupEnvironment("normal")
-  mOutsideCornfieldFogColor = AgentGetProperty(kSceneAgent, "Fog Color")
-  mOutsideCornfieldFogFarPlane = AgentGetProperty(kSceneAgent, "Fog Far Plane")
-  mOutsideCornfieldFogNearPlane = AgentGetProperty(kSceneAgent, "Fog Near Plane")
-  if Logic["4 - Attacked Dee"] then
-    Chapter4B_Cornfield_SetPlayerWalkAnims("Clearing")
-    SetupEnvironment("clearing")
-    Dialog_Play("cs_revealDee")
-  elseif Logic["4 - Cornfield Pursuit Ended"] then
-    Chapter4B_Cornfield_SetPlayerWalkAnims("Normal")
-    SetupEnvironment("clearing")
-    Dialog_Play("cs_findClearing")
-  elseif Logic["4 - Cornfield Pursuit Begun"] then
-    SetupEnvironment("stealth")
-    Dialog_Play("cs_cornfieldStart")
-  elseif AllowIntroCutscenes() then
-    Dialog_Play("cs_enter")
-  end
-end
+
 function Chapter4B_Cornfield_AttachPlayerToMover()
   AgentAttach(playerAgent, "obj_cornAnchor")
   AgentAttachToNode(playerAgent, "obj_cornAnchor", "obj_cornAnchor")
 end
+
 function Chapter4B_Cornfield_StartStealthSeq()
   consolePrint("Starting Cornfield sequence!")
   CreateCornfieldAssets()
@@ -1959,6 +2096,7 @@ function Chapter4B_Cornfield_StartStealthSeq()
   Yield()
   Logic["Cornfield - bSceneTimer"] = true
 end
+
 function Chapter4B_Cornfield_StartPursuerBanter(initDelay)
   if initDelay == nil then
     initDelay = 0
@@ -1974,6 +2112,7 @@ function Chapter4B_Cornfield_StartPursuerBanter(initDelay)
   mPursuerBanterActive = true
   Dialog_StartAmbientLoop("ambient_PursuerBanter", kPursuerBanterMinDelay, kPursuerBanterMaxDelay, initDelay)
 end
+
 function Chapter4B_Cornfield_StopPursuerBanter(bStopCurrent)
   if bStopCurrent == nil then
     bStopCurrent = false
@@ -1981,6 +2120,7 @@ function Chapter4B_Cornfield_StopPursuerBanter(bStopCurrent)
   Dialog_StopAmbientLoop(bStopCurrent)
   mPursuerBanterActive = false
 end
+
 function Chapter4B_Cornfield_DeeCallsOut()
   local bDeeNotLeland = true
   local totalLinesToPlay = 4
@@ -2002,6 +2142,7 @@ function Chapter4B_Cornfield_DeeCallsOut()
     currentLine = currentLine + 1
   until Logic["4 - Chose Dees Fate"] or totalLinesToPlay < currentLine
 end
+
 function Chapter4B_Cornfield_WaitForCampPeopleEvents()
   local progressDelay = function(eventTime)
     local progressToNextEvent = eventTime / kStealthSeqTime
@@ -2042,6 +2183,7 @@ function Chapter4B_Cornfield_WaitForCampPeopleEvents()
     AgentSetProperty(kStealthSeqTimerAgent, "Timer Enabled", false)
   end
 end
+
 function Chapter4B_Cornfield_WaitForMysteryShots()
   local progressToSilence = kMysteryShotsTime / kStealthSeqTime
   local progressToShots = (kMysteryShotsTime + kSequenceDelayBeforeShots) / kStealthSeqTime
@@ -2079,6 +2221,7 @@ function Chapter4B_Cornfield_WaitForMysteryShots()
     Chapter4B_Cornfield_WaitForMysteryShots()
   end
 end
+
 function Chapter4B_Cornfield_SequenceTimer()
   while not mStealthPositionChange_ShiftActive do
     Yield()
@@ -2088,6 +2231,7 @@ function Chapter4B_Cornfield_SequenceTimer()
   consolePrint("Sequence time's up!")
   Logic["Cornfield - bSceneTimer"] = false
 end
+
 function Chapter4B_Cornfield_Die_Delay()
   if not mSequenceActive or mbPlayerIsDying then
     return
@@ -2097,6 +2241,7 @@ function Chapter4B_Cornfield_Die_Delay()
   end
   Dialog_Play("cs_cornfieldDie")
 end
+
 function Cornfield_Die()
   if not mSequenceActive or mbPlayerIsDying or kPreventPursuerKills then
     return
@@ -2136,24 +2281,28 @@ function Cornfield_Die()
   Mode_Pop(mode_Chored_Movement)
   AgentDetach(playerAgent)
 end
+
 function Cornfield_OnButtonDown(event)
   if not (not mStealthPositionChangeActive and Mode_IsActive(mode_Main)) or not mSequenceActive then
     return
   end
   UpdateDirection(eDown)
 end
+
 function Cornfield_OnButtonLeft(event)
   if not (not mStealthPositionChangeActive and Mode_IsActive(mode_Main)) or not mSequenceActive then
     return
   end
   UpdateDirection(eLeft)
 end
+
 function Cornfield_OnButtonRight(event)
   if not (not mStealthPositionChangeActive and Mode_IsActive(mode_Main)) or not mSequenceActive then
     return
   end
   UpdateDirection(eRight)
 end
+
 function Cornfield_OnLeftStick(event)
   if not (not mStealthPositionChangeActive and Mode_IsActive(mode_Main)) or not mSequenceActive then
     return
@@ -2164,4 +2313,84 @@ function Cornfield_OnLeftStick(event)
   end
   UpdateDirection(Input_GetJoystickDir(event))
 end
+
+local OriginalTelltaleLevelStartLogic = function()
+  Mode(mode_Main)
+  Game_EnableMovement(false)
+  local agent = ""
+  for i = 1, numGuys do
+    agent = "Pursuer" .. i
+    ShaderOverrideTexture(agent, "sk54_banditA_body.d3dtx", "sk54_banditAnoLogo_body.d3dtx")
+  end
+  Rain("fx_rainSphereWD")
+  mRainScale = AgentGetProperty("fx_rainSphereWD", "Render Global Scale")
+  Chapter4B_Cornfield_PursuerTriggersEnable(false)
+  if not Input_IsUsingTouch() then
+    Callback_OnItemFocus:Add(Chapter4B_Cornfield_ActivateRebarTut)
+  end
+  SceneAddOnCameraChangeCallback(kScene, "Chapter4B_Cornfield_CamChangeCallback")
+  AgentSetProperty(kPursuerDeeTrigger, "Trigger Enabled", kEnablePursuerDeeTrigger)
+  AgentHide("ui_overlayCornfield", true, true)
+  if SaveLoad_IsFromLoad() then
+    return
+  end
+  SetupEnvironment("normal")
+  mOutsideCornfieldFogColor = AgentGetProperty(kSceneAgent, "Fog Color")
+  mOutsideCornfieldFogFarPlane = AgentGetProperty(kSceneAgent, "Fog Far Plane")
+  mOutsideCornfieldFogNearPlane = AgentGetProperty(kSceneAgent, "Fog Near Plane")
+  if Logic["4 - Attacked Dee"] then
+    Chapter4B_Cornfield_SetPlayerWalkAnims("Clearing")
+    SetupEnvironment("clearing")
+    Dialog_Play("cs_revealDee")
+  elseif Logic["4 - Cornfield Pursuit Ended"] then
+    Chapter4B_Cornfield_SetPlayerWalkAnims("Normal")
+    SetupEnvironment("clearing")
+    Dialog_Play("cs_findClearing")
+  elseif Logic["4 - Cornfield Pursuit Begun"] then
+    SetupEnvironment("stealth")
+    Dialog_Play("cs_cornfieldStart")
+  elseif AllowIntroCutscenes() then
+    Dialog_Play("cs_enter")
+  end
+end
+
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| LEVEL START FUNCTION ||||||||||||||||||||||||||||||||||||||||||||||||
+--Here is the main function that gets called when the level starts.
+--This is where we will setup and execute everything that we want to do!
+
+function Chapter4B()
+  RELIGHT_ConfigurationStart();
+
+  RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
+
+  --If configured in the development ini, enable the TLSE editor
+  if (RelightConfigDevelopment.EditorMode == true) then
+    TLSE_Development_Editor_Start();
+    Callback_PostUpdate:Add(TLSE_Development_Editor_Update);
+    do return end --don't continue
+  end
+
+  --If configured in the development ini, enable freecamera (if editor is not enabled)
+  if (RelightConfigDevelopment.FreeCameraOnlyMode == true) then     
+    TLSE_Development_CreateFreeCamera();
+    Callback_PostUpdate:Add(TLSE_Development_UpdateFreeCamera);
+  end
+
+  --If configured in the development ini, enable a performance metrics overlay
+  if (RelightConfigDevelopment.PerformanceMetrics == true) then     
+    TLSE_Development_PerformanceMetrics_Initalize();
+    Callback_PostUpdate:Add(TLSE_Development_PerformanceMetrics_Update);
+  end
+
+  --If it's configured in the development ini to be in freecamera mode...
+  if (RelightConfigDevelopment.FreeCameraOnlyMode == true and RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == false) then
+    return --don't start the scene normally as the user wants to fly around the scene but not have it attempt to run the original level logic
+  end
+
+  --execute the original telltale level start logic
+  OriginalTelltaleLevelStartLogic();
+end
+
 SceneOpen(kScene, kScript)

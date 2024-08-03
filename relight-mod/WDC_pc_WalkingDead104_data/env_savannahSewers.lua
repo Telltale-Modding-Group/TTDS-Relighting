@@ -28,11 +28,52 @@ TLSE_Development_SceneObjectAgentName = kScene .. ".scene";
 TLSE_Development_FreecamUseFOVScale = false;
 
 --Relight variables
-RELIGHT_kScene = kScene;
+RELIGHT_SceneObject = kScene;
 RELIGHT_SceneObjectAgentName = kScene .. ".scene";
 RelightConfigGlobal = RelightConfigData_Main.Global;
 RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
---RelightConfigLevel = RelightConfigData_Season2.Level_101_ClementineHouseExterior;
+--RelightConfigLevel = RelightConfigData_Season2.Level_202_LodgeMainRoom;
+
+--Relight DOF
+RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
+RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = false;
+RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
+RELIGHT_DOF_AUTOFOCUS_FocalRange = 1.0;
+RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = {};
+RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
+{
+    "Clementine"
+};
+RELIGHT_DOF_AUTOFOCUS_Settings =
+{
+    TargetValidation_IsOnScreen = true,
+    TargetValidation_IsVisible = true,
+    TargetValidation_IsWithinDistance = true,
+    TargetValidation_IsFacingCamera = true,
+    TargetValidation_IsOccluded = false,
+    TargetValidation_RejectionAngle = 0.0, --goes from -1 to 1 (less than 0 is within the 180 forward facing fov of the given object)
+    TargetValidation_RejectionDistance = 40.0, --the max distance before the agent is too far from camera to do autofocus
+};
+RELIGHT_DOF_AUTOFOCUS_BokehSettings =
+{
+    BokehBrightnessDeltaThreshold = 0.02,
+    BokehBrightnessThreshold = 0.02,
+    BokehBlurThreshold = 0.05,
+    BokehMinSize = 0.0,
+    BokehMaxSize = 0.03,
+    BokehFalloff = 0.75,
+    MaxBokehBufferAmount = 1.0,
+    BokehPatternTexture = "bokeh_circle.d3dtx"
+};
+
+--Relight Volumetrics
+RELIGHT_HackyCameraVolumetrics_Settings = 
+{
+    Samples = 256,
+    SampleOffset = 0.15,
+    SampleStartOffset = 1.0,
+    FogColor = Color(0.1, 0.1, 0.1, 0.1)
+};
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -134,8 +175,9 @@ end
 --This is where we will setup and execute everything that we want to do!
 
 function SavannahSewers()
-  --Apply freecamera settings from ini dev file
-  RELIGHT_ApplyFreecameraSettingsFromINI();
+  RELIGHT_ConfigurationStart();
+
+  RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then

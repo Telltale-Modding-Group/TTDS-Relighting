@@ -20,7 +20,7 @@ RelightConfigData_Season3 = nil;
 RelightConfigData_Season4 = nil;
 RelightConfigData_SeasonM = nil;
 
-RELIGHT_ApplyFreecameraSettingsFromINI = function()
+RELIGHT_ConfigurationStart = function()
     TLSE_Development_Freecam_SnappyZoom = RelightConfigData_Development.CameraSettings.Camera_SnappyZoom;
     TLSE_Development_Freecam_SnappyMovement = RelightConfigData_Development.CameraSettings.Camera_SnappyMovement;
     TLSE_Development_Freecam_SnappyRotation = RelightConfigData_Development.CameraSettings.Camera_SnappyRotation;

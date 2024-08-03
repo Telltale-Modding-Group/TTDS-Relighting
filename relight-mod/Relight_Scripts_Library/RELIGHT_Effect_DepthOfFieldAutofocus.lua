@@ -65,6 +65,62 @@ local number_currentFarFalloff = 0;
 local number_currentFarMax = 0;
 local bool_currentEnabledDOF = false;
 
+local number_nearFocusTargetDistance = 0;
+local number_farFocusTargetDistance = 0;
+
+local vector_sensorSize_16mm = Vector(10.26, 7.49, 0);
+local vector_sensorsSize_MicroFourThirds = Vector(17.3, 13, 0);
+local vector_sensorsSize_Super35mm = Vector(24, 14, 0);
+local vector_sensorsSize_35mmFullFrame = Vector(36, 24, 0);
+local vector_sensorsSize_MeduimFormat645 = Vector(56, 41.5, 0);
+local vector_sensorsSize_IMAX = Vector(70.4, 52.6, 0);
+
+local CalculateCameraProperties = function()
+    local agent_currentCamera = SceneGetCamera(RELIGHT_SceneObject);
+    local number_currentCameraFarPlane = AgentGetProperty(agent_currentCamera, "Clip Plane - Far"); --Number type
+    local number_currentCameraNearPlane = AgentGetProperty(agent_currentCamera, "Clip Plane - Near"); --Number type
+    local number_horizontalFOV = AgentGetProperty(agent_currentCamera, "Field Of View"); --NOTE: according to ida, CameraGetFOV returns the horizontal FOV
+    local number_FOVScale = AgentGetProperty(agent_currentCamera, "Field Of View Scale");
+    local number_finalHorizontalFOV = number_horizontalFOV * number_FOVScale;
+    --local number_finalVerticalFOV = number_finalHorizontalFOV / GetAspectRatio();d
+    local number_focalDistanceInMM = number_focalDistance * 1000; --NOTE: Multiply by 1000 to be in milimeters
+
+    local number_radiansHorizontalFOV = math.rad(number_finalHorizontalFOV);
+    --local number_radiansVerticalFOV = math.rad(number_finalVerticalFOV);
+
+    local number_aperture = 1;
+
+    local vector_sensorSize = vector_sensorsSize_IMAX;
+
+    --FORMULA | diagonal = sqrt(width ^ 2 + length ^ 2)
+    local number_diagonalSize = math.sqrt((vector_sensorSize.x * vector_sensorSize.x) + (vector_sensorSize.y * vector_sensorSize.y));
+
+    --FORMULA | circle of confusion (CoC) = sensor diagonal / 1500
+    local number_circleOfConfusion = number_diagonalSize / 1500; --NOTE: 1500 is modern standard approximation, 1000 is traditional zeiss standard, 1730 is sometimes used.
+
+    --FORMULA | focal length = sensor size / (2 * tan(FOV in radians / 2))
+    local number_horizontalFocalLength = vector_sensorSize.x / (2 * math.tan(number_radiansHorizontalFOV / 2));
+    --local number_verticalFocalLength = vector_sensorSize.y / (2 * math.tan(number_radiansVerticalFOV / 2));
+
+    --FORMULA | hyperfocal = ((focal length ^ 2) / (aperture * CoC)) + focal length
+    local number_hyperfocalDistance = ((number_horizontalFocalLength * number_horizontalFocalLength) / (number_aperture * number_circleOfConfusion)) + number_horizontalFocalLength;
+
+    --FORMULA | near distance = (hyperfocal * focus distance) / (hyperfocal + (focus distance - focal length))
+    local number_nearFocusDistance = (number_hyperfocalDistance * number_focalDistanceInMM) / (number_hyperfocalDistance + (number_focalDistanceInMM - number_horizontalFocalLength));
+
+    --FORMULA | far distance = (hyperfocal * focus distance) / (hyperfocal + (focus distance - focal length))
+    local number_farFocusDistance = (number_hyperfocalDistance * number_focalDistanceInMM) / (number_hyperfocalDistance - (number_focalDistanceInMM - number_horizontalFocalLength));
+
+    number_currentNearFocusDistance = number_nearFocusDistance / 1000; --NOTE: Divide by 1000 to get value in meters
+    number_currentFarFocusDistance = number_farFocusDistance / 1000; --NOTE: Divide by 1000 to get value in meters
+
+    number_currentFarFalloff = 0; 
+    number_currentNearFallof = 0; 
+
+    --RELIGHT_DOF_AUTOFOCUS_BokehSettings["BokehMaxSize"] = number_circleOfConfusion;
+
+end
+
 --disables cel shaded outlines in a scene
 RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF = function(relightConfigLevel)
     --local bool_dofEnabled = relightConfigLevel.EnableDepthOfField;
@@ -146,13 +202,15 @@ end
 local ApplyDepthOfFieldSettings = function()
     local agent_currentCamera = SceneGetCamera(RELIGHT_SceneObject); --Agent type
 
+    --CalculateCameraProperties();
+
     if (RELIGHT_DOF_AUTOFOCUS_UseCameraDOF == true) then
         --Use the DOF properties on the camera itself
         AgentSetProperty(agent_currentCamera, "Depth Of Field Enabled", bool_currentEnabledDOF);
         AgentSetProperty(agent_currentCamera, "Use High Quality DOF", true);
         AgentSetProperty(agent_currentCamera, "Depth Of Field Type", 1);
-        AgentSetProperty(agent_currentCamera, "Depth Of Field Blur Strength", 3);
-        AgentSetProperty(agent_currentCamera, "Depth Of Field Coverage Boost", 1);
+        AgentSetProperty(agent_currentCamera, "Depth Of Field Blur Strength", 15);
+        AgentSetProperty(agent_currentCamera, "Depth Of Field Coverage Boost", 2);
 
         if(RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF == true) then
             AgentSetProperty(agent_currentCamera, "Use Bokeh", true, RELIGHT_SceneObject);
@@ -209,12 +267,10 @@ RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus = function()
     --create our near target variables that will be filled with data later 
     local agent_nearFocusTarget = nil;
     local vector_nearFocusTargetPosition = nil;
-    local number_nearFocusTargetDistance = nil;
     
     --create our far target variables that will be filled with data later 
     local agent_farFocusTarget = nil;
     local vector_farFocusTargetPosition = nil;
-    local number_farFocusTargetDistance = nil;
 
     --go through the array of valid agents
     for x, agent_validAgent in ipairs(agentTable_validAgents) do

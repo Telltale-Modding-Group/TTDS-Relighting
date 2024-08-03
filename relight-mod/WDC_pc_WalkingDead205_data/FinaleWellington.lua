@@ -59,10 +59,10 @@ RELIGHT_DOF_AUTOFOCUS_BokehSettings =
 {
     BokehBrightnessDeltaThreshold = 0.02,
     BokehBrightnessThreshold = 0.02,
-    BokehBlurThreshold = 0.02,
+    BokehBlurThreshold = 0.05,
     BokehMinSize = 0.0,
-    BokehMaxSize = 0.035,
-    BokehFalloff = 1.0,
+    BokehMaxSize = 0.03,
+    BokehFalloff = 0.75,
     MaxBokehBufferAmount = 1.0,
     BokehPatternTexture = "bokeh_circle.d3dtx"
 };
@@ -124,8 +124,8 @@ function FinaleWellington()
   --RELIGHT_LensFlareEffect_Initalize();
   --Callback_OnPostUpdate:Add(RELIGHT_LensFlareEffect_Update);
 
-  RELIGHT_HackyCameraVolumetrics_Initalize();
-  Callback_OnPostUpdate:Add(RELIGHT_HackyCameraVolumetrics_Update);
+  --RELIGHT_HackyCameraVolumetrics_Initalize();
+  --Callback_OnPostUpdate:Add(RELIGHT_HackyCameraVolumetrics_Update);
 
   --RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF(nil);
   --Callback_OnPostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus);
@@ -158,8 +158,8 @@ function FinaleWellington()
   OriginalTelltaleLevelStartLogic();
 end
 
-SceneOpen(kScene, kScript)
+SceneOpen(kScene, kScript);
 
-if (RelightConfigDevelopment.EditorMode == false) then
-  SceneAdd("ui_nextTimeOn")
+if (RelightConfigDevelopment.EditorMode == false) or (RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == true) then
+  SceneAdd("ui_nextTimeOn");
 end
