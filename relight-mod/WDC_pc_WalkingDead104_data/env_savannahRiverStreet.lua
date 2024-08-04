@@ -5,6 +5,7 @@
 --This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
 
 require("RELIGHT_Include.lua");
+require("RELIGHT_env_savannahRiverStreet.lua");
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -166,6 +167,9 @@ function SavannahRiverStreet()
   RELIGHT_ConfigurationStart();
 
   RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
+
+  RELIGHT_WaterReplacement_Initalize();
+  RELIGHT_SkydomeReplacement_Initalize();
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then

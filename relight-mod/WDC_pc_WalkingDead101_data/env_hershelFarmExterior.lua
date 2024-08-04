@@ -5,6 +5,8 @@
 --This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
 
 require("RELIGHT_Include.lua");
+require("RELIGHT_env_hershelFarmExterior.lua");
+require("adv_hershelFarmExterior.scene_SceneChanges.lua");
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -42,7 +44,13 @@ RELIGHT_DOF_AUTOFOCUS_FocalRange = 1.0;
 RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = {};
 RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
 {
-    "Clementine"
+    "Shawn",
+    "Hershel",
+    "Kenny",
+    "Katjaa",
+    "Duck",
+    "Clementine",
+    "Lee"
 };
 RELIGHT_DOF_AUTOFOCUS_Settings =
 {
@@ -58,10 +66,10 @@ RELIGHT_DOF_AUTOFOCUS_BokehSettings =
 {
     BokehBrightnessDeltaThreshold = 0.02,
     BokehBrightnessThreshold = 0.02,
-    BokehBlurThreshold = 0.05,
+    BokehBlurThreshold = 0.02,
     BokehMinSize = 0.0,
-    BokehMaxSize = 0.03,
-    BokehFalloff = 0.75,
+    BokehMaxSize = 0.0125,
+    BokehFalloff = 1.0,
     MaxBokehBufferAmount = 1.0,
     BokehPatternTexture = "bokeh_circle.d3dtx"
 };
@@ -73,6 +81,17 @@ RELIGHT_HackyCameraVolumetrics_Settings =
     SampleOffset = 0.15,
     SampleStartOffset = 1.0,
     FogColor = Color(0.1, 0.1, 0.1, 0.1)
+};
+
+LensFlareEffect_SourcesCount = 1;
+LensFlareEffect_Sources = 
+{
+  Source1 = 
+  {
+    LightAgentName = "light_ENV_D_1",
+    LightOcclusionAngle = -0.25,
+    LightIntensityModifier = 1.0,
+  },
 };
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -214,6 +233,16 @@ function hershelFarmExterior()
   RELIGHT_ConfigurationStart();
 
   RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
+
+  --RELIGHT_SkydomeReplacement_Initalize();
+
+  --RELIGHT_LensFlareEffect_Initalize();
+  --Callback_PostUpdate:Add(RELIGHT_LensFlareEffect_Update);
+
+  --Callback_PostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus);
+
+  --TLSE_SceneRelight(kScene);
+  --TLSE_ApplySceneSettings(RELIGHT_SceneObjectAgentName);
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then

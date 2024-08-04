@@ -24,7 +24,7 @@ RELIGHT_GenerateNewINI_Development = function(number_configurationVersion)
             Camera_FovMax = 179,
             Camera_FovMin = 1,
             Camera_NearPlane = 0.05,
-            Camera_FarPlane = 2500,
+            Camera_FarPlane = 5000,
         },
         DevelopmentTools = 
         {
