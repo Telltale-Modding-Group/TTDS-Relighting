@@ -32,7 +32,48 @@ RELIGHT_SceneObject = kScene;
 RELIGHT_SceneObjectAgentName = kScene .. ".scene";
 RelightConfigGlobal = RelightConfigData_Main.Global;
 RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
-RelightConfigLevel = RelightConfigData_Season2.Level_401_TrainStation;
+--RelightConfigLevel = RelightConfigData_Season2.Level_202_LodgeMainRoom;
+
+--Relight DOF
+RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
+RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = false;
+RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
+RELIGHT_DOF_AUTOFOCUS_FocalRange = 1.0;
+RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = {};
+RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
+{
+    "Clementine"
+};
+RELIGHT_DOF_AUTOFOCUS_Settings =
+{
+    TargetValidation_IsOnScreen = true,
+    TargetValidation_IsVisible = true,
+    TargetValidation_IsWithinDistance = true,
+    TargetValidation_IsFacingCamera = true,
+    TargetValidation_IsOccluded = false,
+    TargetValidation_RejectionAngle = 0.0, --goes from -1 to 1 (less than 0 is within the 180 forward facing fov of the given object)
+    TargetValidation_RejectionDistance = 40.0, --the max distance before the agent is too far from camera to do autofocus
+};
+RELIGHT_DOF_AUTOFOCUS_BokehSettings =
+{
+    BokehBrightnessDeltaThreshold = 0.02,
+    BokehBrightnessThreshold = 0.02,
+    BokehBlurThreshold = 0.05,
+    BokehMinSize = 0.0,
+    BokehMaxSize = 0.03,
+    BokehFalloff = 0.75,
+    MaxBokehBufferAmount = 1.0,
+    BokehPatternTexture = "bokeh_circle.d3dtx"
+};
+
+--Relight Volumetrics
+RELIGHT_HackyCameraVolumetrics_Settings = 
+{
+    Samples = 256,
+    SampleOffset = 0.15,
+    SampleStartOffset = 1.0,
+    FogColor = Color(0.1, 0.1, 0.1, 0.1)
+};
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -79,10 +120,7 @@ end
 --This is where we will setup and execute everything that we want to do!
 
 function TrainStation()
-  --RELIGHT_SetupConfigurationFiles();
-
-  --Apply freecamera settings from ini dev file
-  RELIGHT_ApplyFreecameraSettingsFromINI();
+  RELIGHT_ConfigurationStart();
 
   RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
 
@@ -118,9 +156,8 @@ if IsDebugBuild() then
   Callback_OnLogicReady:Add(OnLogicReady)
 end
 
---If editor mode is configured... or if freecamera is configured but it's also set to not have the scene run normally then go ahead and just open the scene with the native engine scene open call to avoid issues.
-if (RelightConfigDevelopment.EditorMode == true) or ((RelightConfigDevelopment.FreeCameraOnlyMode == true) and (RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == false)) then
-  SceneOpen(kScene, kScript)
-else
+if not (RelightConfigDevelopment.EditorMode == true or RelightConfigDevelopment.FreeCameraOnlyMode == true) then
   Game_SceneOpen(kScene, kScript)
+else
+  SceneOpen(kScene, kScript)
 end
