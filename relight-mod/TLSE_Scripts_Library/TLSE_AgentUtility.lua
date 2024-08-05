@@ -171,6 +171,10 @@ TLSE_AgentIsMesh = function(agent_object)
     return AgentHasProperty(agent_object, "D3D Mesh") or AgentHasProperty(agent_object, "D3D Mesh List");
 end
 
+TLSE_AgentIsGroup = function(agent_object)
+    return AgentHasProperty(agent_object, "Group - Visible");
+end
+
 --||||||||||||||||||||||||| GET ALL SCENE AGENTS BY TYPE |||||||||||||||||||||||||
 --||||||||||||||||||||||||| GET ALL SCENE AGENTS BY TYPE |||||||||||||||||||||||||
 --||||||||||||||||||||||||| GET ALL SCENE AGENTS BY TYPE |||||||||||||||||||||||||
@@ -204,6 +208,18 @@ end
 --||||||||||||||||||||||||| UTILITY |||||||||||||||||||||||||
 --||||||||||||||||||||||||| UTILITY |||||||||||||||||||||||||
 --||||||||||||||||||||||||| UTILITY |||||||||||||||||||||||||
+
+TLSE_FindEnvironmentFogModuleInScene = function(string_scene)
+    local agentTable_sceneAgents = SceneGetAgents(string_scene);
+
+    for index, agent_sceneAgent in pairs(agentTable_sceneAgents) do
+        if(TLSE_AgentIsEnvironmentFog(agent_sceneAgent)) then
+            return agent_sceneAgent;
+        end
+    end
+
+    return nil;
+end
 
 --Given a comparison agent, and two other agents, the agent that is nearest to the comparison agent will be returned.
 --RETURNS: Agent

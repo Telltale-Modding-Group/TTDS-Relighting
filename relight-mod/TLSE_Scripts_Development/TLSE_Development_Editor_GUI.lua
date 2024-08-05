@@ -27,6 +27,9 @@ local textButton_exportSceneToLuaScript = nil;
 local textButton_disableAllLights = nil;
 local textButton_enableAllLights = nil;
 local textButton_killAllControllers = nil;
+local textButton_keybindHelp = nil;
+
+local bool_showKeybinds = false;
 
 local OnPress_SelectAgentTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Agent"; end
 local OnPress_SelectEnvLightTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "EnvLight"; end
@@ -37,6 +40,8 @@ local OnPress_SelectDebugTab = function(textButton_button) TLSE_Development_GUI_
 local OnPress_HideIcons = function(textButton_button) TLSE_Development_Editor_ObjectIcons_Visible = not TLSE_Development_Editor_ObjectIcons_Visible; end
 local OnPress_HideSelectionBox = function(textButton_button) TLSE_Development_Selection_HideSelectBox = not TLSE_Development_Selection_HideSelectBox; end
 local OnPress_HideHoverBox = function(textButton_button) TLSE_Development_Selection_HideHoverBox = not TLSE_Development_Selection_HideHoverBox; end
+
+local OnPress_ToggleKeybinds = function(textButton_button) bool_showKeybinds = not bool_showKeybinds; end
 
 local OnPress_ExportSceneChangesToScript = function(textButton_button) 
     TLSE_Development_Editor_LuaHelper_ExportSceneChangesToScript(TLSE_Development_SceneObject .. "_SceneChanges");
@@ -94,15 +99,16 @@ TLSE_Development_GUI_Initalize = function()
     textButton_scenePropertiesTab = TLSE_Development_Editor_GUI_CreateTextButton("[Scene]", true, Vector(0.843, 0.5, 0.0), OnPress_SelectScenePropertiesTab, nil);
     textButton_debugTab = TLSE_Development_Editor_GUI_CreateTextButton("[Debug]", true, Vector(0.843, 0.5, 0.0), OnPress_SelectDebugTab, nil);
 
-    textButton_exportSceneToLuaScript = TLSE_Development_Editor_GUI_CreateTextButton("[EXPORT SCENE CHANGES TO LUA]", false, Vector(0.558, 0.005, 0.0), OnPress_ExportSceneChangesToScript, nil);
+    textButton_exportSceneToLuaScript = TLSE_Development_Editor_GUI_CreateTextButton("[EXPORT SCENE TO LUA]", false, Vector(0.0, 0.002, 0.0), OnPress_ExportSceneChangesToScript, nil);
     textButton_hideIcons = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE ICONS]", false, Vector(0.635, 0.020, 0.0), OnPress_HideIcons, nil);
     textButton_hideSelectionBox = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE SELECTION BOX]", false, Vector(0.602, 0.035, 0.0), OnPress_HideSelectionBox, nil);
     textButton_hideHoverBox = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE HOVER BOX]", false, Vector(0.615, 0.050, 0.0), OnPress_HideHoverBox, nil);
     textButton_disableAllLights = TLSE_Development_Editor_GUI_CreateTextButton("[DISABLE ALL LIGHTS]", false, Vector(0.605, 0.065, 0.0), OnPress_DisableAllLights, nil);
     textButton_enableAllLights = TLSE_Development_Editor_GUI_CreateTextButton("[ENABLE ALL LIGHTS]", false, Vector(0.605, 0.080, 0.0), OnPress_EnableAllLights, nil);
     textButton_killAllControllers = TLSE_Development_Editor_GUI_CreateTextButton("[KILL ALL CONTROLLERS]", false, Vector(0.594, 0.095, 0.0), OnPress_KillAllControllers, nil);
+    textButton_keybindHelp = TLSE_Development_Editor_GUI_CreateTextButton("[KEYBIND HELP]", false, Vector(0.594, 0.095, 0.0), OnPress_ToggleKeybinds, nil);
 
-    label_editorModeTextTopLeft = TLSE_Development_Editor_GUI_CreateLabel("", Vector(0, 0, 0));
+    label_editorModeTextTopLeft = TLSE_Development_Editor_GUI_CreateLabel("", Vector(0, 0.02, 0));
 
     ShaderSwapTexture(agent_bg_rightSide, TLSE_Development_FlatPlaneOriginalTexture, "color_000.d3dtx");
     ShaderSwapTexture(agent_bg_inspectorArea, TLSE_Development_FlatPlaneOriginalTexture, string_texture_editorColor);
@@ -166,6 +172,57 @@ TLSE_Development_GUI_Update = function()
     AgentSetWorldRot(agent_bg_inspectorArea, vector_sceneCameraRotation);
     AgentSetWorldRot(agent_bg_hierarchyArea, vector_sceneCameraRotation);
 
+    local vector_startScreenPosition = textButton_exportSceneToLuaScript["ScreenPosition"];
+    local vector_screenSizeItem1 = TLSE_TextUI_GetTextScreenSize(textButton_exportSceneToLuaScript["TextAgent"]);
+    local vector_screenSizeItem2 = TLSE_TextUI_GetTextScreenSize(textButton_hideIcons["TextAgent"]);
+    local vector_screenSizeItem3 = TLSE_TextUI_GetTextScreenSize(textButton_hideSelectionBox["TextAgent"]);
+    local vector_screenSizeItem4 = TLSE_TextUI_GetTextScreenSize(textButton_hideHoverBox["TextAgent"]);
+    local vector_screenSizeItem5 = TLSE_TextUI_GetTextScreenSize(textButton_disableAllLights["TextAgent"]);
+    local vector_screenSizeItem6 = TLSE_TextUI_GetTextScreenSize(textButton_enableAllLights["TextAgent"]);
+    local vector_screenSizeItem7 = TLSE_TextUI_GetTextScreenSize(textButton_killAllControllers["TextAgent"]);
+
+    local number_horizontalOffset = 0.003;
+    local vector_guiOffset = Vector(0, 0, 0);
+
+    vector_guiOffset.x = 0;
+    vector_guiOffset.y = 0;
+    textButton_exportSceneToLuaScript["ScreenPosition"] = vector_startScreenPosition;
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeItem1.x * 2.0) + number_horizontalOffset;
+    textButton_hideIcons["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeItem2.x * 2.0) + number_horizontalOffset;
+    textButton_hideSelectionBox["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeItem3.x * 2.0) + number_horizontalOffset;
+    textButton_hideHoverBox["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeItem4.x * 2.0) + number_horizontalOffset;
+    textButton_disableAllLights["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeItem5.x * 2.0) + number_horizontalOffset;
+    textButton_enableAllLights["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeItem6.x * 2.0) + number_horizontalOffset;
+    textButton_killAllControllers["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeItem7.x * 2.0) + number_horizontalOffset;
+    textButton_keybindHelp["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -183,14 +240,27 @@ TLSE_Development_GUI_Update = function()
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Camera World Rotation: " .. TLSE_VectorToString(AgentGetWorldRot(TLSE_Development_Freecam_Camera));
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
-    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "R Key - Unfreeze Camera / Hide Cursor";
-    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
-    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "F Key - Freeze Camera / Show Cursor";
-    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
-    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Del Key - Delete Selected Agent (Agent Tab Active)";
-    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
-    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Ctrl + D Key - Duplicate Selected Agent (Agent Tab Active)";
-    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
+
+    if(bool_showKeybinds) then
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "[KEYBIND HELP]";
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "WASD - Move Camera";
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Q / E - Lower / Raise Camera";
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "R - Unfreeze Camera / Hide Cursor";
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "F - Freeze Camera / Show Cursor";
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Left Shift - Speedup Camera / Larger Value Increments";
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Left Ctrl - Smaller Value Increments";
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Del - Delete Selected Agent (Agent Tab Active)";
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Ctrl + D - Duplicate Selected Agent (Agent Tab Active)";
+        string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
+    end
 
     label_editorModeTextTopLeft["Text"] = string_editorModeTextTopLeftText;
 

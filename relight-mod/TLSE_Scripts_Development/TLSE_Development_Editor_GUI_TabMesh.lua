@@ -208,9 +208,6 @@ TLSE_Development_GUI_TabMeshUpdate = function()
             containerField_renderLightingGroups["Text"] = "Render Lighting Groups: nil";
         end
 
-
-
-
         --containerField_D3DMeshList
         if(AgentHasProperty(agent_currentSelectedAgent, "D3D Mesh List")) then
             local string_d3dMeshList = "";

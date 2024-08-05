@@ -85,11 +85,8 @@ TLSE_Development_Editor_LuaHelper_WriteSceneAgentsDeleteFunction = function(stri
     local string_codeToWrite = "";
 
     string_codeToWrite = "\n";
-    string_codeToWrite = string_codeToWrite .. "TLSE_DeleteAgentsInScene = function(string_scene)";
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "    --remove the following agents from the scene";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "TLSE_DeleteAgentsInScene = function(string_scene) \n";
+    string_codeToWrite = string_codeToWrite .. "    --remove the following agents from the scene \n";
 
     for i, string_agentNameToDelete in pairs(stringArray_agentNamesToDelete) do
         --REFERENCE LINE
@@ -98,9 +95,7 @@ TLSE_Development_Editor_LuaHelper_WriteSceneAgentsDeleteFunction = function(stri
         string_codeToWrite = string_codeToWrite.. "   TLSE_AgentNameDestroy(" .. '"' .. string_agentNameToDelete .. '"' .. ", string_scene); \n";
     end
 
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "end";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "end \n";
 
     return string_codeToWrite;
 end
@@ -109,11 +104,8 @@ TLSE_Development_Editor_LuaHelper_WriteSceneAgentsDuplicateFunction = function(d
     local string_codeToWrite = "";
 
     string_codeToWrite = "\n";
-    string_codeToWrite = string_codeToWrite .. "TLSE_DuplicateAgentsInScene = function(string_scene)";
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "    --duplicate the following agents in the scene";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "TLSE_DuplicateAgentsInScene = function(string_scene) \n";
+    string_codeToWrite = string_codeToWrite .. "    --duplicate the following agents in the scene \n";
 
     for key, value in pairs(duplicateAgentsArray_agentsToDuplicate) do
         local string_agentReferenceName = value["AgentReferenceName"];
@@ -137,9 +129,7 @@ TLSE_Development_Editor_LuaHelper_WriteSceneAgentsDuplicateFunction = function(d
         string_codeToWrite = string_codeToWrite .. ");\n";
     end
 
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "end";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "end \n";
 
     return string_codeToWrite;
 end
@@ -148,19 +138,14 @@ TLSE_Development_Editor_LuaHelper_WriteSceneAgentsTransformationsFunction = func
     local string_codeToWrite = "";
 
     string_codeToWrite = "\n";
-    string_codeToWrite = string_codeToWrite .. "TLSE_TransformAgentsInScene = function(string_scene)";
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "    --apply transformations to the following agents in the scene";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "TLSE_TransformAgentsInScene = function(string_scene) \n";
+    string_codeToWrite = string_codeToWrite .. "    --apply transformations to the following agents in the scene \n";
 
     for i, agent_sceneAgent in pairs(agentArray_sceneAgents) do
         string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetWorldPositionAndRotation(agent_sceneAgent, "string_scene") .. ";\n";
     end
 
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "end";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "end \n";
 
     return string_codeToWrite;
 end
@@ -170,7 +155,6 @@ TLSE_Development_Editor_LuaHelper_WriteApplyLightPropertiesChunk = function(agen
 
     local string_agentName = AgentGetName(agent_light);
 
-    string_codeToWrite = "\n";
     string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "EnvLight - Enabled", tostring(AgentGetProperty(agent_light, "EnvLight - Enabled")), "string_scene") .. ";\n";
     string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "EnvLight - Enabled Group", tostring(AgentGetProperty(agent_light, "EnvLight - Enabled Group")), "string_scene") .. ";\n";
     string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "EnvLight - Type", tostring(AgentGetProperty(agent_light, "EnvLight - Type")), "string_scene") .. ";\n";
@@ -208,9 +192,7 @@ TLSE_Development_Editor_LuaHelper_WriteApplyLightPropertiesFunction = function(a
     local string_codeToWrite = "";
 
     string_codeToWrite = "\n";
-    string_codeToWrite = string_codeToWrite .. "TLSE_ApplyLightingSettings = function(string_scene)";
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "TLSE_ApplyLightingSettings = function(string_scene) \n";
 
     for i, agent_sceneAgent in pairs(agentsArray_sceneAgents) do
         if(TLSE_AgentIsLight(agent_sceneAgent)) then
@@ -218,9 +200,7 @@ TLSE_Development_Editor_LuaHelper_WriteApplyLightPropertiesFunction = function(a
         end
     end
 
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "end";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "end \n";
 
     return string_codeToWrite;
 end
@@ -230,10 +210,14 @@ TLSE_Development_Editor_LuaHelper_WriteApplyMeshPropertiesChunk = function(agent
 
     local string_agentName = AgentGetName(agent_mesh);
 
-    string_codeToWrite = "\n";
+    if(AgentHasProperty(agent_mesh, "Extents Min")) then
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Extents Min", TLSE_Development_Editor_LuaHelper_WriteVector3(AgentGetProperty(agent_mesh, "Extents Min")), "string_scene") .. ";\n";
+    end
 
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Extents Min", TLSE_Development_Editor_LuaHelper_WriteVector3(AgentGetProperty(agent_mesh, "Extents Min")), "string_scene") .. ";\n";
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Extents Max", TLSE_Development_Editor_LuaHelper_WriteVector3(AgentGetProperty(agent_mesh, "Extents Max")), "string_scene") .. ";\n";
+    if(AgentHasProperty(agent_mesh, "Extents Max")) then
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Extents Max", TLSE_Development_Editor_LuaHelper_WriteVector3(AgentGetProperty(agent_mesh, "Extents Max")), "string_scene") .. ";\n";
+    end
+
     string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Cull", tostring(AgentGetProperty(agent_mesh, "Render Cull")), "string_scene") .. ";\n";
     string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Static", tostring(AgentGetProperty(agent_mesh, "Render Static")), "string_scene") .. ";\n";
     string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Render Depth Test", tostring(AgentGetProperty(agent_mesh, "Render Depth Test")), "string_scene") .. ";\n";
@@ -270,9 +254,7 @@ TLSE_Development_Editor_LuaHelper_WriteApplyMeshPropertiesFunction = function(ag
     local string_codeToWrite = "";
 
     string_codeToWrite = "\n";
-    string_codeToWrite = string_codeToWrite .. "TLSE_ApplyMeshSettings = function(string_scene)";
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "TLSE_ApplyMeshSettings = function(string_scene) \n";
 
     for i, agent_sceneAgent in pairs(agentsArray_sceneAgents) do
         if(TLSE_AgentIsMesh(agent_sceneAgent)) then
@@ -280,9 +262,7 @@ TLSE_Development_Editor_LuaHelper_WriteApplyMeshPropertiesFunction = function(ag
         end
     end
 
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "end";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "end \n";
 
     return string_codeToWrite;
 end
@@ -293,9 +273,7 @@ TLSE_Development_Editor_LuaHelper_WriteApplyEnvironmentFogModulePropertiesFuncti
     local string_agentVariable = "agent_environmentFogModule";
 
     string_codeToWrite = "\n";
-    string_codeToWrite = string_codeToWrite .. "TLSE_ApplyEnvironmentFogSettings = function(" .. string_agentVariable .. ")";
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "TLSE_ApplyEnvironmentFogSettings = function(" .. string_agentVariable .. ") \n";
     string_codeToWrite = string_codeToWrite .. "    --apply properties to environment fog module agent \n";
     string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Fog Enabled", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Enabled"))) .. ";\n";
     string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Enabled", tostring(AgentGetProperty(agent_environmentFog, "Env - Enabled"))) .. ";\n";
@@ -309,9 +287,7 @@ TLSE_Development_Editor_LuaHelper_WriteApplyEnvironmentFogModulePropertiesFuncti
     string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Fog Height Falloff", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Height Falloff"))) .. ";\n";
     string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Fog Max Opacity", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Max Opacity"))) .. ";\n";
     string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Priority", tostring(AgentGetProperty(agent_environmentFog, "Env - Priority"))) .. ";\n";
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "end";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "end \n";
 
     return string_codeToWrite;
 end
@@ -322,9 +298,7 @@ TLSE_Development_Editor_LuaHelper_WriteApplyScenePropertiesFunction = function(a
     local string_agentVariable = "agent_sceneAgent";
 
     string_codeToWrite = "\n";
-    string_codeToWrite = string_codeToWrite .. "TLSE_ApplySceneSettings = function(" .. string_agentVariable .. ")";
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "TLSE_ApplySceneSettings = function(" .. string_agentVariable .. ") \n";
 
     --[ANTI ALIASING] 1
     string_codeToWrite = string_codeToWrite .. "    --apply anti aliasing settings \n";
@@ -587,9 +561,7 @@ TLSE_Development_Editor_LuaHelper_WriteApplyScenePropertiesFunction = function(a
     string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "LightEnv Probe Resolution Y", tostring(AgentGetProperty(agent_sceneAgent, "LightEnv Probe Resolution Y"))) .. ";\n";
     string_codeToWrite = string_codeToWrite .. "\n";
 
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "end";
-    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "end \n";
 
     return string_codeToWrite;
 end
@@ -600,209 +572,121 @@ TLSE_Development_Editor_LuaHelper_WriteSceneCleanupFunction = function(agentArra
     --||||||||||||||||||||||||||||||||||||||||||||||||||||| start of lua cleanup function |||||||||||||||||||||||||||||||||||||||||||||||||||||
 
     local string_codeToWrite = "\n";
-    string_codeToWrite = string_codeToWrite .. "TLSE_DeleteAllAgentsInScene = function(string_scene)\n";
-    string_codeToWrite = string_codeToWrite .. "\n";
-
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| sort scene agents into arrays |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| sort scene agents into arrays |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| sort scene agents into arrays |||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-    local stringArray_adv_agentNames = {};
-    local stringArray_obj_agentNames = {};
-    local stringArray_cam_agentNames = {};
-    local stringArray_ui_agentNames = {};
-    local stringArray_fx_agentNames = {};
-    local stringArray_fxGroup_agentNames = {};
-    local stringArray_module_agentNames = {};
-    local stringArray_group_agentNames = {};
-    local stringArray_light_agentNames = {};
-    local stringArray_light_CHAR_CC_agentNames = {};
-    local stringArray_lightrig_CC_agentNames = {};
-    local stringArray_lightrotation_CC_agentNames = {};
-    local stringArray_charLightComposer_agentNames = {};
-    local stringArray_unsorted_agentNames = {};
-
-    for i, agent_sceneAgent in pairs(agentArray_sceneAgents) do
-        local string_agentName = tostring(AgentGetName(agent_sceneAgent))
-
-        local subString3 = string.sub(string_agentName, 1, 3);
-        local subString4 = string.sub(string_agentName, 1, 4);
-        local subString6 = string.sub(string_agentName, 1, 6);
-        local subString7 = string.sub(string_agentName, 1, 7);
-        local subString8 = string.sub(string_agentName, 1, 8);
-        local subString9 = string.sub(string_agentName, 1, 9);
-        local subString12 = string.sub(string_agentName, 1, 12);
-        local subString14 = string.sub(string_agentName, 1, 14);
-        local subString17 = string.sub(string_agentName, 1, 17);
-        local subString18 = string.sub(string_agentName, 1, 18);
-
-        if (subString4 == "adv_") then
-            table.insert(stringArray_adv_agentNames, string_agentName);
-        elseif (subString4 == "obj_") then
-            table.insert(stringArray_obj_agentNames, string_agentName);
-        elseif (subString4 == "cam_") then
-            table.insert(stringArray_cam_agentNames, string_agentName);
-        elseif (subString3 == "ui_") then
-            table.insert(stringArray_ui_agentNames, string_agentName);
-        elseif (subString3 == "fx_") then
-            table.insert(stringArray_fx_agentNames, string_agentName);
-        elseif (subString8 == "fxGroup_") then
-            table.insert(stringArray_fxGroup_agentNames, string_agentName);
-        elseif (subString7 == "module_") then
-            table.insert(stringArray_module_agentNames, string_agentName);
-        elseif (subString6 == "group_") then
-            table.insert(stringArray_group_agentNames, string_agentName);
-        elseif (subString14 == "light_CHAR_CC_") then
-            table.insert(stringArray_light_CHAR_CC_agentNames, string_agentName);
-        elseif (subString6 == "light_") then
-            table.insert(stringArray_light_agentNames, string_agentName);
-        elseif (subString9 == "lightrig_") then
-            table.insert(stringArray_lightrig_CC_agentNames, string_agentName);
-        elseif (subString17 == "lightrotation_CC_") then
-            table.insert(stringArray_lightrotation_CC_agentNames, string_agentName);
-        elseif (subString18 == "charLightComposer_") then
-            table.insert(stringArray_charLightComposer_agentNames, string_agentName);
-        else
-            table.insert(stringArray_unsorted_agentNames, string_agentName);
-        end
-    end
+    string_codeToWrite = string_codeToWrite .. "TLSE_DeleteAllAgentsInScene = function(string_scene) \n";
 
     --REFERENCE LINE
     --    TLSE_AgentNameDestroy("agentName", string_scene);
 
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| adv_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| adv_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| adv_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| cameras |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| cameras |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| cameras |||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-    string_codeToWrite = string_codeToWrite .. "    --adv agents \n";
-    for i, string_adv_agentName in pairs(stringArray_adv_agentNames) do
-        string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_adv_agentName .. '"' .. ", string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "    --Camera agents \n";
+
+    for i, agent_sceneAgent in pairs(agentArray_sceneAgents) do
+        if(TLSE_AgentIsCamera(agent_sceneAgent)) then
+            string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. tostring(AgentGetName(agent_sceneAgent)) .. '"' .. ", string_scene); \n";
+        end
     end
+
     string_codeToWrite = string_codeToWrite .. "\n";
 
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| obj_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| obj_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| obj_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| envlights |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| envlights |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| envlights |||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-    string_codeToWrite = string_codeToWrite .. "    --obj agents \n";
-    for i, string_obj_agentName in pairs(stringArray_obj_agentNames) do
-        string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_obj_agentName .. '"' .. ", string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "    --EnvLight agents \n";
+
+    for i, agent_sceneAgent in pairs(agentArray_sceneAgents) do
+        if(TLSE_AgentIsLight(agent_sceneAgent)) then
+            string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. tostring(AgentGetName(agent_sceneAgent)) .. '"' .. ", string_scene); \n";
+        end
     end
+
     string_codeToWrite = string_codeToWrite .. "\n";
 
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| cam_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| cam_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| cam_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| envfog |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| envfog |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| envfog |||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-    string_codeToWrite = string_codeToWrite .. "    --cam agents \n";
-    for i, string_cam_agentName in pairs(stringArray_cam_agentNames) do
-        string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_cam_agentName .. '"' .. ", string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "    --EnvFog agents \n";
+
+    for i, agent_sceneAgent in pairs(agentArray_sceneAgents) do
+        if(TLSE_AgentIsEnvironmentFog(agent_sceneAgent)) then
+            string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. tostring(AgentGetName(agent_sceneAgent)) .. '"' .. ", string_scene); \n";
+        end
     end
+
     string_codeToWrite = string_codeToWrite .. "\n";
 
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| ui_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| ui_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| ui_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| particle |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| particle |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| particle |||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-    string_codeToWrite = string_codeToWrite .. "    --ui agents \n";
-    for i, string_ui_agentName in pairs(stringArray_ui_agentNames) do
-        string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_ui_agentName .. '"' .. ", string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "    --Particle agents \n";
+
+    for i, agent_sceneAgent in pairs(agentArray_sceneAgents) do
+        if(TLSE_AgentIsParticle(agent_sceneAgent)) then
+            string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. tostring(AgentGetName(agent_sceneAgent)) .. '"' .. ", string_scene); \n";
+        end
     end
+
     string_codeToWrite = string_codeToWrite .. "\n";
 
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| fx_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| fx_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| fx_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| cinematic light |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| cinematic light |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| cinematic light |||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-    string_codeToWrite = string_codeToWrite .. "    --fx agents \n";
-    for i, string_fx_agentName in pairs(stringArray_fx_agentNames) do
-        string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_fx_agentName .. '"' .. ", string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "    --CinLight agents \n";
+
+    for i, agent_sceneAgent in pairs(agentArray_sceneAgents) do
+        if(TLSE_AgentIsCinematicLight(agent_sceneAgent)) then
+            string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. tostring(AgentGetName(agent_sceneAgent)) .. '"' .. ", string_scene); \n";
+        end
     end
+
     string_codeToWrite = string_codeToWrite .. "\n";
 
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| fxGroup_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| fxGroup_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| fxGroup_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| cinematic light rig |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| cinematic light rig |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| cinematic light rig |||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-    string_codeToWrite = string_codeToWrite .. "    --fxGroup agents \n";
-    for i, string_fxGroup_agentName in pairs(stringArray_fxGroup_agentNames) do
-        string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_fxGroup_agentName .. '"' .. ", string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "    --CinLightRig agents \n";
+
+    for i, agent_sceneAgent in pairs(agentArray_sceneAgents) do
+        if(TLSE_AgentIsCinematicLightRig(agent_sceneAgent)) then
+            string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. tostring(AgentGetName(agent_sceneAgent)) .. '"' .. ", string_scene); \n";
+        end
     end
+
     string_codeToWrite = string_codeToWrite .. "\n";
 
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| module_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| module_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| module_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| mesh |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| mesh |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| mesh |||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-    string_codeToWrite = string_codeToWrite .. "    --module agents \n";
-    for i, string_module_agentName in pairs(stringArray_module_agentNames) do
-        string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_module_agentName .. '"' .. ", string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "    --Mesh agents \n";
+
+    for i, agent_sceneAgent in pairs(agentArray_sceneAgents) do
+        if(TLSE_AgentIsMesh(agent_sceneAgent)) then
+            string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. tostring(AgentGetName(agent_sceneAgent)) .. '"' .. ", string_scene); \n";
+        end
     end
+
     string_codeToWrite = string_codeToWrite .. "\n";
 
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| group_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| group_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| group_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| group |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| group |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||| group |||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-    string_codeToWrite = string_codeToWrite .. "    --group agents \n";
-    for i, string_group_agentName in pairs(stringArray_group_agentNames) do
-        string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_group_agentName .. '"' .. ", string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "    --Group agents \n";
+
+    for i, agent_sceneAgent in pairs(agentArray_sceneAgents) do
+        if(TLSE_AgentIsGroup(agent_sceneAgent)) then
+            string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. tostring(AgentGetName(agent_sceneAgent)) .. '"' .. ", string_scene); \n";
+        end
     end
-    string_codeToWrite = string_codeToWrite .. "\n";
 
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| light_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| light_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| light_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-    string_codeToWrite = string_codeToWrite .. "    --light agents \n";
-    for i, string_light_agentName in pairs(stringArray_light_agentNames) do
-        --local agent_light = AgentFindInScene(string_light_agentName, TLSE_Development_SceneObject);
-        --local number_lightType = AgentGetProperty(agent_light, "EnvLight - Type");
-        --local lightTypeValueString = TLSE_Enum_T3LightEnvType_ToString(lightTypeValue);
-        --local lightLuaComment = "--Light Type: " .. tostring(lightTypeValueString);
-
-        --string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_light_agentName .. '"' .. ", string_scene); " .. lightLuaComment .. "\n";
-    end
-    string_codeToWrite = string_codeToWrite .. "\n";
-
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| light_CHAR_CC_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| light_CHAR_CC_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| light_CHAR_CC_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-    string_codeToWrite = string_codeToWrite .. "    --light_CHAR_CC agents \n";
-    for i, string_light_CHAR_CC_agentName in pairs(stringArray_light_CHAR_CC_agentNames) do
-        string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_light_CHAR_CC_agentName .. '"' .. ", string_scene); \n";
-    end
-    string_codeToWrite = string_codeToWrite .. "\n";
-
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| lightrig_CC_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| lightrig_CC_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| lightrig_CC_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-    string_codeToWrite = string_codeToWrite .. "    --lightrig_CC agents \n";
-    for i, string_lightrig_CC_agentName in pairs(stringArray_lightrig_CC_agentNames) do
-        string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_lightrig_CC_agentName .. '"' .. ", string_scene); \n";
-    end
-    string_codeToWrite = string_codeToWrite .. "\n";
-
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| lightrotation_CC_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| lightrotation_CC_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| lightrotation_CC_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-    string_codeToWrite = string_codeToWrite .. "    --lightrotation_CC agents \n";
-    for i, string_lightrotation_CC_agentName in pairs(stringArray_lightrotation_CC_agentNames) do
-        string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_lightrotation_CC_agentName .. '"' .. ", string_scene); \n";
-    end
-    string_codeToWrite = string_codeToWrite .. "\n";
-
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| charLightComposer_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| charLightComposer_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| charLightComposer_ |||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-    string_codeToWrite = string_codeToWrite .. "    --charLightComposer agents \n";
-    for i, string_charLightComposer_agentName in pairs(stringArray_charLightComposer_agentNames) do
-        string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_charLightComposer_agentName .. '"' .. ", string_scene); \n";
-    end
     string_codeToWrite = string_codeToWrite .. "\n";
 
     --||||||||||||||||||||||||||||||||||||||||||||||||||||| unsorted |||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -810,17 +694,25 @@ TLSE_Development_Editor_LuaHelper_WriteSceneCleanupFunction = function(agentArra
     --||||||||||||||||||||||||||||||||||||||||||||||||||||| unsorted |||||||||||||||||||||||||||||||||||||||||||||||||||||
 
     string_codeToWrite = string_codeToWrite .. "    --unsorted agents \n";
-    for i, string_unsorted_agentName in pairs(stringArray_unsorted_agentNames) do
-        string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. string_unsorted_agentName .. '"' .. ", string_scene); \n";
-    end
-    string_codeToWrite = string_codeToWrite .. "\n";
 
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| end of lua cleanup function |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| end of lua cleanup function |||||||||||||||||||||||||||||||||||||||||||||||||||||
-    --||||||||||||||||||||||||||||||||||||||||||||||||||||| end of lua cleanup function |||||||||||||||||||||||||||||||||||||||||||||||||||||
+    for i, agent_sceneAgent in pairs(agentArray_sceneAgents) do
+        local bool_isCamera = TLSE_AgentIsCamera(agent_sceneAgent);
+        local bool_isLight = TLSE_AgentIsLight(agent_sceneAgent);
+        local bool_isFog = TLSE_AgentIsEnvironmentFog(agent_sceneAgent);
+        local bool_isParticle = TLSE_AgentIsParticle(agent_sceneAgent);
+        local bool_isCinLight = TLSE_AgentIsCinematicLight(agent_sceneAgent);
+        local bool_isCinLightRig = TLSE_AgentIsCinematicLightRig(agent_sceneAgent);
+        local bool_isMesh = TLSE_AgentIsMesh(agent_sceneAgent);
+        local bool_isGroup = TLSE_AgentIsGroup(agent_sceneAgent);
+        local bool_unsorted = (not bool_isCamera) and (not bool_isLight) and (not bool_isFog) and (not bool_isParticle) and (not bool_isCinLight) and (not bool_isCinLightRig) and (not bool_isMesh) and (not bool_isGroup);
+
+        if(bool_unsorted) then
+            string_codeToWrite = string_codeToWrite .. "    TLSE_AgentNameDestroy(" .. '"' .. tostring(AgentGetName(agent_sceneAgent)) .. '"' .. ", string_scene); \n";
+        end
+    end
+
 
     string_codeToWrite = string_codeToWrite .. "end \n";
-    string_codeToWrite = string_codeToWrite .. "\n";
 
     return string_codeToWrite;
 end
@@ -843,14 +735,7 @@ TLSE_Development_Editor_LuaHelper_ExportSceneChangesToScript = function(string_s
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteSceneAgentsDuplicateFunction(TLSE_Development_SceneAgentsDuplicated);
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteApplyScenePropertiesFunction(TLSE_Development_SceneAgent);
 
-    local agent_environmentFogAgent = nil;
-
-    for i, agent_sceneAgent in pairs(TLSE_Development_SceneAgentsList) do
-        if(AgentHasProperty(agent_sceneAgent, "Env - Fog Enabled")) then
-            agent_environmentFogAgent = agent_sceneAgent;
-            break
-        end
-    end
+    local agent_environmentFogAgent = TLSE_FindEnvironmentFogModuleInScene(TLSE_Development_SceneObject);
 
     if(agent_environmentFogAgent ~= nil) then
         string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteApplyEnvironmentFogModulePropertiesFunction(agent_environmentFogAgent);
@@ -862,18 +747,15 @@ TLSE_Development_Editor_LuaHelper_ExportSceneChangesToScript = function(string_s
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteSceneCleanupFunction(TLSE_Development_SceneAgentsList);
 
     string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "TLSE_SceneRelight = function(string_scene) \n"
-    string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "    TLSE_DeleteAgentsInScene(string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "TLSE_SceneRelight = function(agent_sceneAgent, string_scene) \n"
     string_codeToWrite = string_codeToWrite .. "    TLSE_DuplicateAgentsInScene(string_scene); \n";
-    --string_codeToWrite = string_codeToWrite .. "    TLSE_ApplySceneSettings(agent_sceneAgent); \n";
+    string_codeToWrite = string_codeToWrite .. "    TLSE_ApplySceneSettings(agent_sceneAgent); \n";
     string_codeToWrite = string_codeToWrite .. "    TLSE_ApplyLightingSettings(string_scene); \n";
     string_codeToWrite = string_codeToWrite .. "    TLSE_ApplyMeshSettings(string_scene); \n";
     string_codeToWrite = string_codeToWrite .. "    TLSE_TransformAgentsInScene(string_scene); \n";
+    string_codeToWrite = string_codeToWrite .. "    TLSE_DeleteAgentsInScene(string_scene); \n";
     string_codeToWrite = string_codeToWrite .. "    --TLSE_DeleteAllAgentsInScene(string_scene); \n";
-    string_codeToWrite = string_codeToWrite .. "\n";
     string_codeToWrite = string_codeToWrite .. "end \n";
-    string_codeToWrite = string_codeToWrite .. "\n";
 
     main_lua_file:write(string_codeToWrite);
     main_lua_file:close();
