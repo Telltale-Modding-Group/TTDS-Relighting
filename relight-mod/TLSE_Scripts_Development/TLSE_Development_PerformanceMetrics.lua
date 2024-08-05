@@ -28,7 +28,7 @@ TLSE_Development_PerformanceMetrics_Initalize = function()
     --initalize menu text
 
     --create our menu text
-    TLSE_Development_PerformanceMetrics_Text = TLSE_TextUI_CreateTextAgent("PerformanceMetricsText", "Performance Metrics Error", Vector(0, 0, 0), 0, 0);
+    TLSE_Development_PerformanceMetrics_Text = TLSE_TextUI_CreateTextAgent("PerformanceMetricsText", "Performance Metrics Error", Vector(0, 0, 0), 0, 0, TLSE_Development_SceneObject);
 
     --set the text color
     TextSetColor(TLSE_Development_PerformanceMetrics_Text, Color(0.5, 1.0, 0.5, 1.0));

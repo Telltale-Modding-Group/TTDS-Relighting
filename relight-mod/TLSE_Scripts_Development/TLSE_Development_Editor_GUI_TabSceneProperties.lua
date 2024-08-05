@@ -1,5 +1,5 @@
 TLSE_TabSceneProperties_CurrentTab = "";
-TLSE_TabSceneProperties_IsActive = false;
+TLSE_Development_GUI_ScenePropertiesTabActive = false;
 
 local textButton_tab1 = nil; --[ANTI ALIASING] 1
 local textButton_tab2 = nil; --[FX LEVELS] 2
@@ -23,6 +23,101 @@ local textButton_tab19 = nil; --[FX BRUSH] 19
 local textButton_tab20 = nil; --[FRAME BUFFER] 20
 local textButton_tab21 = nil; --[SPECULAR] 21
 local textButton_tab22 = nil; --[UNCATEGORIZED] 22
+
+TLSE_TabSceneProperties_Tab1_Active = false;
+TLSE_TabSceneProperties_Tab2_Active = false;
+TLSE_TabSceneProperties_Tab3_Active = false;
+TLSE_TabSceneProperties_Tab4_Active = false;
+TLSE_TabSceneProperties_Tab5_Active = false;
+TLSE_TabSceneProperties_Tab6_Active = false;
+TLSE_TabSceneProperties_Tab7_Active = false;
+TLSE_TabSceneProperties_Tab8_Active = false;
+TLSE_TabSceneProperties_Tab9_Active = false;
+TLSE_TabSceneProperties_Tab10_Active = false;
+TLSE_TabSceneProperties_Tab11_Active = false;
+TLSE_TabSceneProperties_Tab12_Active = false;
+TLSE_TabSceneProperties_Tab13_Active = false;
+TLSE_TabSceneProperties_Tab14_Active = false;
+TLSE_TabSceneProperties_Tab15_Active = false;
+TLSE_TabSceneProperties_Tab16_Active = false;
+TLSE_TabSceneProperties_Tab17_Active = false;
+TLSE_TabSceneProperties_Tab18_Active = false;
+TLSE_TabSceneProperties_Tab19_Active = false;
+TLSE_TabSceneProperties_Tab20_Active = false;
+TLSE_TabSceneProperties_Tab21_Active = false;
+TLSE_TabSceneProperties_Tab22_Active = false;
+
+TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue = 1;
+
+TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent = function(string_property, number_adjustment, bool_multiplyByFrameTime)
+    if(TLSE_Development_SceneAgent ~= nil) then
+        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
+            local number_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
+
+            if(bool_multiplyByFrameTime) then
+                number_originalValue = number_originalValue + (number_adjustment * GetFrameTime());
+            else
+                number_originalValue = number_originalValue + number_adjustment;
+            end
+
+            AgentSetProperty(TLSE_Development_SceneAgent, string_property, number_originalValue);
+        end
+    end
+end
+
+TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent = function(string_property)
+    if(TLSE_Development_SceneAgent ~= nil) then
+        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
+            local number_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
+
+            number_originalValue = not number_originalValue;
+
+            AgentSetProperty(TLSE_Development_SceneAgent, string_property, number_originalValue);
+        end
+    end
+end
+
+TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent = function(string_property, number_component, number_adjustment)
+    if(TLSE_Development_SceneAgent ~= nil) then
+        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
+            local vector_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
+
+            if(number_component == 0) then
+                vector_originalValue.x = vector_originalValue.x + number_adjustment;
+            elseif(number_component == 1) then
+                vector_originalValue.y = vector_originalValue.y + number_adjustment;
+            elseif(number_component == 2) then
+                vector_originalValue.z = vector_originalValue.z + number_adjustment;
+            end
+
+            AgentSetProperty(TLSE_Development_SceneAgent, string_property, vector_originalValue);
+        end
+    end
+end
+
+TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent = function(string_property, number_channel, number_adjustment, bool_clamp01)
+    if(TLSE_Development_SceneAgent ~= nil) then
+        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
+            local color_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
+
+            if(number_channel == 0) then
+                color_originalValue.r = color_originalValue.r + number_adjustment;
+            elseif(number_channel == 1) then
+                color_originalValue.g = color_originalValue.g + number_adjustment;
+            elseif(number_channel == 2) then
+                color_originalValue.b = color_originalValue.b + number_adjustment;
+            elseif(number_channel == 3) then
+                color_originalValue.a = color_originalValue.a + number_adjustment;
+            end
+
+            if(bool_clamp01) then
+                color_originalValue = TLSE_ColorClamp01(color_originalValue);
+            end
+
+            AgentSetProperty(TLSE_Development_SceneAgent, string_property, color_originalValue);
+        end
+    end
+end
 
 TLSE_TabSceneProperties_OnClick_Tab1 = function(textButton_button) TLSE_TabSceneProperties_CurrentTab = "Tab1"; end
 TLSE_TabSceneProperties_OnClick_Tab2 = function(textButton_button) TLSE_TabSceneProperties_CurrentTab = "Tab2"; end
@@ -96,53 +191,82 @@ TLSE_Development_GUI_TabScenePropertiesInitalize = function()
 end
 
 TLSE_Development_GUI_TabScenePropertiesUpdate = function()
-    TLSE_TabSceneProperties_IsActive = TLSE_Development_GUI_BottomRightWindowTab == "SceneProperties";
+    if(TLSE_Development_Editor_Input_LeftShiftHold) then
+        TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue = 10;
+    elseif(TLSE_Development_Editor_Input_LeftCtrlHold) then
+        TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue = 0.01;
+    else
+        TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue = 1;
+    end
 
-    textButton_tab1["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab2["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab3["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab4["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab5["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab6["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab7["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab8["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab9["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab10["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab11["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab12["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab13["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab14["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab15["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab16["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab17["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab18["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab19["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab20["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab21["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
-    textButton_tab22["TextButtonVisible"] = TLSE_TabSceneProperties_IsActive;
+    TLSE_TabSceneProperties_Tab1_Active = TLSE_TabSceneProperties_CurrentTab == "Tab1" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab2_Active = TLSE_TabSceneProperties_CurrentTab == "Tab2" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab3_Active = TLSE_TabSceneProperties_CurrentTab == "Tab3" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab4_Active = TLSE_TabSceneProperties_CurrentTab == "Tab4" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab5_Active = TLSE_TabSceneProperties_CurrentTab == "Tab5" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab6_Active = TLSE_TabSceneProperties_CurrentTab == "Tab6" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab7_Active = TLSE_TabSceneProperties_CurrentTab == "Tab7" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab8_Active = TLSE_TabSceneProperties_CurrentTab == "Tab8" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab9_Active = TLSE_TabSceneProperties_CurrentTab == "Tab9" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab10_Active = TLSE_TabSceneProperties_CurrentTab == "Tab10" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab11_Active = TLSE_TabSceneProperties_CurrentTab == "Tab11" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab12_Active = TLSE_TabSceneProperties_CurrentTab == "Tab12" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab13_Active = TLSE_TabSceneProperties_CurrentTab == "Tab13" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab14_Active = TLSE_TabSceneProperties_CurrentTab == "Tab14" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab15_Active = TLSE_TabSceneProperties_CurrentTab == "Tab15" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab16_Active = TLSE_TabSceneProperties_CurrentTab == "Tab16" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab17_Active = TLSE_TabSceneProperties_CurrentTab == "Tab17" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab18_Active = TLSE_TabSceneProperties_CurrentTab == "Tab18" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab19_Active = TLSE_TabSceneProperties_CurrentTab == "Tab19" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab20_Active = TLSE_TabSceneProperties_CurrentTab == "Tab20" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab21_Active = TLSE_TabSceneProperties_CurrentTab == "Tab21" and TLSE_Development_GUI_ScenePropertiesTabActive;
+    TLSE_TabSceneProperties_Tab22_Active = TLSE_TabSceneProperties_CurrentTab == "Tab22" and TLSE_Development_GUI_ScenePropertiesTabActive;
 
-    textButton_tab1["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab1";
-    textButton_tab2["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab2";
-    textButton_tab3["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab3";
-    textButton_tab4["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab4";
-    textButton_tab5["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab5";
-    textButton_tab6["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab6";
-    textButton_tab7["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab7";
-    textButton_tab8["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab8";
-    textButton_tab9["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab9";
-    textButton_tab10["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab10";
-    textButton_tab11["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab11";
-    textButton_tab12["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab12";
-    textButton_tab13["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab13";
-    textButton_tab14["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab14";
-    textButton_tab15["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab15";
-    textButton_tab16["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab16";
-    textButton_tab17["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab17";
-    textButton_tab18["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab18";
-    textButton_tab19["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab19";
-    textButton_tab20["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab20";
-    textButton_tab21["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab21";
-    textButton_tab22["TextButtonSelected"] = TLSE_TabSceneProperties_CurrentTab == "Tab22";
+    textButton_tab1["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab2["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab3["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab4["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab5["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab6["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab7["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab8["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab9["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab10["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab11["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab12["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab13["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab14["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab15["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab16["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab17["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab18["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab19["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab20["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab21["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_tab22["Visible"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+
+    textButton_tab1["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab1";
+    textButton_tab2["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab2";
+    textButton_tab3["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab3";
+    textButton_tab4["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab4";
+    textButton_tab5["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab5";
+    textButton_tab6["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab6";
+    textButton_tab7["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab7";
+    textButton_tab8["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab8";
+    textButton_tab9["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab9";
+    textButton_tab10["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab10";
+    textButton_tab11["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab11";
+    textButton_tab12["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab12";
+    textButton_tab13["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab13";
+    textButton_tab14["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab14";
+    textButton_tab15["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab15";
+    textButton_tab16["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab16";
+    textButton_tab17["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab17";
+    textButton_tab18["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab18";
+    textButton_tab19["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab19";
+    textButton_tab20["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab20";
+    textButton_tab21["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab21";
+    textButton_tab22["Selected"] = TLSE_TabSceneProperties_CurrentTab == "Tab22";
 
     TLSE_Development_GUI_TabSceneProperties_Tab1Update();
     TLSE_Development_GUI_TabSceneProperties_Tab2Update();
@@ -167,33 +291,33 @@ TLSE_Development_GUI_TabScenePropertiesUpdate = function()
     TLSE_Development_GUI_TabSceneProperties_Tab21Update();
     TLSE_Development_GUI_TabSceneProperties_Tab22Update();
 
-    if(lTLSE_TabSceneProperties_IsActive == false) then
+    if(TLSE_Development_GUI_ScenePropertiesTabActive == false) then
         return
     end
 
-    local vector_startScreenPosition = textButton_tab1["TextButtonScreenPosition"];
-    local vector_screenSizeTab1 = TLSE_TextUI_GetTextScreenSize(textButton_tab1["TextButtonAgentReference"]);
-    local vector_screenSizeTab2 = TLSE_TextUI_GetTextScreenSize(textButton_tab2["TextButtonAgentReference"]);
-    local vector_screenSizeTab3 = TLSE_TextUI_GetTextScreenSize(textButton_tab3["TextButtonAgentReference"]);
-    local vector_screenSizeTab4 = TLSE_TextUI_GetTextScreenSize(textButton_tab4["TextButtonAgentReference"]);
-    local vector_screenSizeTab5 = TLSE_TextUI_GetTextScreenSize(textButton_tab5["TextButtonAgentReference"]);
-    local vector_screenSizeTab6 = TLSE_TextUI_GetTextScreenSize(textButton_tab6["TextButtonAgentReference"]);
-    local vector_screenSizeTab7 = TLSE_TextUI_GetTextScreenSize(textButton_tab7["TextButtonAgentReference"]);
-    local vector_screenSizeTab8 = TLSE_TextUI_GetTextScreenSize(textButton_tab8["TextButtonAgentReference"]);
-    local vector_screenSizeTab9 = TLSE_TextUI_GetTextScreenSize(textButton_tab9["TextButtonAgentReference"]);
-    local vector_screenSizeTab10 = TLSE_TextUI_GetTextScreenSize(textButton_tab10["TextButtonAgentReference"]);
-    local vector_screenSizeTab11 = TLSE_TextUI_GetTextScreenSize(textButton_tab11["TextButtonAgentReference"]);
-    local vector_screenSizeTab12 = TLSE_TextUI_GetTextScreenSize(textButton_tab12["TextButtonAgentReference"]);
-    local vector_screenSizeTab13 = TLSE_TextUI_GetTextScreenSize(textButton_tab13["TextButtonAgentReference"]);
-    local vector_screenSizeTab14 = TLSE_TextUI_GetTextScreenSize(textButton_tab14["TextButtonAgentReference"]);
-    local vector_screenSizeTab15 = TLSE_TextUI_GetTextScreenSize(textButton_tab15["TextButtonAgentReference"]);
-    local vector_screenSizeTab16 = TLSE_TextUI_GetTextScreenSize(textButton_tab16["TextButtonAgentReference"]);
-    local vector_screenSizeTab17 = TLSE_TextUI_GetTextScreenSize(textButton_tab17["TextButtonAgentReference"]);
-    local vector_screenSizeTab18 = TLSE_TextUI_GetTextScreenSize(textButton_tab18["TextButtonAgentReference"]);
-    local vector_screenSizeTab19 = TLSE_TextUI_GetTextScreenSize(textButton_tab19["TextButtonAgentReference"]);
-    local vector_screenSizeTab20 = TLSE_TextUI_GetTextScreenSize(textButton_tab20["TextButtonAgentReference"]);
-    local vector_screenSizeTab21 = TLSE_TextUI_GetTextScreenSize(textButton_tab21["TextButtonAgentReference"]);
-    local vector_screenSizeTab22 = TLSE_TextUI_GetTextScreenSize(textButton_tab22["TextButtonAgentReference"]);
+    local vector_startScreenPosition = textButton_tab1["ScreenPosition"];
+    local vector_screenSizeTab1 = TLSE_TextUI_GetTextScreenSize(textButton_tab1["TextAgent"]);
+    local vector_screenSizeTab2 = TLSE_TextUI_GetTextScreenSize(textButton_tab2["TextAgent"]);
+    local vector_screenSizeTab3 = TLSE_TextUI_GetTextScreenSize(textButton_tab3["TextAgent"]);
+    local vector_screenSizeTab4 = TLSE_TextUI_GetTextScreenSize(textButton_tab4["TextAgent"]);
+    local vector_screenSizeTab5 = TLSE_TextUI_GetTextScreenSize(textButton_tab5["TextAgent"]);
+    local vector_screenSizeTab6 = TLSE_TextUI_GetTextScreenSize(textButton_tab6["TextAgent"]);
+    --local vector_screenSizeTab7 = TLSE_TextUI_GetTextScreenSize(textButton_tab7["TextAgent"]);
+    local vector_screenSizeTab8 = TLSE_TextUI_GetTextScreenSize(textButton_tab8["TextAgent"]);
+    local vector_screenSizeTab9 = TLSE_TextUI_GetTextScreenSize(textButton_tab9["TextAgent"]);
+    local vector_screenSizeTab10 = TLSE_TextUI_GetTextScreenSize(textButton_tab10["TextAgent"]);
+    local vector_screenSizeTab11 = TLSE_TextUI_GetTextScreenSize(textButton_tab11["TextAgent"]);
+    --local vector_screenSizeTab12 = TLSE_TextUI_GetTextScreenSize(textButton_tab12["TextAgent"]);
+    local vector_screenSizeTab13 = TLSE_TextUI_GetTextScreenSize(textButton_tab13["TextAgent"]);
+    local vector_screenSizeTab14 = TLSE_TextUI_GetTextScreenSize(textButton_tab14["TextAgent"]);
+    local vector_screenSizeTab15 = TLSE_TextUI_GetTextScreenSize(textButton_tab15["TextAgent"]);
+    local vector_screenSizeTab16 = TLSE_TextUI_GetTextScreenSize(textButton_tab16["TextAgent"]);
+    --local vector_screenSizeTab17 = TLSE_TextUI_GetTextScreenSize(textButton_tab17["TextAgent"]);
+    local vector_screenSizeTab18 = TLSE_TextUI_GetTextScreenSize(textButton_tab18["TextAgent"]);
+    local vector_screenSizeTab19 = TLSE_TextUI_GetTextScreenSize(textButton_tab19["TextAgent"]);
+    local vector_screenSizeTab20 = TLSE_TextUI_GetTextScreenSize(textButton_tab20["TextAgent"]);
+    local vector_screenSizeTab21 = TLSE_TextUI_GetTextScreenSize(textButton_tab21["TextAgent"]);
+    --local vector_screenSizeTab22 = TLSE_TextUI_GetTextScreenSize(textButton_tab22["TextAgent"]);
 
     local number_horizontalOffset = 0.003;
     local number_verticalOffset = 0.015;
@@ -201,71 +325,71 @@ TLSE_Development_GUI_TabScenePropertiesUpdate = function()
 
     vector_guiOffset.x = 0;
     vector_guiOffset.y = 0;
-    textButton_tab1["TextButtonScreenPosition"] = vector_startScreenPosition;
+    textButton_tab1["ScreenPosition"] = vector_startScreenPosition;
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab1.x * 2.0) + number_horizontalOffset;
-    textButton_tab2["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab2["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab2.x * 2.0) + number_horizontalOffset;
-    textButton_tab3["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab3["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab3.x * 2.0) + number_horizontalOffset;
-    textButton_tab4["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab4["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab4.x * 2.0) + number_horizontalOffset;
-    textButton_tab5["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab5["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab5.x * 2.0) + number_horizontalOffset;
-    textButton_tab6["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab6["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab6.x * 2.0) + number_horizontalOffset;
-    textButton_tab7["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab7["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = 0;
     vector_guiOffset.y = vector_guiOffset.y + number_verticalOffset;
-    textButton_tab8["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab8["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab8.x * 2.0) + number_horizontalOffset;
-    textButton_tab9["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab9["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab9.x * 2.0) + number_horizontalOffset;
-    textButton_tab10["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab10["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab10.x * 2.0) + number_horizontalOffset;
-    textButton_tab11["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab11["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab11.x * 2.0) + number_horizontalOffset;
-    textButton_tab12["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab12["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = 0;
     vector_guiOffset.y = vector_guiOffset.y + number_verticalOffset;
-    textButton_tab13["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab13["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab13.x * 2.0) + number_horizontalOffset;
-    textButton_tab14["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab14["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab14.x * 2.0) + number_horizontalOffset;
-    textButton_tab15["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab15["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab15.x * 2.0) + number_horizontalOffset;
-    textButton_tab16["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab16["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab16.x * 2.0) + number_horizontalOffset;
-    textButton_tab17["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab17["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = 0;
     vector_guiOffset.y = vector_guiOffset.y + number_verticalOffset;
-    textButton_tab18["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab18["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab18.x * 2.0) + number_horizontalOffset;
-    textButton_tab19["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab19["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab19.x * 2.0) + number_horizontalOffset;
-    textButton_tab20["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab20["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab20.x * 2.0) + number_horizontalOffset;
-    textButton_tab21["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab21["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab21.x * 2.0) + number_horizontalOffset;
-    textButton_tab22["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_tab22["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 end

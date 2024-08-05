@@ -4,6 +4,7 @@
 
 TLSE_Development_SceneAgentsStringFilter = "TLSE_Development";
 TLSE_Development_SceneAgentsList = {};
+TLSE_Development_SceneAgentsUnfilteredList = {};
 TLSE_Development_SceneAgent = nil;
 
 TLSE_Development_SceneAgents_FilterLights = false;
@@ -55,9 +56,9 @@ TLSE_Development_Editor_UpdateSceneAgentsList = function()
 
     TLSE_Development_SceneAgentsList = {};
 
-    local agentTable_sceneAgents = SceneGetAgents(TLSE_Development_SceneObject);
+    TLSE_Development_SceneAgentsUnfilteredList = SceneGetAgents(TLSE_Development_SceneObject);
 
-    for index, agent_sceneAgent in pairs(agentTable_sceneAgents) do
+    for index, agent_sceneAgent in pairs(TLSE_Development_SceneAgentsUnfilteredList) do
         local string_sceneAgentName = AgentGetName(agent_sceneAgent);
 
         --if an agent is not a development agent

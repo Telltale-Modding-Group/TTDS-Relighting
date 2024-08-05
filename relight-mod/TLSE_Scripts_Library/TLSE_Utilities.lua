@@ -1,10 +1,10 @@
 print = function(message)
-    if (KTBM_Project_DebugPrinting == true) then
+    if (TLSE_Project_DebugPrinting == true) then
         os.execute("echo " .. message);
     end
 end
 
-KTBM_GetTableType = function(tableValue)
+TLSE_GetTableType = function(tableValue)
     local stringType = "table";
     
     local colorMatch = 0;
@@ -27,7 +27,7 @@ KTBM_GetTableType = function(tableValue)
     return stringType;
 end
 
-KTBM_GetTableSize = function(table)
+TLSE_GetTableSize = function(table)
     local number_size = 1;
 
     for index, item in ipairs(table) do
@@ -37,7 +37,7 @@ KTBM_GetTableSize = function(table)
     return number_size;
 end
 
-KTBM_GetTableItemByIndex = function(table, desiredIndex)
+TLSE_GetTableItemByIndex = function(table, desiredIndex)
     for index, item in ipairs(table) do
         if(desiredIndex == index) then
             return item;

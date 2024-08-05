@@ -9,22 +9,29 @@ local agent_bg_hierarchyArea = nil;
 
 local label_hierarchyTitle = nil;
 
-local textButton_inspectorTab = nil;
-local textButton_lightingTab = nil;
-local textButton_fogTab = nil;
-local textButton_renderTab = nil;
+local textButton_agentTab = nil;
+local textButton_envLightTab = nil;
+local textButton_envFogTab = nil;
+local textButton_meshTab = nil;
 local textButton_scenePropertiesTab = nil;
-
-local agentTable_sceneAgents = {};
+local textButton_debugTab = nil;
 
 TLSE_Development_GUI_CursorOverGUI = false;
-TLSE_Development_GUI_BottomRightWindowTab = "Inspector";
+TLSE_Development_GUI_BottomRightWindowTab = "Agent";
 
-local OnPress_SelectInspectorTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Inspector"; end
-local OnPress_SelectLightingTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Lighting"; end
+TLSE_Development_GUI_AgentTabActive = false;
+TLSE_Development_GUI_EnvLightTabActive = false;
+TLSE_Development_GUI_ScenePropertiesTabActive = false;
+TLSE_Development_GUI_EnvFogTabActive = false;
+TLSE_Development_GUI_MeshTabActive = false;
+TLSE_Development_GUI_DebugTabActive = false;
+
+local OnPress_SelectAgentTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Agent"; end
+local OnPress_SelectEnvLightTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "EnvLight"; end
 local OnPress_SelectScenePropertiesTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "SceneProperties"; end
-local OnPress_SelectFogTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Fog"; end
-local OnPress_SelectRenderTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Render"; end
+local OnPress_SelectEnvFogTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "EnvFog"; end
+local OnPress_SelectMeshTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Mesh"; end
+local OnPress_SelectDebugTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Debug"; end
 
 local textButton_hideIcons = nil;
 local textButton_hideSelectionBox = nil;
@@ -75,30 +82,32 @@ TLSE_Development_GUI_Initalize = function()
 
     TLSE_Development_GUI_TransformPanelInitalize();
     TLSE_Development_GUI_TabSceneHierarchyInitalize();
-    TLSE_Development_GUI_TabLightingInitalize();
-    TLSE_Development_GUI_TabFogInitalize();
-    TLSE_Development_GUI_TabRenderInitalize();
-    TLSE_Development_GUI_TabInspectorInitalize();
+    TLSE_Development_GUI_TabEnvLightInitalize();
+    TLSE_Development_GUI_TabEnvFogInitalize();
+    TLSE_Development_GUI_TabMeshInitalize();
+    TLSE_Development_GUI_TabAgentInitalize();
     TLSE_Development_GUI_TabScenePropertiesInitalize();
+    TLSE_Development_GUI_TabDebugInitalize();
 
     agent_bg_rightSide = AgentCreate("TLSE_Development_bg_rightSide", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
     agent_bg_inspectorArea = AgentCreate("TLSE_Development_bg_inspectorArea", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
     agent_bg_hierarchyArea = AgentCreate("TLSE_Development_bg_hierarchyArea", TLSE_Development_FlatPlaneMesh, Vector(0, 0, 0), Vector(0, 0, 0), TLSE_Development_SceneObject, false, false);
 
     label_hierarchyTitle = TLSE_Development_Editor_GUI_CreateLabel("[SCENE HIERARCHY]", Vector(0.685, 0.005, 0.0));
-    textButton_inspectorTab = TLSE_Development_Editor_GUI_CreateTextButton("[Agent]", true, Vector(0.685, 0.5, 0.0), OnPress_SelectInspectorTab, nil);
-    textButton_lightingTab = TLSE_Development_Editor_GUI_CreateTextButton("[EnvLight]", true, Vector(0.735, 0.5, 0.0), OnPress_SelectLightingTab, nil);
-    textButton_fogTab = TLSE_Development_Editor_GUI_CreateTextButton("[EnvFog]", true, Vector(0.778, 0.5, 0.0), OnPress_SelectFogTab, nil);
-    textButton_renderTab = TLSE_Development_Editor_GUI_CreateTextButton("[Mesh]", true, Vector(0.803, 0.5, 0.0), OnPress_SelectRenderTab, nil);
+    textButton_agentTab = TLSE_Development_Editor_GUI_CreateTextButton("[Agent]", true, Vector(0.685, 0.5, 0.0), OnPress_SelectAgentTab, nil);
+    textButton_envLightTab = TLSE_Development_Editor_GUI_CreateTextButton("[EnvLight]", true, Vector(0.735, 0.5, 0.0), OnPress_SelectEnvLightTab, nil);
+    textButton_envFogTab = TLSE_Development_Editor_GUI_CreateTextButton("[EnvFog]", true, Vector(0.778, 0.5, 0.0), OnPress_SelectEnvFogTab, nil);
+    textButton_meshTab = TLSE_Development_Editor_GUI_CreateTextButton("[Mesh]", true, Vector(0.803, 0.5, 0.0), OnPress_SelectMeshTab, nil);
     textButton_scenePropertiesTab = TLSE_Development_Editor_GUI_CreateTextButton("[Scene]", true, Vector(0.843, 0.5, 0.0), OnPress_SelectScenePropertiesTab, nil);
+    textButton_debugTab = TLSE_Development_Editor_GUI_CreateTextButton("[Debug]", true, Vector(0.843, 0.5, 0.0), OnPress_SelectDebugTab, nil);
 
-    textButton_exportSceneToLuaScript = TLSE_Development_Editor_GUI_CreateTextButton("[EXPORT SCENE CHANGES TO LUA]", true, Vector(0.558, 0.005, 0.0), OnPress_ExportSceneChangesToScript, nil);
-    textButton_hideIcons = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE ICONS]", true, Vector(0.635, 0.020, 0.0), OnPress_HideIcons, nil);
-    textButton_hideSelectionBox = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE SELECTION BOX]", true, Vector(0.602, 0.035, 0.0), OnPress_HideSelectionBox, nil);
-    textButton_hideHoverBox = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE HOVER BOX]", true, Vector(0.615, 0.050, 0.0), OnPress_HideHoverBox, nil);
-    textButton_disableAllLights = TLSE_Development_Editor_GUI_CreateTextButton("[DISABLE ALL LIGHTS]", true, Vector(0.605, 0.065, 0.0), OnPress_DisableAllLights, nil);
-    textButton_enableAllLights = TLSE_Development_Editor_GUI_CreateTextButton("[ENABLE ALL LIGHTS]", true, Vector(0.605, 0.080, 0.0), OnPress_EnableAllLights, nil);
-    textButton_killAllControllers = TLSE_Development_Editor_GUI_CreateTextButton("[KILL ALL CONTROLLERS]", true, Vector(0.594, 0.095, 0.0), OnPress_KillAllControllers, nil);
+    textButton_exportSceneToLuaScript = TLSE_Development_Editor_GUI_CreateTextButton("[EXPORT SCENE CHANGES TO LUA]", false, Vector(0.558, 0.005, 0.0), OnPress_ExportSceneChangesToScript, nil);
+    textButton_hideIcons = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE ICONS]", false, Vector(0.635, 0.020, 0.0), OnPress_HideIcons, nil);
+    textButton_hideSelectionBox = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE SELECTION BOX]", false, Vector(0.602, 0.035, 0.0), OnPress_HideSelectionBox, nil);
+    textButton_hideHoverBox = TLSE_Development_Editor_GUI_CreateTextButton("[HIDE HOVER BOX]", false, Vector(0.615, 0.050, 0.0), OnPress_HideHoverBox, nil);
+    textButton_disableAllLights = TLSE_Development_Editor_GUI_CreateTextButton("[DISABLE ALL LIGHTS]", false, Vector(0.605, 0.065, 0.0), OnPress_DisableAllLights, nil);
+    textButton_enableAllLights = TLSE_Development_Editor_GUI_CreateTextButton("[ENABLE ALL LIGHTS]", false, Vector(0.605, 0.080, 0.0), OnPress_EnableAllLights, nil);
+    textButton_killAllControllers = TLSE_Development_Editor_GUI_CreateTextButton("[KILL ALL CONTROLLERS]", false, Vector(0.594, 0.095, 0.0), OnPress_KillAllControllers, nil);
 
     label_editorModeTextTopLeft = TLSE_Development_Editor_GUI_CreateLabel("", Vector(0, 0, 0));
 
@@ -174,10 +183,8 @@ TLSE_Development_GUI_Update = function()
 
     string_editorModeTextTopLeftText = "[Editor Mode]";
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
-
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Scene: " .. TLSE_Development_SceneObjectAgentName;
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
-
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Camera Position: " .. TLSE_VectorToString(AgentGetPos(TLSE_Development_Freecam_Camera));
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Camera Rotation: " .. TLSE_VectorToString(AgentGetRot(TLSE_Development_Freecam_Camera));
@@ -186,9 +193,6 @@ TLSE_Development_GUI_Update = function()
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Camera World Rotation: " .. TLSE_VectorToString(AgentGetWorldRot(TLSE_Development_Freecam_Camera));
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
-    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Camera Forward: " .. TLSE_VectorToString(AgentGetForwardVec(TLSE_Development_Freecam_Camera));
-    string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
-
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "R Key - Unfreeze Camera / Hide Cursor";
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
@@ -199,7 +203,7 @@ TLSE_Development_GUI_Update = function()
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "Ctrl + D Key - Duplicate Selected Agent (Inspector Tab Active)";
     string_editorModeTextTopLeftText = string_editorModeTextTopLeftText .. "\n"; --new line
 
-    label_editorModeTextTopLeft["LabelText"] = string_editorModeTextTopLeftText;
+    label_editorModeTextTopLeft["Text"] = string_editorModeTextTopLeftText;
 
 
 
@@ -213,12 +217,12 @@ TLSE_Development_GUI_Update = function()
     
 
  
-    local vector_startScreenPosition = textButton_inspectorTab["TextButtonScreenPosition"];
-    local vector_screenSizeTab1 = TLSE_TextUI_GetTextScreenSize(textButton_inspectorTab["TextButtonAgentReference"]);
-    local vector_screenSizeTab2 = TLSE_TextUI_GetTextScreenSize(textButton_lightingTab["TextButtonAgentReference"]);
-    local vector_screenSizeTab3 = TLSE_TextUI_GetTextScreenSize(textButton_fogTab["TextButtonAgentReference"]);
-    local vector_screenSizeTab4 = TLSE_TextUI_GetTextScreenSize(textButton_renderTab["TextButtonAgentReference"]);
-    --local vector_screenSizeTab5 = TLSE_TextUI_GetTextScreenSize(textButton_scenePropertiesTab["TextButtonAgentReference"]);
+    local vector_startScreenPosition = textButton_agentTab["ScreenPosition"];
+    local vector_screenSizeTab1 = TLSE_TextUI_GetTextScreenSize(textButton_agentTab["TextAgent"]);
+    local vector_screenSizeTab2 = TLSE_TextUI_GetTextScreenSize(textButton_envLightTab["TextAgent"]);
+    local vector_screenSizeTab3 = TLSE_TextUI_GetTextScreenSize(textButton_envFogTab["TextAgent"]);
+    local vector_screenSizeTab4 = TLSE_TextUI_GetTextScreenSize(textButton_meshTab["TextAgent"]);
+    local vector_screenSizeTab5 = TLSE_TextUI_GetTextScreenSize(textButton_scenePropertiesTab["TextAgent"]);
 
 
     local number_horizontalOffset = 0.003;
@@ -226,19 +230,22 @@ TLSE_Development_GUI_Update = function()
 
     vector_guiOffset.x = 0;
     vector_guiOffset.y = 0;
-    textButton_inspectorTab["TextButtonScreenPosition"] = vector_startScreenPosition;
+    textButton_agentTab["ScreenPosition"] = vector_startScreenPosition;
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab1.x * 2.0) + number_horizontalOffset;
-    textButton_lightingTab["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_envLightTab["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab2.x * 2.0) + number_horizontalOffset;
-    textButton_fogTab["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_envFogTab["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab3.x * 2.0) + number_horizontalOffset;
-    textButton_renderTab["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_meshTab["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab4.x * 2.0) + number_horizontalOffset;
-    textButton_scenePropertiesTab["TextButtonScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+    textButton_scenePropertiesTab["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_screenSizeTab5.x * 2.0) + number_horizontalOffset;
+    textButton_debugTab["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 
 
 
@@ -252,47 +259,25 @@ TLSE_Development_GUI_Update = function()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    local bool_inspectorTabActive = TLSE_Development_GUI_BottomRightWindowTab == "Inspector";
-    local bool_lightingTabActive = TLSE_Development_GUI_BottomRightWindowTab == "Lighting";
-    local bool_fogTabActive = TLSE_Development_GUI_BottomRightWindowTab == "Fog";
-    local bool_scenePropertiesTabActive = TLSE_Development_GUI_BottomRightWindowTab == "SceneProperties";
-
-    textButton_inspectorTab["TextButtonSelected"] = TLSE_Development_GUI_BottomRightWindowTab == "Inspector";
-    textButton_lightingTab["TextButtonSelected"] = TLSE_Development_GUI_BottomRightWindowTab == "Lighting";
-    textButton_fogTab["TextButtonSelected"] = TLSE_Development_GUI_BottomRightWindowTab == "Fog";
-    textButton_renderTab["TextButtonSelected"] = TLSE_Development_GUI_BottomRightWindowTab == "Render";
-    textButton_scenePropertiesTab["TextButtonSelected"] = TLSE_Development_GUI_BottomRightWindowTab == "SceneProperties";
+    TLSE_Development_GUI_AgentTabActive = TLSE_Development_GUI_BottomRightWindowTab == "Agent";
+    TLSE_Development_GUI_EnvLightTabActive = TLSE_Development_GUI_BottomRightWindowTab == "EnvLight";;
+    TLSE_Development_GUI_ScenePropertiesTabActive = TLSE_Development_GUI_BottomRightWindowTab == "SceneProperties";
+    TLSE_Development_GUI_EnvFogTabActive = TLSE_Development_GUI_BottomRightWindowTab == "EnvFog";
+    TLSE_Development_GUI_MeshTabActive = TLSE_Development_GUI_BottomRightWindowTab == "Mesh";
+    TLSE_Development_GUI_DebugTabActive = TLSE_Development_GUI_BottomRightWindowTab == "Debug";
+    
+    textButton_agentTab["Selected"] = TLSE_Development_GUI_AgentTabActive;
+    textButton_envLightTab["Selected"] = TLSE_Development_GUI_EnvLightTabActive;
+    textButton_envFogTab["Selected"] = TLSE_Development_GUI_EnvFogTabActive;
+    textButton_meshTab["Selected"] = TLSE_Development_GUI_MeshTabActive;
+    textButton_scenePropertiesTab["Selected"] = TLSE_Development_GUI_ScenePropertiesTabActive;
+    textButton_debugTab["Selected"] = TLSE_Development_GUI_DebugTabActive;
 
     TLSE_Development_GUI_TabSceneHierarchyUpdate();
-    TLSE_Development_GUI_TabInspectorUpdate();
-    TLSE_Development_GUI_TabLightingUpdate();
-    TLSE_Development_GUI_TabFogUpdate();
-    TLSE_Development_GUI_TabRenderUpdate();
+    TLSE_Development_GUI_TabAgentUpdate();
+    TLSE_Development_GUI_TabEnvLightUpdate();
+    TLSE_Development_GUI_TabEnvFogUpdate();
+    TLSE_Development_GUI_TabMeshUpdate();
     TLSE_Development_GUI_TabScenePropertiesUpdate();
+    TLSE_Development_GUI_TabDebugUpdate();
 end

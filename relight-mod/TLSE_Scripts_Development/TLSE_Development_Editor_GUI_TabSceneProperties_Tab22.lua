@@ -16,113 +16,59 @@ local tab22_colorProperty14 = nil; --(Color) LightEnv Background Color
 local tab22_numberProperty15 = nil; --(number) LightEnv Probe Resolution XZ
 local tab22_numberProperty16 = nil; --(number) LightEnv Probe Resolution Y
 
-local numberPropertyFieldAdjustmentValue = 1;
-
-local ModifiyNumberPropertyValueOnAgent = function(string_property, number_adjustment, bool_multiplyByFrameTime)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            if(bool_multiplyByFrameTime) then
-                number_originalValue = number_originalValue + (number_adjustment * GetFrameTime());
-            else
-                number_originalValue = number_originalValue + number_adjustment;
-            end
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, number_originalValue);
-        end
-    end
-end
-
-local ModifiyBooleanPropertyValueOnAgent = function(string_property)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            number_originalValue = not number_originalValue;
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, number_originalValue);
-        end
-    end
-end
-
-local ModifiyColorPropertyValueOnAgent = function(string_property, number_channel, number_adjustment, bool_clamp01)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local color_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            if(number_channel == 0) then
-                color_originalValue.r = color_originalValue.r + number_adjustment;
-            elseif(number_channel == 1) then
-                color_originalValue.g = color_originalValue.g + number_adjustment;
-            elseif(number_channel == 2) then
-                color_originalValue.b = color_originalValue.b + number_adjustment;
-            elseif(number_channel == 3) then
-                color_originalValue.a = color_originalValue.a + number_adjustment;
-            end
-
-            if(bool_clamp01) then
-                color_originalValue = TLSE_ColorClamp01(color_originalValue);
-            end
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, color_originalValue);
-        end
-    end
-end
-
 --[MISC] 22
-TLSE_TabSceneProperties_OnToggle_Tab22Property1 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("After Effects Enabled"); end
-TLSE_TabSceneProperties_OnToggle_Tab22Property2 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("HDR lightmaps Enabled"); end
-TLSE_TabSceneProperties_OnToggle_Tab22Property9 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("LightEnv Bake Enabled"); end
-TLSE_TabSceneProperties_OnToggle_Tab22Property10 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("LightEnv Enabled"); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property3 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("HDR lightmaps Intensity", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property3 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("HDR lightmaps Intensity", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property4 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Noise Scale", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property4 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Noise Scale", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property7 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Force Linear Depth Offset", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property7 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Force Linear Depth Offset", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property8 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("HDR - Paper White Nits", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property8 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("HDR - Paper White Nits", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property11 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Intensity", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property11 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Intensity", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property12 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Saturation", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property12 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Saturation", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property15 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Probe Resolution XZ", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property15 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Probe Resolution XZ", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property16 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Probe Resolution Y", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property16 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Probe Resolution Y", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property5_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("Ambient Color", 0, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property5_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("Ambient Color", 1, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property5_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("Ambient Color", 2, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property5_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("Ambient Color", 3, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property5_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("Ambient Color", 0, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property5_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("Ambient Color", 1, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property5_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("Ambient Color", 2, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property5_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("Ambient Color", 3, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property6_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("Shadow Color", 0, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property6_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("Shadow Color", 1, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property6_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("Shadow Color", 2, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property6_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("Shadow Color", 3, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property6_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("Shadow Color", 0, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property6_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("Shadow Color", 1, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property6_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("Shadow Color", 2, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property6_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("Shadow Color", 3, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property13_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Tint", 0, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property13_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Tint", 1, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property13_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Tint", 2, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property13_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Tint", 3, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property13_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Tint", 0, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property13_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Tint", 1, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property13_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Tint", 2, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property13_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Tint", 3, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property14_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 0, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property14_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 1, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property14_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 2, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab22Property14_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 3, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property14_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 0, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property14_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 1, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property14_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 2, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab22Property14_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 3, -numberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnToggle_Tab22Property1 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent("After Effects Enabled"); end
+TLSE_TabSceneProperties_OnToggle_Tab22Property2 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent("HDR lightmaps Enabled"); end
+TLSE_TabSceneProperties_OnToggle_Tab22Property9 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent("LightEnv Bake Enabled"); end
+TLSE_TabSceneProperties_OnToggle_Tab22Property10 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent("LightEnv Enabled"); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property3 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("HDR lightmaps Intensity", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property3 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("HDR lightmaps Intensity", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property4 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Noise Scale", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property4 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Noise Scale", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property7 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Force Linear Depth Offset", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property7 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Force Linear Depth Offset", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property8 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("HDR - Paper White Nits", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property8 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("HDR - Paper White Nits", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property11 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Intensity", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property11 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Intensity", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property12 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Saturation", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property12 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Saturation", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property15 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Probe Resolution XZ", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property15 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Probe Resolution XZ", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property16 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Probe Resolution Y", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property16 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Probe Resolution Y", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property5_R = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Ambient Color", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property5_G = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Ambient Color", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property5_B = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Ambient Color", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property5_A = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Ambient Color", 3, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property5_R = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Ambient Color", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property5_G = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Ambient Color", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property5_B = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Ambient Color", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property5_A = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Ambient Color", 3, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property6_R = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Shadow Color", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property6_G = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Shadow Color", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property6_B = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Shadow Color", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property6_A = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Shadow Color", 3, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property6_R = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Shadow Color", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property6_G = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Shadow Color", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property6_B = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Shadow Color", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property6_A = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Shadow Color", 3, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property13_R = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Tint", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property13_G = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Tint", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property13_B = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Tint", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property13_A = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Tint", 3, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property13_R = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Tint", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property13_G = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Tint", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property13_B = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Tint", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property13_A = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Tint", 3, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property14_R = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property14_G = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property14_B = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab22Property14_A = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 3, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property14_R = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property14_G = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property14_B = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab22Property14_A = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("LightEnv Background Color", 3, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
 
 TLSE_Development_GUI_TabSceneProperties_Tab22Initalize = function()
     --[MISC] 22
@@ -145,53 +91,43 @@ TLSE_Development_GUI_TabSceneProperties_Tab22Initalize = function()
 end
 
 TLSE_Development_GUI_TabSceneProperties_Tab22Update = function()
-    if(TLSE_Development_Editor_Input_LeftShiftHold) then
-        numberPropertyFieldAdjustmentValue = 10;
-    elseif(TLSE_Development_Editor_Input_LeftCtrlHold) then
-        numberPropertyFieldAdjustmentValue = 0.01;
-    else
-        numberPropertyFieldAdjustmentValue = 1;
-    end
-
-    local bool_currentTabActive = TLSE_TabSceneProperties_CurrentTab == "Tab22";
-
     --[MISC] 22
-    tab22_boolProperty1["BooleanPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_boolProperty2["BooleanPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_numberProperty3["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_numberProperty4["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_colorProperty5["ColorFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_colorProperty6["ColorFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_numberProperty7["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_numberProperty8["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_boolProperty9["BooleanPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_boolProperty10["BooleanPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_numberProperty11["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_numberProperty12["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_colorProperty13["ColorFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_colorProperty14["ColorFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_numberProperty15["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab22_numberProperty16["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
+    tab22_boolProperty1["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_boolProperty2["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_numberProperty3["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_numberProperty4["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_colorProperty5["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_colorProperty6["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_numberProperty7["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_numberProperty8["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_boolProperty9["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_boolProperty10["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_numberProperty11["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_numberProperty12["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_colorProperty13["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_colorProperty14["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_numberProperty15["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
+    tab22_numberProperty16["Visible"] = TLSE_TabSceneProperties_Tab22_Active;
 
-    if(TLSE_TabSceneProperties_IsActive == false) then
+    if(TLSE_TabSceneProperties_Tab22_Active == false) then
         return
     end
 
     --[MISC] 22
-    tab22_boolProperty1["BooleanPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_boolProperty2["BooleanPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_numberProperty3["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_numberProperty4["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_colorProperty5["ColorPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_colorProperty6["ColorPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_numberProperty7["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_numberProperty8["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_boolProperty9["BooleanPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_boolProperty10["BooleanPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_numberProperty11["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_numberProperty12["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_colorProperty13["ColorPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_colorProperty14["ColorPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_numberProperty15["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab22_numberProperty16["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
+    tab22_boolProperty1["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_boolProperty2["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_numberProperty3["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_numberProperty4["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_colorProperty5["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_colorProperty6["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_numberProperty7["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_numberProperty8["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_boolProperty9["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_boolProperty10["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_numberProperty11["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_numberProperty12["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_colorProperty13["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_colorProperty14["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_numberProperty15["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab22_numberProperty16["ReferenceAgent"] = TLSE_Development_SceneAgent;
 end

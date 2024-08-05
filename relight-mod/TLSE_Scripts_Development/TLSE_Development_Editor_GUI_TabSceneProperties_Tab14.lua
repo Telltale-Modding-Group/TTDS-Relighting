@@ -11,110 +11,38 @@ local tab14_numberProperty9 = nil; --(number) Screen Space Lines - Light Magnitu
 local tab14_numberProperty10 = nil; --(number) Screen Space Lines - Light Exponent
 local tab14_vector3Property11 = nil; --(Vector3) Screen Space Lines - Light Direction
 
-local numberPropertyFieldAdjustmentValue = 1;
-
-local ModifiyNumberPropertyValueOnAgent = function(string_property, number_adjustment, bool_multiplyByFrameTime)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            if(bool_multiplyByFrameTime) then
-                number_originalValue = number_originalValue + (number_adjustment * GetFrameTime());
-            else
-                number_originalValue = number_originalValue + number_adjustment;
-            end
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, number_originalValue);
-        end
-    end
-end
-
-local ModifiyBooleanPropertyValueOnAgent = function(string_property)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            number_originalValue = not number_originalValue;
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, number_originalValue);
-        end
-    end
-end
-
-local ModifiyColorPropertyValueOnAgent = function(string_property, number_channel, number_adjustment, bool_clamp01)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local color_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            if(number_channel == 0) then
-                color_originalValue.r = color_originalValue.r + number_adjustment;
-            elseif(number_channel == 1) then
-                color_originalValue.g = color_originalValue.g + number_adjustment;
-            elseif(number_channel == 2) then
-                color_originalValue.b = color_originalValue.b + number_adjustment;
-            elseif(number_channel == 3) then
-                color_originalValue.a = color_originalValue.a + number_adjustment;
-            end
-
-            if(bool_clamp01) then
-                color_originalValue = TLSE_ColorClamp01(color_originalValue);
-            end
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, color_originalValue);
-        end
-    end
-end
-
-local ModifiyVector3PropertyValueOnAgent = function(string_property, number_component, number_adjustment)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local vector_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            if(number_component == 0) then
-                vector_originalValue.x = vector_originalValue.x + number_adjustment;
-            elseif(number_component == 1) then
-                vector_originalValue.y = vector_originalValue.y + number_adjustment;
-            elseif(number_component == 2) then
-                vector_originalValue.z = vector_originalValue.z + number_adjustment;
-            end
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, vector_originalValue);
-        end
-    end
-end
-
 --[SCREEN SPACE LINES] 14
-TLSE_TabSceneProperties_OnToggle_Tab14Property1 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Screen Space Lines - Enabled"); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property2_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 0, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property2_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 1, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property2_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 2, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property2_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 3, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property2_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 0, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property2_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 1, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property2_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 2, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property2_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 3, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property3 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Thickness", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property3 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Thickness", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property4 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Fade Near", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property4 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Fade Near", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property5 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Fade Far", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property5 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Fade Far", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property6 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Magnitude", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property6 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Magnitude", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property7 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Exponent", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property7 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Exponent", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property8 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Debug", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property8 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Debug", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property9 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Light Magnitude", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property9 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Light Magnitude", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property10 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Light Exponent", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property10 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Light Exponent", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property11_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Screen Space Lines - Light Direction", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property11_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Screen Space Lines - Light Direction", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab14Property11_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Screen Space Lines - Light Direction", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property11_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Screen Space Lines - Light Direction", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property11_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Screen Space Lines - Light Direction", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab14Property11_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Screen Space Lines - Light Direction", 2, -numberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnToggle_Tab14Property1 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent("Screen Space Lines - Enabled"); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property2_R = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property2_G = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property2_B = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property2_A = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 3, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property2_R = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property2_G = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property2_B = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property2_A = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("Screen Space Lines - Color", 3, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property3 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Thickness", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property3 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Thickness", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property4 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Fade Near", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property4 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Fade Near", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property5 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Fade Far", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property5 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Fade Far", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property6 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Magnitude", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property6 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Magnitude", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property7 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Exponent", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property7 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Depth Exponent", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property8 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Debug", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property8 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Debug", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property9 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Light Magnitude", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property9 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Light Magnitude", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property10 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Light Exponent", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property10 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Screen Space Lines - Light Exponent", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property11_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Screen Space Lines - Light Direction", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property11_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Screen Space Lines - Light Direction", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab14Property11_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Screen Space Lines - Light Direction", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property11_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Screen Space Lines - Light Direction", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property11_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Screen Space Lines - Light Direction", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab14Property11_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Screen Space Lines - Light Direction", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
 
 TLSE_Development_GUI_TabSceneProperties_Tab14Initalize = function()
     --[SCREEN SPACE LINES] 14
@@ -132,43 +60,33 @@ TLSE_Development_GUI_TabSceneProperties_Tab14Initalize = function()
 end
 
 TLSE_Development_GUI_TabSceneProperties_Tab14Update = function()
-    if(TLSE_Development_Editor_Input_LeftShiftHold) then
-        numberPropertyFieldAdjustmentValue = 10;
-    elseif(TLSE_Development_Editor_Input_LeftCtrlHold) then
-        numberPropertyFieldAdjustmentValue = 0.01;
-    else
-        numberPropertyFieldAdjustmentValue = 1;
-    end
-
-    local bool_currentTabActive = TLSE_TabSceneProperties_CurrentTab == "Tab14";
-
     --[SCREEN SPACE LINES] 14
-    tab14_boolProperty1["BooleanPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab14_colorProperty2["ColorFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab14_numberProperty3["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab14_numberProperty4["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab14_numberProperty5["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab14_numberProperty6["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab14_numberProperty7["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab14_numberProperty8["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab14_numberProperty9["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab14_numberProperty10["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab14_vector3Property11["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
+    tab14_boolProperty1["Visible"] = TLSE_TabSceneProperties_Tab14_Active;
+    tab14_colorProperty2["Visible"] = TLSE_TabSceneProperties_Tab14_Active;
+    tab14_numberProperty3["Visible"] = TLSE_TabSceneProperties_Tab14_Active;
+    tab14_numberProperty4["Visible"] = TLSE_TabSceneProperties_Tab14_Active;
+    tab14_numberProperty5["Visible"] = TLSE_TabSceneProperties_Tab14_Active;
+    tab14_numberProperty6["Visible"] = TLSE_TabSceneProperties_Tab14_Active;
+    tab14_numberProperty7["Visible"] = TLSE_TabSceneProperties_Tab14_Active;
+    tab14_numberProperty8["Visible"] = TLSE_TabSceneProperties_Tab14_Active;
+    tab14_numberProperty9["Visible"] = TLSE_TabSceneProperties_Tab14_Active;
+    tab14_numberProperty10["Visible"] = TLSE_TabSceneProperties_Tab14_Active;
+    tab14_vector3Property11["Visible"] = TLSE_TabSceneProperties_Tab14_Active;
 
-    if(TLSE_TabSceneProperties_IsActive == false) then
+    if(TLSE_TabSceneProperties_Tab14_Active == false) then
         return
     end
 
     --[SCREEN SPACE LINES] 14
-    tab14_boolProperty1["BooleanPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab14_colorProperty2["ColorPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab14_numberProperty3["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab14_numberProperty4["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab14_numberProperty5["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab14_numberProperty6["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab14_numberProperty7["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab14_numberProperty8["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab14_numberProperty9["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab14_numberProperty10["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab14_vector3Property11["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
+    tab14_boolProperty1["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab14_colorProperty2["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab14_numberProperty3["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab14_numberProperty4["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab14_numberProperty5["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab14_numberProperty6["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab14_numberProperty7["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab14_numberProperty8["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab14_numberProperty9["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab14_numberProperty10["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab14_vector3Property11["ReferenceAgent"] = TLSE_Development_SceneAgent;
 end

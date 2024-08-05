@@ -68,7 +68,7 @@ TLSE_ColorToString = function(colorValue)
     return stringValue;
 end
 
-TLSE_ColorToRGBColorToString = function(colorValue)
+TLSE_ColorToRGBAColorToString = function(colorValue)
     local stringValue = "";
     
     local scalar = 255

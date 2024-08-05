@@ -14,89 +14,41 @@ local tab18_numberProperty12 = nil; --(number) LightEnv Shadow Max Updates
 local tab18_vector3Property13 = nil; --(Vector3) Light Static Shadow Bounds Min
 local tab18_vector3Property14 = nil; --(Vector3) Light Static Shadow Bounds Max
 
-local numberPropertyFieldAdjustmentValue = 1;
-
-local ModifiyNumberPropertyValueOnAgent = function(string_property, number_adjustment, bool_multiplyByFrameTime)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            if(bool_multiplyByFrameTime) then
-                number_originalValue = number_originalValue + (number_adjustment * GetFrameTime());
-            else
-                number_originalValue = number_originalValue + number_adjustment;
-            end
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, number_originalValue);
-        end
-    end
-end
-
-local ModifiyBooleanPropertyValueOnAgent = function(string_property)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            number_originalValue = not number_originalValue;
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, number_originalValue);
-        end
-    end
-end
-
-local ModifiyVector3PropertyValueOnAgent = function(string_property, number_component, number_adjustment)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local vector_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            if(number_component == 0) then
-                vector_originalValue.x = vector_originalValue.x + number_adjustment;
-            elseif(number_component == 1) then
-                vector_originalValue.y = vector_originalValue.y + number_adjustment;
-            elseif(number_component == 2) then
-                vector_originalValue.z = vector_originalValue.z + number_adjustment;
-            end
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, vector_originalValue);
-        end
-    end
-end
-
 --[SHADOWS] 18
-TLSE_TabSceneProperties_OnToggle_Tab18Property1 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("FX Sharp Shadows Enabled"); end
-TLSE_TabSceneProperties_OnToggle_Tab18Property2 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("LightEnv Shadow Auto Depth Bounds"); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property3 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Moment Bias", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property3 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Moment Bias", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property4 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Depth Bias", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property4 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Depth Bias", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property5 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Position Offset Bias", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property5 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Position Offset Bias", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property6 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Light Bleed Reduction", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property6 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Light Bleed Reduction", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property7 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Min Distance", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property7 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Min Distance", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property8 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Max Distance", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property8 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Max Distance", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property9 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Dynamic Shadow Max Distance", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property9 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Dynamic Shadow Max Distance", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property10 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Light Shadow Trace Max Distance", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property10 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Light Shadow Trace Max Distance", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property11 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Cascade Split Bias", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property11 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Cascade Split Bias", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property12 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Max Updates", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property12 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Max Updates", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property13_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Min", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property13_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Min", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property13_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Min", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property13_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Min", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property13_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Min", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property13_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Min", 2, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property14_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Max", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property14_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Max", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab18Property14_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Max", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property14_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Max", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property14_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Max", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab18Property14_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Max", 2, -numberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnToggle_Tab18Property1 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent("FX Sharp Shadows Enabled"); end
+TLSE_TabSceneProperties_OnToggle_Tab18Property2 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent("LightEnv Shadow Auto Depth Bounds"); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property3 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Moment Bias", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property3 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Moment Bias", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property4 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Depth Bias", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property4 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Depth Bias", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property5 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Position Offset Bias", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property5 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Position Offset Bias", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property6 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Light Bleed Reduction", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property6 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Light Bleed Reduction", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property7 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Min Distance", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property7 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Min Distance", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property8 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Max Distance", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property8 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Max Distance", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property9 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Dynamic Shadow Max Distance", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property9 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Dynamic Shadow Max Distance", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property10 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Light Shadow Trace Max Distance", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property10 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("Light Shadow Trace Max Distance", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property11 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Cascade Split Bias", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property11 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Cascade Split Bias", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property12 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Max Updates", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property12 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("LightEnv Shadow Max Updates", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property13_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Min", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property13_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Min", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property13_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Min", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property13_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Min", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property13_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Min", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property13_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Min", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property14_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Max", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property14_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Max", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab18Property14_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Max", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property14_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Max", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property14_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Max", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab18Property14_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("Light Static Shadow Bounds Max", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
 
 TLSE_Development_GUI_TabSceneProperties_Tab18Initalize = function()
     --[SHADOWS] 18
@@ -117,49 +69,39 @@ TLSE_Development_GUI_TabSceneProperties_Tab18Initalize = function()
 end
 
 TLSE_Development_GUI_TabSceneProperties_Tab18Update = function()
-    if(TLSE_Development_Editor_Input_LeftShiftHold) then
-        numberPropertyFieldAdjustmentValue = 10;
-    elseif(TLSE_Development_Editor_Input_LeftCtrlHold) then
-        numberPropertyFieldAdjustmentValue = 0.01;
-    else
-        numberPropertyFieldAdjustmentValue = 1;
-    end
-
-    local bool_currentTabActive = TLSE_TabSceneProperties_CurrentTab == "Tab18";
-
     --[SHADOWS] 18
-    tab18_boolProperty1["BooleanPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab18_boolProperty2["BooleanPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab18_numberProperty3["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab18_numberProperty4["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab18_numberProperty5["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab18_numberProperty6["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab18_numberProperty7["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab18_numberProperty8["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab18_numberProperty9["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab18_numberProperty10["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab18_numberProperty11["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab18_numberProperty12["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab18_vector3Property13["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab18_vector3Property14["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
+    tab18_boolProperty1["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
+    tab18_boolProperty2["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
+    tab18_numberProperty3["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
+    tab18_numberProperty4["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
+    tab18_numberProperty5["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
+    tab18_numberProperty6["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
+    tab18_numberProperty7["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
+    tab18_numberProperty8["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
+    tab18_numberProperty9["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
+    tab18_numberProperty10["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
+    tab18_numberProperty11["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
+    tab18_numberProperty12["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
+    tab18_vector3Property13["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
+    tab18_vector3Property14["Visible"] = TLSE_TabSceneProperties_Tab18_Active;
 
-    if(TLSE_TabSceneProperties_IsActive == false) then
+    if(TLSE_TabSceneProperties_Tab18_Active == false) then
         return
     end
 
     --[SHADOWS] 18
-    tab18_boolProperty1["BooleanPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab18_boolProperty2["BooleanPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab18_numberProperty3["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab18_numberProperty4["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab18_numberProperty5["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab18_numberProperty6["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab18_numberProperty7["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab18_numberProperty8["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab18_numberProperty9["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab18_numberProperty10["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab18_numberProperty11["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab18_numberProperty12["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab18_vector3Property13["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab18_vector3Property14["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
+    tab18_boolProperty1["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab18_boolProperty2["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab18_numberProperty3["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab18_numberProperty4["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab18_numberProperty5["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab18_numberProperty6["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab18_numberProperty7["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab18_numberProperty8["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab18_numberProperty9["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab18_numberProperty10["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab18_numberProperty11["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab18_numberProperty12["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab18_vector3Property13["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab18_vector3Property14["ReferenceAgent"] = TLSE_Development_SceneAgent;
 end

@@ -16,66 +16,36 @@ local tab19_numberProperty14 = nil; --(number) FX Brush Far Plane
 local tab19_numberProperty15 = nil; --(number) FX Brush Far Plane Falloff
 local tab19_numberProperty16 = nil; --(number) FX Brush Far Plane Max Scale
 
-local numberPropertyFieldAdjustmentValue = 1;
-
-local ModifiyNumberPropertyValueOnAgent = function(string_property, number_adjustment, bool_multiplyByFrameTime)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            if(bool_multiplyByFrameTime) then
-                number_originalValue = number_originalValue + (number_adjustment * GetFrameTime());
-            else
-                number_originalValue = number_originalValue + number_adjustment;
-            end
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, number_originalValue);
-        end
-    end
-end
-
-local ModifiyBooleanPropertyValueOnAgent = function(string_property)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            number_originalValue = not number_originalValue;
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, number_originalValue);
-        end
-    end
-end
-
 --[FX BRUSH] 19
-TLSE_TabSceneProperties_OnToggle_Tab19Property1 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("FX Brush Outline Enable"); end
-TLSE_TabSceneProperties_OnToggle_Tab19Property2 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("FX Brush Outline Filter Enable"); end
-TLSE_TabSceneProperties_OnToggle_Tab19Property3 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("FX Brush DOF Enable"); end
-TLSE_TabSceneProperties_OnIncrease_Tab19Property4 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Outline Size", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab19Property4 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Outline Size", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab19Property5 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Outline Threshold", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab19Property5 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Outline Threshold", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab19Property6 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Outline Color Threshold", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab19Property6 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Outline Color Threshold", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab19Property7 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Outline Falloff", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab19Property7 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Outline Falloff", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab19Property8 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Near Outline Scale", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab19Property8 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Near Outline Scale", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab19Property9 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Near Scale", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab19Property9 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Near Scale", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab19Property10 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Near Detail", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab19Property10 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Near Detail", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab19Property11 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Far Scale", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab19Property11 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Far Scale", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab19Property12 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Far Detail", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab19Property12 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Far Detail", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab19Property13 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Far Scale Boost", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab19Property13 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Far Scale Boost", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab19Property14 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Far Plane", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab19Property14 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Far Plane", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab19Property15 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Far Plane Falloff", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab19Property15 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Far Plane Falloff", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab19Property16 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Far Plane Max Scale", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab19Property16 = function(textButton_button) ModifiyNumberPropertyValueOnAgent("FX Brush Far Plane Max Scale", -numberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnToggle_Tab19Property1 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent("FX Brush Outline Enable"); end
+TLSE_TabSceneProperties_OnToggle_Tab19Property2 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent("FX Brush Outline Filter Enable"); end
+TLSE_TabSceneProperties_OnToggle_Tab19Property3 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent("FX Brush DOF Enable"); end
+TLSE_TabSceneProperties_OnIncrease_Tab19Property4 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Outline Size", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab19Property4 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Outline Size", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab19Property5 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Outline Threshold", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab19Property5 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Outline Threshold", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab19Property6 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Outline Color Threshold", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab19Property6 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Outline Color Threshold", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab19Property7 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Outline Falloff", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab19Property7 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Outline Falloff", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab19Property8 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Near Outline Scale", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab19Property8 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Near Outline Scale", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab19Property9 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Near Scale", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab19Property9 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Near Scale", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab19Property10 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Near Detail", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab19Property10 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Near Detail", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab19Property11 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Far Scale", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab19Property11 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Far Scale", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab19Property12 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Far Detail", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab19Property12 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Far Detail", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab19Property13 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Far Scale Boost", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab19Property13 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Far Scale Boost", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab19Property14 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Far Plane", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab19Property14 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Far Plane", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab19Property15 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Far Plane Falloff", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab19Property15 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Far Plane Falloff", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab19Property16 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Far Plane Max Scale", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab19Property16 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Brush Far Plane Max Scale", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
 
 TLSE_Development_GUI_TabSceneProperties_Tab19Initalize = function()
     --[FX BRUSH] 19
@@ -98,53 +68,43 @@ TLSE_Development_GUI_TabSceneProperties_Tab19Initalize = function()
 end
 
 TLSE_Development_GUI_TabSceneProperties_Tab19Update = function()
-    if(TLSE_Development_Editor_Input_LeftShiftHold) then
-        numberPropertyFieldAdjustmentValue = 10;
-    elseif(TLSE_Development_Editor_Input_LeftCtrlHold) then
-        numberPropertyFieldAdjustmentValue = 0.01;
-    else
-        numberPropertyFieldAdjustmentValue = 1;
-    end
-
-    local bool_currentTabActive = TLSE_TabSceneProperties_CurrentTab == "Tab19";
-
     --[FX BRUSH] 19
-    tab19_boolProperty1["BooleanPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_boolProperty2["BooleanPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_boolProperty3["BooleanPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_numberProperty4["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_numberProperty5["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_numberProperty6["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_numberProperty7["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_numberProperty8["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_numberProperty9["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_numberProperty10["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_numberProperty11["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_numberProperty12["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_numberProperty13["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_numberProperty14["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_numberProperty15["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab19_numberProperty16["NumberPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
+    tab19_boolProperty1["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_boolProperty2["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_boolProperty3["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_numberProperty4["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_numberProperty5["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_numberProperty6["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_numberProperty7["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_numberProperty8["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_numberProperty9["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_numberProperty10["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_numberProperty11["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_numberProperty12["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_numberProperty13["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_numberProperty14["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_numberProperty15["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
+    tab19_numberProperty16["Visible"] = TLSE_TabSceneProperties_Tab19_Active;
 
-    if(TLSE_TabSceneProperties_IsActive == false) then
+    if(TLSE_TabSceneProperties_Tab19_Active == false) then
         return
     end
 
     --[FX BRUSH] 19
-    tab19_boolProperty1["BooleanPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_boolProperty2["BooleanPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_boolProperty3["BooleanPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_numberProperty4["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_numberProperty5["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_numberProperty6["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_numberProperty7["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_numberProperty8["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_numberProperty9["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_numberProperty10["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_numberProperty11["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_numberProperty12["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_numberProperty13["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_numberProperty14["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_numberProperty15["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab19_numberProperty16["NumberPropertyFieldAgent"] = TLSE_Development_SceneAgent;
+    tab19_boolProperty1["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_boolProperty2["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_boolProperty3["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_numberProperty4["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_numberProperty5["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_numberProperty6["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_numberProperty7["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_numberProperty8["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_numberProperty9["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_numberProperty10["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_numberProperty11["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_numberProperty12["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_numberProperty13["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_numberProperty14["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_numberProperty15["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab19_numberProperty16["ReferenceAgent"] = TLSE_Development_SceneAgent;
 end

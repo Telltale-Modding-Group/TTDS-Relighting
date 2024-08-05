@@ -8,13 +8,13 @@ TLSE_Development_Editor_GUI_BooleanPropertyFields = {};
 TLSE_Development_Editor_GUI_CreateBooleanPropertyField = function(agent_referenceAgent, string_agentProperty, string_name, vector_screenPosition, function_onClick)
     local booleanPropertyField_newField = 
     {
-        BooleanPropertyFieldAgent = agent_referenceAgent,
-        BooleanPropertyFieldAgentProperty = string_agentProperty,
-        BooleanPropertyFieldNameDisplay = TLSE_Development_Editor_GUI_CreateLabel(string_name, vector_screenPosition),
-        BooleanPropertyFieldValueDisplay = TLSE_Development_Editor_GUI_CreateTextButton("nil", false, vector_screenPosition, function_onClick, nil),
-        BooleanPropertyFieldValue = nil,
-        BooleanPropertyFieldVisible = true,
-        BooleanPropertyFieldScreenPosition = vector_screenPosition
+        ReferenceAgent = agent_referenceAgent,
+        ReferenceAgentProperty = string_agentProperty,
+        NameLabel = TLSE_Development_Editor_GUI_CreateLabel(string_name, vector_screenPosition),
+        ValueLabel = TLSE_Development_Editor_GUI_CreateTextButton("nil", false, vector_screenPosition, function_onClick, nil),
+        Value = nil,
+        Visible = true,
+        ScreenPosition = vector_screenPosition
     };
 
     table.insert(TLSE_Development_Editor_GUI_BooleanPropertyFields, booleanPropertyField_newField);
@@ -28,29 +28,29 @@ TLSE_Development_Editor_GUI_UpdateBooleanPropertyField = function(booleanPropert
         return
     end
 
-    local bool_visibility = booleanPropertyField_field["BooleanPropertyFieldVisible"];
+    local bool_visibility = booleanPropertyField_field["Visible"];
 
-    booleanPropertyField_field["BooleanPropertyFieldNameDisplay"]["LabelVisible"] = bool_visibility;
-    booleanPropertyField_field["BooleanPropertyFieldValueDisplay"]["TextButtonVisible"] = bool_visibility;
+    booleanPropertyField_field["NameLabel"]["Visible"] = bool_visibility;
+    booleanPropertyField_field["ValueLabel"]["Visible"] = bool_visibility;
 
     if(bool_visibility == false) then
         return
     end
 
-    local vector_screenPosition = booleanPropertyField_field["BooleanPropertyFieldScreenPosition"];
-    local vector_contentsScreenSize = TLSE_TextUI_GetTextScreenSize(booleanPropertyField_field["BooleanPropertyFieldNameDisplay"]["LabelAgentReference"]);
+    local vector_screenPosition = booleanPropertyField_field["ScreenPosition"];
+    local vector_contentsScreenSize = TLSE_TextUI_GetTextScreenSize(booleanPropertyField_field["NameLabel"]["TextAgent"]);
 
     local number_xOffset = (vector_contentsScreenSize.x * 2.0) + TLSE_Development_Editor_GUI_PropertyFieldHorizontalSeparation;
-    booleanPropertyField_field["BooleanPropertyFieldValueDisplay"]["TextButtonScreenPosition"] = VectorAdd(Vector(number_xOffset, 0, 0), vector_screenPosition);
+    booleanPropertyField_field["ValueLabel"]["ScreenPosition"] = VectorAdd(Vector(number_xOffset, 0, 0), vector_screenPosition);
     
-    if(booleanPropertyField_field["BooleanPropertyFieldAgent"] ~= nil) then
-        if(AgentHasProperty(booleanPropertyField_field["BooleanPropertyFieldAgent"], booleanPropertyField_field["BooleanPropertyFieldAgentProperty"])) then
-            local bool_agentPropertyValue = AgentGetProperty(booleanPropertyField_field["BooleanPropertyFieldAgent"], booleanPropertyField_field["BooleanPropertyFieldAgentProperty"]);
-            booleanPropertyField_field["BooleanPropertyFieldValue"] = bool_agentPropertyValue;
+    if(booleanPropertyField_field["ReferenceAgent"] ~= nil) then
+        if(AgentHasProperty(booleanPropertyField_field["ReferenceAgent"], booleanPropertyField_field["ReferenceAgentProperty"])) then
+            local bool_agentPropertyValue = AgentGetProperty(booleanPropertyField_field["ReferenceAgent"], booleanPropertyField_field["ReferenceAgentProperty"]);
+            booleanPropertyField_field["Value"] = bool_agentPropertyValue;
         else
-            booleanPropertyField_field["BooleanPropertyFieldValue"] = nil;
+            booleanPropertyField_field["Value"] = nil;
         end
     end
 
-    booleanPropertyField_field["BooleanPropertyFieldValueDisplay"]["TextButtonText"] = tostring(booleanPropertyField_field["BooleanPropertyFieldValue"]);
+    booleanPropertyField_field["ValueLabel"]["Text"] = tostring(booleanPropertyField_field["Value"]);
 end

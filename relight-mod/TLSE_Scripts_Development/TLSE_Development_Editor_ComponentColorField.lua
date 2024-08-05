@@ -8,17 +8,17 @@ TLSE_Development_Editor_GUI_ColorPropertyFields = {};
 TLSE_Development_Editor_GUI_CreateColorPropertyField = function(agent_referenceAgent, string_name, string_property, vector_screenPosition, bool_canHold, function_onIncreaseR, function_onIncreaseG, function_onIncreaseB, function_onIncreaseA, function_onDecreaseR, function_onDecreaseG, function_onDecreaseB, function_onDecreaseA)
     local colorPropertyField_newField = 
     {
-        ColorPropertyFieldAgent = agent_referenceAgent,
-        ColorPropertyFieldAgentProperty = string_property,
-        ColorPropertyName = string_name,
-        ColorPropertyValue = nil,
-        ColorFieldRed = TLSE_Development_Editor_GUI_CreateNumberPropertyField(agent_referenceAgent, string_name .. " (R)", vector_screenPosition, bool_canHold, function_onIncreaseR, function_onDecreaseR),
-        ColorFieldGreen = TLSE_Development_Editor_GUI_CreateNumberPropertyField(agent_referenceAgent, string_name .. " (G)", vector_screenPosition, bool_canHold, function_onIncreaseG, function_onDecreaseG),
-        ColorFieldBlue = TLSE_Development_Editor_GUI_CreateNumberPropertyField(agent_referenceAgent, string_name .. " (B)", vector_screenPosition, bool_canHold, function_onIncreaseB, function_onDecreaseB),
-        ColorFieldAlpha = TLSE_Development_Editor_GUI_CreateNumberPropertyField(agent_referenceAgent, string_name .. " (A)", vector_screenPosition, bool_canHold, function_onIncreaseA, function_onDecreaseA),
-        ColorFieldVisible = true,
-        ColorFieldScreenPosition = vector_screenPosition,
-        ColorFieldCanHold = bool_canHold
+        ReferenceAgent = agent_referenceAgent,
+        ReferenceAgentProperty = string_property,
+        Name = string_name,
+        Value = nil,
+        RedNumber = TLSE_Development_Editor_GUI_CreateNumberPropertyField(agent_referenceAgent, string_name .. " (R)", vector_screenPosition, bool_canHold, function_onIncreaseR, function_onDecreaseR),
+        GreenNumber = TLSE_Development_Editor_GUI_CreateNumberPropertyField(agent_referenceAgent, string_name .. " (G)", vector_screenPosition, bool_canHold, function_onIncreaseG, function_onDecreaseG),
+        BlueNumber = TLSE_Development_Editor_GUI_CreateNumberPropertyField(agent_referenceAgent, string_name .. " (B)", vector_screenPosition, bool_canHold, function_onIncreaseB, function_onDecreaseB),
+        AlphaNumber = TLSE_Development_Editor_GUI_CreateNumberPropertyField(agent_referenceAgent, string_name .. " (A)", vector_screenPosition, bool_canHold, function_onIncreaseA, function_onDecreaseA),
+        Visible = true,
+        ScreenPosition = vector_screenPosition,
+        CanHold = bool_canHold
     };
 
     table.insert(TLSE_Development_Editor_GUI_ColorPropertyFields, colorPropertyField_newField);
@@ -32,42 +32,42 @@ TLSE_Development_Editor_GUI_UpdateColorPropertyField = function(colorPropertyFie
         return
     end
 
-    local bool_visibility = colorPropertyField_field["ColorFieldVisible"];
+    local bool_visibility = colorPropertyField_field["Visible"];
 
-    colorPropertyField_field["ColorFieldRed"]["NumberPropertyFieldVisible"] = bool_visibility;
-    colorPropertyField_field["ColorFieldGreen"]["NumberPropertyFieldVisible"] = bool_visibility;
-    colorPropertyField_field["ColorFieldBlue"]["NumberPropertyFieldVisible"] = bool_visibility;
-    colorPropertyField_field["ColorFieldAlpha"]["NumberPropertyFieldVisible"] = bool_visibility;
+    colorPropertyField_field["RedNumber"]["Visible"] = bool_visibility;
+    colorPropertyField_field["GreenNumber"]["Visible"] = bool_visibility;
+    colorPropertyField_field["BlueNumber"]["Visible"] = bool_visibility;
+    colorPropertyField_field["AlphaNumber"]["Visible"] = bool_visibility;
 
     if(bool_visibility == false) then
         return
     end
 
     local vector_offsetGUI = Vector(0, 0, 0);
-    local vector_screenPosition = colorPropertyField_field["ColorFieldScreenPosition"];
+    local vector_screenPosition = colorPropertyField_field["ScreenPosition"];
     
     --GREEN
     vector_offsetGUI.y = vector_offsetGUI.y + TLSE_Development_Editor_GUI_PropertyFieldVerticalSeparation;
-    colorPropertyField_field["ColorFieldGreen"]["NumberPropertyFieldScreenPosition"] = VectorAdd(vector_offsetGUI, vector_screenPosition);
+    colorPropertyField_field["GreenNumber"]["ScreenPosition"] = VectorAdd(vector_offsetGUI, vector_screenPosition);
 
     --BLUE
     vector_offsetGUI.y = vector_offsetGUI.y + TLSE_Development_Editor_GUI_PropertyFieldVerticalSeparation;
-    colorPropertyField_field["ColorFieldBlue"]["NumberPropertyFieldScreenPosition"] = VectorAdd(vector_offsetGUI, vector_screenPosition);
+    colorPropertyField_field["BlueNumber"]["ScreenPosition"] = VectorAdd(vector_offsetGUI, vector_screenPosition);
 
     --ALPHA
     vector_offsetGUI.y = vector_offsetGUI.y + TLSE_Development_Editor_GUI_PropertyFieldVerticalSeparation;
-    colorPropertyField_field["ColorFieldAlpha"]["NumberPropertyFieldScreenPosition"] = VectorAdd(vector_offsetGUI, vector_screenPosition);
+    colorPropertyField_field["AlphaNumber"]["ScreenPosition"] = VectorAdd(vector_offsetGUI, vector_screenPosition);
 
-    if(colorPropertyField_field["ColorPropertyFieldAgent"] ~= nil) then
-        if(AgentHasProperty(colorPropertyField_field["ColorPropertyFieldAgent"], colorPropertyField_field["ColorPropertyFieldAgentProperty"])) then
-            colorPropertyField_field["ColorPropertyValue"] = AgentGetProperty(colorPropertyField_field["ColorPropertyFieldAgent"], colorPropertyField_field["ColorPropertyFieldAgentProperty"]);
+    if(colorPropertyField_field["ReferenceAgent"] ~= nil) then
+        if(AgentHasProperty(colorPropertyField_field["ReferenceAgent"], colorPropertyField_field["ReferenceAgentProperty"])) then
+            colorPropertyField_field["Value"] = AgentGetProperty(colorPropertyField_field["ReferenceAgent"], colorPropertyField_field["ReferenceAgentProperty"]);
 
-            colorPropertyField_field["ColorFieldRed"]["NumberPropertyFieldValue"] = colorPropertyField_field["ColorPropertyValue"].r;
-            colorPropertyField_field["ColorFieldGreen"]["NumberPropertyFieldValue"] = colorPropertyField_field["ColorPropertyValue"].g;
-            colorPropertyField_field["ColorFieldBlue"]["NumberPropertyFieldValue"] = colorPropertyField_field["ColorPropertyValue"].b;
-            colorPropertyField_field["ColorFieldAlpha"]["NumberPropertyFieldValue"] = colorPropertyField_field["ColorPropertyValue"].a;
+            colorPropertyField_field["RedNumber"]["Value"] = colorPropertyField_field["Value"].r;
+            colorPropertyField_field["GreenNumber"]["Value"] = colorPropertyField_field["Value"].g;
+            colorPropertyField_field["BlueNumber"]["Value"] = colorPropertyField_field["Value"].b;
+            colorPropertyField_field["AlphaNumber"]["Value"] = colorPropertyField_field["Value"].a;
         end
 
-        AgentSetProperty(colorPropertyField_field["ColorPropertyFieldAgent"], colorPropertyField_field["ColorPropertyFieldAgentProperty"], colorPropertyField_field["ColorPropertyValue"]);
+        AgentSetProperty(colorPropertyField_field["ReferenceAgent"], colorPropertyField_field["ReferenceAgentProperty"], colorPropertyField_field["Value"]);
     end
 end

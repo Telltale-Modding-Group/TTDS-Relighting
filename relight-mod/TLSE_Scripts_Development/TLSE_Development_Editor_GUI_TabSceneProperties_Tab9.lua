@@ -14,113 +14,81 @@ local tab9_vector3Property12 = nil; --(Vector3) FX Tonemap RGB Far Toe Intensiti
 local tab9_vector3Property13 = nil; --(Vector3) FX Tonemap RGB Far Black Points
 local tab9_vector3Property14 = nil; --(Vector3) FX Tonemap RGB Far White Points
 
-local numberPropertyFieldAdjustmentValue = 1;
-
-local ModifiyBooleanPropertyValueOnAgent = function(string_property)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            number_originalValue = not number_originalValue;
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, number_originalValue);
-        end
-    end
-end
-
-local ModifiyVector3PropertyValueOnAgent = function(string_property, number_component, number_adjustment)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local vector_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            if(number_component == 0) then
-                vector_originalValue.x = vector_originalValue.x + number_adjustment;
-            elseif(number_component == 1) then
-                vector_originalValue.y = vector_originalValue.y + number_adjustment;
-            elseif(number_component == 2) then
-                vector_originalValue.z = vector_originalValue.z + number_adjustment;
-            end
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, vector_originalValue);
-        end
-    end
-end
-
 --[FX TONEMAP RGB] 9
-TLSE_TabSceneProperties_OnToggle_Tab9Property1 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("FX Tonemap RGB Enabled"); end
-TLSE_TabSceneProperties_OnToggle_Tab9Property2 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("FX Tonemap RGB DOF Enabled"); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property3_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Pivots", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property3_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Pivots", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property3_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Pivots", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property3_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Pivots", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property3_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Pivots", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property3_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Pivots", 2, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property4_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Signs", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property4_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Signs", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property4_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Signs", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property4_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Signs", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property4_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Signs", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property4_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Signs", 2, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property5_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Shoulder Intensities", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property5_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Shoulder Intensities", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property5_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Shoulder Intensities", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property5_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Shoulder Intensities", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property5_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Shoulder Intensities", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property5_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Shoulder Intensities", 2, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property6_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Toe Intensities", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property6_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Toe Intensities", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property6_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Toe Intensities", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property6_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Toe Intensities", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property6_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Toe Intensities", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property6_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Toe Intensities", 2, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property7_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Black Points", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property7_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Black Points", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property7_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Black Points", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property7_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Black Points", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property7_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Black Points", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property7_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Black Points", 2, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property8_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB White Points", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property8_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB White Points", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property8_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB White Points", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property8_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB White Points", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property8_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB White Points", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property8_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB White Points", 2, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property9_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Pivots", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property9_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Pivots", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property9_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Pivots", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property9_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Pivots", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property9_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Pivots", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property9_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Pivots", 2, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property10_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Signs", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property10_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Signs", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property10_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Signs", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property10_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Signs", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property10_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Signs", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property10_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Signs", 2, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property11_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Shoulder Intensities", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property11_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Shoulder Intensities", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property11_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Shoulder Intensities", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property11_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Shoulder Intensities", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property11_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Shoulder Intensities", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property11_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Shoulder Intensities", 2, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property12_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Toe Intensities", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property12_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Toe Intensities", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property12_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Toe Intensities", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property12_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Toe Intensities", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property12_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Toe Intensities", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property12_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Toe Intensities", 2, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property13_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Black Points", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property13_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Black Points", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property13_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Black Points", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property13_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Black Points", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property13_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Black Points", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property13_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Black Points", 2, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property14_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far White Points", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property14_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far White Points", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnIncrease_Tab9Property14_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far White Points", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property14_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far White Points", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property14_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far White Points", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabSceneProperties_OnDecrease_Tab9Property14_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far White Points", 2, -numberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnToggle_Tab9Property1 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent("FX Tonemap RGB Enabled"); end
+TLSE_TabSceneProperties_OnToggle_Tab9Property2 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent("FX Tonemap RGB DOF Enabled"); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property3_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Pivots", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property3_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Pivots", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property3_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Pivots", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property3_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Pivots", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property3_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Pivots", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property3_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Pivots", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property4_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Signs", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property4_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Signs", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property4_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Signs", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property4_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Signs", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property4_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Signs", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property4_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Signs", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property5_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Shoulder Intensities", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property5_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Shoulder Intensities", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property5_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Shoulder Intensities", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property5_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Shoulder Intensities", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property5_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Shoulder Intensities", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property5_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Shoulder Intensities", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property6_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Toe Intensities", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property6_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Toe Intensities", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property6_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Toe Intensities", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property6_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Toe Intensities", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property6_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Toe Intensities", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property6_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Toe Intensities", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property7_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Black Points", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property7_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Black Points", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property7_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Black Points", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property7_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Black Points", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property7_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Black Points", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property7_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Black Points", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property8_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB White Points", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property8_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB White Points", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property8_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB White Points", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property8_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB White Points", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property8_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB White Points", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property8_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB White Points", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property9_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Pivots", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property9_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Pivots", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property9_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Pivots", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property9_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Pivots", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property9_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Pivots", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property9_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Pivots", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property10_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Signs", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property10_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Signs", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property10_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Signs", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property10_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Signs", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property10_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Signs", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property10_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Signs", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property11_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Shoulder Intensities", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property11_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Shoulder Intensities", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property11_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Shoulder Intensities", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property11_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Shoulder Intensities", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property11_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Shoulder Intensities", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property11_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Shoulder Intensities", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property12_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Toe Intensities", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property12_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Toe Intensities", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property12_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Toe Intensities", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property12_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Toe Intensities", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property12_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Toe Intensities", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property12_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Toe Intensities", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property13_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Black Points", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property13_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Black Points", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property13_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Black Points", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property13_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Black Points", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property13_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Black Points", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property13_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far Black Points", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property14_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far White Points", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property14_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far White Points", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnIncrease_Tab9Property14_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far White Points", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property14_X = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far White Points", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property14_Y = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far White Points", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
+TLSE_TabSceneProperties_OnDecrease_Tab9Property14_Z = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent("FX Tonemap RGB Far White Points", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue); end
 
 TLSE_Development_GUI_TabSceneProperties_Tab9Initalize = function()
     --[FX TONEMAP RGB] 9
@@ -141,49 +109,39 @@ TLSE_Development_GUI_TabSceneProperties_Tab9Initalize = function()
 end
 
 TLSE_Development_GUI_TabSceneProperties_Tab9Update = function()
-    if(TLSE_Development_Editor_Input_LeftShiftHold) then
-        numberPropertyFieldAdjustmentValue = 10;
-    elseif(TLSE_Development_Editor_Input_LeftCtrlHold) then
-        numberPropertyFieldAdjustmentValue = 0.01;
-    else
-        numberPropertyFieldAdjustmentValue = 1;
-    end
-
-    local bool_currentTabActive = TLSE_TabSceneProperties_CurrentTab == "Tab9";
-
     --[FX TONEMAP RGB] 9
-    tab9_boolProperty1["BooleanPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab9_boolProperty2["BooleanPropertyFieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab9_vector3Property3["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab9_vector3Property4["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab9_vector3Property5["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab9_vector3Property6["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab9_vector3Property7["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab9_vector3Property8["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab9_vector3Property9["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab9_vector3Property10["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab9_vector3Property11["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab9_vector3Property12["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab9_vector3Property13["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
-    tab9_vector3Property14["Vector3FieldVisible"] = bool_currentTabActive and TLSE_TabSceneProperties_IsActive;
+    tab9_boolProperty1["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
+    tab9_boolProperty2["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
+    tab9_vector3Property3["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
+    tab9_vector3Property4["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
+    tab9_vector3Property5["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
+    tab9_vector3Property6["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
+    tab9_vector3Property7["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
+    tab9_vector3Property8["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
+    tab9_vector3Property9["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
+    tab9_vector3Property10["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
+    tab9_vector3Property11["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
+    tab9_vector3Property12["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
+    tab9_vector3Property13["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
+    tab9_vector3Property14["Visible"] = TLSE_TabSceneProperties_Tab9_Active;
 
-    if(TLSE_TabSceneProperties_IsActive == false) then
+    if(TLSE_TabSceneProperties_Tab9_Active == false) then
         return
     end
 
     --[FX TONEMAP RGB] 9
-    tab9_boolProperty1["BooleanPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab9_boolProperty2["BooleanPropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab9_vector3Property3["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab9_vector3Property4["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab9_vector3Property5["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab9_vector3Property6["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab9_vector3Property7["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab9_vector3Property8["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab9_vector3Property9["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab9_vector3Property10["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab9_vector3Property11["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab9_vector3Property12["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab9_vector3Property13["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
-    tab9_vector3Property14["Vector3PropertyFieldAgent"] = TLSE_Development_SceneAgent;
+    tab9_boolProperty1["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab9_boolProperty2["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab9_vector3Property3["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab9_vector3Property4["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab9_vector3Property5["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab9_vector3Property6["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab9_vector3Property7["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab9_vector3Property8["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab9_vector3Property9["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab9_vector3Property10["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab9_vector3Property11["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab9_vector3Property12["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab9_vector3Property13["ReferenceAgent"] = TLSE_Development_SceneAgent;
+    tab9_vector3Property14["ReferenceAgent"] = TLSE_Development_SceneAgent;
 end

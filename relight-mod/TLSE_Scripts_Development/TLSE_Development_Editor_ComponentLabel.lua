@@ -11,16 +11,16 @@ TLSE_Development_Editor_GUI_CreateLabel = function(string_textContents, vector_s
 
     local label_newLabel = 
     {
-        LabelAgentReference = TLSE_TextUI_CreateTextAgent(string_agentName, string_textContents, Vector(0, 0, 0), 0, 0),
-        LabelAgentName = string_agentName,
-        LabelText = string_textContents,
-        LabelVisible = true,
-        LabelScreenPosition = vector_screenPosition
+        TextAgent = TLSE_TextUI_CreateTextAgent(string_agentName, string_textContents, Vector(0, 0, 0), 0, 0, TLSE_Development_SceneObject),
+        Name = string_agentName,
+        Text = string_textContents,
+        Visible = true,
+        ScreenPosition = vector_screenPosition
     };
 
-    TextSetScale(label_newLabel["LabelAgentReference"], TLSE_Development_Editor_GUI_TextScale);
+    TextSetScale(label_newLabel["TextAgent"], TLSE_Development_Editor_GUI_TextScale);
 
-    TLSE_Development_Editor_GUI_LabelDefault(label_newLabel["LabelAgentReference"]);
+    TLSE_Development_Editor_GUI_LabelDefault(label_newLabel["TextAgent"]);
 
     table.insert(TLSE_Development_Editor_GUI_Labels, label_newLabel);
     TLSE_Development_Editor_GUI_LabelsCount = TLSE_Development_Editor_GUI_LabelsCount + 1;
@@ -33,18 +33,18 @@ TLSE_Development_Editor_GUI_UpdateLabel = function(label_text)
         return
     end
 
-    local agent_label = label_text["LabelAgentReference"];
+    local agent_label = label_text["TextAgent"];
 
-    if(label_text["LabelVisible"] == false) then
+    if(label_text["Visible"] == false) then
         AgentSetProperty(agent_label, "Runtime: Visible", false);
         return
     else
         AgentSetProperty(agent_label, "Runtime: Visible", true);
     end
 
-    AgentSetWorldPosFromLogicalScreenPos(agent_label, label_text["LabelScreenPosition"]);
+    AgentSetWorldPosFromLogicalScreenPos(agent_label, label_text["ScreenPosition"]);
 
-    TextSet(agent_label, label_text["LabelText"]);
+    TextSet(agent_label, label_text["Text"]);
 
     TLSE_Development_Editor_GUI_LabelDefault(agent_label);
 end

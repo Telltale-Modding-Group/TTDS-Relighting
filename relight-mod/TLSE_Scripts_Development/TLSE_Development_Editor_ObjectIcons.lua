@@ -107,7 +107,6 @@ local CreateNewObjectIconAgent = function(agent_referenceAgent)
     --create a custom object so we can hold some additional data that we will definetly need later
     local objectIcon_newIcon = 
     {
-        AgentReference = agent_referenceAgent,
         IconAgentReference = agent_newIconAgent,
         IconTexture = string_newIconTexture
     };
@@ -118,23 +117,18 @@ end
 
 --This updates a single icon
 local UpdateObjectIcon = function(objectIcon_icon)
-    --get the following properties from the icon object
-    local agent_agentReference = objectIcon_icon["AgentReference"];
-    local agent_iconAgentReference = objectIcon_icon["IconAgentReference"];
-    local string_currentIconTexture = objectIcon_icon["IconTexture"];
-
     --if the agent reference does not exist, or there is no icon agent reference then don't continue, (this will be deleted later)
-    if(agent_agentReference == nil) or (agent_iconAgentReference == nil) then
+    if(objectIcon_icon["IconAgentReference"] == nil) then
         return
     end
 
-    local agent_iconParent = AgentGetParent(agent_iconAgentReference);
+    local agent_iconParent = AgentGetParent(objectIcon_icon["IconAgentReference"]);
 
     --update the icon texture to match the underlying properties
-    string_currentIconTexture = GetIconTexture(agent_iconParent);
+    objectIcon_icon["IconTexture"] = GetIconTexture(agent_iconParent);
 
     --if there are no properties that can be "icon-ized" then don't continue (this will be deleted later)
-    if(string_currentIconTexture == nil) then
+    if(objectIcon_icon["IconTexture"] == nil) then
         return
     end
 
@@ -149,13 +143,13 @@ local UpdateObjectIcon = function(objectIcon_icon)
     local number_newGlobalScale = number_distanceToCamera * TLSE_Development_Editor_ObjectIcons_IconSize;
 
     --NOTE: Since the icon agent is attached to another agent, we want to make sure that it is always in the center of the parent object.
-    AgentSetPos(agent_iconAgentReference, Vector(0, 0, 0));
-    AgentSetWorldRot(agent_iconAgentReference, vector_sceneCameraRotation); --Set the rotation to match the cameras (effectively making it always look at the camera)
-    AgentSetProperty(agent_iconAgentReference, "Runtime: Visible", TLSE_Development_Editor_ObjectIcons_Visible); 
-    AgentSetProperty(agent_iconAgentReference, "Render Global Scale", number_newGlobalScale);
+    AgentSetPos(objectIcon_icon["IconAgentReference"], Vector(0, 0, 0));
+    AgentSetWorldRot(objectIcon_icon["IconAgentReference"], vector_sceneCameraRotation); --Set the rotation to match the cameras (effectively making it always look at the camera)
+    AgentSetProperty(objectIcon_icon["IconAgentReference"], "Runtime: Visible", TLSE_Development_Editor_ObjectIcons_Visible); 
+    AgentSetProperty(objectIcon_icon["IconAgentReference"], "Render Global Scale", number_newGlobalScale);
 
     --Update the texture on the icon (incase any underlying properties change)
-    ShaderOverrideAllTextures(agent_iconAgentReference, string_currentIconTexture);
+    ShaderOverrideAllTextures(objectIcon_icon["IconAgentReference"], objectIcon_icon["IconTexture"]);
 end
 
 --|||||||||||||||||||||||||||||||||||||||||||||||||||| GLOBAL FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -175,19 +169,15 @@ TLSE_Development_Editor_ObjectIcons_Update = function()
 
     --iterate through the icons and check if the agent they are supposed to be tied to are still there, if not then we need to remove them.
     for key, value in pairs(TLSE_Development_Editor_ObjectIcons_Icons) do
-        local agent_iconAgentReference = value["IconAgentReference"];
-        local string_currentIconTexture = value["IconTexture"];
-
         --icons are attached to their parent upon creation
-        local agent_iconParent = AgentGetParent(agent_iconAgentReference);
+        local agent_iconParent = AgentGetParent(value["IconAgentReference"]);
 
         --if the parent if the icon no logner exists... or the underlying properties of the object has changed (and an icon can't represent it)...
-        if(agent_iconParent == nil) or (string_currentIconTexture == nil) then
+        if(agent_iconParent == nil) or (value["IconTexture"] == nil) then
             --destroy the icon agent
-            AgentDestroy(agent_iconAgentReference);
+            AgentDestroy(value["IconAgentReference"]);
 
             --remove the item
-            value["AgentReference"] = nil;
             value["IconAgentReference"] = nil;
             value["IconTexture"] = nil;
             value = nil; --NOTE: according to online, in lua setting the value of an object in a table of objects to nil is how you delete objects from a table.

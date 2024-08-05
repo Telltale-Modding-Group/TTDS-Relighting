@@ -204,255 +204,70 @@ local ModifiyColorChannelPropertyValueOnAgent = function(agent_main, string_prop
     end
 end
 
-local OnIncrease_EnvLightType = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Type", numberPropertyFieldAdjustmentValue, false);
-end
+local OnIncrease_EnvLightType = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Type", numberPropertyFieldAdjustmentValue, false); end
+local OnDecrease_EnvLightType = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Type", -numberPropertyFieldAdjustmentValue, false); end
+local OnIncrease_EnvLightIntensity = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightIntensity = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightIntensityDimmer = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity Dimmer", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightIntensityDimmer = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity Dimmer", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightIntensitySpecular = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity Specular", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightIntensitySpecular = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity Specular", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightIntensityDiffuse = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity Diffuse", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightIntensityDiffuse = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity Diffuse", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightEnlightenIntensity = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Enlighten Intensity", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightEnlightenIntensity = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Enlighten Intensity", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightRadius = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Radius", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightRadius = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Radius", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightDistanceFalloff = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Distance Falloff", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightDistanceFalloff = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Distance Falloff", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightSpotAngleInner = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Spot Angle Inner", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightSpotAngleInner = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Spot Angle Inner", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightSpotAngleOuter = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Spot Angle Outer", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightSpotAngleOuter = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Spot Angle Outer", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightShadowType = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Type", numberPropertyFieldAdjustmentValue, false); end
+local OnDecrease_EnvLightShadowType = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Type", -numberPropertyFieldAdjustmentValue, false); end
+local OnIncrease_EnvLightShadowQuality = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Quality", numberPropertyFieldAdjustmentValue, false); end
+local OnDecrease_EnvLightShadowQuality = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Quality", -numberPropertyFieldAdjustmentValue, false); end
+local OnIncrease_EnvLightShadowSoftness = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Softness", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightShadowSoftness = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Softness", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightShadowNearClip = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Near Clip", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightShadowNearClip = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Near Clip", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightShadowDepthBias = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Depth Bias", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightShadowDepthBias = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Depth Bias", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightShadowModulatedIntensity = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Modulated Intensity", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightShadowModulatedIntensity = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Modulated Intensity", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightShadowMapQualityDistanceScale = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Map Quality Distance Scale", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightShadowMapQualityDistanceScale = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Map Quality Distance Scale", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightWrap = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Wrap", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightWrap = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Wrap", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightOpacity = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Opacity", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightOpacity = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Opacity", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightMobility = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Mobility", numberPropertyFieldAdjustmentValue, false); end
+local OnDecrease_EnvLightMobility = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Mobility", -numberPropertyFieldAdjustmentValue, false); end
+local OnIncrease_EnvLightPriority = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Priority", numberPropertyFieldAdjustmentValue, false); end
+local OnDecrease_EnvLightPriority = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Priority", -numberPropertyFieldAdjustmentValue, false); end
+local OnIncrease_EnvLightHBAOParticipationType = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - HBAO Participation Type", numberPropertyFieldAdjustmentValue, false); end
+local OnDecrease_EnvLightHBAOParticipationType = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - HBAO Participation Type", -numberPropertyFieldAdjustmentValue, false); end
+local OnIncrease_EnvLightBakeAllowedOnStatic = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Bake Allowed on Static", numberPropertyFieldAdjustmentValue, false); end
+local OnDecrease_EnvLightBakeAllowedOnStatic = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Bake Allowed on Static", -numberPropertyFieldAdjustmentValue, false); end
+local OnIncrease_EnvLightVisibleThresholdScale = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Visible Threshold Scale", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightVisibleThresholdScale = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Visible Threshold Scale", -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightLODBehavior = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - LOD Behavior", numberPropertyFieldAdjustmentValue, false); end
+local OnDecrease_EnvLightLODBehavior = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - LOD Behavior", -numberPropertyFieldAdjustmentValue, false); end
+local OnIncrease_EnvLightNPRBanding = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - NPR Banding", numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightNPRBanding = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - NPR Banding", -numberPropertyFieldAdjustmentValue, true); end
+local OnToggle_EnvLightEnabled = function(textButton_button) ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Enabled"); end
+local OnToggle_EnvLightEnabledGroup = function(textButton_button) ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Enabled Group"); end
+local OnIncrease_EnvLightColorR = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 0, numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightColorR = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 0, -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightColorG = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 1, numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightColorG = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 1, -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightColorB = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 2, numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightColorB = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 2, -numberPropertyFieldAdjustmentValue, true); end
+local OnIncrease_EnvLightColorA = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 3, numberPropertyFieldAdjustmentValue, true); end
+local OnDecrease_EnvLightColorA = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 3, -numberPropertyFieldAdjustmentValue, true); end
 
-local OnDecrease_EnvLightType = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Type", -numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnIncrease_EnvLightIntensity = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightIntensity = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightIntensityDimmer = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity Dimmer", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightIntensityDimmer = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity Dimmer", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightIntensitySpecular = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity Specular", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightIntensitySpecular = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity Specular", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightIntensityDiffuse = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity Diffuse", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightIntensityDiffuse = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Intensity Diffuse", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightEnlightenIntensity = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Enlighten Intensity", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightEnlightenIntensity = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Enlighten Intensity", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightRadius = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Radius", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightRadius = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Radius", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightDistanceFalloff = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Distance Falloff", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightDistanceFalloff = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Distance Falloff", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightSpotAngleInner = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Spot Angle Inner", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightSpotAngleInner = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Spot Angle Inner", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightSpotAngleOuter = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Spot Angle Outer", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightSpotAngleOuter = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Spot Angle Outer", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightShadowType = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Type", numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnDecrease_EnvLightShadowType = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Type", -numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnIncrease_EnvLightShadowQuality = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Quality", numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnDecrease_EnvLightShadowQuality = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Quality", -numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnIncrease_EnvLightShadowSoftness = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Softness", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightShadowSoftness = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Softness", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightShadowNearClip = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Near Clip", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightShadowNearClip = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Near Clip", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightShadowDepthBias = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Depth Bias", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightShadowDepthBias = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Depth Bias", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightShadowModulatedIntensity = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Modulated Intensity", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightShadowModulatedIntensity = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Modulated Intensity", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightShadowMapQualityDistanceScale = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Map Quality Distance Scale", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightShadowMapQualityDistanceScale = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Shadow Map Quality Distance Scale", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightWrap = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Wrap", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightWrap = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Wrap", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightOpacity = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Opacity", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightOpacity = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Opacity", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightMobility = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Mobility", numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnDecrease_EnvLightMobility = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Mobility", -numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnIncrease_EnvLightPriority = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Priority", numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnDecrease_EnvLightPriority = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Priority", -numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnIncrease_EnvLightHBAOParticipationType = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - HBAO Participation Type", numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnDecrease_EnvLightHBAOParticipationType = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - HBAO Participation Type", -numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnIncrease_EnvLightBakeAllowedOnStatic = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Bake Allowed on Static", numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnDecrease_EnvLightBakeAllowedOnStatic = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Bake Allowed on Static", -numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnIncrease_EnvLightVisibleThresholdScale = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Visible Threshold Scale", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightVisibleThresholdScale = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Visible Threshold Scale", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightLODBehavior = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - LOD Behavior", numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnDecrease_EnvLightLODBehavior = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - LOD Behavior", -numberPropertyFieldAdjustmentValue, false);
-end
-
-local OnIncrease_EnvLightNPRBanding = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - NPR Banding", numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightNPRBanding = function(textButton_button)
-    ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - NPR Banding", -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnToggle_EnvLightEnabled = function(textButton_button)
-    ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Enabled");
-end
-
-local OnToggle_EnvLightEnabledGroup = function(textButton_button)
-    ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Enabled Group");
-end
-
-local OnIncrease_EnvLightColorR = function(textButton_button)
-    ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 0, numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightColorR = function(textButton_button)
-    ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 0, -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightColorG = function(textButton_button)
-    ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 1, numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightColorG = function(textButton_button)
-    ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 1, -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightColorB = function(textButton_button)
-    ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 2, numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightColorB = function(textButton_button)
-    ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 2, -numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnIncrease_EnvLightColorA = function(textButton_button)
-    ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 3, numberPropertyFieldAdjustmentValue, true);
-end
-
-local OnDecrease_EnvLightColorA = function(textButton_button)
-    ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "EnvLight - Color", 3, -numberPropertyFieldAdjustmentValue, true);
-end
-
-TLSE_Development_GUI_TabLightingInitalize = function()
+TLSE_Development_GUI_TabEnvLightInitalize = function()
     booleanPropertyField_lightEnabled = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "EnvLight - Enabled", "EnvLight - Enabled", Vector(0.685, 0.515, 0.0), OnToggle_EnvLightEnabled);
     booleanPropertyField_lightEnvGroupEnabled = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "EnvLight - Enabled Group", "EnvLight - Enabled Group", Vector(0.685, 0.525, 0.0), OnToggle_EnvLightEnabledGroup);
     numberPropertyField_lightType = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "EnvLight - Type", Vector(0.685, 0.535, 0.0), false, OnIncrease_EnvLightType, OnDecrease_EnvLightType);
@@ -514,9 +329,7 @@ TLSE_Development_GUI_TabLightingInitalize = function()
     --label_groupInfo = TLSE_Development_Editor_GUI_CreateLabel("Groups", Vector(0.685, 0.885, 0.0));
 end
 
-TLSE_Development_GUI_TabLightingUpdate = function()
-    local bool_lightingTabActive = TLSE_Development_GUI_BottomRightWindowTab == "Lighting";
-    
+TLSE_Development_GUI_TabEnvLightUpdate = function()
     if(TLSE_Development_Editor_Input_LeftShiftHold) then
         numberPropertyFieldAdjustmentValue = 10;
     elseif(TLSE_Development_Editor_Input_LeftCtrlHold) then
@@ -525,75 +338,70 @@ TLSE_Development_GUI_TabLightingUpdate = function()
         numberPropertyFieldAdjustmentValue = 1;
     end
 
-    colorPropertyField_lightColor["ColorPropertyFieldAgent"] = agent_currentSelectedAgent;
+    colorPropertyField_lightColor["ReferenceAgent"] = agent_currentSelectedAgent;
+    booleanPropertyField_lightEnabled["ReferenceAgent"] = agent_currentSelectedAgent;
+    booleanPropertyField_lightEnvGroupEnabled["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightType["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightIntensity["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightIntensityDimmer["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightIntensitySpecular["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightIntensityDiffuse["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightEnlightenIntensity["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightRadius["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightDistanceFalloff["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightSpotAngleInner["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightSpotAngleOuter["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightShadowType["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightShadowQuality["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightShadowSoftness["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightShadowNearClip["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightShadowDepthBias["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightShadowModulatedIntensity["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightShadowMapQualityDistanceScale["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightWrap["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightOpacity["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightMobility["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightPriority["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightHBAOParticipationType["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightBakeAllowedOnStatic["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightVisibleThresholdScale["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightLODBehavior["ReferenceAgent"] = agent_currentSelectedAgent;
+    numberPropertyField_lightNPRBanding["ReferenceAgent"] = agent_currentSelectedAgent;
 
-    booleanPropertyField_lightEnabled["BooleanPropertyFieldAgent"] = agent_currentSelectedAgent;
-    booleanPropertyField_lightEnvGroupEnabled["BooleanPropertyFieldAgent"] = agent_currentSelectedAgent;
-
-    numberPropertyField_lightType["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightIntensity["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightIntensityDimmer["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightIntensitySpecular["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightIntensityDiffuse["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightEnlightenIntensity["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightRadius["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightDistanceFalloff["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightSpotAngleInner["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightSpotAngleOuter["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightShadowType["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightShadowQuality["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightShadowSoftness["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightShadowNearClip["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightShadowDepthBias["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightShadowModulatedIntensity["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightShadowMapQualityDistanceScale["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightWrap["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightOpacity["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightMobility["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightPriority["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightHBAOParticipationType["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightBakeAllowedOnStatic["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightVisibleThresholdScale["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightLODBehavior["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-    numberPropertyField_lightNPRBanding["NumberPropertyFieldAgent"] = agent_currentSelectedAgent;
-
-    colorPropertyField_lightColor["ColorFieldVisible"] = bool_lightingTabActive;
-
-    booleanPropertyField_lightEnabled["BooleanPropertyFieldVisible"] = bool_lightingTabActive;
-    booleanPropertyField_lightEnvGroupEnabled["BooleanPropertyFieldVisible"] = bool_lightingTabActive;
-
-    numberPropertyField_lightType["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightIntensity["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightIntensityDimmer["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightIntensitySpecular["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightIntensityDiffuse["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightEnlightenIntensity["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightRadius["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightDistanceFalloff["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightSpotAngleInner["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightSpotAngleOuter["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightShadowType["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightShadowQuality["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightShadowSoftness["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightShadowNearClip["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightShadowDepthBias["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightShadowModulatedIntensity["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightShadowMapQualityDistanceScale["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightWrap["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightOpacity["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightMobility["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightPriority["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightHBAOParticipationType["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightBakeAllowedOnStatic["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightVisibleThresholdScale["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightLODBehavior["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-    numberPropertyField_lightNPRBanding["NumberPropertyFieldVisible"] = bool_lightingTabActive;
-
-    textButton_lightForceShadowType0["TextButtonVisible"] = bool_lightingTabActive;
-    textButton_lightForceShadowType1["TextButtonVisible"] = bool_lightingTabActive;
-    textButton_lightForceShadowType2["TextButtonVisible"] = bool_lightingTabActive;
-    textButton_lightForceShadowType3["TextButtonVisible"] = bool_lightingTabActive;
-    textButton_lightSetDiffuseSpecularTo1["TextButtonVisible"] = bool_lightingTabActive;
-    textButton_lightSetDiffuseTo0["TextButtonVisible"] = bool_lightingTabActive;
-    textButton_lightSetSpecularTo0["TextButtonVisible"] = bool_lightingTabActive;
+    colorPropertyField_lightColor["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    booleanPropertyField_lightEnabled["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    booleanPropertyField_lightEnvGroupEnabled["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightType["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightIntensity["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightIntensityDimmer["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightIntensitySpecular["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightIntensityDiffuse["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightEnlightenIntensity["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightRadius["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightDistanceFalloff["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightSpotAngleInner["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightSpotAngleOuter["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightShadowType["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightShadowQuality["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightShadowSoftness["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightShadowNearClip["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightShadowDepthBias["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightShadowModulatedIntensity["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightShadowMapQualityDistanceScale["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightWrap["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightOpacity["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightMobility["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightPriority["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightHBAOParticipationType["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightBakeAllowedOnStatic["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightVisibleThresholdScale["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightLODBehavior["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    numberPropertyField_lightNPRBanding["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    textButton_lightForceShadowType0["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    textButton_lightForceShadowType1["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    textButton_lightForceShadowType2["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    textButton_lightForceShadowType3["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    textButton_lightSetDiffuseSpecularTo1["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    textButton_lightSetDiffuseTo0["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
+    textButton_lightSetSpecularTo0["Visible"] = TLSE_Development_GUI_EnvLightTabActive;
 end

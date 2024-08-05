@@ -4,6 +4,8 @@ print("[TLSE_Development_Inclusions.lua] Development Library Inclusions Block")
 --Telltale Lua Script Extensions Development Tools
 require("TLSE_Development_Freecam.lua");
 require("TLSE_Development_PerformanceMetrics.lua");
+require("TLSE_Development_Printing.lua");
+
 require("TLSE_Development_Editor.lua");
 require("TLSE_Development_Editor_Input.lua");
 require("TLSE_Development_Editor_Components.lua");
@@ -14,10 +16,11 @@ require("TLSE_Development_Editor_ComponentBooleanField.lua");
 require("TLSE_Development_Editor_ComponentVector3Field.lua");
 require("TLSE_Development_Editor_ComponentColorField.lua");
 require("TLSE_Development_Editor_GUI.lua");
-require("TLSE_Development_Editor_GUI_TabInspector.lua");
+require("TLSE_Development_Editor_GUI_TabAgent.lua");
 require("TLSE_Development_Editor_GUI_TabEnvLight.lua");
-require("TLSE_Development_Editor_GUI_TabFog.lua");
-require("TLSE_Development_Editor_GUI_TabRender.lua");
+require("TLSE_Development_Editor_GUI_TabEnvFog.lua");
+require("TLSE_Development_Editor_GUI_TabMesh.lua");
+require("TLSE_Development_Editor_GUI_TabDebug.lua");
 require("TLSE_Development_Editor_GUI_TabSceneHierarchy.lua");
 require("TLSE_Development_Editor_GUI_TabSceneProperties.lua");
 require("TLSE_Development_Editor_GUI_TabSceneProperties_Tab1.lua");

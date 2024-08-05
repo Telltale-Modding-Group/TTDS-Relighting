@@ -1,9 +1,9 @@
 --'horizontalAlign': 1 = left alignment, 2 = center alignment, 3 = right alignment
 
-TLSE_TextUI_CreateTextAgent = function(string_agentName, string_text, vector_position, number_horizontalAlign, number_verticalAlign)
+TLSE_TextUI_CreateTextAgent = function(string_agentName, string_text, vector_position, number_horizontalAlign, number_verticalAlign, string_sceneObject)
     --NOTE: Discovered that in certain setups in games/seasons/episodes that there would usually be a multi-scene setup.
     --Depending on how it was configured the text agents would end up being created in the wrong scene and they would just not show up.
-    local agent_text = AgentCreate(string_agentName, "ui_text.prop", Vector(0,0,0), Vector(0,0,0), TLSE_Development_SceneObject, false, false);
+    local agent_text = AgentCreate(string_agentName, "ui_text.prop", Vector(0,0,0), Vector(0,0,0), string_sceneObject, false, false);
 
     if number_horizontalAlign then
         TextSetHorizAlign(agent_text, number_horizontalAlign);

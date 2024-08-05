@@ -177,11 +177,11 @@ TLSE_Development_GUI_TransformPanelUpdate = function()
     end
 
     if(TLSE_Development_TransformTool_GizmoSpace == "world") then
-        textButton_worldSpace["TextButtonSelected"] = true;
-        textButton_localSpace["TextButtonSelected"] = false;
+        textButton_worldSpace["Selected"] = true;
+        textButton_localSpace["Selected"] = false;
     else
-        textButton_worldSpace["TextButtonSelected"] = false;
-        textButton_localSpace["TextButtonSelected"] = true;
+        textButton_worldSpace["Selected"] = false;
+        textButton_localSpace["Selected"] = true;
     end
 
     --screen pos notes

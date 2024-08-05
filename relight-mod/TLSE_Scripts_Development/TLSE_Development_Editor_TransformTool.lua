@@ -25,7 +25,7 @@ TLSE_Development_TransformTool_Initalize = function()
     --initalize menu text
 
     --create our menu text
-    TLSE_Development_TransformTool_Text = TLSE_TextUI_CreateTextAgent("TLSE_Development_TransformTool_Text", "Text Initalized", Vector(0, 0, 0), 0, 0);
+    TLSE_Development_TransformTool_Text = TLSE_TextUI_CreateTextAgent("TLSE_Development_TransformTool_Text", "Text Initalized", Vector(0, 0, 0), 0, 0, TLSE_Development_SceneObject);
     AgentSetProperty(TLSE_Development_TransformTool_Text, "Text Render Layer", 90);
 
     --set the text color

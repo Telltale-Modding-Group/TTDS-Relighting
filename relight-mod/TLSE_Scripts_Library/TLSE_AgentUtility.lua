@@ -205,22 +205,6 @@ end
 --||||||||||||||||||||||||| UTILITY |||||||||||||||||||||||||
 --||||||||||||||||||||||||| UTILITY |||||||||||||||||||||||||
 
---Finds all scene agents, checks if they match the given prefix and replaces them with a dummy agent.
---RETURNS: Nothing
-TLSE_ReplaceAgentsWithPrefixWithDummy = function(string_scene, string_agentNamePrefix)
-    local agentTable_sceneAgents = SceneGetAgents(string_scene);
-
-    for index, agent_sceneAgent in pairs(agentTable_sceneAgents) do
-        local string_agentName = tostring(AgentGetName(agent_sceneAgent));
-
-        if (string.match)(string_agentName, string_agentNamePrefix) then
-            TLSE_RemoveAgent(string_agentName, string_scene);
-        
-            local agent_dummy = AgentCreate(string_agentName, "group.prop", Vector(0,0,0), Vector(0,0,0), string_scene, false, false);
-        end
-    end
-end
-
 --Given a comparison agent, and two other agents, the agent that is nearest to the comparison agent will be returned.
 --RETURNS: Agent
 TLSE_GetNearestAgent = function(agent_comparison, agent_one, agent_two)
