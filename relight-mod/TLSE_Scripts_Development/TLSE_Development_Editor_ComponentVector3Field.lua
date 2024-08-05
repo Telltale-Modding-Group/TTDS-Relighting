@@ -20,6 +20,145 @@ TLSE_Development_Editor_GUI_CreateVector3PropertyField = function(agent_referenc
         CanHold = bool_canHold
     };
 
+    --|||||||||||||||||||||||||||||||||||||||||||||||| (INTERNAL FUNCTIONS) X ||||||||||||||||||||||||||||||||||||||||||||||||
+    --|||||||||||||||||||||||||||||||||||||||||||||||| (INTERNAL FUNCTIONS) X ||||||||||||||||||||||||||||||||||||||||||||||||
+    --|||||||||||||||||||||||||||||||||||||||||||||||| (INTERNAL FUNCTIONS) X ||||||||||||||||||||||||||||||||||||||||||||||||
+
+    if(function_onIncreaseX == nil) then
+        local function_internalOnIncreaseX = function(parameterData)
+            if(parameterData ~= nil) then
+                if(parameterData["ReferenceAgent"] ~= nil and parameterData["ReferenceAgentProperty"] ~= nil) then
+                    if(AgentHasProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"])) then
+                        parameterData["Value"] = AgentGetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"]);
+                        parameterData["Value"].x = parameterData["Value"].x + TLSE_Development_GUI_PropertyAdjustmentValue;
+                        AgentSetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"], parameterData["Value"]);
+                    end
+                end
+            end
+        end
+
+        if(bool_canHold) then
+            vector3PropertyField_newField["NumberX"]["Increase"]["OnHold"] = function_internalOnIncreaseX;
+        else
+            vector3PropertyField_newField["NumberX"]["Increase"]["OnPress"] = function_internalOnIncreaseX;
+        end
+    end
+
+    if(function_onDecreaseX == nil) then
+        local function_internalOnDecreaseX = function(parameterData)
+            if(parameterData ~= nil) then
+                if(parameterData["ReferenceAgent"] ~= nil and parameterData["ReferenceAgentProperty"] ~= nil) then
+                    if(AgentHasProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"])) then
+                        parameterData["Value"] = AgentGetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"]);
+                        parameterData["Value"].x = parameterData["Value"].x - TLSE_Development_GUI_PropertyAdjustmentValue;
+                        AgentSetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"], parameterData["Value"]);
+                    end
+                end
+            end
+        end
+
+        if(bool_canHold) then
+            vector3PropertyField_newField["NumberX"]["Decrease"]["OnHold"] = function_internalOnDecreaseX;
+        else
+            vector3PropertyField_newField["NumberX"]["Decrease"]["OnPress"] = function_internalOnDecreaseX;
+        end
+    end
+
+    --|||||||||||||||||||||||||||||||||||||||||||||||| (INTERNAL FUNCTIONS) Y ||||||||||||||||||||||||||||||||||||||||||||||||
+    --|||||||||||||||||||||||||||||||||||||||||||||||| (INTERNAL FUNCTIONS) Y ||||||||||||||||||||||||||||||||||||||||||||||||
+    --|||||||||||||||||||||||||||||||||||||||||||||||| (INTERNAL FUNCTIONS) Y ||||||||||||||||||||||||||||||||||||||||||||||||
+
+    if(function_onIncreaseY == nil) then
+        local function_internalOnIncreaseY = function(parameterData)
+            if(parameterData ~= nil) then
+                if(parameterData["ReferenceAgent"] ~= nil and parameterData["ReferenceAgentProperty"] ~= nil) then
+                    if(AgentHasProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"])) then
+                        parameterData["Value"] = AgentGetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"]);
+                        parameterData["Value"].y = parameterData["Value"].y + TLSE_Development_GUI_PropertyAdjustmentValue;
+                        AgentSetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"], parameterData["Value"]);
+                    end
+                end
+            end
+        end
+
+        if(bool_canHold) then
+            vector3PropertyField_newField["NumberY"]["Increase"]["OnHold"] = function_internalOnIncreaseY;
+        else
+            vector3PropertyField_newField["NumberY"]["Increase"]["OnPress"] = function_internalOnIncreaseY;
+        end
+    end
+
+    if(function_onDecreaseY == nil) then
+        local function_internalOnDecreaseY = function(parameterData)
+            if(parameterData ~= nil) then
+                if(parameterData["ReferenceAgent"] ~= nil and parameterData["ReferenceAgentProperty"] ~= nil) then
+                    if(AgentHasProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"])) then
+                        parameterData["Value"] = AgentGetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"]);
+                        parameterData["Value"].y = parameterData["Value"].y - TLSE_Development_GUI_PropertyAdjustmentValue;
+                        AgentSetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"], parameterData["Value"]);
+                    end
+                end
+            end
+        end
+
+        if(bool_canHold) then
+            vector3PropertyField_newField["NumberY"]["Decrease"]["OnHold"] = function_internalOnDecreaseY;
+        else
+            vector3PropertyField_newField["NumberY"]["Decrease"]["OnPress"] = function_internalOnDecreaseY;
+        end
+    end
+
+    --|||||||||||||||||||||||||||||||||||||||||||||||| (INTERNAL FUNCTIONS) Z ||||||||||||||||||||||||||||||||||||||||||||||||
+    --|||||||||||||||||||||||||||||||||||||||||||||||| (INTERNAL FUNCTIONS) Z ||||||||||||||||||||||||||||||||||||||||||||||||
+    --|||||||||||||||||||||||||||||||||||||||||||||||| (INTERNAL FUNCTIONS) Z ||||||||||||||||||||||||||||||||||||||||||||||||
+
+    if(function_onIncreaseZ == nil) then
+        local function_internalOnIncreaseZ = function(parameterData)
+            if(parameterData ~= nil) then
+                if(parameterData["ReferenceAgent"] ~= nil and parameterData["ReferenceAgentProperty"] ~= nil) then
+                    if(AgentHasProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"])) then
+                        parameterData["Value"] = AgentGetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"]);
+                        parameterData["Value"].z = parameterData["Value"].z + TLSE_Development_GUI_PropertyAdjustmentValue;
+                        AgentSetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"], parameterData["Value"]);
+                    end
+                end
+            end
+        end
+
+        if(bool_canHold) then
+            vector3PropertyField_newField["NumberZ"]["Increase"]["OnHold"] = function_internalOnIncreaseZ;
+        else
+            vector3PropertyField_newField["NumberZ"]["Increase"]["OnPress"] = function_internalOnIncreaseZ;
+        end
+    end
+
+    if(function_onDecreaseZ == nil) then
+        local function_internalOnDecreaseZ = function(parameterData)
+            if(parameterData ~= nil) then
+                if(parameterData["ReferenceAgent"] ~= nil and parameterData["ReferenceAgentProperty"] ~= nil) then
+                    if(AgentHasProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"])) then
+                        parameterData["Value"] = AgentGetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"]);
+                        parameterData["Value"].z = parameterData["Value"].z - TLSE_Development_GUI_PropertyAdjustmentValue;
+                        AgentSetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"], parameterData["Value"]);
+                    end
+                end
+            end
+        end
+
+        if(bool_canHold) then
+            vector3PropertyField_newField["NumberZ"]["Decrease"]["OnHold"] = function_internalOnDecreaseZ;
+        else
+            vector3PropertyField_newField["NumberZ"]["Decrease"]["OnPress"] = function_internalOnDecreaseZ;
+        end
+    end
+
+    vector3PropertyField_newField["NumberX"]["Decrease"]["ParameterData"] = vector3PropertyField_newField;
+    vector3PropertyField_newField["NumberX"]["Increase"]["ParameterData"] = vector3PropertyField_newField;
+    vector3PropertyField_newField["NumberY"]["Decrease"]["ParameterData"] = vector3PropertyField_newField;
+    vector3PropertyField_newField["NumberY"]["Increase"]["ParameterData"] = vector3PropertyField_newField;
+    vector3PropertyField_newField["NumberZ"]["Decrease"]["ParameterData"] = vector3PropertyField_newField;
+    vector3PropertyField_newField["NumberZ"]["Increase"]["ParameterData"] = vector3PropertyField_newField;
+
     table.insert(TLSE_Development_Editor_GUI_Vector3PropertyFields, vector3PropertyField_newField);
     TLSE_Development_Editor_GUI_Vector3PropertyFieldsCount = TLSE_Development_Editor_GUI_Vector3PropertyFieldsCount + 1;
 
@@ -27,9 +166,7 @@ TLSE_Development_Editor_GUI_CreateVector3PropertyField = function(agent_referenc
 end
 
 TLSE_Development_Editor_GUI_UpdateVector3PropertyField = function(vector3PropertyField_field)
-    if(vector3PropertyField_field == nil) then
-        return
-    end
+    if(vector3PropertyField_field == nil) then return end
 
     local bool_visibility = vector3PropertyField_field["Visible"];
 
@@ -37,9 +174,7 @@ TLSE_Development_Editor_GUI_UpdateVector3PropertyField = function(vector3Propert
     vector3PropertyField_field["NumberY"]["Visible"] = bool_visibility;
     vector3PropertyField_field["NumberZ"]["Visible"] = bool_visibility;
 
-    if(bool_visibility == false) then
-        return
-    end
+    if(bool_visibility == false) then return end
 
     local vector_offsetGUI = Vector(0, 0, 0);
     local vector_screenPosition = vector3PropertyField_field["ScreenPosition"];

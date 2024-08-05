@@ -13,45 +13,21 @@ local tab11_numberProperty11 = nil; --(number) FX DOF Vignette Max
 local tab11_numberProperty12 = nil; --(number) FX DOF Coverage Boost
 local tab11_numberProperty13 = nil; --(number) FX DOF Debug
 
---[FX DOF] 11
-TLSE_TabSceneProperties_OnToggle_Tab11Property1 = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Enabled"); end
-TLSE_TabSceneProperties_OnToggle_Tab11Property2 = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF FOV Adjust Enabled"); end
-TLSE_TabSceneProperties_OnToggle_Tab11Property3 = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Auto Focus Enabled"); end
-TLSE_TabSceneProperties_OnToggle_Tab11Property4 = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Vignette DOF Enabled"); end
-TLSE_TabSceneProperties_OnIncrease_Tab11Property5 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Near", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab11Property5 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Near", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab11Property6 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Far", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab11Property6 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Far", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab11Property7 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Near Falloff", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab11Property7 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Near Falloff", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab11Property8 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Far Falloff", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab11Property8 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Far Falloff", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab11Property9 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Near Max", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab11Property9 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Near Max", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab11Property10 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Far Max", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab11Property10 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Far Max", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab11Property11 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Vignette Max", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab11Property11 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Vignette Max", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab11Property12 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Coverage Boost", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab11Property12 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Coverage Boost", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab11Property13 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Debug", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab11Property13 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX DOF Debug", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-
 TLSE_Development_GUI_TabSceneProperties_Tab11Initalize = function()
     --[FX DOF] 11
-    tab11_boolProperty1 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "FX DOF Enabled", "FX DOF Enabled", Vector(0.685, 0.585, 0.0), TLSE_TabSceneProperties_OnToggle_Tab11Property1);
-    tab11_boolProperty2 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "FX DOF FOV Adjust Enabled", "FX DOF FOV Adjust Enabled", Vector(0.685, 0.595, 0.0), TLSE_TabSceneProperties_OnToggle_Tab11Property2);
-    tab11_boolProperty3 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "FX DOF Auto Focus Enabled", "FX DOF Auto Focus Enabled", Vector(0.685, 0.605, 0.0), TLSE_TabSceneProperties_OnToggle_Tab11Property3);
-    tab11_boolProperty4 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "FX Vignette DOF Enabled", "FX Vignette DOF Enabled", Vector(0.685, 0.615, 0.0), TLSE_TabSceneProperties_OnToggle_Tab11Property4);
-    tab11_numberProperty5 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Near", Vector(0.685, 0.625, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab11Property5, TLSE_TabSceneProperties_OnDecrease_Tab11Property5);
-    tab11_numberProperty6 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Far", Vector(0.685, 0.635, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab11Property6, TLSE_TabSceneProperties_OnDecrease_Tab11Property6);
-    tab11_numberProperty7 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Near Falloff", Vector(0.685, 0.645, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab11Property7, TLSE_TabSceneProperties_OnDecrease_Tab11Property7);
-    tab11_numberProperty8 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Far Falloff", Vector(0.685, 0.655, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab11Property8, TLSE_TabSceneProperties_OnDecrease_Tab11Property8);
-    tab11_numberProperty9 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Near Max", Vector(0.685, 0.665, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab11Property9, TLSE_TabSceneProperties_OnDecrease_Tab11Property9);
-    tab11_numberProperty10 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Far Max", Vector(0.685, 0.675, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab11Property10, TLSE_TabSceneProperties_OnDecrease_Tab11Property10);
-    tab11_numberProperty11 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Vignette Max", Vector(0.685, 0.685, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab11Property11, TLSE_TabSceneProperties_OnDecrease_Tab11Property11);
-    tab11_numberProperty12 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Coverage Boost", Vector(0.685, 0.695, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab11Property12, TLSE_TabSceneProperties_OnDecrease_Tab11Property12);
-    tab11_numberProperty13 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Debug", Vector(0.685, 0.705, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab11Property13, TLSE_TabSceneProperties_OnDecrease_Tab11Property13);
+    tab11_boolProperty1 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "FX DOF Enabled", "FX DOF Enabled", Vector(0.685, 0.585, 0.0), nil);
+    tab11_boolProperty2 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "FX DOF FOV Adjust Enabled", "FX DOF FOV Adjust Enabled", Vector(0.685, 0.595, 0.0), nil);
+    tab11_boolProperty3 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "FX DOF Auto Focus Enabled", "FX DOF Auto Focus Enabled", Vector(0.685, 0.605, 0.0), nil);
+    tab11_boolProperty4 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "FX Vignette DOF Enabled", "FX Vignette DOF Enabled", Vector(0.685, 0.615, 0.0), nil);
+    tab11_numberProperty5 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Near", Vector(0.685, 0.625, 0.0), true, nil, nil);
+    tab11_numberProperty6 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Far", Vector(0.685, 0.635, 0.0), true, nil, nil);
+    tab11_numberProperty7 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Near Falloff", Vector(0.685, 0.645, 0.0), true, nil, nil);
+    tab11_numberProperty8 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Far Falloff", Vector(0.685, 0.655, 0.0), true, nil, nil);
+    tab11_numberProperty9 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Near Max", Vector(0.685, 0.665, 0.0), true, nil, nil);
+    tab11_numberProperty10 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Far Max", Vector(0.685, 0.675, 0.0), true, nil, nil);
+    tab11_numberProperty11 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Vignette Max", Vector(0.685, 0.685, 0.0), true, nil, nil);
+    tab11_numberProperty12 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Coverage Boost", Vector(0.685, 0.695, 0.0), true, nil, nil);
+    tab11_numberProperty13 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX DOF Debug", Vector(0.685, 0.705, 0.0), true, nil, nil);
 end
 
 TLSE_Development_GUI_TabSceneProperties_Tab11Update = function()

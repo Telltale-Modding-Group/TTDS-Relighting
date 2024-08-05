@@ -2,22 +2,10 @@
 local tab6_colorProperty1 = nil; --(Color) Glow Clear Color
 local tab6_numberProperty2 = nil; --(number) Glow Sigma Scale
 
---[GLOW] 6
-TLSE_TabSceneProperties_OnIncrease_Tab6Property1_R = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "Glow Clear Color", 0, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab6Property1_R = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "Glow Clear Color", 0, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab6Property1_G = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "Glow Clear Color", 1, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab6Property1_G = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "Glow Clear Color", 1, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab6Property1_B = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "Glow Clear Color", 2, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab6Property1_B = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "Glow Clear Color", 2, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab6Property1_A = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "Glow Clear Color", 3, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab6Property1_A = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "Glow Clear Color", 3, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab6Property2 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "Glow Sigma Scale", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab6Property2 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "Glow Sigma Scale", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-
 TLSE_Development_GUI_TabSceneProperties_Tab6Initalize = function()
     --[GLOW] 6
-    tab6_colorProperty1 = TLSE_Development_Editor_GUI_CreateColorPropertyField(nil, "Glow Clear Color", "Glow Clear Color", Vector(0.685, 0.585, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab6Property1_R, TLSE_TabSceneProperties_OnIncrease_Tab6Property1_G, TLSE_TabSceneProperties_OnIncrease_Tab6Property1_B, TLSE_TabSceneProperties_OnIncrease_Tab6Property1_A, TLSE_TabSceneProperties_OnDecrease_Tab6Property1_R, TLSE_TabSceneProperties_OnDecrease_Tab6Property1_G, TLSE_TabSceneProperties_OnDecrease_Tab6Property1_B, TLSE_TabSceneProperties_OnDecrease_Tab6Property1_A);
-    tab6_numberProperty2 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "Glow Sigma Scale", Vector(0.685, 0.625, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab6Property2, TLSE_TabSceneProperties_OnDecrease_Tab6Property2);
+    tab6_colorProperty1 = TLSE_Development_Editor_GUI_CreateColorPropertyField(nil, "Glow Clear Color", "Glow Clear Color", Vector(0.685, 0.585, 0.0), true, nil, nil, nil, nil, nil, nil, nil, nil);
+    tab6_numberProperty2 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "Glow Sigma Scale", Vector(0.685, 0.625, 0.0), true, nil, nil);
 end
 
 TLSE_Development_GUI_TabSceneProperties_Tab6Update = function()

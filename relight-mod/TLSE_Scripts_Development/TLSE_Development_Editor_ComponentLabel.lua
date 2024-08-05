@@ -29,9 +29,7 @@ TLSE_Development_Editor_GUI_CreateLabel = function(string_textContents, vector_s
 end
 
 TLSE_Development_Editor_GUI_UpdateLabel = function(label_text)
-    if(label_text == nil) then
-        return
-    end
+    if(label_text == nil) then return end
 
     local agent_label = label_text["TextAgent"];
 

@@ -73,6 +73,7 @@ TLSE_Development_GUI_TabSceneHierarchyInitalize = function()
         local number_yOffset = index * 0.015;
         local string_hierarchyItemContent = "Item" .. tostring(index);
         local textButton_newButton = TLSE_Development_Editor_GUI_CreateTextButton(string_hierarchyItemContent, true, Vector(0.685, 0.006 + number_yOffset, 0.0), OnPress_SelectHierarchyItem, nil);
+        textButton_newButton["ParameterData"] = textButton_newButton;
         table.insert(agent_text_hierarchyItems, textButton_newButton);
     end
 end

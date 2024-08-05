@@ -20,13 +20,64 @@ TLSE_Development_Editor_GUI_CreateNumberPropertyField = function(agent_reference
         CanHold = bool_canHold
     };
 
-    if(bool_canHold) then
-        numberPropertyField_newField["Decrease"] = TLSE_Development_Editor_GUI_CreateTextButton("(-)", false, vector_screenPosition, nil, function_onDecrease);
-        numberPropertyField_newField["Increase"] = TLSE_Development_Editor_GUI_CreateTextButton("(+)", false, vector_screenPosition, nil, function_onIncrease);
+    if(function_onIncrease == nil) then
+        local function_internalOnIncrease = function(parameterData)
+            if(parameterData ~= nil) then
+                if(parameterData["ReferenceAgent"] ~= nil and parameterData["ReferenceAgentProperty"] ~= nil) then
+                    if(AgentHasProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"])) then
+                        parameterData["Value"] = AgentGetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"]);
+                        parameterData["Value"] = parameterData["Value"] + TLSE_Development_GUI_PropertyAdjustmentValue;
+                        AgentSetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"], parameterData["Value"]);
+                    end
+                end
+            end
+        end
+
+        if(bool_canHold) then
+            numberPropertyField_newField["Increase"] = TLSE_Development_Editor_GUI_CreateTextButton("(+)", false, vector_screenPosition, nil, nil);
+            numberPropertyField_newField["Increase"]["OnHold"] = function_internalOnIncrease;
+        else
+            numberPropertyField_newField["Increase"] = TLSE_Development_Editor_GUI_CreateTextButton("(+)", false, vector_screenPosition, nil, nil);
+            numberPropertyField_newField["Increase"]["OnPress"] = function_internalOnIncrease;
+        end
     else
-        numberPropertyField_newField["Decrease"] = TLSE_Development_Editor_GUI_CreateTextButton("(-)", false, vector_screenPosition, function_onDecrease, nil);
-        numberPropertyField_newField["Increase"] = TLSE_Development_Editor_GUI_CreateTextButton("(+)", false, vector_screenPosition, function_onIncrease, nil);
+        if(bool_canHold) then
+            numberPropertyField_newField["Increase"] = TLSE_Development_Editor_GUI_CreateTextButton("(+)", false, vector_screenPosition, nil, function_onIncrease);
+        else
+            numberPropertyField_newField["Increase"] = TLSE_Development_Editor_GUI_CreateTextButton("(+)", false, vector_screenPosition, function_onIncrease, nil);
+        end
     end
+
+    if(function_onDecrease == nil) then
+        local function_internalOnDecrease = function(parameterData)
+            if(parameterData ~= nil) then
+                if(parameterData["ReferenceAgent"] ~= nil and parameterData["ReferenceAgentProperty"] ~= nil) then
+                    if(AgentHasProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"])) then
+                        parameterData["Value"] = AgentGetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"]);
+                        parameterData["Value"] = parameterData["Value"] - TLSE_Development_GUI_PropertyAdjustmentValue;
+                        AgentSetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"], parameterData["Value"]);
+                    end
+                end
+            end
+        end
+
+        if(bool_canHold) then
+            numberPropertyField_newField["Decrease"] = TLSE_Development_Editor_GUI_CreateTextButton("(-)", false, vector_screenPosition, nil, nil);
+            numberPropertyField_newField["Decrease"]["OnHold"] = function_internalOnDecrease;
+        else
+            numberPropertyField_newField["Decrease"] = TLSE_Development_Editor_GUI_CreateTextButton("(-)", false, vector_screenPosition, nil, nil);
+            numberPropertyField_newField["Decrease"]["OnPress"] = function_internalOnDecrease;
+        end
+    else
+        if(bool_canHold) then
+            numberPropertyField_newField["Decrease"] = TLSE_Development_Editor_GUI_CreateTextButton("(-)", false, vector_screenPosition, nil, function_onDecrease);
+        else
+            numberPropertyField_newField["Decrease"] = TLSE_Development_Editor_GUI_CreateTextButton("(-)", false, vector_screenPosition, function_onDecrease, nil);
+        end
+    end
+
+    numberPropertyField_newField["Increase"]["ParameterData"] = numberPropertyField_newField;
+    numberPropertyField_newField["Decrease"]["ParameterData"] = numberPropertyField_newField;
 
     table.insert(TLSE_Development_Editor_GUI_NumberPropertyFields, numberPropertyField_newField);
     TLSE_Development_Editor_GUI_NumberPropertyFieldsCount = TLSE_Development_Editor_GUI_NumberPropertyFieldsCount + 1;
@@ -35,9 +86,7 @@ TLSE_Development_Editor_GUI_CreateNumberPropertyField = function(agent_reference
 end
 
 TLSE_Development_Editor_GUI_UpdateNumberPropertyField = function(numberPropertyField_field)
-    if(numberPropertyField_field == nil) then
-        return
-    end
+    if(numberPropertyField_field == nil) then return end
 
     local bool_visibility = numberPropertyField_field["Visible"];
 
@@ -46,9 +95,7 @@ TLSE_Development_Editor_GUI_UpdateNumberPropertyField = function(numberPropertyF
     numberPropertyField_field["Increase"]["Visible"] = bool_visibility;
     numberPropertyField_field["Decrease"]["Visible"] = bool_visibility;
 
-    if(bool_visibility == false) then
-        return
-    end
+    if(bool_visibility == false) then return end
 
     local number_xOffset = 0;
     local vector_screenPosition = numberPropertyField_field["ScreenPosition"];

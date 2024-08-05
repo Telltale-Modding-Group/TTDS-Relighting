@@ -2,15 +2,10 @@
 local tab1_boolProperty1 = nil; --(boolean) FX anti-aliasing
 local tab1_numberProperty2 = nil; --(number) FX TAA Weight
 
---[ANTI ALIASING] 1
-TLSE_TabSceneProperties_OnToggle_Tab1Property1 = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX anti-aliasing"); end
-TLSE_TabSceneProperties_OnIncrease_Tab1Property2 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX TAA Weight", TLSE_Development_GUI_PropertyAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab1Property2 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX TAA Weight", -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
-
 TLSE_Development_GUI_TabSceneProperties_Tab1Initalize = function()
     --[ANTI ALIASING] 1
-    tab1_boolProperty1 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "FX anti-aliasing", "FX anti-aliasing", Vector(0.685, 0.585, 0.0), TLSE_TabSceneProperties_OnToggle_Tab1Property1);
-    tab1_numberProperty2 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX TAA Weight", Vector(0.685, 0.595, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab1Property2, TLSE_TabSceneProperties_OnDecrease_Tab1Property2);
+    tab1_boolProperty1 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "FX anti-aliasing", "FX anti-aliasing", Vector(0.685, 0.585, 0.0), nil);
+    tab1_numberProperty2 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "FX TAA Weight", Vector(0.685, 0.595, 0.0), true, nil, nil);
 end
 
 TLSE_Development_GUI_TabSceneProperties_Tab1Update = function()

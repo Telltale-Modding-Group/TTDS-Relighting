@@ -17,6 +17,24 @@ TLSE_Development_Editor_GUI_CreateBooleanPropertyField = function(agent_referenc
         ScreenPosition = vector_screenPosition
     };
 
+    if(function_onClick == nil) then
+        local function_internalOnClick = function(parameterData)
+            if(parameterData ~= nil) then
+                if(parameterData["ReferenceAgent"] ~= nil and parameterData["ReferenceAgentProperty"] ~= nil) then
+                    if(AgentHasProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"])) then
+                        parameterData["Value"] = AgentGetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"]);
+                        parameterData["Value"] = not parameterData["Value"];
+                        AgentSetProperty(parameterData["ReferenceAgent"], parameterData["ReferenceAgentProperty"], parameterData["Value"]);
+                    end
+                end
+            end
+        end
+
+        booleanPropertyField_newField["ValueLabel"]["OnPress"] = function_internalOnClick;
+    end
+
+    booleanPropertyField_newField["ValueLabel"]["ParameterData"] = booleanPropertyField_newField;
+
     table.insert(TLSE_Development_Editor_GUI_BooleanPropertyFields, booleanPropertyField_newField);
     TLSE_Development_Editor_GUI_BooleanPropertyFieldsCount = TLSE_Development_Editor_GUI_BooleanPropertyFieldsCount + 1;
 
@@ -24,18 +42,14 @@ TLSE_Development_Editor_GUI_CreateBooleanPropertyField = function(agent_referenc
 end
 
 TLSE_Development_Editor_GUI_UpdateBooleanPropertyField = function(booleanPropertyField_field)
-    if(booleanPropertyField_field == nil) then
-        return
-    end
+    if(booleanPropertyField_field == nil) then return end
 
     local bool_visibility = booleanPropertyField_field["Visible"];
 
     booleanPropertyField_field["NameLabel"]["Visible"] = bool_visibility;
     booleanPropertyField_field["ValueLabel"]["Visible"] = bool_visibility;
 
-    if(bool_visibility == false) then
-        return
-    end
+    if(bool_visibility == false) then return end
 
     local vector_screenPosition = booleanPropertyField_field["ScreenPosition"];
     local vector_contentsScreenSize = TLSE_TextUI_GetTextScreenSize(booleanPropertyField_field["NameLabel"]["TextAgent"]);
@@ -53,33 +67,4 @@ TLSE_Development_Editor_GUI_UpdateBooleanPropertyField = function(booleanPropert
     end
 
     booleanPropertyField_field["ValueLabel"]["Text"] = tostring(booleanPropertyField_field["Value"]);
-
-
-
-
-
-
-
-
-
-
-
-    --[[
-    local myFunc = function(data)
-        if(data ~= nil) then
-            if(data["ReferenceAgent"] ~= nil) then
-                if(AgentHasProperty(data["ReferenceAgent"], data["ReferenceAgentProperty"])) then
-                    local bool_originalValue = AgentGetProperty(data["ReferenceAgent"], data["ReferenceAgentProperty"]);
-        
-                    bool_originalValue = not number_originalValue;
-        
-                    AgentSetProperty(data["ReferenceAgent"], data["ReferenceAgentProperty"], bool_originalValue);
-                end
-            end
-        end
-    end
-
-    booleanPropertyField_field["ValueLabel"]["ParameterData"] = booleanPropertyField_field
-    booleanPropertyField_field["ValueLabel"]["OnPress"] = myFunc
-    ]]
 end

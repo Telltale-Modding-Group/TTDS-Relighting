@@ -11,41 +11,19 @@ local tab13_numberProperty9 = nil; --(number) HBAO Max Distance
 local tab13_numberProperty10 = nil; --(number) HBAO Distance Falloff
 local tab13_numberProperty11 = nil; --(number) HBAO Blur Sharpness
 
---[HBAO] 13
-TLSE_TabSceneProperties_OnToggle_Tab13Property1 = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Enabled"); end
-TLSE_TabSceneProperties_OnToggle_Tab13Property2 = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Debug"); end
-TLSE_TabSceneProperties_OnIncrease_Tab13Property3 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Intensity", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab13Property3 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Intensity", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab13Property4 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Radius", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab13Property4 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Radius", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab13Property5 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Max Radius Percent", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab13Property5 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Max Radius Percent", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab13Property6 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Hemisphere Bias", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab13Property6 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Hemisphere Bias", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab13Property7 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Occlusion Scale", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab13Property7 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Occlusion Scale", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab13Property8 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Luminance Scale", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab13Property8 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Luminance Scale", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab13Property9 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Max Distance", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab13Property9 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Max Distance", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab13Property10 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Distance Falloff", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab13Property10 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Distance Falloff", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab13Property11 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Blur Sharpness", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab13Property11 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "HBAO Blur Sharpness", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
-
 TLSE_Development_GUI_TabSceneProperties_Tab13Initalize = function()
     --[HBAO] 13
-    tab13_boolProperty1 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "HBAO Enabled", "HBAO Enabled", Vector(0.685, 0.585, 0.0), TLSE_TabSceneProperties_OnToggle_Tab13Property1);
-    tab13_boolProperty2 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "HBAO Debug", "HBAO Debug", Vector(0.685, 0.595, 0.0), TLSE_TabSceneProperties_OnToggle_Tab13Property2);
-    tab13_numberProperty3 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Intensity", Vector(0.685, 0.605, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab13Property3, TLSE_TabSceneProperties_OnDecrease_Tab13Property3);
-    tab13_numberProperty4 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Radius", Vector(0.685, 0.615, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab13Property4, TLSE_TabSceneProperties_OnDecrease_Tab13Property4);
-    tab13_numberProperty5 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Max Radius Percent", Vector(0.685, 0.625, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab13Property5, TLSE_TabSceneProperties_OnDecrease_Tab13Property5);
-    tab13_numberProperty6 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Hemisphere Bias", Vector(0.685, 0.635, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab13Property6, TLSE_TabSceneProperties_OnDecrease_Tab13Property6);
-    tab13_numberProperty7 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Occlusion Scale", Vector(0.685, 0.645, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab13Property7, TLSE_TabSceneProperties_OnDecrease_Tab13Property7);
-    tab13_numberProperty8 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Luminance Scale", Vector(0.685, 0.655, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab13Property8, TLSE_TabSceneProperties_OnDecrease_Tab13Property8);
-    tab13_numberProperty9 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Max Distance", Vector(0.685, 0.665, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab13Property9, TLSE_TabSceneProperties_OnDecrease_Tab13Property9);
-    tab13_numberProperty10 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Distance Falloff", Vector(0.685, 0.675, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab13Property10, TLSE_TabSceneProperties_OnDecrease_Tab13Property10);
-    tab13_numberProperty11 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Blur Sharpness", Vector(0.685, 0.685, 0.0), true, TLSE_TabSceneProperties_OnIncrease_Tab13Property11, TLSE_TabSceneProperties_OnDecrease_Tab13Property11);
+    tab13_boolProperty1 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "HBAO Enabled", "HBAO Enabled", Vector(0.685, 0.585, 0.0), nil);
+    tab13_boolProperty2 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "HBAO Debug", "HBAO Debug", Vector(0.685, 0.595, 0.0), nil);
+    tab13_numberProperty3 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Intensity", Vector(0.685, 0.605, 0.0), true, nil, nil);
+    tab13_numberProperty4 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Radius", Vector(0.685, 0.615, 0.0), true, nil, nil);
+    tab13_numberProperty5 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Max Radius Percent", Vector(0.685, 0.625, 0.0), true, nil, nil);
+    tab13_numberProperty6 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Hemisphere Bias", Vector(0.685, 0.635, 0.0), true, nil, nil);
+    tab13_numberProperty7 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Occlusion Scale", Vector(0.685, 0.645, 0.0), true, nil, nil);
+    tab13_numberProperty8 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Luminance Scale", Vector(0.685, 0.655, 0.0), true, nil, nil);
+    tab13_numberProperty9 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Max Distance", Vector(0.685, 0.665, 0.0), true, nil, nil);
+    tab13_numberProperty10 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Distance Falloff", Vector(0.685, 0.675, 0.0), true, nil, nil);
+    tab13_numberProperty11 = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "HBAO Blur Sharpness", Vector(0.685, 0.685, 0.0), true, nil, nil);
 end
 
 TLSE_Development_GUI_TabSceneProperties_Tab13Update = function()
