@@ -85,8 +85,8 @@ TLSE_Development_GUI_TabSceneHierarchyUpdate = function()
 
     local hierarchyCountText = "";
 
-    hierarchyCountText = tostring(hierarchyItemsCurrentPage);
-    hierarchyCountText = hierarchyCountText .. " / ";
+    hierarchyCountText = "(" .. tostring(hierarchyItemsCurrentPage);
+    hierarchyCountText = hierarchyCountText .. " - " .. tostring(hierarchyItemsCurrentPage + agent_text_hierarchyItemCount) .. ") / ";
     hierarchyCountText = hierarchyCountText .. tostring(#agentTable_sceneAgents);
 
     label_hierarchyCount["Text"] = hierarchyCountText;

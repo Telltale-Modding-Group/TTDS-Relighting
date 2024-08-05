@@ -15,6 +15,7 @@ TLSE_Development_Editor_GUI_CreateTextButton = function(string_textContents, boo
         Text = string_textContents,
         OnPress = function_onPress,
         OnHold = function_onHold,
+        --ParameterData = nil,
         Selected = false,
         IsSelectable = bool_isSelectable,
         Visible = true,
@@ -62,6 +63,7 @@ TLSE_Development_Editor_GUI_UpdateTextButton = function(textButton_button)
 
             if(textButton_button["OnPress"] ~= nil) then
                 textButton_button["OnPress"](textButton_button);
+                --textButton_button["OnPress"](textButton_button["ParameterData"]);
             end
         end
 
@@ -70,6 +72,7 @@ TLSE_Development_Editor_GUI_UpdateTextButton = function(textButton_button)
 
             if(textButton_button["OnHold"] ~= nil) then
                 textButton_button["OnHold"](textButton_button);
+                --textButton_button["OnHold"](textButton_button["ParameterData"]);
             end
         end
     else

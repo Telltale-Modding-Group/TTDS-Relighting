@@ -176,6 +176,8 @@ TLSE_Development_TransformTool_UpdateGizmo = function()
         vector_selectObjectRotation = vector_selectObjectWorldRotation;
 
         number_globalScale = 0.025 * VectorDistance(vector_selectObjectPosition, vector_sceneCameraPosition);
+
+        AgentSetProperty(TLSE_Development_TransformTool_Text, "Runtime: Visible", AgentIsOnScreen(agent_currentSelectedAgent));
     else
         boundsAABB_currentSelectedAgentWorldBounds = nil;
         boundsAABB_currentSelectedAgentLocalBounds = nil;

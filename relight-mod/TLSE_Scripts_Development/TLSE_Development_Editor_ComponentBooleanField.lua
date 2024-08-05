@@ -53,4 +53,33 @@ TLSE_Development_Editor_GUI_UpdateBooleanPropertyField = function(booleanPropert
     end
 
     booleanPropertyField_field["ValueLabel"]["Text"] = tostring(booleanPropertyField_field["Value"]);
+
+
+
+
+
+
+
+
+
+
+
+    --[[
+    local myFunc = function(data)
+        if(data ~= nil) then
+            if(data["ReferenceAgent"] ~= nil) then
+                if(AgentHasProperty(data["ReferenceAgent"], data["ReferenceAgentProperty"])) then
+                    local bool_originalValue = AgentGetProperty(data["ReferenceAgent"], data["ReferenceAgentProperty"]);
+        
+                    bool_originalValue = not number_originalValue;
+        
+                    AgentSetProperty(data["ReferenceAgent"], data["ReferenceAgentProperty"], bool_originalValue);
+                end
+            end
+        end
+    end
+
+    booleanPropertyField_field["ValueLabel"]["ParameterData"] = booleanPropertyField_field
+    booleanPropertyField_field["ValueLabel"]["OnPress"] = myFunc
+    ]]
 end
