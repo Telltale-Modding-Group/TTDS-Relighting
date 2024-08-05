@@ -11,85 +11,31 @@ local numberProperty_property10 = nil;
 local numberProperty_property11 = nil;
 local numberProperty_property12 = nil;
 
-local numberPropertyFieldAdjustmentValue = 1;
-
-local ModifiyNumberPropertyValueOnAgent = function(agent_main, string_property, number_adjustment, bool_multiplyByFrameTime)
-    if(agent_main ~= nil) then
-        if(AgentHasProperty(agent_main, string_property)) then
-            local number_originalValue = AgentGetProperty(agent_main, string_property);
-
-            if(bool_multiplyByFrameTime) then
-                number_originalValue = number_originalValue + (number_adjustment * GetFrameTime());
-            else
-                number_originalValue = number_originalValue + number_adjustment;
-            end
-
-            AgentSetProperty(agent_main, string_property, number_originalValue);
-        end
-    end
-end
-
-local ModifiyBooleanPropertyValueOnAgent = function(agent_main, string_property)
-    if(agent_main ~= nil) then
-        if(AgentHasProperty(agent_main, string_property)) then
-            local number_originalValue = AgentGetProperty(agent_main, string_property);
-
-            number_originalValue = not number_originalValue;
-
-            AgentSetProperty(agent_main, string_property, number_originalValue);
-        end
-    end
-end
-
-local ModifiyColorChannelPropertyValueOnAgent = function(agent_main, string_property, number_channel, number_adjustment, bool_clamp01)
-    if(agent_main ~= nil) then
-        if(AgentHasProperty(agent_main, string_property)) then
-            local color_originalValue = AgentGetProperty(agent_main, string_property);
-
-            if(number_channel == 0) then
-                color_originalValue.r = color_originalValue.r + number_adjustment;
-            elseif(number_channel == 1) then
-                color_originalValue.g = color_originalValue.g + number_adjustment;
-            elseif(number_channel == 2) then
-                color_originalValue.b = color_originalValue.b + number_adjustment;
-            elseif(number_channel == 3) then
-                color_originalValue.a = color_originalValue.a + number_adjustment;
-            end
-
-            if(bool_clamp01) then
-                color_originalValue = TLSE_ColorClamp01(color_originalValue);
-            end
-
-            AgentSetProperty(agent_main, string_property, color_originalValue);
-        end
-    end
-end
-
-local OnToggle_Property1 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Enabled"); end
-local OnToggle_Property2 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Enabled"); end
-local OnToggle_Property3 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Enabled on High"); end
-local OnToggle_Property4 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Enabled on Medium"); end
-local OnToggle_Property5 = function(textButton_button) ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Enabled on Low"); end
-local OnIncrease_Property6_R = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 0, numberPropertyFieldAdjustmentValue, true); end
-local OnDecrease_Property6_R = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 0, -numberPropertyFieldAdjustmentValue, true); end
-local OnIncrease_Property6_G = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 1, numberPropertyFieldAdjustmentValue, true); end
-local OnDecrease_Property6_G = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 1, -numberPropertyFieldAdjustmentValue, true); end
-local OnIncrease_Property6_B = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 2, numberPropertyFieldAdjustmentValue, true); end
-local OnDecrease_Property6_B = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 2, -numberPropertyFieldAdjustmentValue, true); end
-local OnIncrease_Property6_A = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 3, numberPropertyFieldAdjustmentValue, true); end
-local OnDecrease_Property6_A = function(textButton_button) ModifiyColorChannelPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 3, -numberPropertyFieldAdjustmentValue, true); end
-local OnIncrease_Property7 = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Density", numberPropertyFieldAdjustmentValue, false); end
-local OnDecrease_Property7 = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Density", -numberPropertyFieldAdjustmentValue, false); end
-local OnIncrease_Property8 = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Start Distance", numberPropertyFieldAdjustmentValue, false); end
-local OnDecrease_Property8 = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Start Distance", -numberPropertyFieldAdjustmentValue, false); end
-local OnIncrease_Property9 = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Height", numberPropertyFieldAdjustmentValue, false); end
-local OnDecrease_Property9 = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Height", -numberPropertyFieldAdjustmentValue, false); end
-local OnIncrease_Property10 = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Height Falloff", numberPropertyFieldAdjustmentValue, false); end
-local OnDecrease_Property10 = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Height Falloff", -numberPropertyFieldAdjustmentValue, false); end
-local OnIncrease_Property11 = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Max Opacity", numberPropertyFieldAdjustmentValue, false); end
-local OnDecrease_Property11 = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Max Opacity", -numberPropertyFieldAdjustmentValue, false); end
-local OnIncrease_Property12 = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Priority", numberPropertyFieldAdjustmentValue, false); end
-local OnDecrease_Property12 = function(textButton_button) ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Priority", -numberPropertyFieldAdjustmentValue, false); end
+local OnToggle_Property1 = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Enabled"); end
+local OnToggle_Property2 = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Enabled"); end
+local OnToggle_Property3 = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Enabled on High"); end
+local OnToggle_Property4 = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Enabled on Medium"); end
+local OnToggle_Property5 = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Enabled on Low"); end
+local OnIncrease_Property6_R = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 0, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+local OnDecrease_Property6_R = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 0, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+local OnIncrease_Property6_G = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 1, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+local OnDecrease_Property6_G = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 1, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+local OnIncrease_Property6_B = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 2, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+local OnDecrease_Property6_B = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 2, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+local OnIncrease_Property6_A = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 3, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+local OnDecrease_Property6_A = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Color", 3, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+local OnIncrease_Property7 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Density", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+local OnDecrease_Property7 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Density", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+local OnIncrease_Property8 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Start Distance", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+local OnDecrease_Property8 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Start Distance", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+local OnIncrease_Property9 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Height", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+local OnDecrease_Property9 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Height", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+local OnIncrease_Property10 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Height Falloff", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+local OnDecrease_Property10 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Height Falloff", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+local OnIncrease_Property11 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Max Opacity", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+local OnDecrease_Property11 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Fog Max Opacity", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+local OnIncrease_Property12 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Priority", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+local OnDecrease_Property12 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Env - Priority", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
 
 TLSE_Development_GUI_TabEnvFogInitalize = function()
     boolProperty_property1 = TLSE_Development_Editor_GUI_CreateBooleanPropertyField(nil, "Env - Fog Enabled", "Env - Fog Enabled", Vector(0.685, 0.515, 0.0), OnToggle_Property1);
@@ -107,14 +53,6 @@ TLSE_Development_GUI_TabEnvFogInitalize = function()
 end
 
 TLSE_Development_GUI_TabEnvFogUpdate = function()
-    if(TLSE_Development_Editor_Input_LeftShiftHold) then
-        numberPropertyFieldAdjustmentValue = 10;
-    elseif(TLSE_Development_Editor_Input_LeftCtrlHold) then
-        numberPropertyFieldAdjustmentValue = 0.01;
-    else
-        numberPropertyFieldAdjustmentValue = 1;
-    end
-
     boolProperty_property1["Visible"] = TLSE_Development_GUI_EnvFogTabActive;
     boolProperty_property2["Visible"] = TLSE_Development_GUI_EnvFogTabActive;
     boolProperty_property3["Visible"] = TLSE_Development_GUI_EnvFogTabActive;

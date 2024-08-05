@@ -14,183 +14,151 @@ local textButton_agentDuplicate = nil;
 local textButton_agentMoveToCamera = nil;
 --local textButton_agentRename = nil;
 
-local numberPropertyFieldAdjustmentValue = 1;
-
-local ModifiyBooleanPropertyValueOnAgent = function(string_property)
-    if(agent_currentSelectedAgent ~= nil) then
-        if(AgentHasProperty(agent_currentSelectedAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(agent_currentSelectedAgent, string_property);
-
-            number_originalValue = not number_originalValue;
-
-            AgentSetProperty(agent_currentSelectedAgent, string_property, number_originalValue);
-        end
-    end
-end
-
-local ModifiyValueOnAgent = function(string_property, number_component, number_adjustment)
-    if(agent_currentSelectedAgent ~= nil) then
-        if(AgentHasProperty(agent_currentSelectedAgent, string_property)) then
-            local vector_originalValue = AgentGetProperty(agent_currentSelectedAgent, string_property);
-
-            if(number_component == 0) then
-                vector_originalValue.x = vector_originalValue.x + number_adjustment;
-            elseif(number_component == 1) then
-                vector_originalValue.y = vector_originalValue.y + number_adjustment;
-            elseif(number_component == 2) then
-                vector_originalValue.z = vector_originalValue.z + number_adjustment;
-            end
-
-            AgentSetProperty(agent_currentSelectedAgent, string_property, vector_originalValue);
-        end
-    end
-end
-
 --LOCAL POSITION
 local OnIncrease_LocalPositionX = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentLocalPosition["Value"].x = vector3field_agentLocalPosition["Value"].x + (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentLocalPosition["Value"].x = vector3field_agentLocalPosition["Value"].x + TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetPos(agent_currentSelectedAgent, vector3field_agentLocalPosition["Value"]);
 end
 
 local OnDecrease_LocalPositionX = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentLocalPosition["Value"].x = vector3field_agentLocalPosition["Value"].x - (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentLocalPosition["Value"].x = vector3field_agentLocalPosition["Value"].x - TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetPos(agent_currentSelectedAgent, vector3field_agentLocalPosition["Value"]);
 end
 
 local OnIncrease_LocalPositionY = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentLocalPosition["Value"].y = vector3field_agentLocalPosition["Value"].y + (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentLocalPosition["Value"].y = vector3field_agentLocalPosition["Value"].y + TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetPos(agent_currentSelectedAgent, vector3field_agentLocalPosition["Value"]);
 end
 
 local OnDecrease_LocalPositionY = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentLocalPosition["Value"].y = vector3field_agentLocalPosition["Value"].y - (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentLocalPosition["Value"].y = vector3field_agentLocalPosition["Value"].y - TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetPos(agent_currentSelectedAgent, vector3field_agentLocalPosition["Value"]);
 end
 
 local OnIncrease_LocalPositionZ = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentLocalPosition["Value"].z = vector3field_agentLocalPosition["Value"].z + (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentLocalPosition["Value"].z = vector3field_agentLocalPosition["Value"].z + TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetPos(agent_currentSelectedAgent, vector3field_agentLocalPosition["Value"]);
 end
 
 local OnDecrease_LocalPositionZ = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentLocalPosition["Value"].z = vector3field_agentLocalPosition["Value"].z - (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentLocalPosition["Value"].z = vector3field_agentLocalPosition["Value"].z - TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetPos(agent_currentSelectedAgent, vector3field_agentLocalPosition["Value"]);
 end
 
 --LOCAL ROTATION
 local OnIncrease_LocalRotationX = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentLocalRotation["Value"].x = vector3field_agentLocalRotation["Value"].x + (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentLocalRotation["Value"].x = vector3field_agentLocalRotation["Value"].x + TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetRot(agent_currentSelectedAgent, vector3field_agentLocalRotation["Value"]);
 end
 
 local OnDecrease_LocalRotationX = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentLocalRotation["Value"].x = vector3field_agentLocalRotation["Value"].x - (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentLocalRotation["Value"].x = vector3field_agentLocalRotation["Value"].x - TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetRot(agent_currentSelectedAgent, vector3field_agentLocalRotation["Value"]);
 end
 
 local OnIncrease_LocalRotationY = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentLocalRotation["Value"].y = vector3field_agentLocalRotation["Value"].y + (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentLocalRotation["Value"].y = vector3field_agentLocalRotation["Value"].y + TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetRot(agent_currentSelectedAgent, vector3field_agentLocalRotation["Value"]);
 end
 
 local OnDecrease_LocalRotationY = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentLocalRotation["Value"].y = vector3field_agentLocalRotation["Value"].y - (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentLocalRotation["Value"].y = vector3field_agentLocalRotation["Value"].y - TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetRot(agent_currentSelectedAgent, vector3field_agentLocalRotation["Value"]);
 end
 
 local OnIncrease_LocalRotationZ = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentLocalRotation["Value"].z = vector3field_agentLocalRotation["Value"].z + (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentLocalRotation["Value"].z = vector3field_agentLocalRotation["Value"].z + TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetRot(agent_currentSelectedAgent, vector3field_agentLocalRotation["Value"]);
 end
 
 local OnDecrease_LocalRotationZ = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentLocalRotation["Value"].z = vector3field_agentLocalRotation["Value"].z - (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentLocalRotation["Value"].z = vector3field_agentLocalRotation["Value"].z - TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetRot(agent_currentSelectedAgent, vector3field_agentLocalRotation["Value"]);
 end
 
 --WORLD POSITION
 local OnIncrease_WorldPositionX = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentWorldPosition["Value"].x = vector3field_agentWorldPosition["Value"].x + (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentWorldPosition["Value"].x = vector3field_agentWorldPosition["Value"].x + TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetWorldPos(agent_currentSelectedAgent, vector3field_agentWorldPosition["Value"]);
 end
 
 local OnDecrease_WorldPositionX = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentWorldPosition["Value"].x = vector3field_agentWorldPosition["Value"].x - (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentWorldPosition["Value"].x = vector3field_agentWorldPosition["Value"].x - TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetWorldPos(agent_currentSelectedAgent, vector3field_agentWorldPosition["Value"]);
 end
 
 local OnIncrease_WorldPositionY = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentWorldPosition["Value"].y = vector3field_agentWorldPosition["Value"].y + (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentWorldPosition["Value"].y = vector3field_agentWorldPosition["Value"].y + TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetWorldPos(agent_currentSelectedAgent, vector3field_agentWorldPosition["Value"]);
 end
 
 local OnDecrease_WorldPositionY = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentWorldPosition["Value"].y = vector3field_agentWorldPosition["Value"].y - (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentWorldPosition["Value"].y = vector3field_agentWorldPosition["Value"].y - TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetWorldPos(agent_currentSelectedAgent, vector3field_agentWorldPosition["Value"]);
 end
 
 local OnIncrease_WorldPositionZ = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentWorldPosition["Value"].z = vector3field_agentWorldPosition["Value"].z + (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentWorldPosition["Value"].z = vector3field_agentWorldPosition["Value"].z + TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetWorldPos(agent_currentSelectedAgent, vector3field_agentWorldPosition["Value"]);
 end
 
 local OnDecrease_WorldPositionZ = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentWorldPosition["Value"].z = vector3field_agentWorldPosition["Value"].z - (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentWorldPosition["Value"].z = vector3field_agentWorldPosition["Value"].z - TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetWorldPos(agent_currentSelectedAgent, vector3field_agentWorldPosition["Value"]);
 end
 
 --WORLD ROTATION
 local OnIncrease_WorldRotationX = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentWorldRotation["Value"].x = vector3field_agentWorldRotation["Value"].x + (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentWorldRotation["Value"].x = vector3field_agentWorldRotation["Value"].x + TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetWorldRot(agent_currentSelectedAgent, vector3field_agentWorldRotation["Value"]);
 end
 
 local OnDecrease_WorldRotationX = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentWorldRotation["Value"].x = vector3field_agentWorldRotation["Value"].x - (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentWorldRotation["Value"].x = vector3field_agentWorldRotation["Value"].x - TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetWorldRot(agent_currentSelectedAgent, vector3field_agentWorldRotation["Value"]);
 end
 
 local OnIncrease_WorldRotationY = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentWorldRotation["Value"].y = vector3field_agentWorldRotation["Value"].y + (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentWorldRotation["Value"].y = vector3field_agentWorldRotation["Value"].y + TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetWorldRot(agent_currentSelectedAgent, vector3field_agentWorldRotation["Value"]);
 end
 
 local OnDecrease_WorldRotationY = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentWorldRotation["Value"].y = vector3field_agentWorldRotation["Value"].y - (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentWorldRotation["Value"].y = vector3field_agentWorldRotation["Value"].y - TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetWorldRot(agent_currentSelectedAgent, vector3field_agentWorldRotation["Value"]);
 end
 
 local OnIncrease_WorldRotationZ = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentWorldRotation["Value"].z = vector3field_agentWorldRotation["Value"].z + (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentWorldRotation["Value"].z = vector3field_agentWorldRotation["Value"].z + TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetWorldRot(agent_currentSelectedAgent, vector3field_agentWorldRotation["Value"]);
 end
 
 local OnDecrease_WorldRotationZ = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
-    vector3field_agentWorldRotation["Value"].z = vector3field_agentWorldRotation["Value"].z - (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    vector3field_agentWorldRotation["Value"].z = vector3field_agentWorldRotation["Value"].z - TLSE_Development_GUI_PropertyAdjustmentValue;
     AgentSetWorldRot(agent_currentSelectedAgent, vector3field_agentWorldRotation["Value"]);
 end
 
@@ -198,7 +166,7 @@ local OnIncrease_RenderGlobalScale = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
 
     local number_originalValue = AgentGetProperty(agent_currentSelectedAgent, "Render Global Scale");
-    number_originalValue = number_originalValue + (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    number_originalValue = number_originalValue + TLSE_Development_GUI_PropertyAdjustmentValue;
 
     AgentSetProperty(agent_currentSelectedAgent, "Render Global Scale", number_originalValue);
 end
@@ -207,20 +175,20 @@ local OnDecrease_RenderGlobalScale = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
 
     local number_originalValue = AgentGetProperty(agent_currentSelectedAgent, "Render Global Scale");
-    number_originalValue = number_originalValue - (numberPropertyFieldAdjustmentValue * GetFrameTime());
+    number_originalValue = number_originalValue - TLSE_Development_GUI_PropertyAdjustmentValue;
 
     AgentSetProperty(agent_currentSelectedAgent, "Render Global Scale", number_originalValue);
 end
 
-TLSE_TabAgent_OnIncrease_RenderAxisScale_X = function(textButton_button) ModifiyValueOnAgent("Render Axis Scale", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabAgent_OnIncrease_RenderAxisScale_Y = function(textButton_button) ModifiyValueOnAgent("Render Axis Scale", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabAgent_OnIncrease_RenderAxisScale_Z = function(textButton_button) ModifiyValueOnAgent("Render Axis Scale", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabAgent_OnDecrease_RenderAxisScale_X = function(textButton_button) ModifiyValueOnAgent("Render Axis Scale", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabAgent_OnDecrease_RenderAxisScale_Y = function(textButton_button) ModifiyValueOnAgent("Render Axis Scale", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabAgent_OnDecrease_RenderAxisScale_Z = function(textButton_button) ModifiyValueOnAgent("Render Axis Scale", 2, -numberPropertyFieldAdjustmentValue); end
+TLSE_TabAgent_OnIncrease_RenderAxisScale_X = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Render Axis Scale", 0, TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabAgent_OnIncrease_RenderAxisScale_Y = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Render Axis Scale", 1, TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabAgent_OnIncrease_RenderAxisScale_Z = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Render Axis Scale", 2, TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabAgent_OnDecrease_RenderAxisScale_X = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Render Axis Scale", 0, -TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabAgent_OnDecrease_RenderAxisScale_Y = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Render Axis Scale", 1, -TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabAgent_OnDecrease_RenderAxisScale_Z = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Render Axis Scale", 2, -TLSE_Development_GUI_PropertyAdjustmentValue); end
 
-TLSE_TabAgent_OnToggle_Visible = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Runtime: Visible"); end
-TLSE_TabAgent_OnToggle_GroupVisible = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Group - Visible"); end
+TLSE_TabAgent_OnToggle_Visible = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Runtime: Visible"); end
+TLSE_TabAgent_OnToggle_GroupVisible = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Group - Visible"); end
 
 local OnPress_AgentDelete = function(textButton_button)
     local agentTable_attachments = AgentGetAttachments(agent_currentSelectedAgent);
@@ -313,14 +281,6 @@ TLSE_Development_GUI_TabAgentUpdate = function()
 
     if(TLSE_Development_GUI_AgentTabActive == false) then
         return
-    end
-
-    if(TLSE_Development_Editor_Input_LeftShiftHold) then
-        numberPropertyFieldAdjustmentValue = 10;
-    elseif(TLSE_Development_Editor_Input_LeftCtrlHold) then
-        numberPropertyFieldAdjustmentValue = 0.01;
-    else
-        numberPropertyFieldAdjustmentValue = 1;
     end
 
     local string_inspectorMainText = "";

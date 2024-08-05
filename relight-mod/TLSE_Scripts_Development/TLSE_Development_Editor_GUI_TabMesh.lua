@@ -38,145 +38,73 @@ local numberField_fogMeshFarPlane = nil; --(number) Fog Mesh Far Plane
 
 local containerField_D3DMeshList = nil; --(ContainerInterface) D3D Mesh List
 
-local numberPropertyFieldAdjustmentValue = 1;
+TLSE_TabRender_OnIncrease_FogMeshColor_R = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Mesh Color", 0, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnIncrease_FogMeshColor_G = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Mesh Color", 1, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnIncrease_FogMeshColor_B = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Mesh Color", 2, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnIncrease_FogMeshColor_A = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Mesh Color", 3, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnDecrease_FogMeshColor_R = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Mesh Color", 0, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnDecrease_FogMeshColor_G = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Mesh Color", 1, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnDecrease_FogMeshColor_B = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Mesh Color", 2, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnDecrease_FogMeshColor_A = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Mesh Color", 3, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
 
-local ModifiyNumberPropertyValueOnAgent = function(string_property, number_adjustment, bool_multiplyByFrameTime)
-    if(agent_currentSelectedAgent ~= nil) then
-        if(AgentHasProperty(agent_currentSelectedAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(agent_currentSelectedAgent, string_property);
+TLSE_TabRender_OnIncrease_RenderDiffuseColor_R = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Render Diffuse Color", 0, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnIncrease_RenderDiffuseColor_G = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Render Diffuse Color", 1, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnIncrease_RenderDiffuseColor_B = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Render Diffuse Color", 2, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnIncrease_RenderDiffuseColor_A = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Render Diffuse Color", 3, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnDecrease_RenderDiffuseColor_R = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Render Diffuse Color", 0, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnDecrease_RenderDiffuseColor_G = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Render Diffuse Color", 1, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnDecrease_RenderDiffuseColor_B = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Render Diffuse Color", 2, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabRender_OnDecrease_RenderDiffuseColor_A = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(agent_currentSelectedAgent, "Render Diffuse Color", 3, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
 
-            if(bool_multiplyByFrameTime) then
-                number_originalValue = number_originalValue + (number_adjustment * GetFrameTime());
-            else
-                number_originalValue = number_originalValue + number_adjustment;
-            end
+TLSE_TabRender_OnIncrease_ExtentsMin_X = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Extents Min", 0, TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabRender_OnIncrease_ExtentsMin_Y = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Extents Min", 1, TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabRender_OnIncrease_ExtentsMin_Z = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Extents Min", 2, TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabRender_OnDecrease_ExtentsMin_X = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Extents Min", 0, -TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabRender_OnDecrease_ExtentsMin_Y = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Extents Min", 1, -TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabRender_OnDecrease_ExtentsMin_Z = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Extents Min", 2, -TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabRender_OnIncrease_ExtentsMax_X = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Extents Max", 0, TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabRender_OnIncrease_ExtentsMax_Y = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Extents Max", 1, TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabRender_OnIncrease_ExtentsMax_Z = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Extents Max", 2, TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabRender_OnDecrease_ExtentsMax_X = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Extents Max", 0, -TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabRender_OnDecrease_ExtentsMax_Y = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Extents Max", 1, -TLSE_Development_GUI_PropertyAdjustmentValue); end
+TLSE_TabRender_OnDecrease_ExtentsMax_Z = function(textButton_button) TLSE_Development_GUI_ModifiyVector3PropertyValueOnAgent(agent_currentSelectedAgent, "Extents Max", 2, -TLSE_Development_GUI_PropertyAdjustmentValue); end
 
-            AgentSetProperty(agent_currentSelectedAgent, string_property, number_originalValue);
-        end
-    end
-end
+TLSE_TabRender_OnIncrease_DepthTestFunction = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Render Depth Test Function", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnDecrease_DepthTestFunction = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Render Depth Test Function", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnIncrease_ConstantAlpha = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Render Constant Alpha", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnDecrease_ConstantAlpha = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Render Constant Alpha", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnIncrease_ConstantAlphaMultiply = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Render Constant Alpha Multiply", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnDecrease_ConstantAlphaMultiply = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Render Constant Alpha Multiply", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnIncrease_RenderLayer = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Render Layer", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnDecrease_RenderLayer = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Render Layer", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnIncrease_RenderMaterialTime = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Render Material Time", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnDecrease_RenderMaterialTime = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Render Material Time", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnIncrease_CameraFacingType = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Camera Facing Type", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnDecrease_CameraFacingType = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Camera Facing Type", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnIncrease_FogMeshNearPlane = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Mesh Near Plane", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnDecrease_FogMeshNearPlane = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Mesh Near Plane", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnIncrease_FogMeshFarPlane = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Mesh Far Plane", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabRender_OnDecrease_FogMeshFarPlane = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Mesh Far Plane", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
 
-local ModifiyBooleanPropertyValueOnAgent = function(string_property)
-    if(agent_currentSelectedAgent ~= nil) then
-        if(AgentHasProperty(agent_currentSelectedAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(agent_currentSelectedAgent, string_property);
-
-            number_originalValue = not number_originalValue;
-
-            AgentSetProperty(agent_currentSelectedAgent, string_property, number_originalValue);
-        end
-    end
-end
-
-local ModifiyVector3PropertyValueOnAgent = function(string_property, number_component, number_adjustment)
-    if(agent_currentSelectedAgent ~= nil) then
-        if(AgentHasProperty(agent_currentSelectedAgent, string_property)) then
-            local vector_originalValue = AgentGetProperty(agent_currentSelectedAgent, string_property);
-
-            if(number_component == 0) then
-                vector_originalValue.x = vector_originalValue.x + number_adjustment;
-            elseif(number_component == 1) then
-                vector_originalValue.y = vector_originalValue.y + number_adjustment;
-            elseif(number_component == 2) then
-                vector_originalValue.z = vector_originalValue.z + number_adjustment;
-            end
-
-            AgentSetProperty(agent_currentSelectedAgent, string_property, vector_originalValue);
-        end
-    end
-end
-
-local ModifiyColorPropertyValueOnAgent = function(string_property, number_channel, number_adjustment, bool_clamp01)
-    if(agent_currentSelectedAgent ~= nil) then
-        if(AgentHasProperty(agent_currentSelectedAgent, string_property)) then
-            local color_originalValue = AgentGetProperty(agent_currentSelectedAgent, string_property);
-
-            if(number_channel == 0) then
-                color_originalValue.r = color_originalValue.r + number_adjustment;
-            elseif(number_channel == 1) then
-                color_originalValue.g = color_originalValue.g + number_adjustment;
-            elseif(number_channel == 2) then
-                color_originalValue.b = color_originalValue.b + number_adjustment;
-            elseif(number_channel == 3) then
-                color_originalValue.a = color_originalValue.a + number_adjustment;
-            end
-
-            if(bool_clamp01) then
-                color_originalValue = TLSE_ColorClamp01(color_originalValue);
-            end
-
-            AgentSetProperty(agent_currentSelectedAgent, string_property, color_originalValue);
-        end
-    end
-end
-
-TLSE_TabRender_OnIncrease_FogMeshColor_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("Fog Mesh Color", 0, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnIncrease_FogMeshColor_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("Fog Mesh Color", 1, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnIncrease_FogMeshColor_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("Fog Mesh Color", 2, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnIncrease_FogMeshColor_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("Fog Mesh Color", 3, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnDecrease_FogMeshColor_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("Fog Mesh Color", 0, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnDecrease_FogMeshColor_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("Fog Mesh Color", 1, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnDecrease_FogMeshColor_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("Fog Mesh Color", 2, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnDecrease_FogMeshColor_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("Fog Mesh Color", 3, -numberPropertyFieldAdjustmentValue, true); end
-
-TLSE_TabRender_OnIncrease_RenderDiffuseColor_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("Render Diffuse Color", 0, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnIncrease_RenderDiffuseColor_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("Render Diffuse Color", 1, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnIncrease_RenderDiffuseColor_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("Render Diffuse Color", 2, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnIncrease_RenderDiffuseColor_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("Render Diffuse Color", 3, numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnDecrease_RenderDiffuseColor_R = function(textButton_button) ModifiyColorPropertyValueOnAgent("Render Diffuse Color", 0, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnDecrease_RenderDiffuseColor_G = function(textButton_button) ModifiyColorPropertyValueOnAgent("Render Diffuse Color", 1, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnDecrease_RenderDiffuseColor_B = function(textButton_button) ModifiyColorPropertyValueOnAgent("Render Diffuse Color", 2, -numberPropertyFieldAdjustmentValue, true); end
-TLSE_TabRender_OnDecrease_RenderDiffuseColor_A = function(textButton_button) ModifiyColorPropertyValueOnAgent("Render Diffuse Color", 3, -numberPropertyFieldAdjustmentValue, true); end
-
-TLSE_TabRender_OnIncrease_ExtentsMin_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Extents Min", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabRender_OnIncrease_ExtentsMin_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Extents Min", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabRender_OnIncrease_ExtentsMin_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Extents Min", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabRender_OnDecrease_ExtentsMin_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Extents Min", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabRender_OnDecrease_ExtentsMin_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Extents Min", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabRender_OnDecrease_ExtentsMin_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Extents Min", 2, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabRender_OnIncrease_ExtentsMax_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Extents Max", 0, numberPropertyFieldAdjustmentValue); end
-TLSE_TabRender_OnIncrease_ExtentsMax_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Extents Max", 1, numberPropertyFieldAdjustmentValue); end
-TLSE_TabRender_OnIncrease_ExtentsMax_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Extents Max", 2, numberPropertyFieldAdjustmentValue); end
-TLSE_TabRender_OnDecrease_ExtentsMax_X = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Extents Max", 0, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabRender_OnDecrease_ExtentsMax_Y = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Extents Max", 1, -numberPropertyFieldAdjustmentValue); end
-TLSE_TabRender_OnDecrease_ExtentsMax_Z = function(textButton_button) ModifiyVector3PropertyValueOnAgent("Extents Max", 2, -numberPropertyFieldAdjustmentValue); end
-
-TLSE_TabRender_OnIncrease_DepthTestFunction = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Render Depth Test Function", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnDecrease_DepthTestFunction = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Render Depth Test Function", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnIncrease_ConstantAlpha = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Render Constant Alpha", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnDecrease_ConstantAlpha = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Render Constant Alpha", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnIncrease_ConstantAlphaMultiply = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Render Constant Alpha Multiply", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnDecrease_ConstantAlphaMultiply = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Render Constant Alpha Multiply", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnIncrease_RenderLayer = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Render Layer", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnDecrease_RenderLayer = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Render Layer", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnIncrease_RenderMaterialTime = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Render Material Time", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnDecrease_RenderMaterialTime = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Render Material Time", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnIncrease_CameraFacingType = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Camera Facing Type", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnDecrease_CameraFacingType = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Camera Facing Type", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnIncrease_FogMeshNearPlane = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Fog Mesh Near Plane", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnDecrease_FogMeshNearPlane = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Fog Mesh Near Plane", -numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnIncrease_FogMeshFarPlane = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Fog Mesh Far Plane", numberPropertyFieldAdjustmentValue, false); end
-TLSE_TabRender_OnDecrease_FogMeshFarPlane = function(textButton_button) ModifiyNumberPropertyValueOnAgent("Fog Mesh Far Plane", -numberPropertyFieldAdjustmentValue, false); end
-
-TLSE_TabRender_OnToggle_Cull = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render Cull"); end
-TLSE_TabRender_OnToggle_Static = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render Static"); end
-TLSE_TabRender_OnToggle_DepthTest = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render Depth Test"); end
-TLSE_TabRender_OnToggle_DepthWrite = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render Depth Write"); end
-TLSE_TabRender_OnToggle_DepthWriteAlpha = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render Depth Write Alpha"); end
-TLSE_TabRender_OnToggle_3DAlpha = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render 3D Alpha"); end
-TLSE_TabRender_OnToggle_ColorWrite = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render Color Write"); end
-TLSE_TabRender_OnToggle_ForceAsAlpha = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render Force As Alpha"); end
-TLSE_TabRender_OnToggle_ShadowForceVisible = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render Shadow Force Visible"); end
-TLSE_TabRender_OnToggle_EnlightenForceVisible = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render Enlighten Force Visible"); end
-TLSE_TabRender_OnToggle_LightShadowCastEnable = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render EnvLight Shadow Cast Enable"); end
-TLSE_TabRender_OnToggle_RecieveShadows = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Recieve Shadows"); end
-TLSE_TabRender_OnToggle_FXColorEnabled = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render FX Color Enabled"); end
-TLSE_TabRender_OnToggle_AutoFocusEnable = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render Auto Focus Enable"); end
-TLSE_TabRender_OnToggle_AfterAntiAliasing = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Render After Anti-Aliasing"); end
-TLSE_TabRender_OnToggle_CameraFacing = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Camera Facing"); end
-TLSE_TabRender_OnToggle_MotionBlurEnabled = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Motion Blur Enabled"); end
-TLSE_TabRender_OnToggle_FogOverrideSettings = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Fog Override settings"); end
-TLSE_TabRender_OnToggle_FogMeshEnabled = function(textButton_button) ModifiyBooleanPropertyValueOnAgent("Fog Mesh Enabled"); end
+TLSE_TabRender_OnToggle_Cull = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render Cull"); end
+TLSE_TabRender_OnToggle_Static = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render Static"); end
+TLSE_TabRender_OnToggle_DepthTest = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render Depth Test"); end
+TLSE_TabRender_OnToggle_DepthWrite = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render Depth Write"); end
+TLSE_TabRender_OnToggle_DepthWriteAlpha = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render Depth Write Alpha"); end
+TLSE_TabRender_OnToggle_3DAlpha = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render 3D Alpha"); end
+TLSE_TabRender_OnToggle_ColorWrite = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render Color Write"); end
+TLSE_TabRender_OnToggle_ForceAsAlpha = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render Force As Alpha"); end
+TLSE_TabRender_OnToggle_ShadowForceVisible = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render Shadow Force Visible"); end
+TLSE_TabRender_OnToggle_EnlightenForceVisible = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render Enlighten Force Visible"); end
+TLSE_TabRender_OnToggle_LightShadowCastEnable = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render EnvLight Shadow Cast Enable"); end
+TLSE_TabRender_OnToggle_RecieveShadows = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Recieve Shadows"); end
+TLSE_TabRender_OnToggle_FXColorEnabled = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render FX Color Enabled"); end
+TLSE_TabRender_OnToggle_AutoFocusEnable = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render Auto Focus Enable"); end
+TLSE_TabRender_OnToggle_AfterAntiAliasing = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Render After Anti-Aliasing"); end
+TLSE_TabRender_OnToggle_CameraFacing = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Camera Facing"); end
+TLSE_TabRender_OnToggle_MotionBlurEnabled = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Motion Blur Enabled"); end
+TLSE_TabRender_OnToggle_FogOverrideSettings = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Override settings"); end
+TLSE_TabRender_OnToggle_FogMeshEnabled = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(agent_currentSelectedAgent, "Fog Mesh Enabled"); end
 
 TLSE_Development_GUI_TabMeshInitalize = function()
     vectorField_extentsMin = TLSE_Development_Editor_GUI_CreateVector3PropertyField(nil, "Extents Min", "Extents Min", Vector(0.685, 0.515, 0.0), true, TLSE_TabRender_OnIncrease_ExtentsMin_X, TLSE_TabRender_OnIncrease_ExtentsMin_Y, TLSE_TabRender_OnIncrease_ExtentsMin_Z, TLSE_TabRender_OnDecrease_ExtentsMin_X, TLSE_TabRender_OnDecrease_ExtentsMin_Y, TLSE_TabRender_OnDecrease_ExtentsMin_Z);
@@ -221,14 +149,6 @@ TLSE_Development_GUI_TabMeshInitalize = function()
 end
 
 TLSE_Development_GUI_TabMeshUpdate = function()
-    if(TLSE_Development_Editor_Input_LeftShiftHold) then
-        numberPropertyFieldAdjustmentValue = 10;
-    elseif(TLSE_Development_Editor_Input_LeftCtrlHold) then
-        numberPropertyFieldAdjustmentValue = 0.01;
-    else
-        numberPropertyFieldAdjustmentValue = 1;
-    end
-
     vectorField_extentsMin["Visible"] = TLSE_Development_GUI_MeshTabActive;
     vectorField_extentsMax["Visible"] = TLSE_Development_GUI_MeshTabActive;
     boolField_renderCull["Visible"] = TLSE_Development_GUI_MeshTabActive;

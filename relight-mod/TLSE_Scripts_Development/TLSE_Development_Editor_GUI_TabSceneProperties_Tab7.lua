@@ -4,17 +4,17 @@ local tab7_colorProperty2 = nil; --(Color) FX Color Tint
 local tab7_numberProperty3 = nil; --(number) FX Color Opacity
 
 --[FX COLOR] 7
-TLSE_TabSceneProperties_OnToggle_Tab7Property1 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent("FX Color Enabled"); end
-TLSE_TabSceneProperties_OnIncrease_Tab7Property2_R = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("FX Color Tint", 0, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab7Property2_G = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("FX Color Tint", 1, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab7Property2_B = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("FX Color Tint", 2, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab7Property2_A = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("FX Color Tint", 3, TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab7Property2_R = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("FX Color Tint", 0, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab7Property2_G = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("FX Color Tint", 1, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab7Property2_B = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("FX Color Tint", 2, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnDecrease_Tab7Property2_A = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent("FX Color Tint", 3, -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, true); end
-TLSE_TabSceneProperties_OnIncrease_Tab7Property3 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Color Opacity", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab7Property3 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Color Opacity", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnToggle_Tab7Property1 = function(textButton_button) TLSE_Development_GUI_ModifiyBooleanPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Color Enabled"); end
+TLSE_TabSceneProperties_OnIncrease_Tab7Property2_R = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Color Tint", 0, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab7Property2_G = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Color Tint", 1, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab7Property2_B = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Color Tint", 2, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab7Property2_A = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Color Tint", 3, TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab7Property2_R = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Color Tint", 0, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab7Property2_G = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Color Tint", 1, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab7Property2_B = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Color Tint", 2, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnDecrease_Tab7Property2_A = function(textButton_button) TLSE_Development_GUI_ModifiyColorPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Color Tint", 3, -TLSE_Development_GUI_PropertyAdjustmentValue, true); end
+TLSE_TabSceneProperties_OnIncrease_Tab7Property3 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Color Opacity", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab7Property3 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Color Opacity", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
 
 TLSE_Development_GUI_TabSceneProperties_Tab7Initalize = function()
     --[FX COLOR] 7

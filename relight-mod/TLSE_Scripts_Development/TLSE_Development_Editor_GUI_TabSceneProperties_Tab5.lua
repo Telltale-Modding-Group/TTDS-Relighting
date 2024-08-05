@@ -3,10 +3,10 @@ local tab5_numberProperty1 = nil; --(number) FX Bloom Threshold
 local tab5_numberProperty2 = nil; --(number) FX Bloom Intensity
 
 --[BLOOM] 5
-TLSE_TabSceneProperties_OnIncrease_Tab5Property1 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Bloom Threshold", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab5Property1 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Bloom Threshold", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnIncrease_Tab5Property2 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Bloom Intensity", TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
-TLSE_TabSceneProperties_OnDecrease_Tab5Property2 = function(textButton_button) TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent("FX Bloom Intensity", -TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab5Property1 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Bloom Threshold", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab5Property1 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Bloom Threshold", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnIncrease_Tab5Property2 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Bloom Intensity", TLSE_Development_GUI_PropertyAdjustmentValue, false); end
+TLSE_TabSceneProperties_OnDecrease_Tab5Property2 = function(textButton_button) TLSE_Development_GUI_ModifiyNumberPropertyValueOnAgent(TLSE_Development_SceneAgent, "FX Bloom Intensity", -TLSE_Development_GUI_PropertyAdjustmentValue, false); end
 
 TLSE_Development_GUI_TabSceneProperties_Tab5Initalize = function()
     --[BLOOM] 5

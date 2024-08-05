@@ -47,78 +47,6 @@ TLSE_TabSceneProperties_Tab20_Active = false;
 TLSE_TabSceneProperties_Tab21_Active = false;
 TLSE_TabSceneProperties_Tab22_Active = false;
 
-TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue = 1;
-
-TLSE_Development_GUI_TabSceneProperties_ModifiyNumberPropertyValueOnAgent = function(string_property, number_adjustment, bool_multiplyByFrameTime)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            if(bool_multiplyByFrameTime) then
-                number_originalValue = number_originalValue + (number_adjustment * GetFrameTime());
-            else
-                number_originalValue = number_originalValue + number_adjustment;
-            end
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, number_originalValue);
-        end
-    end
-end
-
-TLSE_Development_GUI_TabSceneProperties_ModifiyBooleanPropertyValueOnAgent = function(string_property)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local number_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            number_originalValue = not number_originalValue;
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, number_originalValue);
-        end
-    end
-end
-
-TLSE_Development_GUI_TabSceneProperties_ModifiyVector3PropertyValueOnAgent = function(string_property, number_component, number_adjustment)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local vector_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            if(number_component == 0) then
-                vector_originalValue.x = vector_originalValue.x + number_adjustment;
-            elseif(number_component == 1) then
-                vector_originalValue.y = vector_originalValue.y + number_adjustment;
-            elseif(number_component == 2) then
-                vector_originalValue.z = vector_originalValue.z + number_adjustment;
-            end
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, vector_originalValue);
-        end
-    end
-end
-
-TLSE_Development_GUI_TabSceneProperties_ModifiyColorPropertyValueOnAgent = function(string_property, number_channel, number_adjustment, bool_clamp01)
-    if(TLSE_Development_SceneAgent ~= nil) then
-        if(AgentHasProperty(TLSE_Development_SceneAgent, string_property)) then
-            local color_originalValue = AgentGetProperty(TLSE_Development_SceneAgent, string_property);
-
-            if(number_channel == 0) then
-                color_originalValue.r = color_originalValue.r + number_adjustment;
-            elseif(number_channel == 1) then
-                color_originalValue.g = color_originalValue.g + number_adjustment;
-            elseif(number_channel == 2) then
-                color_originalValue.b = color_originalValue.b + number_adjustment;
-            elseif(number_channel == 3) then
-                color_originalValue.a = color_originalValue.a + number_adjustment;
-            end
-
-            if(bool_clamp01) then
-                color_originalValue = TLSE_ColorClamp01(color_originalValue);
-            end
-
-            AgentSetProperty(TLSE_Development_SceneAgent, string_property, color_originalValue);
-        end
-    end
-end
-
 TLSE_TabSceneProperties_OnClick_Tab1 = function(textButton_button) TLSE_TabSceneProperties_CurrentTab = "Tab1"; end
 TLSE_TabSceneProperties_OnClick_Tab2 = function(textButton_button) TLSE_TabSceneProperties_CurrentTab = "Tab2"; end
 TLSE_TabSceneProperties_OnClick_Tab3 = function(textButton_button) TLSE_TabSceneProperties_CurrentTab = "Tab3"; end
@@ -191,14 +119,6 @@ TLSE_Development_GUI_TabScenePropertiesInitalize = function()
 end
 
 TLSE_Development_GUI_TabScenePropertiesUpdate = function()
-    if(TLSE_Development_Editor_Input_LeftShiftHold) then
-        TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue = 10;
-    elseif(TLSE_Development_Editor_Input_LeftCtrlHold) then
-        TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue = 0.01;
-    else
-        TLSE_Development_GUI_TabSceneProperties_NumberPropertyFieldAdjustmentValue = 1;
-    end
-
     TLSE_TabSceneProperties_Tab1_Active = TLSE_TabSceneProperties_CurrentTab == "Tab1" and TLSE_Development_GUI_ScenePropertiesTabActive;
     TLSE_TabSceneProperties_Tab2_Active = TLSE_TabSceneProperties_CurrentTab == "Tab2" and TLSE_Development_GUI_ScenePropertiesTabActive;
     TLSE_TabSceneProperties_Tab3_Active = TLSE_TabSceneProperties_CurrentTab == "Tab3" and TLSE_Development_GUI_ScenePropertiesTabActive;

@@ -1,24 +1,5 @@
-local string_texture_editorColor = "TLSE_Development_EditorGUIGrey.d3dtx";
-
-local label_editorModeTextTopLeft = nil;
-
-local agent_guiGroup = nil;
-local agent_bg_rightSide = nil;
-local agent_bg_inspectorArea = nil;
-local agent_bg_hierarchyArea = nil;
-
-local label_hierarchyTitle = nil;
-
-local textButton_agentTab = nil;
-local textButton_envLightTab = nil;
-local textButton_envFogTab = nil;
-local textButton_meshTab = nil;
-local textButton_scenePropertiesTab = nil;
-local textButton_debugTab = nil;
-
 TLSE_Development_GUI_CursorOverGUI = false;
 TLSE_Development_GUI_BottomRightWindowTab = "Agent";
-
 TLSE_Development_GUI_AgentTabActive = false;
 TLSE_Development_GUI_EnvLightTabActive = false;
 TLSE_Development_GUI_ScenePropertiesTabActive = false;
@@ -26,13 +7,19 @@ TLSE_Development_GUI_EnvFogTabActive = false;
 TLSE_Development_GUI_MeshTabActive = false;
 TLSE_Development_GUI_DebugTabActive = false;
 
-local OnPress_SelectAgentTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Agent"; end
-local OnPress_SelectEnvLightTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "EnvLight"; end
-local OnPress_SelectScenePropertiesTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "SceneProperties"; end
-local OnPress_SelectEnvFogTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "EnvFog"; end
-local OnPress_SelectMeshTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Mesh"; end
-local OnPress_SelectDebugTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Debug"; end
-
+local string_texture_editorColor = "TLSE_Development_EditorGUIGrey.d3dtx";
+local agent_guiGroup = nil;
+local agent_bg_rightSide = nil;
+local agent_bg_inspectorArea = nil;
+local agent_bg_hierarchyArea = nil;
+local label_hierarchyTitle = nil;
+local label_editorModeTextTopLeft = nil;
+local textButton_agentTab = nil;
+local textButton_envLightTab = nil;
+local textButton_envFogTab = nil;
+local textButton_meshTab = nil;
+local textButton_scenePropertiesTab = nil;
+local textButton_debugTab = nil;
 local textButton_hideIcons = nil;
 local textButton_hideSelectionBox = nil;
 local textButton_hideHoverBox = nil;
@@ -41,6 +28,12 @@ local textButton_disableAllLights = nil;
 local textButton_enableAllLights = nil;
 local textButton_killAllControllers = nil;
 
+local OnPress_SelectAgentTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Agent"; end
+local OnPress_SelectEnvLightTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "EnvLight"; end
+local OnPress_SelectScenePropertiesTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "SceneProperties"; end
+local OnPress_SelectEnvFogTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "EnvFog"; end
+local OnPress_SelectMeshTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Mesh"; end
+local OnPress_SelectDebugTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Debug"; end
 local OnPress_HideIcons = function(textButton_button) TLSE_Development_Editor_ObjectIcons_Visible = not TLSE_Development_Editor_ObjectIcons_Visible; end
 local OnPress_HideSelectionBox = function(textButton_button) TLSE_Development_Selection_HideSelectBox = not TLSE_Development_Selection_HideSelectBox; end
 local OnPress_HideHoverBox = function(textButton_button) TLSE_Development_Selection_HideHoverBox = not TLSE_Development_Selection_HideHoverBox; end
