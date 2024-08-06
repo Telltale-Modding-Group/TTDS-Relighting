@@ -40,7 +40,7 @@ As a reminder there is also a github page for this mod, along with all of my oth
 Now on to the actual release notes...
 
 ===== FIXES =====
-- [Fixed] 201 Campfire animation and progression issues caused by enabling the whole season 4 archive. I did this initially so I could get access to S4 particle effects and use them to replace the crappy S2 rain spheres. However additional playtesting revealed that this broke many things that I didn't notice in my testing. The specific particles and assets are now manually included in the relight game override assets archive to prevent those issues (sadly this will bloat the file size of the archive a bit as I haven't figured out a way to load a specific asset from another archive at will without enabling the whole archive).
+- [Fixed] 201 Campfire animation and progression issues caused by enabling the whole season 4 archive. I did this initially so I could get access to S4 particle effects and use them to replace the crappy S2 rain spheres. However additional playtesting revealed that this broke many things that I didn't notice in my testing. The specific particles and assets are now manually included in the relight game override assets archive to prevent those issues.
 - [Fixed] 102 Motor Inn progression issues caused by removing some important agents in a scene. I avoid removing these agents now and just simply hide/disable them.
 
 ===== TWEAKS =====
@@ -56,9 +56,6 @@ Global Configuration Options
 - [Added] "DisablePostProcessing" - Disables all post processing in every scene (useful especially if you are using reshade and want to inject your own post processing).
 - [Added] "DisableFog" - Disables all fog in every scene (useful especially if you are using reshade and want to inject your own post processing).
 - [Added] "RenderScale" - Exposes an internal telltale render function, this value acts like a multiplier for your current screen resolution. (For example, 1.0 at 1080p is 1080p, 2.0 at 1080p is 3840p, 0.5 at 1080p is 720p)
-- [Added] "EnableLetterBoxing" - Adds in a fake letterboxing effect in scenes for those that desire a “cinematic” look.
-- [Added] "EnableSceneTimeScale" - When enabled, will set the scene to a specific time scale on level start.
-- [Added] "SceneTimeScale" - If enabled, this is the time value scale for controlling the speed of a scene. 1 is default; 0.5 is half speed; 2.0 is double speed.
 
 Scene Configuration Options (note that not all of these options are avaliable for every scene for many reasons, mostly due to limitations)
 - [Added] "EnableRelighting" - Enables the main scene relighting, can disable if your not a fan of the new relight style. (NOTE: all other options in relation to a scene will still have an effect even with this disabled).
@@ -80,6 +77,7 @@ Scene Configuration Options (note that not all of these options are avaliable fo
 - [Added] "EnableContentRestoration" - This enables/restores some cut content left over in a scene (visuals only, not gameplay stuff)
 - [Added] "EnableEyeLight" - This enables a specular only eye light to the camera, allowing materials with specular/reflective properties to receive a bit more shine.
 - [Added] "EnableNightLight" - This enables a "night light" to the camera for scenes that are dark by putting a light on the camera and brightening objects that get close to camera.
+- [Added] "FixBotchedMaterialColors" - This enables a fix for material colors in a scene to a proper color.
 
 Relight Development Configuration Options
 - [Added] "PerformanceMetrics" - Enables a UI that shows performance statistics provided by the engine.

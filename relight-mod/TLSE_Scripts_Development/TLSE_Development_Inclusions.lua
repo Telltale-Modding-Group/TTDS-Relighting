@@ -21,6 +21,7 @@ require("TLSE_Development_Editor_GUI_TabEnvLight.lua");
 require("TLSE_Development_Editor_GUI_TabEnvFog.lua");
 require("TLSE_Development_Editor_GUI_TabMesh.lua");
 require("TLSE_Development_Editor_GUI_TabDebug.lua");
+require("TLSE_Development_Editor_GUI_TabEditor.lua");
 require("TLSE_Development_Editor_GUI_TabSceneHierarchy.lua");
 require("TLSE_Development_Editor_GUI_TabSceneProperties.lua");
 require("TLSE_Development_Editor_GUI_TabSceneProperties_Tab1.lua");

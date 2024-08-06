@@ -5,6 +5,8 @@
 --This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
 
 require("RELIGHT_Include.lua");
+require("RELIGHT_SnowyPowerStation.lua");
+require("adv_snowyPowerStation_SceneChanges.lua");
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -38,11 +40,24 @@ RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
 RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
 RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = false;
 RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
-RELIGHT_DOF_AUTOFOCUS_FocalRange = 1.0;
+RELIGHT_DOF_AUTOFOCUS_FocalRange = 0.25;
+RELIGHT_DOF_AUTOFOCUS_Aperture = 2.8;
 RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = {};
 RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
 {
-    "Clementine"
+    "Clementine",
+    "Bonnie",
+    "Baby_kenny",
+    "Kenny",
+    "Mike",
+    "Arvo",
+    "Luke",
+    "Jane",
+    "Baby",
+    "Baby_kenny_wrist_L",
+    "Baby_clementine",
+    "Baby_bonnie",
+
 };
 RELIGHT_DOF_AUTOFOCUS_Settings =
 {
@@ -56,11 +71,10 @@ RELIGHT_DOF_AUTOFOCUS_Settings =
 };
 RELIGHT_DOF_AUTOFOCUS_BokehSettings =
 {
-    BokehBrightnessDeltaThreshold = 0.02,
-    BokehBrightnessThreshold = 0.02,
+    BokehBrightnessDeltaThreshold = 0.05,
+    BokehBrightnessThreshold = 0.05,
     BokehBlurThreshold = 0.05,
-    BokehMinSize = 0.0,
-    BokehMaxSize = 0.03,
+    BokehMaxSizeClamp = 0.035,
     BokehFalloff = 0.75,
     MaxBokehBufferAmount = 1.0,
     BokehPatternTexture = "bokeh_circle.d3dtx"
@@ -234,10 +248,20 @@ function SnowyPowerStation()
 
   RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
 
+  RELIGHT_SkydomeReplacement_Initalize();
+  RELIGHT_FixBotchedMaterialColors();
+
+  TLSE_SceneRelight(RELIGHT_SceneObjectAgentName, RELIGHT_SceneObject);
+
+  RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF(nil);
+  Callback_OnPostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus);
+
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then
     TLSE_Development_Editor_Start();
     Callback_OnPostUpdate:Add(TLSE_Development_Editor_Update);
+
+    --OriginalTelltaleLevelStartLogic();
     do return end --don't continue
   end
 

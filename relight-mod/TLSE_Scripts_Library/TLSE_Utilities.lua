@@ -27,6 +27,21 @@ TLSE_GetTableType = function(tableValue)
     return stringType;
 end
 
+TLSE_SetAllPropertyColors = function(agent_object, color_newColor)
+    local propertySet_agent = AgentGetProperties(agent_object);
+    local propertySetKeys_agent = PropertyGetKeys(propertySet_agent);
+
+    for index, symbol_propertyKey in pairs(propertySetKeys_agent) do
+        local type_propertyValue = PropertyGet(propertySet_agent, symbol_propertyKey);
+
+        if(TypeName(type_propertyValue) == "table") then
+            if(TLSE_GetTableType(type_propertyValue) == "color") then
+                AgentSetProperty(agent_object, symbol_propertyKey, color_newColor);
+            end
+        end
+    end
+end
+
 TLSE_GetTableSize = function(table)
     local number_size = 1;
 

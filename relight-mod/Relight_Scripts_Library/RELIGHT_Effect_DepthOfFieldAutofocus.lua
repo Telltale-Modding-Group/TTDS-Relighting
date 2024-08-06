@@ -12,6 +12,7 @@ RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = false;
 RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = true;
 RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
 RELIGHT_DOF_AUTOFOCUS_FocalRange = 1.0;
+RELIGHT_DOF_AUTOFOCUS_Aperture = 4.0;
 RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = 
 { 
     "cameraAgentName",
@@ -32,11 +33,10 @@ RELIGHT_DOF_AUTOFOCUS_Settings =
 };
 RELIGHT_DOF_AUTOFOCUS_BokehSettings =
 {
-    BokehBrightnessDeltaThreshold = 0.02,
-    BokehBrightnessThreshold = 0.02,
-    BokehBlurThreshold = 0.02,
-    BokehMinSize = 0.0,
-    BokehMaxSize = 0.035,
+    BokehBrightnessDeltaThreshold = 0.05,
+    BokehBrightnessThreshold = 0.05,
+    BokehBlurThreshold = 0.05,
+    BokehMaxSizeClamp = 0.125,
     BokehFalloff = 1.0,
     MaxBokehBufferAmount = 1.0,
     BokehPatternTexture = "bokeh_circle.d3dtx"
@@ -68,12 +68,33 @@ local bool_currentEnabledDOF = false;
 local number_nearFocusTargetDistance = 0;
 local number_farFocusTargetDistance = 0;
 
+local number_bokehSize = 0;
+
 local vector_sensorSize_16mm = Vector(10.26, 7.49, 0);
-local vector_sensorsSize_MicroFourThirds = Vector(17.3, 13, 0);
+local vector_sensorsSize_MicroFourThirds = Vector(18, 13.5, 0);
 local vector_sensorsSize_Super35mm = Vector(24, 14, 0);
 local vector_sensorsSize_35mmFullFrame = Vector(36, 24, 0);
-local vector_sensorsSize_MeduimFormat645 = Vector(56, 41.5, 0);
+local vector_sensorsSize_MeduimFormat645 = Vector(42, 56, 0);
 local vector_sensorsSize_IMAX = Vector(70.4, 52.6, 0);
+local vector_sensorsSize_4x5 = Vector(127, 102, 0);
+
+local agentTable_focusTargets = {};
+
+local SetupFocusTargets = function()
+    for index, string_objectName in ipairs(RELIGHT_DOF_AUTOFOCUS_ObjectEntries) do
+        local agent_objectEntry = AgentFindInScene(string_objectName, RELIGHT_SceneObject); --Agent type
+
+        if(agent_objectEntry ~= nil) then
+            local agent_focusTarget = AgentCreate("RELIGHT_FocusTarget_" .. string_objectName, "group.prop", Vector(0, 0, 0), Vector(0, 0, 0), RELIGHT_SceneObject, false, false);
+
+            AgentAttachToNode(agent_focusTarget, agent_objectEntry, "head");
+            AgentSetPos(agent_focusTarget, Vector(0, 0, 0));
+            AgentSetRot(agent_focusTarget, Vector(0, 0, 0));
+
+            table.insert(agentTable_focusTargets, agent_focusTarget);
+        end
+    end
+end
 
 local CalculateCameraProperties = function()
     local agent_currentCamera = SceneGetCamera(RELIGHT_SceneObject);
@@ -88,61 +109,37 @@ local CalculateCameraProperties = function()
     local number_radiansHorizontalFOV = math.rad(number_finalHorizontalFOV);
     --local number_radiansVerticalFOV = math.rad(number_finalVerticalFOV);
 
-    local number_aperture = 1;
+    local number_aperture = RELIGHT_DOF_AUTOFOCUS_Aperture;
 
-    local vector_sensorSize = vector_sensorsSize_IMAX;
-
-    --FORMULA | diagonal = sqrt(width ^ 2 + length ^ 2)
-    local number_diagonalSize = math.sqrt((vector_sensorSize.x * vector_sensorSize.x) + (vector_sensorSize.y * vector_sensorSize.y));
+    local vector_sensorSize = vector_sensorsSize_35mmFullFrame;
+    local number_sensordiagonalSize = math.sqrt((vector_sensorSize.x * vector_sensorSize.x) + (vector_sensorSize.y * vector_sensorSize.y));
+    local number_horizontalMagnification = vector_sensorSize.x / number_radiansHorizontalFOV;
 
     --FORMULA | circle of confusion (CoC) = sensor diagonal / 1500
-    local number_circleOfConfusion = number_diagonalSize / 1500; --NOTE: 1500 is modern standard approximation, 1000 is traditional zeiss standard, 1730 is sometimes used.
+    local number_circleOfConfusionConstant = number_sensordiagonalSize / 1500; --NOTE: 1500 is modern standard approximation, 1000 is traditional zeiss standard, 1730 is sometimes used.
 
-    --FORMULA | focal length = sensor size / (2 * tan(FOV in radians / 2))
     local number_horizontalFocalLength = vector_sensorSize.x / (2 * math.tan(number_radiansHorizontalFOV / 2));
     --local number_verticalFocalLength = vector_sensorSize.y / (2 * math.tan(number_radiansVerticalFOV / 2));
 
-    --FORMULA | hyperfocal = ((focal length ^ 2) / (aperture * CoC)) + focal length
-    local number_hyperfocalDistance = ((number_horizontalFocalLength * number_horizontalFocalLength) / (number_aperture * number_circleOfConfusion)) + number_horizontalFocalLength;
+    local number_hyperfocalDistance = (number_horizontalFocalLength * number_horizontalFocalLength) / (number_aperture * number_circleOfConfusionConstant) + number_horizontalFocalLength;
+    local number_circleOfConfusion = (number_horizontalFocalLength * number_horizontalFocalLength * (number_focalDistanceInMM - number_hyperfocalDistance)) / (number_focalDistanceInMM * number_aperture * (number_hyperfocalDistance - number_horizontalFocalLength));
+    number_circleOfConfusion = math.abs(number_circleOfConfusion);
 
-    --FORMULA | near distance = (hyperfocal * focus distance) / (hyperfocal + (focus distance - focal length))
+    --NOTE: despite the effort here for getting a physically accurate near/far plane calculation for the given "exposure", the bokeh size here is not 100% accurate so it was eyeballed a bit to get it to roughly match reality.
+    number_bokehSize = TLSE_NumberClamp(number_circleOfConfusion / 16, 0, RELIGHT_DOF_AUTOFOCUS_BokehSettings["BokehMaxSizeClamp"]);
+
     local number_nearFocusDistance = (number_hyperfocalDistance * number_focalDistanceInMM) / (number_hyperfocalDistance + (number_focalDistanceInMM - number_horizontalFocalLength));
-
-    --FORMULA | far distance = (hyperfocal * focus distance) / (hyperfocal + (focus distance - focal length))
     local number_farFocusDistance = (number_hyperfocalDistance * number_focalDistanceInMM) / (number_hyperfocalDistance - (number_focalDistanceInMM - number_horizontalFocalLength));
 
     number_currentNearFocusDistance = number_nearFocusDistance / 1000; --NOTE: Divide by 1000 to get value in meters
     number_currentFarFocusDistance = number_farFocusDistance / 1000; --NOTE: Divide by 1000 to get value in meters
+    
+    --add focal range offset
+    number_currentNearFocusDistance = number_currentNearFocusDistance - RELIGHT_DOF_AUTOFOCUS_FocalRange;
+    number_currentFarFocusDistance = number_currentFarFocusDistance + RELIGHT_DOF_AUTOFOCUS_FocalRange;
 
-    number_currentFarFalloff = 0; 
-    number_currentNearFallof = 0; 
-
-    --RELIGHT_DOF_AUTOFOCUS_BokehSettings["BokehMaxSize"] = number_circleOfConfusion;
-
-end
-
---disables cel shaded outlines in a scene
-RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF = function(relightConfigLevel)
-    --local bool_dofEnabled = relightConfigLevel.EnableDepthOfField;
-    local bool_dofEnabled = true;
-
-    if(bool_dofEnabled == false) then
-        RenderSetFeatureEnabled("dof", false);
-        RenderSetFeatureEnabled("bokeh", false);
-        do return end
-    end
-
-    RenderSetFeatureEnabled("dof", true);
-
-    if(RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF == true) then
-        PropertySet(GetPreferences(), "Use Legacy DOF", true);
-        RenderSetFeatureEnabled("bokeh", false);
-    else
-        PropertySet(GetPreferences(), "Use Legacy DOF", false);
-        RenderSetFeatureEnabled("bokeh", true);
-    end
-
-    agent_sceneAgent = AgentFindInScene(RELIGHT_SceneObjectAgentName, RELIGHT_SceneObject);
+    number_currentFarFalloff = 1 / number_circleOfConfusion; 
+    number_currentNearFallof = 1 / number_circleOfConfusion; 
 end
 
 local GetValidTargetsFromEntries = function()
@@ -157,42 +154,30 @@ local GetValidTargetsFromEntries = function()
     local agentTable_validAgents = {}; --Agent array
     
     --find all of the valid target objects in the scene
-    for i, string_objectEntryName in ipairs(RELIGHT_DOF_AUTOFOCUS_ObjectEntries) do
-        --find the given object in the current scene
-        local agent_objectEntry = AgentFindInScene(string_objectEntryName, RELIGHT_SceneObject); --Agent type
-        
-        --if the object exists
-        if (agent_objectEntry) then
-            --assign our variables
-            local bool_isObjectOnScreen = AgentIsOnScreen(agent_objectEntry);
-            local bool_isObjectVisible = AgentGetProperty(agent_objectEntry, "Runtime: Visible");
-            local number_objectDistance = AgentDistanceToAgent(agent_objectEntry, agent_currentCamera);
-            local vector_objectForward = AgentGetForwardVec(agent_objectEntry);
-            local number_objectDotProduct = VectorDot(vector_currentCameraForward, vector_objectForward);
+    for i, agent_focusTarget in ipairs(agentTable_focusTargets) do
+        local bool_isObjectOnScreen = AgentIsOnScreen(agent_focusTarget);
+        local bool_isObjectVisible = AgentGetProperty(AgentGetParent(agent_focusTarget), "Runtime: Visible");
+        local number_objectDistance = AgentDistanceToAgent(agent_focusTarget, agent_currentCamera);
 
-            --variable to determine whether the given object is a valid target for autofocusing
-            local bool_isValidTarget = true;
+        --local vector_objectForward = AgentGetForwardVec(agent_focusTarget);
+        --local vector_objectForward = AgentGetRightVec(agent_focusTarget);
+        local vector_objectForward = TLSE_VectorAverage(AgentGetForwardVec(agent_focusTarget), AgentGetForwardVec(AgentGetParent(agent_focusTarget)));
 
-            --check if the target is on the screen
-            if (bool_isValidTarget == true) and (RELIGHT_DOF_AUTOFOCUS_Settings["TargetValidation_IsOnScreen"]) and (bool_isObjectOnScreen == false) then bool_isValidTarget = false; end
-            
-            --check if the target's visibillity is disabled
-            if (bool_isValidTarget == true) and (RELIGHT_DOF_AUTOFOCUS_Settings["TargetValidation_IsVisible"]) and (bool_isObjectVisible == false) then bool_isValidTarget = false; end
-            
-            --check if the target is too far from camera
-            if (bool_isValidTarget == true) and (RELIGHT_DOF_AUTOFOCUS_Settings["TargetValidation_IsWithinDistance"]) and (number_objectDistance > number_rejectionDistance) then bool_isValidTarget = false; end
 
-            --check if the target is not within the rejection angle relative to the camera
-            if (bool_isValidTarget == true) and (RELIGHT_DOF_AUTOFOCUS_Settings["TargetValidation_IsFacingCamera"]) and (number_objectDotProduct > number_rejectionAngle) then bool_isValidTarget = false; end
+        local number_objectDotProduct = VectorDot(vector_currentCameraForward, vector_objectForward);
+        local bool_isValidTarget = true;
+
+        if (bool_isValidTarget == true) and (RELIGHT_DOF_AUTOFOCUS_Settings["TargetValidation_IsOnScreen"]) and (bool_isObjectOnScreen == false) then bool_isValidTarget = false; end
+
+        if (bool_isValidTarget == true) and (RELIGHT_DOF_AUTOFOCUS_Settings["TargetValidation_IsVisible"]) and (bool_isObjectVisible == false) then bool_isValidTarget = false; end
+
+        if (bool_isValidTarget == true) and (RELIGHT_DOF_AUTOFOCUS_Settings["TargetValidation_IsWithinDistance"]) and (number_objectDistance > number_rejectionDistance) then bool_isValidTarget = false; end
+
+        if (bool_isValidTarget == true) and (RELIGHT_DOF_AUTOFOCUS_Settings["TargetValidation_IsFacingCamera"]) and (number_objectDotProduct < number_rejectionAngle) then bool_isValidTarget = false; end
             
-            --perform a raycast, if the ray intersects with the scene then the target is occluded and therefore, not valid.
-            --if (bool_isValidTarget == true) and (RELIGHT_DOF_AUTOFOCUS_Settings["TargetValidation_IsOccluded"]) and (RELIGHT_RaycastFromAgentToAgent(agent_objectEntry, agent_currentCamera) == true) then bool_isValidTarget = false; end
-            
-            --if the target is valid and passed all of our checks
-            if (bool_isValidTarget == true) then
-                --add it to the array of valid agents
-                table.insert(agentTable_validAgents, agent_objectEntry);
-            end
+        --if the target is valid and passed all of our checks
+        if (bool_isValidTarget == true) then
+            table.insert(agentTable_validAgents, agent_focusTarget);
         end
     end
 
@@ -202,7 +187,7 @@ end
 local ApplyDepthOfFieldSettings = function()
     local agent_currentCamera = SceneGetCamera(RELIGHT_SceneObject); --Agent type
 
-    --CalculateCameraProperties();
+    CalculateCameraProperties();
 
     if (RELIGHT_DOF_AUTOFOCUS_UseCameraDOF == true) then
         --Use the DOF properties on the camera itself
@@ -210,15 +195,15 @@ local ApplyDepthOfFieldSettings = function()
         AgentSetProperty(agent_currentCamera, "Use High Quality DOF", true);
         AgentSetProperty(agent_currentCamera, "Depth Of Field Type", 1);
         AgentSetProperty(agent_currentCamera, "Depth Of Field Blur Strength", 15);
-        AgentSetProperty(agent_currentCamera, "Depth Of Field Coverage Boost", 2);
+        AgentSetProperty(agent_currentCamera, "Depth Of Field Coverage Boost", 5);
 
         if(RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF == true) then
             AgentSetProperty(agent_currentCamera, "Use Bokeh", true, RELIGHT_SceneObject);
             AgentSetProperty(agent_currentCamera, "Bokeh Brightness Delta Threshold", RELIGHT_DOF_AUTOFOCUS_BokehSettings.BokehBrightnessDeltaThreshold);
             AgentSetProperty(agent_currentCamera, "Bokeh Brightness Threshold", RELIGHT_DOF_AUTOFOCUS_BokehSettings.BokehBrightnessThreshold);
             AgentSetProperty(agent_currentCamera, "Bokeh Blur Threshold", RELIGHT_DOF_AUTOFOCUS_BokehSettings.BokehBlurThreshold);
-            AgentSetProperty(agent_currentCamera, "Bokeh Min Size", RELIGHT_DOF_AUTOFOCUS_BokehSettings.BokehMinSize);
-            AgentSetProperty(agent_currentCamera, "Bokeh Max Size", RELIGHT_DOF_AUTOFOCUS_BokehSettings.BokehMaxSize);
+            AgentSetProperty(agent_currentCamera, "Bokeh Min Size", 0);
+            AgentSetProperty(agent_currentCamera, "Bokeh Max Size", number_bokehSize);
             AgentSetProperty(agent_currentCamera, "Bokeh Falloff", RELIGHT_DOF_AUTOFOCUS_BokehSettings.BokehFalloff);
             AgentSetProperty(agent_currentCamera, "Max Bokeh Buffer Amount", RELIGHT_DOF_AUTOFOCUS_BokehSettings.MaxBokehBufferAmount);
             AgentSetProperty(agent_currentCamera, "Bokeh Pattern Texture", RELIGHT_DOF_AUTOFOCUS_BokehSettings.BokehPatternTexture);
@@ -244,48 +229,55 @@ local ApplyDepthOfFieldSettings = function()
     end
 end
 
-RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus = function()
-    --FUTURE ADDITION: would be nice to add smooth interpolation to the DOF so focus doesn't snap constantly if an object appears/dissapears offscreen
+RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF = function(relightConfigLevel)
+    --local bool_dofEnabled = relightConfigLevel.EnableDepthOfField;
+    local bool_dofEnabled = true;
 
-    -------------------------------------------------------------
-    --get the current camera, normally we would just cache this but scene cameras change all the time
-    local agent_currentCamera = SceneGetCamera(RELIGHT_SceneObject); --Agent type
-    local string_currentCameraName = tostring(AgentGetName(agent_currentCamera)); --String type
-    local number_currentCameraFarPlane = AgentGetProperty(agent_currentCamera, "Clip Plane - Far"); --Number type
-    local number_currentCameraNearPlane = AgentGetProperty(agent_currentCamera, "Clip Plane - Near"); --Number type
-    local vector_currentCameraPosition = AgentGetWorldPos(agent_currentCamera); --Vector type
-        
-    -------------------------------------------------------------
-    --start by finding all of the valid targets within the scene
-    
-    --list of valid target agents
+    if(bool_dofEnabled == false) then
+        RenderSetFeatureEnabled("dof", false);
+        RenderSetFeatureEnabled("bokeh", false);
+        do return end
+    end
+
+    RenderSetFeatureEnabled("dof", true);
+
+    if(RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF == true) then
+        PropertySet(GetPreferences(), "Use Legacy DOF", true);
+        RenderSetFeatureEnabled("bokeh", false);
+    else
+        PropertySet(GetPreferences(), "Use Legacy DOF", false);
+        RenderSetFeatureEnabled("bokeh", true);
+    end
+
+    agent_sceneAgent = AgentFindInScene(RELIGHT_SceneObjectAgentName, RELIGHT_SceneObject);
+
+    SetupFocusTargets();
+end
+
+RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus = function()
+    local agent_currentCamera = SceneGetCamera(RELIGHT_SceneObject);
+    local string_currentCameraName = tostring(AgentGetName(agent_currentCamera));
+    local vector_currentCameraPosition = AgentGetWorldPos(agent_currentCamera);
+
     local agentTable_validAgents = GetValidTargetsFromEntries();
     
     -------------------------------------------------------------
     --once we have our valid agents, filter through that list to obtain the nearest/farthest targets
-    
-    --create our near target variables that will be filled with data later 
+
     local agent_nearFocusTarget = nil;
-    local vector_nearFocusTargetPosition = nil;
-    
-    --create our far target variables that will be filled with data later 
     local agent_farFocusTarget = nil;
+    local vector_nearFocusTargetPosition = nil;
     local vector_farFocusTargetPosition = nil;
 
-    --go through the array of valid agents
-    for x, agent_validAgent in ipairs(agentTable_validAgents) do
-        --get the nearest agent
-        if (agent_nearFocusTarget) then
-            --if our near target is assigned, then compare it with the next valid agent in the scene and return the closest one.
-            agent_nearFocusTarget = RELIGHT_GetNearestAgent(agent_currentCamera, agent_nearFocusTarget, agent_validAgent);
+    for index, agent_validAgent in pairs(agentTable_validAgents) do
+        if (agent_nearFocusTarget ~= nil) then
+            agent_nearFocusTarget = TLSE_GetNearestAgent(agent_currentCamera, agent_nearFocusTarget, agent_validAgent);
         else
             agent_nearFocusTarget = agent_validAgent;
         end
         
-        --get the farthest agent
-        if (agent_farFocusTarget) then
-            --if our near target is assigned, then compare it with the next valid agent in the scene and return the farthest one.
-            agent_farFocusTarget = RELIGHT_GetFarthestAgent(agent_currentCamera, agent_farFocusTarget, agent_validAgent);
+        if (agent_farFocusTarget ~= nil) then
+            agent_farFocusTarget = TLSE_GetFarthestAgent(agent_currentCamera, agent_farFocusTarget, agent_validAgent);
         else
             agent_farFocusTarget = agent_validAgent;
         end
@@ -297,23 +289,19 @@ RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus = function()
     end
 
     -------------------------------------------------------------
-    --create our states
-    local bool_stateIsMultiTarget = false; --bool type
-    local bool_stateIsSingleTarget = false; --bool type
-    local bool_stateIsDisabled = false; --bool type
+    local bool_stateIsMultiTarget = false; 
+    local bool_stateIsSingleTarget = false;
+    local bool_stateIsDisabled = false;
     
-    if (agent_nearFocusTarget) and (not agent_farFocusTarget) then
-        --if our near target is assigned but our far target is nil
+    if (agent_nearFocusTarget) and (not agent_farFocusTarget) then --if our near target is assigned but our far target is nil
         bool_stateIsMultiTarget = false;
         bool_stateIsSingleTarget = true;
         bool_stateIsDisabled = false;
-    elseif (agent_nearFocusTarget) and (agent_farFocusTarget) then
-        --if both our near and far targets are assigned
+    elseif (agent_nearFocusTarget) and (agent_farFocusTarget) then --if both our near and far targets are assigned
         bool_stateIsMultiTarget = true;
         bool_stateIsSingleTarget = false;
         bool_stateIsDisabled = false;
-    else
-        --disable DOF because no targets are in the frame currently
+    else --disable DOF because no targets are in the frame currently
         bool_stateIsMultiTarget = false;
         bool_stateIsSingleTarget = false;
         bool_stateIsDisabled = true;
@@ -323,13 +311,9 @@ RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus = function()
     --disable DOF when a gameplay camera is in use
     --if the current active camera is a gameplay camera so to speak, then don't enable DOF
 
-    --loop through all of the gameplay camera names that are defined in a scene
-    for i, name in ipairs(RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames) do
-        --if the current camera is infact a gameplay camera
-        if (string_currentCameraName == RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames[i]) then
-            --disable DOF, even if there are valid targets since currently we are on a gameplay camera
+    for i, string_gameplayCameraName in pairs(RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames) do
+        if (string_currentCameraName == string_gameplayCameraName) then
             bool_stateIsDisabled = true;
-            
             break
         end
     end
@@ -339,25 +323,26 @@ RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus = function()
     
     --if we have a near target assigned, get the data we need
     if (agent_nearFocusTarget) then
+        --vector_nearFocusTargetPosition = GetClosestFocusPosition(agent_nearFocusTarget, vector_currentCameraPosition);
         vector_nearFocusTargetPosition = AgentGetWorldPos(agent_nearFocusTarget);
-        number_nearFocusTargetDistance = AgentDistanceToAgent(agent_nearFocusTarget, agent_currentCamera);
+        number_nearFocusTargetDistance = VectorDistance(vector_nearFocusTargetPosition, vector_currentCameraPosition);
     end
     
     --if we have a far target assigned, get the data we need
     if (agent_farFocusTarget) then
+        --vector_farFocusTargetPosition = GetClosestFocusPosition(agent_farFocusTarget, vector_currentCameraPosition);
         vector_farFocusTargetPosition = AgentGetWorldPos(agent_farFocusTarget);
-        number_farFocusTargetDistance = AgentDistanceToAgent(agent_farFocusTarget, agent_currentCamera);
+        number_farFocusTargetDistance = VectorDistance(vector_farFocusTargetPosition, vector_currentCameraPosition);
     end
     
     -------------------------------------------------------------
     --main DOF autofocus calculation
-    
-    --main focus variables
+
     number_focalRange = RELIGHT_DOF_AUTOFOCUS_FocalRange;
     number_focalDistance = 0;
     number_focalRangeOffset = number_focalRange; 
-    number_focalFarMax = 0;
-    number_focalNearMax = 0;
+    number_focalFarMax = 1;
+    number_focalNearMax = 1;
     number_focalFarFallof = 4; 
     number_focalNearFallof = 4;
     
@@ -367,8 +352,6 @@ RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus = function()
 
         number_focalDistance = number_nearFocusTargetDistance;
         number_focalRangeOffset = number_focalRange;
-        number_focalFarMax = number_currentCameraFarPlane / 2.0;
-        number_focalNearMax = number_focalDistance / 2.0;
     elseif (bool_stateIsMultiTarget == true) then
         --both focus targets are on screen
         
@@ -383,16 +366,14 @@ RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus = function()
         local number_absoluteDistanceDifference = math.abs(number_distanceDifference); --get the absolute value
         
         --add the distance difference to extend the depth of field so both the nearest and farthest targets are in focus
-        number_focalDistance = number_averageFocalDistance;
-        number_focalRangeOffset = number_focalRange + (number_absoluteDistanceDifference / 2.0);
-        number_focalFarMax = number_currentCameraFarPlane / 2.0;
-        number_focalNearMax = number_focalDistance / 2.0;
+        --number_focalDistance = number_averageFocalDistance;
+        --number_focalRangeOffset = number_focalRange + (number_absoluteDistanceDifference / 2.0);
+        number_focalDistance = number_nearFocusTargetDistance;
+        number_focalRangeOffset = number_focalRange;
     elseif (bool_stateIsDisabled == true) then
         --disable DOF because neither targets are on screen
         number_focalDistance = 0;
         number_focalRangeOffset = 1000000;
-        number_focalFarMax = 0;
-        number_focalNearMax = 0;
     end
 
     -------------------------------------------------------------
@@ -400,11 +381,11 @@ RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus = function()
     
     --get our current values
     number_currentNearFocusDistance = number_focalDistance - number_focalRangeOffset;
-    number_currentNearFallof = number_focalNearFallof;
-    number_currentNearMax = number_focalNearMax;
+    number_currentNearFallof = 0;
+    number_currentNearMax = 6;
     number_currentFarFocusDistance = number_focalDistance + number_focalRangeOffset;
-    number_currentFarFalloff = number_focalFarFallof;
-    number_currentFarMax = number_focalFarMax;
+    number_currentFarFalloff = 0;
+    number_currentFarMax = 6;
     bool_currentEnabledDOF = not bool_stateIsDisabled;
 
     ApplyDepthOfFieldSettings();
