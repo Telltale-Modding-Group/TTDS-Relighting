@@ -23,6 +23,16 @@ TLSE_ColorClamp01 = function(color)
     return Color(number_newColorR, number_newColorG, number_newColorB, number_newColorA);
 end
 
+TLSE_RGBColor = function(number_r, number_g, number_b)
+    local number_scalar  = 1 / 255;
+    
+    local number_scaledR = number_r * number_scalar;
+    local number_scaledG = number_g * number_scalar;
+    local number_scaledB = number_b * number_scalar;
+
+    return Color(number_scaledR, number_scaledG, number_scaledB, 1.0);
+end
+
 --[[
 This is a "wrapper" around telltale's normal built-in Color type.
 The difference however is that these will take in values from (0 - 255).

@@ -19,5 +19,6 @@ require("RELIGHT_Effect_DepthOfFieldAutofocus.lua");
 require("RELIGHT_Effect_HackyCameraVolumetrics.lua");
 require("RELIGHT_Effect_LensFlare.lua");
 require("RELIGHT_Effect_ProcedualGrass.lua");
+require("RELIGHT_Effect_Letterboxing.lua");
 require("RELIGHT_GlobalAdjustments.lua");
 require("RELIGHT_SceneAdjustments.lua");

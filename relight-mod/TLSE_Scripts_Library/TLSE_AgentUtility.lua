@@ -205,6 +205,19 @@ TLSE_GetAllCameraAgentsInScene = function(string_scene)
     return agentTable_cameraAgents;
 end
 
+TLSE_GetAllMeshAgentsInScene = function(string_scene)
+    local agentTable_sceneAgents = SceneGetAgents(string_scene);
+    local agentTable_cameraAgents = {};
+
+    for index, agent_sceneAgent in pairs(agentTable_sceneAgents) do
+        if(TLSE_AgentIsMesh(agent_sceneAgent)) then
+            table.insert(agentTable_cameraAgents, agent_sceneAgent);
+        end
+    end
+
+    return agentTable_cameraAgents;
+end
+
 --||||||||||||||||||||||||| UTILITY |||||||||||||||||||||||||
 --||||||||||||||||||||||||| UTILITY |||||||||||||||||||||||||
 --||||||||||||||||||||||||| UTILITY |||||||||||||||||||||||||

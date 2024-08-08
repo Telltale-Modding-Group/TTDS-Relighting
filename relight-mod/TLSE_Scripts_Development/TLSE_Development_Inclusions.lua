@@ -4,6 +4,8 @@ print("[TLSE_Development_Inclusions.lua] Development Library Inclusions Block")
 --Telltale Lua Script Extensions Development Tools
 require("TLSE_Development_Freecam.lua");
 require("TLSE_Development_PerformanceMetrics.lua");
+require("TLSE_Development_AxisDebug.lua");
+require("TLSE_Development_CameraInfo.lua");
 require("TLSE_Development_Printing.lua");
 
 require("TLSE_Development_Editor.lua");

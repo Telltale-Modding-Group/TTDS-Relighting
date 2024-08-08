@@ -5,6 +5,7 @@
 --This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
 
 require("RELIGHT_Include.lua");
+require("RELIGHT_adv_dairyMeatLocker.lua");
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -38,11 +39,30 @@ RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
 RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
 RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = false;
 RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
-RELIGHT_DOF_AUTOFOCUS_FocalRange = 1.0;
-RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = {};
+RELIGHT_DOF_AUTOFOCUS_FocalRange = 0.125;
+RELIGHT_DOF_AUTOFOCUS_Aperture = 1.4; --f/1.0, f/1.4, f/2, f/2.8, f/4, f/5.6, f/8, f/11, f/16, f22, f/32
+RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = 
+{
+    "cam_struggle",
+    "cam_larryPockets_nav",
+    "cam_larryPockets_parent",
+    "cam_airConditioner_nav",
+    "cam_airConditioner_parent",
+    "cam_mainNav_parent",
+    "cam_mainNav",
+    "cam_postDeathNav",
+    "cam_postDeathNav_parent",
+    "cam_larryPockets_nav",
+    "cam_larryPockets_nav",
+    "cam_larryPockets_nav",
+};
 RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
 {
-    "Clementine"
+    "Clementine",
+    "Kenny",
+    "Lee",
+    "Larry",
+    "Lilly"
 };
 RELIGHT_DOF_AUTOFOCUS_Settings =
 {
@@ -52,27 +72,27 @@ RELIGHT_DOF_AUTOFOCUS_Settings =
     TargetValidation_IsFacingCamera = true,
     TargetValidation_IsOccluded = false,
     TargetValidation_RejectionAngle = 0.0, --goes from -1 to 1 (less than 0 is within the 180 forward facing fov of the given object)
-    TargetValidation_RejectionDistance = 40.0, --the max distance before the agent is too far from camera to do autofocus
+    TargetValidation_RejectionDistance = 5.0, --the max distance before the agent is too far from camera to do autofocus
 };
 RELIGHT_DOF_AUTOFOCUS_BokehSettings =
 {
     BokehBrightnessDeltaThreshold = 0.02,
     BokehBrightnessThreshold = 0.02,
-    BokehBlurThreshold = 0.05,
-    BokehMinSize = 0.0,
-    BokehMaxSize = 0.03,
-    BokehFalloff = 0.75,
+    BokehBlurThreshold = 0.02,
+    BokehMaxSizeClamp = 0.075,
+    BokehFalloff = 0.65,
     MaxBokehBufferAmount = 1.0,
     BokehPatternTexture = "bokeh_circle.d3dtx"
+    --BokehPatternTexture = "bokeh_anamorphic2.d3dtx"
 };
 
 --Relight Volumetrics
 RELIGHT_HackyCameraVolumetrics_Settings = 
 {
-    Samples = 256,
-    SampleOffset = 0.15,
+    Samples = 128,
+    SampleOffset = 0.05,
     SampleStartOffset = 1.0,
-    FogColor = Color(0.1, 0.1, 0.1, 0.1)
+    FogColor = Color(0.065, 0.065, 0.065, 0.065)
 };
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -112,9 +132,20 @@ end
 --This is where we will setup and execute everything that we want to do!
 
 function DairyMeatLocker()
+  --TLSE_Development_PrintAllSceneAgentNames("meatlocker_full", TLSE_Development_SceneObject);
+
   RELIGHT_ConfigurationStart();
 
   RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
+
+  RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF(nil);
+  Callback_PostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus);
+
+  RELIGHT_HackyCameraVolumetrics_Initalize();
+  Callback_PostUpdate:Add(RELIGHT_HackyCameraVolumetrics_Update);
+
+  RELIGHT_SceneStart();
+  Callback_PostUpdate:Add(RELIGHT_SceneUpdate);
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then

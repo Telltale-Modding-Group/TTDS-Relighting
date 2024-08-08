@@ -6,7 +6,6 @@
 
 require("RELIGHT_Include.lua");
 require("RELIGHT_SnowyPowerStation.lua");
-require("adv_snowyPowerStation_SceneChanges.lua");
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -40,8 +39,8 @@ RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
 RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
 RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = false;
 RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
-RELIGHT_DOF_AUTOFOCUS_FocalRange = 0.25;
-RELIGHT_DOF_AUTOFOCUS_Aperture = 2.8;
+RELIGHT_DOF_AUTOFOCUS_FocalRange = 0.125;
+RELIGHT_DOF_AUTOFOCUS_Aperture = 1.4; --f/1.0, f/1.4, f/2, f/2.8, f/4, f/5.6, f/8, f/11, f/16, f22, f/32
 RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = {};
 RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
 {
@@ -74,19 +73,20 @@ RELIGHT_DOF_AUTOFOCUS_BokehSettings =
     BokehBrightnessDeltaThreshold = 0.05,
     BokehBrightnessThreshold = 0.05,
     BokehBlurThreshold = 0.05,
-    BokehMaxSizeClamp = 0.035,
+    BokehMaxSizeClamp = 0.05,
     BokehFalloff = 0.75,
     MaxBokehBufferAmount = 1.0,
-    BokehPatternTexture = "bokeh_circle.d3dtx"
+    --BokehPatternTexture = "bokeh_circle.d3dtx"
+    BokehPatternTexture = "bokeh_anamorphic2.d3dtx"
 };
 
 --Relight Volumetrics
 RELIGHT_HackyCameraVolumetrics_Settings = 
 {
     Samples = 256,
-    SampleOffset = 0.15,
+    SampleOffset = 0.05,
     SampleStartOffset = 1.0,
-    FogColor = Color(0.1, 0.1, 0.1, 0.1)
+    FogColor = Color(0.05, 0.05, 0.05, 0.05)
 };
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -245,16 +245,16 @@ end
 
 function SnowyPowerStation()
   RELIGHT_ConfigurationStart();
-
   RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
 
-  RELIGHT_SkydomeReplacement_Initalize();
-  RELIGHT_FixBotchedMaterialColors();
-
-  TLSE_SceneRelight(RELIGHT_SceneObjectAgentName, RELIGHT_SceneObject);
+  RELIGHT_SceneStart();
+  Callback_OnPostUpdate:Add(RELIGHT_SceneUpdate);
 
   RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF(nil);
   Callback_OnPostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus);
+
+  --TLSE_Development_CameraInfo_Initalize();
+  --Callback_OnPostUpdate:Add(TLSE_Development_CameraInfo_Update);
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then
@@ -271,7 +271,7 @@ function SnowyPowerStation()
     Callback_OnPostUpdate:Add(TLSE_Development_UpdateFreeCamera);
   end
 
-  --If configured in the development ini, enable a performance metrics overlay
+  --If configured in the development ini, enable a performance metrics overlayalthou
   if (RelightConfigDevelopment.PerformanceMetrics == true) then     
     TLSE_Development_PerformanceMetrics_Initalize();
     Callback_OnPostUpdate:Add(TLSE_Development_PerformanceMetrics_Update);

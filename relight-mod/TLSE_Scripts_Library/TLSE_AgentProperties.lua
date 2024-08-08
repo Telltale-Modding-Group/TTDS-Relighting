@@ -249,16 +249,40 @@ end
 --RETURNS: Nothing
 --NOTE: type_propertyValue can be any value type.
 TLSE_SetPropertyOnAllCameras = function(string_scene, string_propertyName, type_propertyValue)
-    local agentTable_sceneAgents = SceneGetAgents(string_scene);
+    local agentTable_sceneAgents = TLSE_GetAllCameraAgentsInScene(string_scene);
 
     for i, agent_sceneAgent in pairs(agentTable_sceneAgents) do
-        local string_agentName = tostring(AgentGetName(agent_sceneAgent));
-
-        if (string.match)(string_agentName, "cam_") then
-            AgentSetProperty(agent_sceneAgent, string_propertyName, type_propertyValue);
-        end
+        AgentSetProperty(agent_sceneAgent, string_propertyName, type_propertyValue);
     end
 end
+
+TLSE_SetPropertyOnAllMeshes = function(string_scene, string_propertyName, type_propertyValue)
+    local agentTable_sceneAgents = TLSE_GetAllMeshAgentsInScene(string_scene);
+
+    for i, agent_sceneAgent in pairs(agentTable_sceneAgents) do
+        AgentSetProperty(agent_sceneAgent, string_propertyName, type_propertyValue);
+    end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 --Attempts to set all textures (by the texture name prefix) on an agent.
 --RETURNS: Nothing
