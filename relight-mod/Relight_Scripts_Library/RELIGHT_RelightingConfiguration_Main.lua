@@ -15,9 +15,15 @@ RELIGHT_GenerateNewINI_Main = function(number_configurationVersion)
             FOVMultiplier = 1.0, 
             MotionBlurIntensity = 25.0,
             RenderScale = 1.0,
-            DisableOutlines = true,
+            DisableOutlines = false,
             DisablePostProcessing = false,
-			DisableFog = false
+			DisableFog = false,
+            CinematicMode = false,
+            BlackAndWhiteMode = false,
+            HighQualityDepthOfField = true,
+            OverrideTimeScale = false,
+            TimeScaleValue = 1,
+            ForceGraphicBlackOff = true,
         },
     };
         

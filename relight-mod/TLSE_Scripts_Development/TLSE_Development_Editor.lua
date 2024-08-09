@@ -9,6 +9,8 @@ In addition to that some variables here are also declared, and are shared/used i
 --|||||||||||||||||||||||||||||||||||||||||||||||||||| GLOBAL VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||||||| GLOBAL VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||||||
 
+TLSE_Development_EditorVersion = 100;
+
 --Freeze all logic in the editor? (This occasionally gets set by a few actions that require user attention)
 TLSE_Development_FreezeEditor = false;
 

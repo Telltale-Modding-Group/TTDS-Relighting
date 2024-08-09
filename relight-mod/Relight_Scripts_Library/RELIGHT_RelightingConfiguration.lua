@@ -2,14 +2,15 @@
 RELIGHT_CurrentConfigurationVersion = 100;
 
 --relight config file names
-RELIGHT_FolderName = "RelightMod";
-RELIGHT_ConfigFileName_Main = RELIGHT_FolderName .. "/RelightConfiguration_Main.ini";
-RELIGHT_ConfigFileName_Development = RELIGHT_FolderName .. "/RelightConfiguration_Development.ini";
-RELIGHT_ConfigFileName_Season1 = RELIGHT_FolderName .. "/RelightConfiguration_Season1.ini";
-RELIGHT_ConfigFileName_Season2 = RELIGHT_FolderName .. "/RelightConfiguration_Season2.ini";
-RELIGHT_ConfigFileName_Season3 = RELIGHT_FolderName .. "/RelightConfiguration_Season3.ini";
-RELIGHT_ConfigFileName_Season4 = RELIGHT_FolderName .. "/RelightConfiguration_Season4.ini";
-RELIGHT_ConfigFileName_SeasonM = RELIGHT_FolderName .. "/RelightConfiguration_SeasonM.ini";
+RELIGHT_BaseFolderName = "RelightMod";
+RELIGHT_LevelsFolderName = "RelightLevels";
+RELIGHT_ConfigFileName_Main = RELIGHT_BaseFolderName .. "/RelightConfiguration_Main.ini";
+RELIGHT_ConfigFileName_Development = RELIGHT_BaseFolderName .. "/RelightConfiguration_Development.ini";
+RELIGHT_ConfigFileName_Season1 = RELIGHT_BaseFolderName .. "/RelightConfiguration_Season1.ini";
+RELIGHT_ConfigFileName_Season2 = RELIGHT_BaseFolderName .. "/RelightConfiguration_Season2.ini";
+RELIGHT_ConfigFileName_Season3 = RELIGHT_BaseFolderName .. "/RelightConfiguration_Season3.ini";
+RELIGHT_ConfigFileName_Season4 = RELIGHT_BaseFolderName .. "/RelightConfiguration_Season4.ini";
+RELIGHT_ConfigFileName_SeasonM = RELIGHT_BaseFolderName .. "/RelightConfiguration_SeasonM.ini";
 
 --relight config file data
 RelightConfigData_Main = nil;
@@ -19,6 +20,9 @@ RelightConfigData_Season2 = nil;
 RelightConfigData_Season3 = nil;
 RelightConfigData_Season4 = nil;
 RelightConfigData_SeasonM = nil;
+
+RelightConfigGlobal = nil;
+RelightConfigDevelopment = nil;
 
 RELIGHT_ConfigurationStart = function()
     TLSE_Development_Freecam_SnappyZoom = RelightConfigData_Development.CameraSettings.Camera_SnappyZoom;
@@ -46,7 +50,7 @@ do
     --if they don't exist then generate a new ini object and write that to the disk
 
     if TLSE_FileExists(RELIGHT_ConfigFileName_Main) == false then
-        TLSE_DirectoryCreate(RELIGHT_FolderName);
+        TLSE_DirectoryCreate(RELIGHT_BaseFolderName);
         TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_Main, RELIGHT_GenerateNewINI_Main(RELIGHT_CurrentConfigurationVersion));
     end
 
@@ -74,6 +78,10 @@ do
         TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_SeasonM, RELIGHT_GenerateNewINI_SeasonM(RELIGHT_CurrentConfigurationVersion));
     end
 
+    --if TLSE_FileExists(RELIGHT_LevelsFolderName) == false then
+        --TLSE_DirectoryCreate(RELIGHT_LevelsFolderName);
+    --end
+
     ----------------------------------- LOAD INI FILE DATA -----------------------------------
     --load in the ini files so we can pull data from them
 
@@ -84,6 +92,9 @@ do
     RelightConfigData_Season3 = TLSE_INI_LoadINIFile(RELIGHT_ConfigFileName_Season3);
     RelightConfigData_Season4 = TLSE_INI_LoadINIFile(RELIGHT_ConfigFileName_Season4);
     RelightConfigData_SeasonM = TLSE_INI_LoadINIFile(RELIGHT_ConfigFileName_SeasonM);
+
+    RelightConfigGlobal = RelightConfigData_Main["Global"];
+    RelightConfigDevelopment = RelightConfigData_Development["DevelopmentTools"];
 
     ----------------------------------- REGENERATE INI FILES (IF THEY ARE A DIFFERENT VERSION) -----------------------------------
     --do a version check, and if the version number doesn't match, rebuild the ini file

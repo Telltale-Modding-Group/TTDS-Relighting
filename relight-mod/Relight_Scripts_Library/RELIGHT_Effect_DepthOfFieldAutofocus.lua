@@ -9,7 +9,6 @@ Given the nature that its also automated, its not 100% perfect and there are som
 --relighting dof autofocus variables
 RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = false;
 RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = true;
-RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
 RELIGHT_DOF_AUTOFOCUS_FocalRange = 1.0;
 RELIGHT_DOF_AUTOFOCUS_Aperture = 4.0;
 RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = 
@@ -26,7 +25,6 @@ RELIGHT_DOF_AUTOFOCUS_Settings =
     TargetValidation_IsVisible = true,
     TargetValidation_IsWithinDistance = true,
     TargetValidation_IsFacingCamera = true,
-    TargetValidation_IsOccluded = false,
     TargetValidation_RejectionAngle = 0.0, --goes from -1 to 1 (less than 0 is within the 180 forward facing fov of the given object)
     TargetValidation_RejectionDistance = 40.0, --the max distance before the agent is too far from camera to do autofocus
 };
@@ -38,7 +36,6 @@ RELIGHT_DOF_AUTOFOCUS_BokehSettings =
     BokehMaxSizeClamp = 0.125,
     BokehFalloff = 1.0,
     MaxBokehBufferAmount = 1.0,
-    BokehPatternTexture = "bokeh_circle.d3dtx"
 };
 
 Callback_OnPostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus)
@@ -63,9 +60,9 @@ local vector_previousCameraPosition = Vector(0, 0, 0);
 local vector_previousCameraRotation = Vector(0, 0, 0);
 local number_previousCameraFOV = 0;
 
-local number_cameraCutPositionThreshold = 0.75;
-local number_cameraCutRotationThreshold = 5;
-local number_cameraCutFieldOfViewThreshold = 2.5;
+local number_cameraCutPositionThreshold = 0.25;
+local number_cameraCutRotationThreshold = 2;
+local number_cameraCutFieldOfViewThreshold = 2;
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| (VARIABLES) DEPTH OF FIELD SETTINGS ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| (VARIABLES) DEPTH OF FIELD SETTINGS ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -117,6 +114,10 @@ local vector_sensorsSize_MeduimFormat645 = Vector(42, 56, 0);
 local vector_sensorsSize_IMAX = Vector(70.4, 52.6, 0);
 local vector_sensorsSize_4x5 = Vector(127, 102, 0);
 
+local string_currentBokehTexture = nil;
+local string_bokehCircleTexture = "bokeh_circle.d3dtx";
+local string_bokehAnamorphicTexture = "bokeh_anamorphic2.d3dtx";
+
 local vector_currentSensorSize = vector_sensorsSize_35mmFullFrame;
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| (FUNCTIONS/LOGIC) CAMERA CUT DETECTION ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -132,11 +133,11 @@ local CheckForNewCameraCut = function()
         return true;
     end
 
-    if(math.abs(VectorLength(VectorSubtract(vector_currentCameraPosition, vector_previousCameraPosition))) > number_cameraCutRotationThreshold) then
+    if(math.abs(VectorLength(VectorSubtract(vector_currentCameraRotation, vector_previousCameraRotation))) > number_cameraCutRotationThreshold) then
         return true;
     end
 
-    if(math.abs(number_currentCameraFOV - number_previousCameraFOV) > number_cameraCutPositionThreshold) then
+    if(math.abs(number_currentCameraFOV - number_previousCameraFOV) > number_cameraCutFieldOfViewThreshold) then
         return true;
     end
 
@@ -280,7 +281,7 @@ local ApplyDepthOfFieldSettings = function()
         AgentSetProperty(agent_currentCamera, "Depth Of Field Blur Strength", number_previousBlurStrength);
         AgentSetProperty(agent_currentCamera, "Depth Of Field Coverage Boost", 5);
 
-        if(RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF == true) then
+        if(RelightConfigGlobal["HighQualityDepthOfField"] == true and RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF == false) then
             AgentSetProperty(agent_currentCamera, "Use Bokeh", true, RELIGHT_SceneObject);
             AgentSetProperty(agent_currentCamera, "Bokeh Brightness Delta Threshold", RELIGHT_DOF_AUTOFOCUS_BokehSettings.BokehBrightnessDeltaThreshold);
             AgentSetProperty(agent_currentCamera, "Bokeh Brightness Threshold", RELIGHT_DOF_AUTOFOCUS_BokehSettings.BokehBrightnessThreshold);
@@ -289,7 +290,7 @@ local ApplyDepthOfFieldSettings = function()
             AgentSetProperty(agent_currentCamera, "Bokeh Max Size", number_previousBokehSize);
             AgentSetProperty(agent_currentCamera, "Bokeh Falloff", RELIGHT_DOF_AUTOFOCUS_BokehSettings.BokehFalloff);
             AgentSetProperty(agent_currentCamera, "Max Bokeh Buffer Amount", RELIGHT_DOF_AUTOFOCUS_BokehSettings.MaxBokehBufferAmount);
-            AgentSetProperty(agent_currentCamera, "Bokeh Pattern Texture", RELIGHT_DOF_AUTOFOCUS_BokehSettings.BokehPatternTexture);
+            AgentSetProperty(agent_currentCamera, "Bokeh Pattern Texture", string_currentBokehTexture);
         else
             AgentSetProperty(agent_currentCamera, "Use Bokeh", false);
         end
@@ -335,6 +336,12 @@ RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF = function(relightConfigLevel)
     else
         PropertySet(GetPreferences(), "Use Legacy DOF", false);
         RenderSetFeatureEnabled("bokeh", true);
+    end
+
+    if(RelightConfigGlobal["CinematicMode"] == true) then
+        string_currentBokehTexture = "bokeh_anamorphic2.d3dtx";
+    else
+        string_currentBokehTexture = "bokeh_circle.d3dtx";
     end
 
     agent_sceneAgent = AgentFindInScene(RELIGHT_SceneObjectAgentName, RELIGHT_SceneObject);

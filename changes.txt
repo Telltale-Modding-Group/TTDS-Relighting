@@ -57,11 +57,12 @@ Global Configuration Options
 - [Added] "DisableFog" - Disables all fog in every scene (useful especially if you are using reshade and want to inject your own post processing).
 - [Added] "RenderScale" - Exposes an internal telltale render function, this value acts like a multiplier for your current screen resolution. (For example, 1.0 at 1080p is 1080p, 2.0 at 1080p is 3840p, 0.5 at 1080p is 720p)
 - [Added] "CinematicMode" - Adds black bars for a widescreen experience, and widens the camera
+- [Added] "BlackAndWhiteMode" - Desaturates scene colors to be completely black and white.
 - [Added] "HighQualityDepthOfField" - When Depth Of Field is enabled this enables a high quality version of it, which has bokeh sprite generation.
 
 Scene Configuration Options (note that not all of these options are avaliable for every scene for many reasons, mostly due to limitations)
 - [Added] "EnableRelighting" - Enables the main scene relighting, can disable if your not a fan of the new relight style. (NOTE: all other options in relation to a scene will still have an effect even with this disabled).
-- [Added] "EnableDepthOfField" - Enables Depth of Field, which is native to the game, and this uses my custom autofocus system to leverage it for earlier seasons.
+- [Added] "EnableDepthOfField" - Enables Depth of Field, which is native to the game, but this uses a custom autofocus system to leverage it for earlier seasons (S1 and S2).
 - [Added] "EnableMotionBlur" - Enables Motion Blur on all scenes (disabled by default, but can be enabled in the ini file).
 - [Added] "ExposureOffset" - Can be adjusted for each scene if it's too dark/bright by the user.
 - [Added] "ForceBloomOff" - Forcibly disables bloom in a scene.

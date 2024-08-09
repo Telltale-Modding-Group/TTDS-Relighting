@@ -267,26 +267,40 @@ TLSE_Development_Editor_LuaHelper_WriteApplyMeshPropertiesFunction = function(ag
     return string_codeToWrite;
 end
 
-TLSE_Development_Editor_LuaHelper_WriteApplyEnvironmentFogModulePropertiesFunction = function(agent_environmentFog)
+TLSE_Development_Editor_LuaHelper_WriteApplyEnvironmentFogModulePropertiesFunction = function(agentsArray_sceneAgents)
     local string_codeToWrite = "";
 
     local string_agentVariable = "agent_environmentFogModule";
 
+    local agent_environmentFog = nil;
+
+    for index, agent_sceneAgent in pairs(agentsArray_sceneAgents) do
+        if(TLSE_AgentIsEnvironmentFog(agent_sceneAgent)) then
+            agent_environmentFog = agent_sceneAgent;
+        end
+    end
+
     string_codeToWrite = "\n";
-    string_codeToWrite = string_codeToWrite .. "TLSE_ApplyEnvironmentFogSettings = function(" .. string_agentVariable .. ") \n";
-    string_codeToWrite = string_codeToWrite .. "    --apply properties to environment fog module agent \n";
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Fog Enabled", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Enabled"))) .. ";\n";
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Enabled", tostring(AgentGetProperty(agent_environmentFog, "Env - Enabled"))) .. ";\n";
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Enabled on High", tostring(AgentGetProperty(agent_environmentFog, "Env - Enabled on High"))) .. ";\n";
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Enabled on Medium", tostring(AgentGetProperty(agent_environmentFog, "Env - Enabled on Medium"))) .. ";\n";
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Enabled on Low", tostring(AgentGetProperty(agent_environmentFog, "Env - Enabled on Low"))) .. ";\n";
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Fog Color", TLSE_Development_Editor_LuaHelper_WriteColor(AgentGetProperty(agent_environmentFog, "Env - Fog Color"))) .. ";\n";
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Fog Density", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Density"))) .. ";\n";
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Fog Start Distance", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Start Distance"))) .. ";\n";
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Fog Height", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Height"))) .. ";\n";
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Fog Height Falloff", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Height Falloff"))) .. ";\n";
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Fog Max Opacity", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Max Opacity"))) .. ";\n";
-    string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentSetProperty(string_agentVariable, "Env - Priority", tostring(AgentGetProperty(agent_environmentFog, "Env - Priority"))) .. ";\n";
+    string_codeToWrite = string_codeToWrite .. "TLSE_ApplyEnvironmentFogSettings = function(string_scene) \n";
+
+    if(agent_environmentFog ~= nil) then
+        local string_agentName = AgentGetName(agent_environmentFog);
+
+        string_codeToWrite = string_codeToWrite .. "    --apply properties to environment fog module agent \n";
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Env - Fog Enabled", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Enabled")), "string_scene") .. ";\n";
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Env - Enabled", tostring(AgentGetProperty(agent_environmentFog, "Env - Enabled")), "string_scene") .. ";\n";
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Env - Enabled on High", tostring(AgentGetProperty(agent_environmentFog, "Env - Enabled on High")), "string_scene") .. ";\n";
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Env - Enabled on Medium", tostring(AgentGetProperty(agent_environmentFog, "Env - Enabled on Medium")), "string_scene") .. ";\n";
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Env - Enabled on Low", tostring(AgentGetProperty(agent_environmentFog, "Env - Enabled on Low")), "string_scene") .. ";\n";
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Env - Fog Color", TLSE_Development_Editor_LuaHelper_WriteColor(AgentGetProperty(agent_environmentFog, "Env - Fog Color")), "string_scene") .. ";\n";
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Env - Fog Density", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Density")), "string_scene") .. ";\n";
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Env - Fog Start Distance", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Start Distance")), "string_scene") .. ";\n";
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Env - Fog Height", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Height")), "string_scene") .. ";\n";
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Env - Fog Height Falloff", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Height Falloff")), "string_scene") .. ";\n";
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Env - Fog Max Opacity", tostring(AgentGetProperty(agent_environmentFog, "Env - Fog Max Opacity")), "string_scene") .. ";\n";
+        string_codeToWrite = string_codeToWrite .. "    " .. TLSE_Development_Editor_LuaHelper_WriteAgentNameSetProperty(string_agentName, "Env - Priority", tostring(AgentGetProperty(agent_environmentFog, "Env - Priority")), "string_scene") .. ";\n";
+    end
+
     string_codeToWrite = string_codeToWrite .. "end \n";
 
     return string_codeToWrite;
@@ -718,7 +732,7 @@ TLSE_Development_Editor_LuaHelper_WriteSceneCleanupFunction = function(agentArra
 end
 
 TLSE_Development_Editor_LuaHelper_ExportSceneChangesToScript = function(string_scriptName)
-    local finalPath = "TLSEDevelopment/" .. string_scriptName .. ".lua";
+    local finalPath = "TLSEDevelopment/RELIGHT_" .. string_scriptName .. ".lua";
 
     if(TLSE_FileExists(finalPath) == true) then
         TLSE_FileDelete(finalPath);
@@ -731,31 +745,42 @@ TLSE_Development_Editor_LuaHelper_ExportSceneChangesToScript = function(string_s
     --||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     local string_codeToWrite = "\n";
 
+    string_codeToWrite = string_codeToWrite .. "--|||||||||||||||||||||||||||||||||||||||||||||||| TLSE EDITOR CHANGES |||||||||||||||||||||||||||||||||||||||||||||||| \n";
+    string_codeToWrite = string_codeToWrite .. "--|||||||||||||||||||||||||||||||||||||||||||||||| TLSE EDITOR CHANGES |||||||||||||||||||||||||||||||||||||||||||||||| \n";
+    string_codeToWrite = string_codeToWrite .. "--|||||||||||||||||||||||||||||||||||||||||||||||| TLSE EDITOR CHANGES |||||||||||||||||||||||||||||||||||||||||||||||| \n";
+    string_codeToWrite = string_codeToWrite .. "\n";
+
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteSceneAgentsDeleteFunction(TLSE_Development_SceneAgentsDeletedNames);
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteSceneAgentsDuplicateFunction(TLSE_Development_SceneAgentsDuplicated);
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteApplyScenePropertiesFunction(TLSE_Development_SceneAgent);
-
-    local agent_environmentFogAgent = TLSE_FindEnvironmentFogModuleInScene(TLSE_Development_SceneObject);
-
-    if(agent_environmentFogAgent ~= nil) then
-        string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteApplyEnvironmentFogModulePropertiesFunction(agent_environmentFogAgent);
-    end
-
+    string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteApplyEnvironmentFogModulePropertiesFunction(TLSE_Development_SceneAgentsList);
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteApplyLightPropertiesFunction(TLSE_Development_SceneAgentsList);
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteApplyMeshPropertiesFunction(TLSE_Development_SceneAgentsList);
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteSceneAgentsTransformationsFunction(TLSE_Development_SceneAgentsList);
     string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_LuaHelper_WriteSceneCleanupFunction(TLSE_Development_SceneAgentsList);
 
     string_codeToWrite = string_codeToWrite .. "\n";
-    string_codeToWrite = string_codeToWrite .. "TLSE_SceneRelight = function(agent_sceneAgent, string_scene) \n"
+    string_codeToWrite = string_codeToWrite .. "--|||||||||||||||||||||||||||||||||||||||||||||||| TLSE SCENE MAIN |||||||||||||||||||||||||||||||||||||||||||||||| \n";
+    string_codeToWrite = string_codeToWrite .. "--|||||||||||||||||||||||||||||||||||||||||||||||| TLSE SCENE MAIN |||||||||||||||||||||||||||||||||||||||||||||||| \n";
+    string_codeToWrite = string_codeToWrite .. "--|||||||||||||||||||||||||||||||||||||||||||||||| TLSE SCENE MAIN |||||||||||||||||||||||||||||||||||||||||||||||| \n";
+    string_codeToWrite = string_codeToWrite .. "\n";
+
+    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "TLSE_SceneRelightStart = function(agent_sceneAgent, string_scene) \n"
     string_codeToWrite = string_codeToWrite .. "    TLSE_DuplicateAgentsInScene(string_scene); \n";
     string_codeToWrite = string_codeToWrite .. "    TLSE_ApplySceneSettings(agent_sceneAgent); \n";
+    string_codeToWrite = string_codeToWrite .. "    TLSE_ApplyEnvironmentFogSettings(string_scene); \n";
     string_codeToWrite = string_codeToWrite .. "    TLSE_ApplyLightingSettings(string_scene); \n";
     string_codeToWrite = string_codeToWrite .. "    TLSE_ApplyMeshSettings(string_scene); \n";
     string_codeToWrite = string_codeToWrite .. "    TLSE_TransformAgentsInScene(string_scene); \n";
     string_codeToWrite = string_codeToWrite .. "    TLSE_DeleteAgentsInScene(string_scene); \n";
     string_codeToWrite = string_codeToWrite .. "    --TLSE_DeleteAllAgentsInScene(string_scene); \n";
     string_codeToWrite = string_codeToWrite .. "end \n";
+    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "TLSE_SceneRelightUpdate = function() \n"
+    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "end \n";
+
 
     main_lua_file:write(string_codeToWrite);
     main_lua_file:close();

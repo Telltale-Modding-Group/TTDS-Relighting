@@ -5,7 +5,6 @@
 --This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
 
 require("RELIGHT_Include.lua");
-require("RELIGHT_SnowyPowerStation.lua");
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -31,17 +30,18 @@ TLSE_Development_FreecamUseFOVScale = false;
 --Relight variables
 RELIGHT_SceneObject = kScene;
 RELIGHT_SceneObjectAgentName = kScene .. ".scene";
-RelightConfigGlobal = RelightConfigData_Main.Global;
-RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
---RelightConfigLevel = RelightConfigData_Season2.Level_202_LodgeMainRoom;
+RelightConfigLevel = RelightConfigData_Season2.Level_205_SnowyPowerStation;
 
+--[[
 --Relight DOF
 RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
 RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = false;
-RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
 RELIGHT_DOF_AUTOFOCUS_FocalRange = 0.125;
-RELIGHT_DOF_AUTOFOCUS_Aperture = 1.4; --f/1.0, f/1.4, f/2, f/2.8, f/4, f/5.6, f/8, f/11, f/16, f22, f/32
-RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = {};
+RELIGHT_DOF_AUTOFOCUS_Aperture = 2.8; --f/1.0, f/1.4, f/2, f/2.8, f/4, f/5.6, f/8, f/11, f/16, f22, f/32
+RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = 
+{
+  "Null"
+};
 RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
 {
     "Clementine",
@@ -56,7 +56,6 @@ RELIGHT_DOF_AUTOFOCUS_ObjectEntries =
     "Baby_kenny_wrist_L",
     "Baby_clementine",
     "Baby_bonnie",
-
 };
 RELIGHT_DOF_AUTOFOCUS_Settings =
 {
@@ -64,9 +63,8 @@ RELIGHT_DOF_AUTOFOCUS_Settings =
     TargetValidation_IsVisible = true,
     TargetValidation_IsWithinDistance = true,
     TargetValidation_IsFacingCamera = true,
-    TargetValidation_IsOccluded = false,
     TargetValidation_RejectionAngle = 0.0, --goes from -1 to 1 (less than 0 is within the 180 forward facing fov of the given object)
-    TargetValidation_RejectionDistance = 40.0, --the max distance before the agent is too far from camera to do autofocus
+    TargetValidation_RejectionDistance = 10.0, --the max distance before the agent is too far from camera to do autofocus
 };
 RELIGHT_DOF_AUTOFOCUS_BokehSettings =
 {
@@ -76,8 +74,6 @@ RELIGHT_DOF_AUTOFOCUS_BokehSettings =
     BokehMaxSizeClamp = 0.05,
     BokehFalloff = 0.75,
     MaxBokehBufferAmount = 1.0,
-    --BokehPatternTexture = "bokeh_circle.d3dtx"
-    BokehPatternTexture = "bokeh_anamorphic2.d3dtx"
 };
 
 --Relight Volumetrics
@@ -88,6 +84,7 @@ RELIGHT_HackyCameraVolumetrics_Settings =
     SampleStartOffset = 1.0,
     FogColor = Color(0.05, 0.05, 0.05, 0.05)
 };
+]]
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -243,26 +240,24 @@ end
 --Here is the main function that gets called when the level starts.
 --This is where we will setup and execute everything that we want to do!
 
+--dofile("RelightLevels/RELIGHT_205_SnowyPowerStation.lua");
+
 function SnowyPowerStation()
   RELIGHT_ConfigurationStart();
-  RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
 
-  RELIGHT_SceneStart();
-  Callback_OnPostUpdate:Add(RELIGHT_SceneUpdate);
+  if(TLSE_LoadAndUseLuaFile(RelightConfigLevel["RelightSceneLuaFile"])) then
+    TLSE_SceneRelightStart(RELIGHT_SceneObjectAgentName, RELIGHT_SceneObject);
+    Callback_OnPostUpdate:Add(TLSE_SceneRelightUpdate);
+  end
 
-  RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF(nil);
-  Callback_OnPostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus);
-
-  --TLSE_Development_CameraInfo_Initalize();
-  --Callback_OnPostUpdate:Add(TLSE_Development_CameraInfo_Update);
+  RELIGHT_Global_Start();
+  Callback_OnPostUpdate:Add(RELIGHT_Global_Update);
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then
     TLSE_Development_Editor_Start();
     Callback_OnPostUpdate:Add(TLSE_Development_Editor_Update);
-
-    --OriginalTelltaleLevelStartLogic();
-    do return end --don't continue
+    return; --don't continue
   end
 
   --If configured in the development ini, enable freecamera (if editor is not enabled)
@@ -279,7 +274,7 @@ function SnowyPowerStation()
 
   --If it's configured in the development ini to be in freecamera mode...
   if (RelightConfigDevelopment.FreeCameraOnlyMode == true and RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == false) then
-    return --don't start the scene normally as the user wants to fly around the scene but not have it attempt to run the original level logic
+    return; --don't start the scene normally as the user wants to fly around the scene but not have it attempt to run the original level logic
   end
 
   --execute the original telltale level start logic

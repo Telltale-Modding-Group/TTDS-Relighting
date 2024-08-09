@@ -30,6 +30,26 @@ TLSE_DirectoryExists = function(directoryPathRelativeToGameExe)
     return TLSE_FileExists(directoryPathRelativeToGameExe)
 end
 
+TLSE_LoadAndUseLuaFile = function(string_luaScriptPath)
+    if(TLSE_FileExists(string_luaScriptPath)) then
+        local file_luaScript = io.open(string_luaScriptPath, "rb");
+        local string_luaScriptContents = file_luaScript:read("*all");
+        file_luaScript:close();
+    
+        local luaScriptCompiled, luaScriptCompiledError = load(string_luaScriptContents);
+
+        if(luaScriptCompiled) then
+          local luaScriptExecution, luaScriptExecutionError = pcall(luaScriptCompiled)
+    
+          if(luaScriptExecution) then
+            return true;
+          end
+        end
+    end
+
+    return false;
+end
+
 TLSE_JSON = require("TLSE_JSON.lua");
 
 --Decodes a JSON file and returns the raw object. Useful for non-standard reads.

@@ -1,100 +1,4 @@
-RELIGHT_SkydomeReplacement_Initalize = function()
-    local agent_originalSky = AgentFindInScene("obj_skySnowyPowerStation", RELIGHT_SceneObject);
-    local container_originalLightingGroups = AgentGetProperty(agent_originalSky, "Render Lighting Groups");
-
-    AgentSetProperty(agent_originalSky, "D3D Mesh", "obj_matteSkydomeOvercastSkyGrad.d3dmesh");
-    AgentSetProperty(agent_originalSky, "Render Lighting Groups", container_originalLightingGroups);
-
-    ShaderOverrideTexture(agent_originalSky, "obj_matteSkydomeOvercastSkyGrad.d3dtx", "RELIGHT_Texture_SkyTwilight1.d3dtx");
-end
-
-RELIGHT_FixBotchedMaterialColors = function()
-    --This will fix some botched up material colors in the original level that are red/pink
-    TLSE_AgentNameSetPropertyWithSymbol("adv_snowyPowerStation_meshesB", "17912793833711450066", Color(1, 1, 1, 1), RELIGHT_SceneObject);
-    TLSE_AgentNameSetPropertyWithSymbol("adv_snowyPowerStation_distGround", "17912793833711450066", Color(1, 1, 1, 1), RELIGHT_SceneObject);
-    TLSE_AgentNameSetPropertyWithSymbol("obj_fenceAPowerStation", "17912793833711450066", Color(1, 1, 1, 1), RELIGHT_SceneObject);
-    TLSE_AgentNameSetPropertyWithSymbol("obj_gateFrontBPowerStation", "17912793833711450066", Color(1, 1, 1, 1), RELIGHT_SceneObject);
-    TLSE_AgentNameSetPropertyWithSymbol("obj_gateFrontAPowerStation", "17912793833711450066", Color(1, 1, 1, 1), RELIGHT_SceneObject);
-    TLSE_AgentNameSetPropertyWithSymbol("obj_fenceBPowerStation", "17912793833711450066", Color(1, 1, 1, 1), RELIGHT_SceneObject);
-end
-
-RELIGHT_ProcedualGrass_PropFile = "obj_grassHIREZSnowyWoods.prop";
-RELIGHT_ProcedualGrass_DensityPerUnit = 0.5;
-RELIGHT_ProcedualGrass_GrassScale = 0.45;
-
-RELIGHT_SceneStart = function()
-    RELIGHT_SkydomeReplacement_Initalize();
-    RELIGHT_FixBotchedMaterialColors();
-
-    RELIGHT_ProcedualGrass_Initalize(Vector(48.5, 6.0367, 5.75), Vector(13, 0, 25));
-
-    TLSE_SceneRelight(RELIGHT_SceneObjectAgentName, RELIGHT_SceneObject);
-
-    RELIGHT_Letterboxing_Initalize();
-end
-
-local number_fireLightDimming1 = 0;
-local number_fireLightDimming2 = 0;
-
-RELIGHT_SceneUpdate = function()
-    local agent_currentCamera = SceneGetCamera(RELIGHT_SceneObject);
-    local vector_currentCameraPosition = AgentGetWorldPos(agent_currentCamera);
-    local bool_powerStationZone = vector_currentCameraPosition.x < 20;
-
-    --local bool_fireLightEnabled = TLSE_AgentNameGetProperty("light_point", "EnvLight - Enabled", RELIGHT_SceneObject);
-    --local bool_fireLightEnabled = TLSE_AgentNameGetProperty("light_fx_fireCampfirePowerStationPoint", "EnvLight - Enabled", RELIGHT_SceneObject);
-    --local bool_fireLightEnabled = TLSE_AgentNameGetProperty("light_fx_fireCampfirePowerStation", "EnvLight - Enabled", RELIGHT_SceneObject);
-    local bool_fireLightEnabled = bool_powerStationZone;
-
-    --NOTE: The firelight here is actually made up of multiple spotlights, this is done for better quality
-    TLSE_AgentNameSetProperty("light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("4_3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("5_4_3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("6_5_4_3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("7_6_5_4_3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("8_7_6_5_4_3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("11_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("5_6_5_4_3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
-
-    number_fireLightDimming1 = number_fireLightDimming1 + (GetFrameTime() * 7.5);
-    number_fireLightDimming2 = number_fireLightDimming2 + (GetFrameTime() * 25.0);
-
-    local number_dimLevel1 = math.sin(number_fireLightDimming1) * 0.1;
-    local number_dimLevel2 = math.sin(number_fireLightDimming2) * 0.05;
-
-    local number_fireLightDimmingFinal = 1 - (number_dimLevel1 + number_dimLevel2);
-
-    TLSE_AgentNameSetProperty("light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("4_3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("5_4_3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("6_5_4_3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("7_6_5_4_3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("8_7_6_5_4_3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("11_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
-    TLSE_AgentNameSetProperty("5_6_5_4_3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
-
-    if(bool_powerStationZone) then
-        TLSE_AgentNameSetWorldPositionAndRotation("light_d", Vector(-3.4667224884033, 8.2657613754272, 0.77690696716309), Vector(33.421249389648, -41.465148925781, 7.5758199691772), RELIGHT_SceneObject);
-        TLSE_AgentNameSetProperty("light_d", "EnvLight - Enlighten Intensity", 0, RELIGHT_SceneObject);
-
-        TLSE_AgentNameSetProperty("13_2_1_light_d", "EnvLight - Enabled", false, RELIGHT_SceneObject);
-        TLSE_AgentNameSetProperty("3_13_2_1_light_d", "EnvLight - Enabled", false, RELIGHT_SceneObject);
-    else
-        TLSE_AgentNameSetWorldPositionAndRotation("light_d", Vector(-3.4667224884033, 8.2657613754272, 0.77690696716309), Vector(20, 90, 0), RELIGHT_SceneObject);
-        TLSE_AgentNameSetProperty("light_d", "EnvLight - Enlighten Intensity", 2.5, RELIGHT_SceneObject);
-
-        TLSE_AgentNameSetProperty("13_2_1_light_d", "EnvLight - Enabled", false, RELIGHT_SceneObject);
-        TLSE_AgentNameSetProperty("3_13_2_1_light_d", "EnvLight - Enabled", false, RELIGHT_SceneObject);
-    end
-
-    RELIGHT_Letterboxing_Update();
-end
+do
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TLSE EDITOR CHANGES ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TLSE EDITOR CHANGES ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -288,12 +192,9 @@ TLSE_ApplySceneSettings = function(agent_sceneAgent)
     --apply fx vignette settings 
     AgentSetProperty(agent_sceneAgent, "FX Vignette Tint Enabled", true);
     AgentSetProperty(agent_sceneAgent, "FX Vignette Tint", Color(0, 0, 0, 1));
-    --AgentSetProperty(agent_sceneAgent, "FX Vignette Falloff", 0.85000038146973);
-    --AgentSetProperty(agent_sceneAgent, "FX Vignette Center", -0.42999988794327);
-    --AgentSetProperty(agent_sceneAgent, "FX Vignette Corners", 1.0299996614456);
-    AgentSetProperty(agent_sceneAgent, "FX Vignette Falloff", 0.6000038146973);
-    AgentSetProperty(agent_sceneAgent, "FX Vignette Center", -0.92999988794327);
-    AgentSetProperty(agent_sceneAgent, "FX Vignette Corners", 1.3199996614456);
+    AgentSetProperty(agent_sceneAgent, "FX Vignette Falloff", 0.85000038146973);
+    AgentSetProperty(agent_sceneAgent, "FX Vignette Center", -0.12999988794327);
+    AgentSetProperty(agent_sceneAgent, "FX Vignette Corners", 1.0299996614456);
 
     --apply hbao settings 
     AgentSetProperty(agent_sceneAgent, "HBAO Enabled", true);
@@ -1705,7 +1606,35 @@ TLSE_TransformAgentsInScene = function(string_scene)
     TLSE_AgentNameSetWorldPositionAndRotation("1_light_amb", Vector(-41.673820495605, 32.301036834717, -50.472583770752), Vector(-13.084580421448, -143.294921875, 4.2688671442193e-07), string_scene);
 end 
 
-TLSE_SceneRelight = function(agent_sceneAgent, string_scene) 
+--|||||||||||||||||||||||||||||||||||||||||||||||| TLSE SCENE MAIN ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TLSE SCENE MAIN ||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||| TLSE SCENE MAIN ||||||||||||||||||||||||||||||||||||||||||||||||
+
+RELIGHT_SkydomeReplacement_Initalize = function()
+    local agent_originalSky = AgentFindInScene("obj_skySnowyPowerStation", RELIGHT_SceneObject);
+    local container_originalLightingGroups = AgentGetProperty(agent_originalSky, "Render Lighting Groups");
+
+    AgentSetProperty(agent_originalSky, "D3D Mesh", "obj_matteSkydomeOvercastSkyGrad.d3dmesh");
+    AgentSetProperty(agent_originalSky, "Render Lighting Groups", container_originalLightingGroups);
+
+    ShaderOverrideTexture(agent_originalSky, "obj_matteSkydomeOvercastSkyGrad.d3dtx", "RELIGHT_Texture_SkyTwilight1.d3dtx");
+end
+
+RELIGHT_FixBotchedMaterialColors = function()
+    --This will fix some botched up material colors in the original level that are red/pink
+    TLSE_AgentNameSetPropertyWithSymbol("adv_snowyPowerStation_meshesB", "17912793833711450066", Color(1, 1, 1, 1), RELIGHT_SceneObject);
+    TLSE_AgentNameSetPropertyWithSymbol("adv_snowyPowerStation_distGround", "17912793833711450066", Color(1, 1, 1, 1), RELIGHT_SceneObject);
+    TLSE_AgentNameSetPropertyWithSymbol("obj_fenceAPowerStation", "17912793833711450066", Color(1, 1, 1, 1), RELIGHT_SceneObject);
+    TLSE_AgentNameSetPropertyWithSymbol("obj_gateFrontBPowerStation", "17912793833711450066", Color(1, 1, 1, 1), RELIGHT_SceneObject);
+    TLSE_AgentNameSetPropertyWithSymbol("obj_gateFrontAPowerStation", "17912793833711450066", Color(1, 1, 1, 1), RELIGHT_SceneObject);
+    TLSE_AgentNameSetPropertyWithSymbol("obj_fenceBPowerStation", "17912793833711450066", Color(1, 1, 1, 1), RELIGHT_SceneObject);
+end
+
+RELIGHT_ProcedualGrass_PropFile = "obj_grassHIREZSnowyWoods.prop";
+RELIGHT_ProcedualGrass_DensityPerUnit = 0.5;
+RELIGHT_ProcedualGrass_GrassScale = 0.45;
+
+TLSE_SceneRelightStart = function(agent_sceneAgent, string_scene) 
     TLSE_DuplicateAgentsInScene(string_scene); 
     TLSE_ApplySceneSettings(agent_sceneAgent); 
     TLSE_ApplyEnvironmentFogSettings(string_scene); 
@@ -1713,4 +1642,72 @@ TLSE_SceneRelight = function(agent_sceneAgent, string_scene)
     TLSE_ApplyMeshSettings(string_scene); 
     TLSE_TransformAgentsInScene(string_scene); 
     TLSE_DeleteAgentsInScene(string_scene); 
+
+    RELIGHT_SkydomeReplacement_Initalize();
+    RELIGHT_FixBotchedMaterialColors();
+
+    RELIGHT_ProcedualGrass_Initalize(Vector(48.5, 6.0367, 5.75), Vector(13, 0, 25));
 end 
+
+local number_fireLightDimming1 = 0;
+local number_fireLightDimming2 = 0;
+
+TLSE_SceneRelightUpdate = function() 
+    local agent_currentCamera = SceneGetCamera(RELIGHT_SceneObject);
+    local vector_currentCameraPosition = AgentGetWorldPos(agent_currentCamera);
+    local bool_powerStationZone = vector_currentCameraPosition.x < 20;
+    
+    --local bool_fireLightEnabled = TLSE_AgentNameGetProperty("light_point", "EnvLight - Enabled", RELIGHT_SceneObject);
+    --local bool_fireLightEnabled = TLSE_AgentNameGetProperty("light_fx_fireCampfirePowerStationPoint", "EnvLight - Enabled", RELIGHT_SceneObject);
+    --local bool_fireLightEnabled = TLSE_AgentNameGetProperty("light_fx_fireCampfirePowerStation", "EnvLight - Enabled", RELIGHT_SceneObject);
+    local bool_fireLightEnabled = bool_powerStationZone;
+    
+    --NOTE: The firelight here is actually made up of multiple spotlights, this is done for better quality
+    TLSE_AgentNameSetProperty("light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("4_3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("5_4_3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("6_5_4_3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("7_6_5_4_3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("8_7_6_5_4_3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("11_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("5_6_5_4_3_2_1_light_point", "EnvLight - Enabled", bool_fireLightEnabled, RELIGHT_SceneObject);
+    
+    number_fireLightDimming1 = number_fireLightDimming1 + (GetFrameTime() * 7.5);
+    number_fireLightDimming2 = number_fireLightDimming2 + (GetFrameTime() * 25.0);
+    
+    local number_dimLevel1 = math.sin(number_fireLightDimming1) * 0.1;
+    local number_dimLevel2 = math.sin(number_fireLightDimming2) * 0.05;
+    
+    local number_fireLightDimmingFinal = 1 - (number_dimLevel1 + number_dimLevel2);
+    
+    TLSE_AgentNameSetProperty("light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("4_3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("5_4_3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("6_5_4_3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("7_6_5_4_3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("8_7_6_5_4_3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("11_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
+    TLSE_AgentNameSetProperty("5_6_5_4_3_2_1_light_point", "EnvLight - Intensity Dimmer", number_fireLightDimmingFinal, RELIGHT_SceneObject);
+    
+    if(bool_powerStationZone) then
+        TLSE_AgentNameSetWorldPositionAndRotation("light_d", Vector(-3.4667224884033, 8.2657613754272, 0.77690696716309), Vector(33.421249389648, -41.465148925781, 7.5758199691772), RELIGHT_SceneObject);
+        TLSE_AgentNameSetProperty("light_d", "EnvLight - Enlighten Intensity", 0, RELIGHT_SceneObject);
+    
+        TLSE_AgentNameSetProperty("13_2_1_light_d", "EnvLight - Enabled", false, RELIGHT_SceneObject);
+        TLSE_AgentNameSetProperty("3_13_2_1_light_d", "EnvLight - Enabled", false, RELIGHT_SceneObject);
+    else
+        TLSE_AgentNameSetWorldPositionAndRotation("light_d", Vector(-3.4667224884033, 8.2657613754272, 0.77690696716309), Vector(20, 90, 0), RELIGHT_SceneObject);
+        TLSE_AgentNameSetProperty("light_d", "EnvLight - Enlighten Intensity", 2.5, RELIGHT_SceneObject);
+    
+        TLSE_AgentNameSetProperty("13_2_1_light_d", "EnvLight - Enabled", false, RELIGHT_SceneObject);
+        TLSE_AgentNameSetProperty("3_13_2_1_light_d", "EnvLight - Enabled", false, RELIGHT_SceneObject);
+    end
+end
+
+end
