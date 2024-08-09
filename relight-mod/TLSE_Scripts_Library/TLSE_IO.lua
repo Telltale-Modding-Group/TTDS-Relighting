@@ -31,6 +31,10 @@ TLSE_DirectoryExists = function(directoryPathRelativeToGameExe)
 end
 
 TLSE_LoadAndUseLuaFile = function(string_luaScriptPath)
+    if(string_luaScriptPath == nil) then
+        return false;
+    end
+
     if(TLSE_FileExists(string_luaScriptPath)) then
         local file_luaScript = io.open(string_luaScriptPath, "rb");
         local string_luaScriptContents = file_luaScript:read("*all");

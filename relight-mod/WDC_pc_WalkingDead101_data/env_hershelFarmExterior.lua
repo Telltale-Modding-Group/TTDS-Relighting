@@ -5,8 +5,6 @@
 --This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
 
 require("RELIGHT_Include.lua");
-require("RELIGHT_env_hershelFarmExterior.lua");
-require("adv_hershelFarmExterior.scene_SceneChanges.lua");
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||

@@ -14,346 +14,346 @@ RELIGHT_GenerateNewINI_Season1 = function(number_configurationVersion)
         --||||||||||||||||||||||||||||||||||||||| EPISODE 1 |||||||||||||||||||||||||||||||||||||||
         Level_101_env_clementineHouseExterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_101_env_clementineHouseExterior_night = 
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_101_env_clementineHouseInterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_101_env_drugstoreExterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_101_env_drugstoreExteriorNight =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_101_env_drugstoreInterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_101_env_drugstoreInteriorPrologue =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_101_env_drugstoreOffice =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_101_env_hershelFarmExterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_101_env_hershelFarmExteriorNight =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_101_env_motorInn_end =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_101_env_motorInn_stealthMission =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_101_env_streetOutskirts =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_101_env_woodsClementine =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         --||||||||||||||||||||||||||||||||||||||| EPISODE 2 |||||||||||||||||||||||||||||||||||||||
         --||||||||||||||||||||||||||||||||||||||| EPISODE 2 |||||||||||||||||||||||||||||||||||||||
         --||||||||||||||||||||||||||||||||||||||| EPISODE 2 |||||||||||||||||||||||||||||||||||||||
         Level_102_env_dairyBarnDay =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_102_env_dairyBarnNight =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_102_env_dairyExteriorDay =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_102_env_dairyExteriorFence =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_102_env_dairyExteriorNight =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_102_env_dairyHouse =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_102_env_dairyMeatLocker =
         {
-            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/RELIGHT_102_env_dairyMeatLocker.lua",
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/RELIGHT_102_adv_dairyMeatLocker.lua",
         },
         Level_102_env_motorInn =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_102_env_motorInnFinale =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_102_env_woodsAbandonedCamp =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_102_env_woodsAbandonedCampDay =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_102_env_woodsBearTrap =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_102_env_woodsJoleneCamp =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         --||||||||||||||||||||||||||||||||||||||| EPISODE 3 |||||||||||||||||||||||||||||||||||||||
         --||||||||||||||||||||||||||||||||||||||| EPISODE 3 |||||||||||||||||||||||||||||||||||||||
         --||||||||||||||||||||||||||||||||||||||| EPISODE 3 |||||||||||||||||||||||||||||||||||||||
         Level_103_env_clearing =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_103_env_drugstoreExterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_103_env_drugstoreInterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_103_env_epilogue =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_103_env_motorInn =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_103_env_motorInnBanditAttack =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_103_env_overpass =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_103_env_road =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_103_env_station =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_103_env_trainAfterStop =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_103_env_trainBeforeStop =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_103_env_wreckedTrain =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         --||||||||||||||||||||||||||||||||||||||| EPISODE 4 |||||||||||||||||||||||||||||||||||||||
         --||||||||||||||||||||||||||||||||||||||| EPISODE 4 |||||||||||||||||||||||||||||||||||||||
         --||||||||||||||||||||||||||||||||||||||| EPISODE 4 |||||||||||||||||||||||||||||||||||||||
         Level_104_env_cancerGroupHideout =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_cancerGroupHideoutEpilogue =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_crawfordAutoShop =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_crawfordExterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_crawfordSchoolBellTower =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_crawfordSchoolClassroom =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_crawfordSchoolHallways =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_crawfordSchoolNursesOffice =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_manorExteriorDay =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_manorExteriorNight =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_manorInteriorAfterCrawford =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_manorInteriorAttic =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_manorInteriorBeforeCrawford =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_manorInteriorClementineSearch =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_manorInteriorHouseSearch =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_savannahRiverStreet =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_savannahSewers =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_104_env_savannahStreets =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         --||||||||||||||||||||||||||||||||||||||| EPISODE 5 |||||||||||||||||||||||||||||||||||||||
         --||||||||||||||||||||||||||||||||||||||| EPISODE 5 |||||||||||||||||||||||||||||||||||||||
         --||||||||||||||||||||||||||||||||||||||| EPISODE 5 |||||||||||||||||||||||||||||||||||||||
         Level_105_env_epilogue =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_105_env_jewelryStore =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_105_env_manorExterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_105_env_manorInterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_105_env_manorInteriorAttic =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_105_env_manorNeighborBedroom =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_105_env_marshHouseExterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_105_env_marshHouseInterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_105_env_morgue =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_105_env_riverStreet =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_105_env_riverStreetRooftop =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_105_env_rooftop =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         --||||||||||||||||||||||||||||||||||||||| EPISODE 6 |||||||||||||||||||||||||||||||||||||||
         --||||||||||||||||||||||||||||||||||||||| EPISODE 6 |||||||||||||||||||||||||||||||||||||||
         --||||||||||||||||||||||||||||||||||||||| EPISODE 6 |||||||||||||||||||||||||||||||||||||||
         Level_106_Chapter1A_highway =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_106_Chapter2A_highway =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_106_Chapter2B_road =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_106_Chapter3A_road =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_106_Chapter3B_truckStop =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_106_Chapter3C_truckStopInterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_106_Chapter4A_forest =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_106_Chapter4B_cornfield =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_106_Chapter5A_truckStopInterior =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_106_Chapter5B_truckStop =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_106_Chapter6A_truckStop =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_106_Chapter6B_camp =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
         Level_106_ChapterSelection =
         {
-            RelightSceneLuaFile = nil,
+            RelightSceneLuaFile = RELIGHT_LevelsFolderName .. "/",
         },
     };
         

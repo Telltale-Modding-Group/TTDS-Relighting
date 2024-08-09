@@ -124,6 +124,6 @@ end
 
 SceneOpen(kScene, kScript)
 
-if (RelightConfigDevelopment.EditorMode == false) or (RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == true) then
+if not (RelightConfigDevelopment.EditorMode == true) or (RelightConfigDevelopment.FreeCameraOnlyMode == true) then
   SceneAdd("ui_tobecontinued")
 end

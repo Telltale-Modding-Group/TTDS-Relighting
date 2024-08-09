@@ -5,7 +5,6 @@
 --This also includes the Telltale Lua Script Extensions (TLSE) backend as well with all of it's core files + development tools.
 
 require("RELIGHT_Include.lua");
-require("RELIGHT_env_savannahRiverStreet.lua");
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE SCENE VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||
