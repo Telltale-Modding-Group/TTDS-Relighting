@@ -32,74 +32,7 @@ TLSE_Development_FreecamUseFOVScale = false;
 --Relight variables
 RELIGHT_SceneObject = kScene;
 RELIGHT_SceneObjectAgentName = kScene;
-RelightConfigGlobal = RelightConfigData_Main.Global;
-RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
---RelightConfigLevel = RelightConfigData_Season2.Level_202_LodgeMainRoom;
-
---Relight DOF
-RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
-RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = false;
-RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
-RELIGHT_DOF_AUTOFOCUS_FocalRange = 0.125;
-RELIGHT_DOF_AUTOFOCUS_Aperture = 1.4; --f/1.0, f/1.4, f/2, f/2.8, f/4, f/5.6, f/8, f/11, f/16, f22, f/32
-RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = {};
-RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
-{
-    "Clementine",
-    "Lee",
-    "Kenny",
-    "Kenny",
-    "Mike",
-    "Arvo",
-    "Luke",
-    "Jane",
-    "Baby",
-    "Baby_kenny_wrist_L",
-    "Baby_clementine",
-    "Baby_bonnie",
-
-};
-RELIGHT_DOF_AUTOFOCUS_Settings =
-{
-    TargetValidation_IsOnScreen = true,
-    TargetValidation_IsVisible = true,
-    TargetValidation_IsWithinDistance = true,
-    TargetValidation_IsFacingCamera = true,
-    TargetValidation_IsOccluded = false,
-    TargetValidation_RejectionAngle = 0.0, --goes from -1 to 1 (less than 0 is within the 180 forward facing fov of the given object)
-    TargetValidation_RejectionDistance = 40.0, --the max distance before the agent is too far from camera to do autofocus
-};
-RELIGHT_DOF_AUTOFOCUS_BokehSettings =
-{
-    BokehBrightnessDeltaThreshold = 0.05,
-    BokehBrightnessThreshold = 0.05,
-    BokehBlurThreshold = 0.05,
-    BokehMaxSizeClamp = 0.05,
-    BokehFalloff = 0.75,
-    MaxBokehBufferAmount = 1.0,
-    BokehPatternTexture = "bokeh_circle.d3dtx"
-    --BokehPatternTexture = "bokeh_anamorphic2.d3dtx"
-};
-
---Relight Volumetrics
-RELIGHT_HackyCameraVolumetrics_Settings = 
-{
-    Samples = 256,
-    SampleOffset = 0.05,
-    SampleStartOffset = 1.0,
-    FogColor = Color(0.05, 0.05, 0.05, 0.05)
-};
-
-LensFlareEffect_SourcesCount = 1;
-LensFlareEffect_Sources = 
-{
-  Source1 = 
-  {
-    LightAgentName = "light_ENV_D_1",
-    LightOcclusionAngle = -0.25,
-    LightIntensityModifier = 1.0,
-  },
-};
+RelightConfigLevel = RelightConfigData_Season1.Level_101_env_hershelFarmExterior;
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -237,29 +170,30 @@ end
 --This is where we will setup and execute everything that we want to do!
 
 function hershelFarmExterior()
+  --Load/Parse the required configuration files, and apply them.
   RELIGHT_ConfigurationStart();
 
-  RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
+  --if we are configured to be in editor mode, make sure to keep track of the original agents in the scene before we apply any modifications to them.
+  if (RelightConfigDevelopment.EditorMode == true) then
+    TLSE_Development_Editor_CaptureOriginalSceneAgentNames();
+  end
 
-  RELIGHT_SkydomeReplacement_Initalize();
+  --load this scene's external relight LUA file (NOTE: if it doesn't exist; or it's named incorrectly; or the path is incorrect; or it loads but there are lua errors, then this won't run)
+  if(TLSE_LoadAndUseLuaFile(RelightConfigLevel["RelightSceneLuaFile"])) then
+    RELIGHT_SceneStart();
+    Callback_PostUpdate:Add(RELIGHT_SceneUpdate);
+  end
 
-  --RELIGHT_LensFlareEffect_Initalize();
-  --Callback_PostUpdate:Add(RELIGHT_LensFlareEffect_Update);
-
-  RELIGHT_Letterboxing_Initalize();
-  Callback_PostUpdate:Add(RELIGHT_Letterboxing_Update);
-
-  RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF(nil);
-  Callback_PostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus);
-
-  TLSE_SceneRelight(kScene);
-  TLSE_ApplySceneSettings(RELIGHT_SceneObjectAgentName);
+  --apply relight backend global logic
+  RELIGHT_Global_Start();
+  Callback_PostUpdate:Add(RELIGHT_Global_Update);
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then
+    TLSE_Development_GUI_RelightLuaExportNamePrefix = "101_";
     TLSE_Development_Editor_Start();
     Callback_PostUpdate:Add(TLSE_Development_Editor_Update);
-    do return end --don't continue
+    return; --don't continue
   end
 
   --If configured in the development ini, enable freecamera (if editor is not enabled)
@@ -268,7 +202,7 @@ function hershelFarmExterior()
     Callback_PostUpdate:Add(TLSE_Development_UpdateFreeCamera);
   end
 
-  --If configured in the development ini, enable a performance metrics overlay
+  --If configured in the development ini, enable a performance metrics overlayalthou
   if (RelightConfigDevelopment.PerformanceMetrics == true) then     
     TLSE_Development_PerformanceMetrics_Initalize();
     Callback_PostUpdate:Add(TLSE_Development_PerformanceMetrics_Update);
@@ -276,7 +210,7 @@ function hershelFarmExterior()
 
   --If it's configured in the development ini to be in freecamera mode...
   if (RelightConfigDevelopment.FreeCameraOnlyMode == true and RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == false) then
-    return --don't start the scene normally as the user wants to fly around the scene but not have it attempt to run the original level logic
+    return; --don't start the scene normally as the user wants to fly around the scene but not have it attempt to run the original level logic
   end
 
   --execute the original telltale level start logic

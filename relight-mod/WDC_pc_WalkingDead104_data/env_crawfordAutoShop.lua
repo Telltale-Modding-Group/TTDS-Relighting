@@ -30,50 +30,7 @@ TLSE_Development_FreecamUseFOVScale = false;
 --Relight variables
 RELIGHT_SceneObject = kScene;
 RELIGHT_SceneObjectAgentName = kScene .. ".scene";
-RelightConfigGlobal = RelightConfigData_Main.Global;
-RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
---RelightConfigLevel = RelightConfigData_Season2.Level_202_LodgeMainRoom;
-
---Relight DOF
-RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
-RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = false;
-RELIGHT_DOF_AUTOFOCUS_UseHighQualityDOF = true;
-RELIGHT_DOF_AUTOFOCUS_FocalRange = 1.0;
-RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = {};
-RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
-{
-    "Clementine"
-};
-RELIGHT_DOF_AUTOFOCUS_Settings =
-{
-    TargetValidation_IsOnScreen = true,
-    TargetValidation_IsVisible = true,
-    TargetValidation_IsWithinDistance = true,
-    TargetValidation_IsFacingCamera = true,
-    TargetValidation_IsOccluded = false,
-    TargetValidation_RejectionAngle = 0.0, --goes from -1 to 1 (less than 0 is within the 180 forward facing fov of the given object)
-    TargetValidation_RejectionDistance = 40.0, --the max distance before the agent is too far from camera to do autofocus
-};
-RELIGHT_DOF_AUTOFOCUS_BokehSettings =
-{
-    BokehBrightnessDeltaThreshold = 0.02,
-    BokehBrightnessThreshold = 0.02,
-    BokehBlurThreshold = 0.05,
-    BokehMinSize = 0.0,
-    BokehMaxSize = 0.03,
-    BokehFalloff = 0.75,
-    MaxBokehBufferAmount = 1.0,
-    BokehPatternTexture = "bokeh_circle.d3dtx"
-};
-
---Relight Volumetrics
-RELIGHT_HackyCameraVolumetrics_Settings = 
-{
-    Samples = 256,
-    SampleOffset = 0.15,
-    SampleStartOffset = 1.0,
-    FogColor = Color(0.1, 0.1, 0.1, 0.1)
-};
+RelightConfigLevel = RelightConfigData_Season1.Level_104_env_crawfordAutoShop;
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -110,15 +67,30 @@ end
 --This is where we will setup and execute everything that we want to do!
 
 function CrawfordAutoShop()
+  --Load/Parse the required configuration files, and apply them.
   RELIGHT_ConfigurationStart();
 
-  RELIGHT_ApplyGlobalAdjustments(RelightConfigGlobal);
+  --if we are configured to be in editor mode, make sure to keep track of the original agents in the scene before we apply any modifications to them.
+  if (RelightConfigDevelopment.EditorMode == true) then
+    TLSE_Development_Editor_CaptureOriginalSceneAgentNames();
+  end
+
+  --load this scene's external relight LUA file (NOTE: if it doesn't exist; or it's named incorrectly; or the path is incorrect; or it loads but there are lua errors, then this won't run)
+  if(TLSE_LoadAndUseLuaFile(RelightConfigLevel["RelightSceneLuaFile"])) then
+    RELIGHT_SceneStart();
+    Callback_PostUpdate:Add(RELIGHT_SceneUpdate);
+  end
+
+  --apply relight backend global logic
+  RELIGHT_Global_Start();
+  Callback_PostUpdate:Add(RELIGHT_Global_Update);
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then
+    TLSE_Development_GUI_RelightLuaExportNamePrefix = "104_";
     TLSE_Development_Editor_Start();
     Callback_PostUpdate:Add(TLSE_Development_Editor_Update);
-    do return end --don't continue
+    return; --don't continue
   end
 
   --If configured in the development ini, enable freecamera (if editor is not enabled)
@@ -127,7 +99,7 @@ function CrawfordAutoShop()
     Callback_PostUpdate:Add(TLSE_Development_UpdateFreeCamera);
   end
 
-  --If configured in the development ini, enable a performance metrics overlay
+  --If configured in the development ini, enable a performance metrics overlayalthou
   if (RelightConfigDevelopment.PerformanceMetrics == true) then     
     TLSE_Development_PerformanceMetrics_Initalize();
     Callback_PostUpdate:Add(TLSE_Development_PerformanceMetrics_Update);
@@ -135,7 +107,7 @@ function CrawfordAutoShop()
 
   --If it's configured in the development ini to be in freecamera mode...
   if (RelightConfigDevelopment.FreeCameraOnlyMode == true and RelightConfigDevelopment.FreeCameraOnlyMode_StartSceneNormally == false) then
-    return --don't start the scene normally as the user wants to fly around the scene but not have it attempt to run the original level logic
+    return; --don't start the scene normally as the user wants to fly around the scene but not have it attempt to run the original level logic
   end
 
   --execute the original telltale level start logic

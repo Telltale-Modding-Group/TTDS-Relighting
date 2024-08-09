@@ -30,7 +30,7 @@ TLSE_Development_FreecamUseFOVScale = false;
 --Relight variables
 RELIGHT_SceneObject = kScene;
 RELIGHT_SceneObjectAgentName = kScene .. ".scene";
-RelightConfigLevel = RelightConfigData_Season1.Level_102_DairyMeatLocker;
+RelightConfigLevel = RelightConfigData_Season1.Level_102_env_dairyMeatLocker;
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
