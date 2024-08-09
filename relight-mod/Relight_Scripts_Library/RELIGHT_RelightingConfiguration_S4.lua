@@ -14,9 +14,7 @@ RELIGHT_GenerateNewINI_Season4 = function(number_configurationVersion)
 ----------------------------------- SEASON 4 EPISODE 1 -----------------------------------
         Level_401_TrainStation = 
         {
-            EnableRelighting = true, 
             RelightSceneLuaFile = nil,
-            RelightSceneConfigurationFile = nil,
         }
     };
         

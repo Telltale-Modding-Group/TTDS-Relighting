@@ -32,60 +32,6 @@ RELIGHT_SceneObject = kScene;
 RELIGHT_SceneObjectAgentName = kScene .. ".scene";
 RelightConfigLevel = RelightConfigData_Season2.Level_205_SnowyPowerStation;
 
---[[
---Relight DOF
-RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = true;
-RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF = false;
-RELIGHT_DOF_AUTOFOCUS_FocalRange = 0.125;
-RELIGHT_DOF_AUTOFOCUS_Aperture = 2.8; --f/1.0, f/1.4, f/2, f/2.8, f/4, f/5.6, f/8, f/11, f/16, f22, f/32
-RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = 
-{
-  "Null"
-};
-RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
-{
-    "Clementine",
-    "Bonnie",
-    "Baby_kenny",
-    "Kenny",
-    "Mike",
-    "Arvo",
-    "Luke",
-    "Jane",
-    "Baby",
-    "Baby_kenny_wrist_L",
-    "Baby_clementine",
-    "Baby_bonnie",
-};
-RELIGHT_DOF_AUTOFOCUS_Settings =
-{
-    TargetValidation_IsOnScreen = true,
-    TargetValidation_IsVisible = true,
-    TargetValidation_IsWithinDistance = true,
-    TargetValidation_IsFacingCamera = true,
-    TargetValidation_RejectionAngle = 0.0, --goes from -1 to 1 (less than 0 is within the 180 forward facing fov of the given object)
-    TargetValidation_RejectionDistance = 10.0, --the max distance before the agent is too far from camera to do autofocus
-};
-RELIGHT_DOF_AUTOFOCUS_BokehSettings =
-{
-    BokehBrightnessDeltaThreshold = 0.05,
-    BokehBrightnessThreshold = 0.05,
-    BokehBlurThreshold = 0.05,
-    BokehMaxSizeClamp = 0.05,
-    BokehFalloff = 0.75,
-    MaxBokehBufferAmount = 1.0,
-};
-
---Relight Volumetrics
-RELIGHT_HackyCameraVolumetrics_Settings = 
-{
-    Samples = 256,
-    SampleOffset = 0.05,
-    SampleStartOffset = 1.0,
-    FogColor = Color(0.05, 0.05, 0.05, 0.05)
-};
-]]
-
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| TELLTALE LEVEL LOGIC ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -240,21 +186,28 @@ end
 --Here is the main function that gets called when the level starts.
 --This is where we will setup and execute everything that we want to do!
 
---dofile("RelightLevels/RELIGHT_205_SnowyPowerStation.lua");
-
 function SnowyPowerStation()
+  --Load/Parse the required configuration files, and apply them.
   RELIGHT_ConfigurationStart();
 
+  --if we are configured to be in editor mode, make sure to keep track of the original agents in the scene before we apply any modifications to them.
+  if (RelightConfigDevelopment.EditorMode == true) then
+    TLSE_Development_Editor_CaptureOriginalSceneAgentNames();
+  end
+  
+  --load this scene's external relight LUA file (NOTE: if it doesn't exist; or it's named incorrectly; or the path is incorrect; or it loads but there are lua errors, then this won't run)
   if(TLSE_LoadAndUseLuaFile(RelightConfigLevel["RelightSceneLuaFile"])) then
-    TLSE_SceneRelightStart(RELIGHT_SceneObjectAgentName, RELIGHT_SceneObject);
-    Callback_OnPostUpdate:Add(TLSE_SceneRelightUpdate);
+    RELIGHT_SceneStart();
+    Callback_OnPostUpdate:Add(RELIGHT_SceneUpdate);
   end
 
+  --apply relight backend global logic
   RELIGHT_Global_Start();
   Callback_OnPostUpdate:Add(RELIGHT_Global_Update);
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then
+    TLSE_Development_GUI_RelightLuaExportNamePrefix = "205_";
     TLSE_Development_Editor_Start();
     Callback_OnPostUpdate:Add(TLSE_Development_Editor_Update);
     return; --don't continue

@@ -54,6 +54,6 @@ require("TLSE_Development_Editor_Selection.lua");
 require("TLSE_Development_Editor_TransformTool.lua");
 require("TLSE_Development_Editor_SceneAgents.lua");
 require("TLSE_Development_Editor_TextBox.lua");
-require("TLSE_Development_Editor_LuaHelper.lua");
+require("TLSE_Development_Editor_RelightLuaExport.lua");
 
 print("[TLSE_Development_Inclusions.lua] End Development Library Inclusions Block")

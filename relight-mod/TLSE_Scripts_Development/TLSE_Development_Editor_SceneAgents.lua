@@ -2,9 +2,11 @@
 --|||||||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||||||
 
+TLSE_Development_OriginalSceneAgentNamesList = {};
 TLSE_Development_SceneAgentsStringFilter = "TLSE_Development";
 TLSE_Development_SceneAgentsList = {};
 TLSE_Development_SceneAgentsUnfilteredList = {};
+TLSE_Development_SceneAgentsRelightExportList = {};
 TLSE_Development_SceneAgent = nil;
 
 TLSE_Development_SceneAgents_FilterLights = false;
@@ -19,8 +21,16 @@ TLSE_Development_SceneAgentsDuplicated = {};
 TLSE_Development_SceneAgentsDuplicatedCount = 0;
 
 --|||||||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||
---|||||||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||||||
---|||||||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+TLSE_Development_Editor_CaptureOriginalSceneAgentNames = function()
+    local agentTable_originalSceneAgents = SceneGetAgents(TLSE_Development_SceneObject);
+
+    for index, agent_sceneAgent in pairs(agentTable_originalSceneAgents) do
+        table.insert(TLSE_Development_OriginalSceneAgentNamesList, AgentGetName(agent_sceneAgent));
+    end
+end
 
 TLSE_Development_Editor_AgentDuplicate = function(agent_agentToDuplicate)
     TLSE_Development_SceneAgentsDuplicatedCount = TLSE_Development_SceneAgentsDuplicatedCount + 1;
@@ -55,6 +65,7 @@ TLSE_Development_Editor_UpdateSceneAgentsList = function()
     TLSE_Development_SceneAgent = AgentFindInScene(TLSE_Development_SceneObjectAgentName, TLSE_Development_SceneObject);
 
     TLSE_Development_SceneAgentsList = {};
+    TLSE_Development_SceneAgentsRelightExportList = {};
 
     TLSE_Development_SceneAgentsUnfilteredList = SceneGetAgents(TLSE_Development_SceneObject);
 
@@ -63,7 +74,6 @@ TLSE_Development_Editor_UpdateSceneAgentsList = function()
 
         --if an agent is not a development agent
         if not (string.match)(string_sceneAgentName, TLSE_Development_SceneAgentsStringFilter) then
-
             if(TLSE_Development_SceneAgents_FilterLights) then
                 if(AgentHasProperty(agent_sceneAgent, "EnvLight - Type")) then
                     table.insert(TLSE_Development_SceneAgentsList, agent_sceneAgent);
@@ -91,6 +101,8 @@ TLSE_Development_Editor_UpdateSceneAgentsList = function()
             else
                 table.insert(TLSE_Development_SceneAgentsList, agent_sceneAgent);
             end
+
+            table.insert(TLSE_Development_SceneAgentsRelightExportList, agent_sceneAgent);
         end
     end
 end

@@ -7,6 +7,7 @@ TLSE_Development_GUI_EnvFogTabActive = false;
 TLSE_Development_GUI_MeshTabActive = false;
 TLSE_Development_GUI_DebugTabActive = false;
 TLSE_Development_GUI_EditorTabActive = false;
+TLSE_Development_GUI_RelightLuaExportNamePrefix = "";
 
 local string_texture_editorColor = "TLSE_Development_EditorGUIGrey.d3dtx";
 local agent_guiGroup = nil;
@@ -47,7 +48,7 @@ local OnPress_HideHoverBox = function(textButton_button) TLSE_Development_Select
 local OnPress_ToggleKeybinds = function(textButton_button) bool_showKeybinds = not bool_showKeybinds; end
 
 local OnPress_ExportSceneChangesToScript = function(textButton_button) 
-    TLSE_Development_Editor_LuaHelper_ExportSceneChangesToScript(TLSE_Development_SceneObject .. "_SceneChanges");
+    TLSE_Development_Editor_RelightLuaExport_ExportSceneChangesToScript(TLSE_Development_GUI_RelightLuaExportNamePrefix .. TLSE_Development_SceneObject);
 end
 
 local OnPress_DisableAllLights = function(textButton_button) 

@@ -69,18 +69,27 @@ end
 --This is where we will setup and execute everything that we want to do!
 
 function DairyMeatLocker()
+  --Load/Parse the required configuration files, and apply them.
   RELIGHT_ConfigurationStart();
 
-  if(TLSE_LoadAndUseLuaFile(RelightConfigLevel["RelightSceneLuaFile"])) then
-    TLSE_SceneRelightStart(RELIGHT_SceneObjectAgentName, RELIGHT_SceneObject);
-    Callback_PostUpdate:Add(TLSE_SceneRelightUpdate);
+  --if we are configured to be in editor mode, make sure to keep track of the original agents in the scene before we apply any modifications to them.
+  if (RelightConfigDevelopment.EditorMode == true) then
+    TLSE_Development_Editor_CaptureOriginalSceneAgentNames();
   end
 
+  --load this scene's external relight LUA file (NOTE: if it doesn't exist; or it's named incorrectly; or the path is incorrect; or it loads but there are lua errors, then this won't run)
+  if(TLSE_LoadAndUseLuaFile(RelightConfigLevel["RelightSceneLuaFile"])) then
+    RELIGHT_SceneStart();
+    Callback_PostUpdate:Add(RELIGHT_SceneUpdate);
+  end
+
+  --apply relight backend global logic
   RELIGHT_Global_Start();
   Callback_PostUpdate:Add(RELIGHT_Global_Update);
 
   --If configured in the development ini, enable the TLSE editor
   if (RelightConfigDevelopment.EditorMode == true) then
+    TLSE_Development_GUI_RelightLuaExportNamePrefix = "102_";
     TLSE_Development_Editor_Start();
     Callback_PostUpdate:Add(TLSE_Development_Editor_Update);
     return; --don't continue
