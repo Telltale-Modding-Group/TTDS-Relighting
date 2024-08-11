@@ -138,7 +138,7 @@ TLSE_Development_Editor_RelightLuaExport_WriteSetAgentPropertiesBySymbol = funct
         end
 
         if(bool_useSymbolDatabase) then
-            local symbolDatabase = require("TLSE_Development_SymbolDatabase.lua");
+            local symbolDatabase = require("TLSE_Development_SymbolKeyValueDatabase.lua");
             string_codeToWrite = string_codeToWrite .. " --" .. TLSE_Development_GetSymbolDatabaseMatchesForSymbol(symbol_propertyKey);
         end
 

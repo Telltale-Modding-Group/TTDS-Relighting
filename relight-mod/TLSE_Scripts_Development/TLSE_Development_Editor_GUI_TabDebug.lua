@@ -21,8 +21,6 @@ local OnPress_PrintSceneOriginalAgentNames = function(textButton_button)
     TLSE_Development_PrintAllOriginalSceneAgentNames("PRINT_OriginalAgents_" .. TLSE_Development_SceneObject);
 end
 
-
-
 local OnPress_PrintAllPropertiesTXT = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
     TLSE_Development_PrintAllAgentProperties(agent_currentSelectedAgent, nil, "PRINT_AllProperties_" .. AgentGetName(agent_currentSelectedAgent), false);
@@ -47,17 +45,6 @@ local OnPress_PrintAllTransientPropertiesTXT = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end
     TLSE_Development_PrintAllAgentProperties(agent_currentSelectedAgent, "transient", "PRINT_AllTransientProperties_" .. AgentGetName(agent_currentSelectedAgent), false);
 end
-
-
-
-
-
-
-
-
-
-
-
 
 local OnPress_PrintAllPropertiesLUA = function(textButton_button)
     if(agent_currentSelectedAgent == nil) then return end

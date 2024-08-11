@@ -13,6 +13,8 @@ local textButton_agentDelete = nil;
 local textButton_agentDuplicate = nil;
 local textButton_agentMoveToCamera = nil;
 --local textButton_agentRename = nil;
+local textButton_agentZeroRotation = nil;
+local textButton_agentZeroPosition = nil;
 
 --LOCAL POSITION
 local OnIncrease_LocalPositionX = function(textButton_button)
@@ -197,6 +199,20 @@ local OnPress_AgentMoveToCamera = function(textButton_button)
     AgentSetWorldRot(agent_currentSelectedAgent, vector_sceneCameraRotation);
 end
 
+local OnPress_AgentZeroPosition = function(textButton_button)
+    if(agent_currentSelectedAgent == nil) then return end
+
+    AgentSetWorldPos(agent_currentSelectedAgent, Vector(0, 0, 0));
+    AgentSetPos(agent_currentSelectedAgent, Vector(0, 0, 0));
+end
+
+local OnPress_AgentZeroRotation = function(textButton_button)
+    if(agent_currentSelectedAgent == nil) then return end
+
+    AgentSetWorldRot(agent_currentSelectedAgent, Vector(0, 0, 0));
+    AgentSetRot(agent_currentSelectedAgent, Vector(0, 0, 0));
+end
+
 OnTextFinish_AgentRename = function()
     --AgentSetName(agent_currentSelectedAgent, "testasfasf");
     
@@ -230,10 +246,12 @@ TLSE_Development_GUI_TabAgentInitalize = function()
     numberField_agentRenderGlobalScale = TLSE_Development_Editor_GUI_CreateNumberPropertyField(nil, "Render Global Scale", Vector(0.685, 0.665, 0.0), true, nil, nil);
     vector3field_agentRenderAxisScale = TLSE_Development_Editor_GUI_CreateVector3PropertyField(nil, "Render Axis Scale", "Render Axis Scale", Vector(0.685, 0.675, 0.0), true, nil, nil, nil, nil, nil, nil);
 
-    textButton_agentMoveToCamera = TLSE_Development_Editor_GUI_CreateTextButton("[MOVE AGENT TO CAMERA]", false, Vector(0.685, 0.715, 0.0), OnPress_AgentMoveToCamera, nil);
-    textButton_agentDelete = TLSE_Development_Editor_GUI_CreateTextButton("[DELETE AGENT]", false, Vector(0.685, 0.735, 0.0), OnPress_AgentDelete, nil);
-    textButton_agentDuplicate = TLSE_Development_Editor_GUI_CreateTextButton("[DUPLICATE AGENT]", false, Vector(0.685, 0.755, 0.0), OnPress_AgentDuplicate, nil);
-    textButton_agentRename = TLSE_Development_Editor_GUI_CreateTextButton("[RENAME AGENT]", false, Vector(0.685, 0.765, 0.0), OnPress_AgentRename, nil);
+    textButton_agentDelete = TLSE_Development_Editor_GUI_CreateTextButton("[DELETE AGENT]", false, Vector(0.685, 0.715, 0.0), OnPress_AgentDelete, nil);
+    textButton_agentDuplicate = TLSE_Development_Editor_GUI_CreateTextButton("[DUPLICATE AGENT]", false, Vector(0.685, 0.730, 0.0), OnPress_AgentDuplicate, nil);
+    textButton_agentRename = TLSE_Development_Editor_GUI_CreateTextButton("[RENAME AGENT]", false, Vector(0.685, 0.745, 0.0), OnPress_AgentRename, nil);
+    textButton_agentMoveToCamera = TLSE_Development_Editor_GUI_CreateTextButton("[MOVE AGENT TO CAMERA]", false, Vector(0.685, 0.760, 0.0), OnPress_AgentMoveToCamera, nil);
+    textButton_agentZeroRotation = TLSE_Development_Editor_GUI_CreateTextButton("[ZERO POSITION]", false, Vector(0.685, 0.775, 0.0), OnPress_AgentZeroPosition, nil);
+    textButton_agentZeroPosition = TLSE_Development_Editor_GUI_CreateTextButton("[ZERO ROTATION]", false, Vector(0.685, 0.790, 0.0), OnPress_AgentZeroRotation, nil);
 end
 
 TLSE_Development_GUI_TabAgentUpdate = function()
@@ -252,6 +270,8 @@ TLSE_Development_GUI_TabAgentUpdate = function()
     textButton_agentDuplicate["Visible"] = TLSE_Development_GUI_AgentTabActive;
     textButton_agentRename["Visible"] = TLSE_Development_GUI_AgentTabActive;
     textButton_agentMoveToCamera["Visible"] = TLSE_Development_GUI_AgentTabActive;
+    textButton_agentZeroRotation["Visible"] = TLSE_Development_GUI_AgentTabActive;
+    textButton_agentZeroPosition["Visible"] = TLSE_Development_GUI_AgentTabActive;
 
     if(bool_inspectingObject) then
         if(TLSE_Development_Editor_Input_DeleteClicked) then
@@ -299,6 +319,8 @@ TLSE_Development_GUI_TabAgentUpdate = function()
     textButton_agentDuplicate["Visible"] = bool_inspectingObject;
     textButton_agentRename["Visible"] = bool_inspectingObject;
     textButton_agentMoveToCamera["Visible"] = bool_inspectingObject;
+    textButton_agentZeroRotation["Visible"] = bool_inspectingObject;
+    textButton_agentZeroPosition["Visible"] = bool_inspectingObject;
 
     label_inspectorInfoText["Text"] = string_inspectorMainText;
 end
