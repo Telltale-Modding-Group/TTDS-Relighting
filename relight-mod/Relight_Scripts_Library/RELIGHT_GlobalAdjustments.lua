@@ -2,6 +2,23 @@
 --|||||||||||||||||||||||||||||||||||||||||||||||| LOCAL FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| LOCAL FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||
 
+local EnableMotionBlur = function()
+    RenderSetFeatureEnabled("motionblur", true);
+    TLSE_SetPropertyOnAllMeshes(RELIGHT_SceneObject, "Motion Blur Enabled", true);
+    TLSE_SetPropertyOnAllCameras(RELIGHT_SceneObject, "FX Motion Blur Enabled", true);
+    TLSE_SetPropertyOnAllCameras(RELIGHT_SceneObject, "FX Motion Blur Intensity", RelightConfigGlobal["MotionBlurIntensity"]);
+    TLSE_SetPropertyOnAllCameras(RELIGHT_SceneObject, "FX Motion Blur Movement Threshold Enabled", false);
+    TLSE_SetPropertyOnAllCameras(RELIGHT_SceneObject, "FX Motion Blur Movement Threshold", 0.5);
+    TLSE_SetPropertyOnAllCameras(RELIGHT_SceneObject, "FX Motion Blur Rotation Threshold Enabled", false);
+    TLSE_SetPropertyOnAllCameras(RELIGHT_SceneObject, "FX Motion Blur Rotation Threshold", 0.5);
+end
+
+local ForceBloomOff = function()
+    RenderSetFeatureEnabled("glow", false);
+    AgentSetProperty(RELIGHT_SceneObjectAgentName, "FX Bloom Threshold", 0.0, RELIGHT_SceneObject);
+    AgentSetProperty(RELIGHT_SceneObjectAgentName, "FX Bloom Intensity", 0.0, RELIGHT_SceneObject);
+end
+
 local ApplyFOVAdjustments = function()
     local agentTable_cameras = TLSE_GetAllCameraAgentsInScene(RELIGHT_SceneObject);
 
@@ -125,6 +142,14 @@ RELIGHT_Global_Start = function()
 
     if(RelightConfigGlobal["CinematicMode"] == true) then
         RELIGHT_Letterboxing_Initalize();
+    end
+
+    if(RelightConfigGlobal["ForceBloomOff"] == true) then
+        ForceBloomOff();
+    end
+
+    if(RelightConfigGlobal["EnableMotionBlur"] == true) then
+        EnableMotionBlur();
     end
 end
 

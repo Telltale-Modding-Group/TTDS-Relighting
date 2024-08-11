@@ -81,6 +81,95 @@ TLSE_Development_Editor_RelightLuaExport_WriteAgentNameSetWorldPositionAndRotati
     return string_codeToWrite;
 end
 
+TLSE_Development_Editor_RelightLuaExport_WriteAgentSetPropertyWithSymbol = function(string_agentVariableName, string_agentPropertySymbol, string_propertyValue)
+    --REFERENCE LINE
+    --TLSE_AgentSetPropertyWithSymbol(agent_object, string_symbol, type_value)
+
+    local string_codeToWrite = "TLSE_AgentSetPropertyWithSymbol(";
+    string_codeToWrite = string_codeToWrite .. string_agentVariableName .. ", ";
+    string_codeToWrite = string_codeToWrite .. '"' .. string_agentPropertySymbol.. '"' .. ", ";
+    string_codeToWrite = string_codeToWrite .. string_propertyValue .. ")";
+    return string_codeToWrite;
+end
+
+--|||||||||||||||||||||||||||||||||||||||||||||| RELIGHT LUA EXPORT - AGENT PROPERTY SYMBOL ||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||| RELIGHT LUA EXPORT - AGENT PROPERTY SYMBOL ||||||||||||||||||||||||||||||||||||||||||||||
+--|||||||||||||||||||||||||||||||||||||||||||||| RELIGHT LUA EXPORT - AGENT PROPERTY SYMBOL ||||||||||||||||||||||||||||||||||||||||||||||
+
+TLSE_Development_Editor_RelightLuaExport_WriteSetAgentPropertiesBySymbol = function(agent_object, bool_useSymbolDatabase)
+    local string_codeToWrite = "\n";
+
+    string_codeToWrite = string_codeToWrite .. "--Settings all of the runtime properties on an agent by their raw symbol. \n";
+    string_codeToWrite = string_codeToWrite .. "RELIGHT_SetAllPropertiesBySymbolOnAgent = function(agent_object) \n";
+
+    local propertySet_reference = AgentGetProperties(agent_object);
+    local propertySetKeys_reference = PropertyGetKeys(propertySet_reference);
+    
+    for index, symbol_propertyKey in pairs(propertySetKeys_reference) do
+        local type_propertyValue = PropertyGet(propertySet_reference, symbol_propertyKey);
+        local string_propertyValueType = TypeName(type_propertyValue);
+        local string_propertyValue = tostring(type_propertyValue);
+
+        local bool_writeAsComment = false;
+        local string_propertyKeySymbol = TLSE_KeyToString(symbol_propertyKey);
+
+        if(string_propertyValueType == "boolean" or string_propertyValueType == "number") then
+            bool_writeAsComment = false;
+        elseif(string_propertyValueType == "string") then
+            string_propertyValue = '"' .. type_propertyValue .. '"';
+        elseif(string_propertyValueType == "table") then
+            local string_tableType = TLSE_GetTableType(type_propertyValue);
+    
+            if (string_tableType == "color") then
+                string_propertyValue = TLSE_Development_Editor_RelightLuaExport_WriteColor(type_propertyValue);
+            else
+                bool_writeAsComment = true;
+            end
+        else
+            bool_writeAsComment = true;
+        end
+
+        string_codeToWrite = string_codeToWrite .. "    ";
+
+        if(bool_writeAsComment) then
+            string_codeToWrite = string_codeToWrite .. "--" .. TLSE_Development_Editor_RelightLuaExport_WriteAgentSetPropertyWithSymbol("agent_object", string_propertyKeySymbol, string_propertyValue) .. " --" .. string_propertyValueType;
+        else
+            string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_RelightLuaExport_WriteAgentSetPropertyWithSymbol("agent_object", string_propertyKeySymbol, string_propertyValue) .. ";";
+        end
+
+        if(bool_useSymbolDatabase) then
+            local symbolDatabase = require("TLSE_Development_SymbolDatabase.lua");
+            string_codeToWrite = string_codeToWrite .. " --" .. TLSE_Development_GetSymbolDatabaseMatchesForSymbol(symbol_propertyKey);
+        end
+
+        string_codeToWrite = string_codeToWrite .. "\n";
+    end
+
+    string_codeToWrite = string_codeToWrite .. "end \n";
+
+    return string_codeToWrite;
+end
+
+TLSE_Development_Editor_RelightLuaExport_ExportAgentSetPropertiesBySymbolToScript = function(agent_object, string_scriptName, bool_useSymbolDatabase)
+    local luaPath = "TLSEDevelopment/" .. string_scriptName .. ".lua";
+
+    if(TLSE_FileExists(luaPath) == true) then
+        TLSE_FileDelete(luaPath);
+    else
+        TLSE_DirectoryCreate("TLSEDevelopment");
+    end
+
+    local main_lua_file = io.open(luaPath, "w");
+
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    local string_codeToWrite = "\n";
+
+    string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_RelightLuaExport_WriteSetAgentPropertiesBySymbol(agent_object, bool_useSymbolDatabase);
+
+    main_lua_file:write(string_codeToWrite);
+    main_lua_file:close();
+end
+
 --|||||||||||||||||||||||||||||||||||||||||||||| RELIGHT LUA EXPORT - TLSE SCENE EDITOR CHANGES FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||| RELIGHT LUA EXPORT - TLSE SCENE EDITOR CHANGES FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||| RELIGHT LUA EXPORT - TLSE SCENE EDITOR CHANGES FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||

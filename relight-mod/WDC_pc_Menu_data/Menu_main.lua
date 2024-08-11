@@ -37,12 +37,9 @@ local kKeyArtScene = "adv_clementineHouse400.scene"
 
 TLSE_Development_SceneObject = kKeyArtScene;
 TLSE_Development_SceneObjectAgentName = kKeyArtScene;
-TLSE_Development_UseSeasonOneAPI = false;
 TLSE_Development_FreecamUseFOVScale = true;
 
---some relighting variables
-RelightConfigGlobal = RelightConfigData_Main.Global;
-RelightConfigDevelopment = RelightConfigData_Development.DevelopmentTools;
+
 
 
 

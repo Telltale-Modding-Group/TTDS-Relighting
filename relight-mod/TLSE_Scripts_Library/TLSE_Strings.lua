@@ -39,69 +39,67 @@ TLSE_TablePrint = function(tbl, indent)
 end
 
 TLSE_VectorToString = function(vectorValue)
-    local stringValue = "";
+    local string_vector = "";
     
-    local xValue = string.format("%.6f", vectorValue.x);
-    local yValue = string.format("%.6f", vectorValue.y);
-    local zValue = string.format("%.6f", vectorValue.z);
+    local string_xNumber = string.format("%.6f", vectorValue.x);
+    local string_yNumber = string.format("%.6f", vectorValue.y);
+    local string_zNumber = string.format("%.6f", vectorValue.z);
 
-    stringValue = stringValue .. "x: " .. xValue;
-    stringValue = stringValue .. " y: " .. yValue;
-    stringValue = stringValue .. " z: " .. zValue;
+    string_vector = string_vector .. "x: " .. string_xNumber;
+    string_vector = string_vector .. " y: " .. string_yNumber;
+    string_vector = string_vector .. " z: " .. string_zNumber;
     
-    return stringValue;
+    return string_vector;
 end
 
 TLSE_ColorToString = function(colorValue)
-    local stringValue = "";
+    local string_color = "";
     
-    local rValue = string.format("%.6f", colorValue.r);
-    local gValue = string.format("%.6f", colorValue.g);
-    local bValue = string.format("%.6f", colorValue.b);
-    local aValue = string.format("%.6f", colorValue.a);
+    local string_redNumber = string.format("%.6f", colorValue.r);
+    local string_greenNumber = string.format("%.6f", colorValue.g);
+    local string_blueNumber = string.format("%.6f", colorValue.b);
+    local string_alphaNumber = string.format("%.6f", colorValue.a);
     
-    stringValue = stringValue .. "r: " .. rValue;
-    stringValue = stringValue .. " g: " .. gValue;
-    stringValue = stringValue .. " b: " .. bValue;
-    stringValue = stringValue .. " a: " .. aValue;
+    string_color = string_color .. "r: " .. string_redNumber;
+    string_color = string_color .. " g: " .. string_greenNumber;
+    string_color = string_color .. " b: " .. string_blueNumber;
+    string_color = string_color .. " a: " .. string_alphaNumber;
     
-    return stringValue;
+    return string_color;
 end
 
 TLSE_ColorToRGBAColorToString = function(colorValue)
-    local stringValue = "";
+    local string_color = "";
     
-    local scalar = 255
-    local rValue = string.format("%.0f", colorValue.r * scalar);
-    local gValue = string.format("%.0f", colorValue.g * scalar);
-    local bValue = string.format("%.0f", colorValue.b * scalar);
-    local aValue = string.format("%.0f", colorValue.a * scalar);
+    local number_8bitScale = 255;
+    local string_redNumber = string.format("%.0f", colorValue.r * number_8bitScale);
+    local string_greenNumber = string.format("%.0f", colorValue.g * number_8bitScale);
+    local string_blueNumber = string.format("%.0f", colorValue.b * number_8bitScale);
+    local string_alphaNumber = string.format("%.0f", colorValue.a * number_8bitScale);
     
-    stringValue = stringValue .. "r: " .. rValue;
-    stringValue = stringValue .. " g: " .. gValue;
-    stringValue = stringValue .. " b: " .. bValue;
-    stringValue = stringValue .. " a: " .. aValue;
+    string_color = string_color .. "r: " .. string_redNumber;
+    string_color = string_color .. " g: " .. string_greenNumber;
+    string_color = string_color .. " b: " .. string_blueNumber;
+    string_color = string_color .. " a: " .. string_alphaNumber;
     
-    return stringValue;
+    return string_color;
 end
 
 --gets the key and if it's a symbol it removes the symbol: tag and quotations
 TLSE_KeyToString = function(key)
-    --convert the key to a string
-    local keyAsString = tostring(key)
+    local string_key = tostring(key);
     
     --if the string contains symbol: then remove it, otherwise keep the string as is
-    if (string.match)(keyAsString, "symbol: ") then
-        keyAsString = (string.sub)(keyAsString, 9)
+    if (string.match)(string_key, "symbol: ") then
+        string_key = (string.sub)(string_key, 9);
     else
-        keyAsString = keyAsString
+        string_key = string_key;
     end
     
     --remove any leftover quotations from the string
-    keyAsString = keyAsString:gsub('"','')
+    string_key = string_key:gsub('"','');
 
-    --return the final result
-    return keyAsString
+    return string_key;
 end
 
 TLSE_TimeSecondsFormatted = function(number_timeSecondsValue)
@@ -111,4 +109,25 @@ TLSE_TimeSecondsFormatted = function(number_timeSecondsValue)
     local number_milliseconds = math.floor((number_timeSecondsValue - math.floor(number_timeSecondsValue)) * 1000);
 
     return string.format("%02d:%02d:%02d:%03d", number_hours, number_minutes, number_seconds, number_milliseconds);
+end
+
+TLSE_ContainerToString = function(containerInterface)
+    local string_result = "ContainerInterface";
+    local number_containerElements = ContainerGetNumElements(containerInterface);
+    
+    string_result = string_result .. " (" .. tostring(number_containerElements) .. ") \n";
+    string_result = string_result .. "{ \n";
+
+    for index = 0, number_containerElements - 1 do 
+        local containerElement_element = ContainerGetElement(containerInterface, index);
+        local string_containerElementName = ContainerGetElementName(containerInterface, index);
+        local string_containerElementType = TypeName(containerElement_element);
+
+        string_result = string_result .."    Container Element " .. tostring(index) .. " Name: " .. "(" .. TypeName(string_containerElementName) .. ") " .. tostring(string_containerElementName) .. "\n";
+        string_result = string_result .."    Container Element " .. tostring(index) .. " Value: " .. "(" .. string_containerElementType .. ") " .. tostring(containerElement_element) .. "\n";
+    end
+
+    string_result = string_result .. "} \n";
+
+    return string_result;
 end

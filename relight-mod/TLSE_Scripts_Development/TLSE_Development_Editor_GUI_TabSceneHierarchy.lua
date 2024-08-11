@@ -63,7 +63,7 @@ TLSE_Development_GUI_TabSceneHierarchyInitalize = function()
     textButton_filterParticle = TLSE_Development_Editor_GUI_CreateTextButton("[Particle]", true, Vector(0.825, 0.005, 0.0), OnPress_FilterParticle, nil);
     textButton_filterCineLight = TLSE_Development_Editor_GUI_CreateTextButton("[CinLight]", true, Vector(0.860, 0.005, 0.0), OnPress_FilterCineLight, nil);
     textButton_filterCineLightRig = TLSE_Development_Editor_GUI_CreateTextButton("[LightRig]", true, Vector(0.902, 0.005, 0.0), OnPress_FilterCineLightRig, nil);
-    textButton_filterMesh = TLSE_Development_Editor_GUI_CreateTextButton("[Mesh]", true, Vector(0.955, 0.005, 0.0), OnPress_FilterMesh, nil);
+    textButton_filterMesh = TLSE_Development_Editor_GUI_CreateTextButton("[Renderable]", true, Vector(0.955, 0.005, 0.0), OnPress_FilterMesh, nil);
 
     textButton_hierarchyPrevious = TLSE_Development_Editor_GUI_CreateTextButton("[PREVIOUS]", false, Vector(0.685, 0.465, 0.0), OnPress_CyclePreviousHierarchyItems, nil);
     textButton_hierarchyNext = TLSE_Development_Editor_GUI_CreateTextButton("[NEXT]", false, Vector(0.965, 0.465, 0.0), OnPress_CycleNextHierarchyItems, nil);

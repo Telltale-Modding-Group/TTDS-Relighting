@@ -264,9 +264,13 @@ TLSE_SetPropertyOnAllMeshes = function(string_scene, string_propertyName, type_p
     end
 end
 
+TLSE_SetPropertyOnAllMeshes = function(string_scene, string_propertyName, type_propertyValue)
+    local agentTable_sceneAgents = TLSE_GetAllMeshAgentsInScene(string_scene);
 
-
-
+    for i, agent_sceneAgent in pairs(agentTable_sceneAgents) do
+        AgentSetProperty(agent_sceneAgent, string_propertyName, type_propertyValue);
+    end
+end
 
 
 

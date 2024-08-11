@@ -237,6 +237,8 @@ TLSE_Development_GUI_TabAgentInitalize = function()
 end
 
 TLSE_Development_GUI_TabAgentUpdate = function()
+    local bool_inspectingObject = agent_currentSelectedAgent ~= nil;
+
     label_inspectorInfoText["Visible"] = TLSE_Development_GUI_AgentTabActive;
     boolField_visible["Visible"] = TLSE_Development_GUI_AgentTabActive;
     boolField_groupVisible["Visible"] = TLSE_Development_GUI_AgentTabActive;
@@ -251,12 +253,21 @@ TLSE_Development_GUI_TabAgentUpdate = function()
     textButton_agentRename["Visible"] = TLSE_Development_GUI_AgentTabActive;
     textButton_agentMoveToCamera["Visible"] = TLSE_Development_GUI_AgentTabActive;
 
+    if(bool_inspectingObject) then
+        if(TLSE_Development_Editor_Input_DeleteClicked) then
+            OnPress_AgentDelete(nil);
+        end
+
+        if(TLSE_Development_Editor_Input_DuplicateActionEnter) then
+            OnPress_AgentDuplicate(nil);
+        end
+    end
+
     if(TLSE_Development_GUI_AgentTabActive == false) then
         return
     end
 
     local string_inspectorMainText = "";
-    local bool_inspectingObject = agent_currentSelectedAgent ~= nil;
 
     if(bool_inspectingObject) then
         string_inspectorMainText = string_inspectorMainText .. "Agent Name: " .. AgentGetName(agent_currentSelectedAgent);
@@ -271,14 +282,6 @@ TLSE_Development_GUI_TabAgentUpdate = function()
         boolField_groupVisible["ReferenceAgent"] = agent_currentSelectedAgent;
         vector3field_agentRenderAxisScale["ReferenceAgent"] = agent_currentSelectedAgent;
         numberField_agentRenderGlobalScale["ReferenceAgent"] = agent_currentSelectedAgent;
-
-        if(TLSE_Development_Editor_Input_DeleteClicked) then
-            OnPress_AgentDelete(nil);
-        end
-
-        if(TLSE_Development_Editor_Input_DuplicateActionEnter) then
-            OnPress_AgentDuplicate(nil);
-        end
     else
         string_inspectorMainText = string_inspectorMainText .. "No Agent selected...";
         string_inspectorMainText = string_inspectorMainText .. "\n"; --new line

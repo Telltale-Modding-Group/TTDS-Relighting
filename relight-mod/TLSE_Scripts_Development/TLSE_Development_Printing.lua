@@ -14,19 +14,39 @@ TLSE_Development_GetSymbolDatabaseMatchesForSymbol = function(symbol_symbolToChe
     return string_matches
 end
 
-TLSE_Development_GetAllAgentPropertiesToString = function(agent_reference, bool_useSymbolDatabase)
+TLSE_Development_GetAllAgentPropertiesToString = function(agent_reference, string_propertySetType, bool_useSymbolDatabase)
     if(bool_useSymbolDatabase) then
         local symbolDatabase = require("TLSE_Development_SymbolDatabase.lua");
     end
 
-    local string_result = "[AGENT NAME]: ".. AgentGetName(agent_reference);
+    local string_result = "[AGENT NAME]: ".. AgentGetName(agent_reference) .. "\n";
 
-    local propertySet_reference = AgentGetProperties(agent_reference);
+    local propertySet_reference = nil;
+
+    if(string_propertySetType == nil) then
+        propertySet_reference = AgentGetProperties(agent_reference);
+    elseif(string_propertySetType == "class") then
+        propertySet_reference = AgentGetClassProperties(agent_reference);
+    elseif(string_propertySetType == "scene") then
+        propertySet_reference = AgentGetSceneProperties(agent_reference);
+    elseif(string_propertySetType == "runtime") then
+        propertySet_reference = AgentGetRuntimeProperties(agent_reference);
+    elseif(string_propertySetType == "transient") then
+        propertySet_reference = AgentGetTransientProperties(agent_reference);
+    else
+        propertySet_reference = AgentGetProperties(agent_reference);
+    end
+
     local propertySetKeys_reference = PropertyGetKeys(propertySet_reference);
+    local number_propertySetKeySize = TLSE_GetPropertySetKeyCount(propertySet_reference);
+
+    string_result = string_result .. "[KEY COUNT]: " .. tostring(number_propertySetKeySize) .. "\n";
 
     for index, symbol_propertyKey in pairs(propertySetKeys_reference) do
+        local string_keyIndex = "(" .. tostring(index) .. " / " .. tostring(number_propertySetKeySize) .. ")";
+
         string_result = string_result .. "\n";
-        string_result = string_result .. "[KEY]: " .. tostring(symbol_propertyKey);
+        string_result = string_result .. string_keyIndex .. " [KEY]: " .. tostring(symbol_propertyKey);
 
         if(bool_useSymbolDatabase) then
             string_result = string_result .. TLSE_Development_GetSymbolDatabaseMatchesForSymbol(symbol_propertyKey);
@@ -36,8 +56,12 @@ TLSE_Development_GetAllAgentPropertiesToString = function(agent_reference, bool_
         local string_propertyValueType = TypeName(type_propertyValue);
         local string_propertyValue = tostring(type_propertyValue);
 
+        if(string_propertyValueType == "ContainerInterface") then
+            string_propertyValue = TLSE_ContainerToString(type_propertyValue);
+        end
+
         string_result = string_result .. "\n";
-        string_result = string_result .. "[VALUE]: (" .. string_propertyValueType .. ") " .. string_propertyValue;
+        string_result = string_result .. string_keyIndex .. " [VALUE]: (" .. string_propertyValueType .. ") " .. string_propertyValue;
 
         if (string_propertyValueType == "table") then
             local string_tableType = TLSE_GetTableType(type_propertyValue);
@@ -53,7 +77,7 @@ TLSE_Development_GetAllAgentPropertiesToString = function(agent_reference, bool_
     return string_result;
 end
 
-TLSE_Development_PrintAllAgentProperties = function(agent_reference, string_scriptName, bool_useSymbolDatabase)
+TLSE_Development_PrintAllAgentProperties = function(agent_reference, string_propertySetType, string_scriptName, bool_useSymbolDatabase)
     local string_finalPath = "TLSEDevelopment/" .. string_scriptName .. ".txt";
 
     if(TLSE_FileExists(string_finalPath) == true) then
@@ -67,7 +91,29 @@ TLSE_Development_PrintAllAgentProperties = function(agent_reference, string_scri
     --||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     local string_textToWrite = "\n";
 
-    string_textToWrite = string_textToWrite .. TLSE_Development_GetAllAgentPropertiesToString(agent_reference, bool_useSymbolDatabase);
+    string_textToWrite = string_textToWrite .. TLSE_Development_GetAllAgentPropertiesToString(agent_reference, string_propertySetType, bool_useSymbolDatabase);
+
+    file_textFile:write(string_textToWrite);
+    file_textFile:close();
+end
+
+TLSE_Development_PrintAllOriginalSceneAgentNames = function(string_scriptName)
+    local string_finalPath = "TLSEDevelopment/" .. string_scriptName .. ".txt";
+
+    if(TLSE_FileExists(string_finalPath) == true) then
+        TLSE_FileDelete(string_finalPath);
+    else
+        TLSE_DirectoryCreate("TLSEDevelopment");
+    end
+
+    local file_textFile = io.open(string_finalPath, "w");
+
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    local string_textToWrite = "\n";
+
+    for index, string_sceneAgentName in ipairs(TLSE_Development_OriginalSceneAgentNamesList) do
+        string_textToWrite = string_textToWrite .. string_sceneAgentName .. "\n";
+    end
 
     file_textFile:write(string_textToWrite);
     file_textFile:close();

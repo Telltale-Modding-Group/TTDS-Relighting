@@ -24,6 +24,8 @@ RELIGHT_GenerateNewINI_Main = function(number_configurationVersion)
             OverrideTimeScale = false,
             TimeScaleValue = 1,
             ForceGraphicBlackOff = true,
+            ForceBloomOff = false,
+            EnableMotionBlur = false,
         },
     };
         

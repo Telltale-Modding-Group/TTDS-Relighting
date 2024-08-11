@@ -27,6 +27,17 @@ TLSE_GetTableType = function(tableValue)
     return stringType;
 end
 
+TLSE_GetPropertySetKeyCount = function(propertySet_props)
+    local propertySetKeys_reference = PropertyGetKeys(propertySet_props);
+    local number_count = 0;
+
+    for index, symbol_propertyKey in pairs(propertySetKeys_reference) do
+        number_count = number_count + 1;
+    end
+
+    return number_count;
+end
+
 TLSE_SetAllPropertyColors = function(agent_object, color_newColor)
     local propertySet_agent = AgentGetProperties(agent_object);
     local propertySetKeys_agent = PropertyGetKeys(propertySet_agent);

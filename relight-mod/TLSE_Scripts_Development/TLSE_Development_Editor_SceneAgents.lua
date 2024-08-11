@@ -2,8 +2,8 @@
 --|||||||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||||||| (GLOBAL) VARIABLES ||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-TLSE_Development_OriginalSceneAgentNamesList = {};
 TLSE_Development_SceneAgentsStringFilter = "TLSE_Development";
+TLSE_Development_OriginalSceneAgentNamesList = {};
 TLSE_Development_SceneAgentsList = {};
 TLSE_Development_SceneAgentsUnfilteredList = {};
 TLSE_Development_SceneAgentsRelightExportList = {};

@@ -197,10 +197,7 @@ TLSE_Development_GUI_TabMeshUpdate = function()
             if(container_lightingGroups == nil) then
                 string_lightingGroupsTest = string_lightingGroupsTest .. "nil";
             else
-                local number_containerElements = ContainerGetNumElements(container_lightingGroups);
-                string_lightingGroupsTest = string_lightingGroupsTest .. "(" .. tostring(number_containerElements) .. ") ";
-
-                
+                string_lightingGroupsTest = string_lightingGroupsTest .. TLSE_ContainerToString(container_lightingGroups);
             end
 
             containerField_renderLightingGroups["Text"] = string_lightingGroupsTest;
@@ -211,18 +208,14 @@ TLSE_Development_GUI_TabMeshUpdate = function()
         --containerField_D3DMeshList
         if(AgentHasProperty(agent_currentSelectedAgent, "D3D Mesh List")) then
             local string_d3dMeshList = "";
-            --local container_d3dMeshList = AgentGetProperty(agent_currentSelectedAgent, "D3D Mesh List");
-            local container_d3dMeshList = TLSE_AgentGetRuntimeProperty(agent_currentSelectedAgent, "D3D Mesh List");
+            local container_d3dMeshList = AgentGetProperty(agent_currentSelectedAgent, "D3D Mesh List");
 
             string_d3dMeshList = "D3D Mesh List: ";
 
             if(container_d3dMeshList == nil) then
                 string_d3dMeshList = string_d3dMeshList .. "nil";
             else
-                local number_containerElements = ContainerGetNumElements(container_d3dMeshList);
-                string_d3dMeshList = string_d3dMeshList .. "(" .. tostring(number_containerElements) .. ") ";
-
-                
+                string_d3dMeshList = string_d3dMeshList .. TLSE_ContainerToString(container_d3dMeshList);
             end
 
             containerField_D3DMeshList["Text"] = string_d3dMeshList;
