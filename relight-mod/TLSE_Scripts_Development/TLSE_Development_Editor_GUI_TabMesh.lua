@@ -197,7 +197,7 @@ TLSE_Development_GUI_TabMeshUpdate = function()
             if(container_lightingGroups == nil) then
                 string_lightingGroupsTest = string_lightingGroupsTest .. "nil";
             else
-                string_lightingGroupsTest = string_lightingGroupsTest .. TLSE_ContainerToString(container_lightingGroups);
+                string_lightingGroupsTest = string_lightingGroupsTest .. TLSE_ContainerToString(container_lightingGroups, false);
             end
 
             containerField_renderLightingGroups["Text"] = string_lightingGroupsTest;
@@ -215,7 +215,7 @@ TLSE_Development_GUI_TabMeshUpdate = function()
             if(container_d3dMeshList == nil) then
                 string_d3dMeshList = string_d3dMeshList .. "nil";
             else
-                string_d3dMeshList = string_d3dMeshList .. TLSE_ContainerToString(container_d3dMeshList);
+                string_d3dMeshList = string_d3dMeshList .. TLSE_ContainerToString(container_d3dMeshList, false);
             end
 
             containerField_D3DMeshList["Text"] = string_d3dMeshList;

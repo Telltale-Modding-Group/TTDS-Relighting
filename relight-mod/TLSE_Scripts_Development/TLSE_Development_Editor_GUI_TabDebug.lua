@@ -78,19 +78,15 @@ TLSE_Development_GUI_TabDebugInitalize = function()
     textButton_printSceneAgentNames = TLSE_Development_Editor_GUI_CreateTextButton("[SCENE PRINT ALL CURRENT AGENT NAMES]", false, Vector(0.685, 0.525, 0.0), OnPress_PrintSceneAgentNames, nil);
     textButton_printOriginalSceneAgentNames = TLSE_Development_Editor_GUI_CreateTextButton("[SCENE PRINT ALL ORIGINAL AGENT NAMES]", false, Vector(0.685, 0.540, 0.0), OnPress_PrintSceneOriginalAgentNames, nil);
 
-
-
     textButton_printAllProperties = TLSE_Development_Editor_GUI_CreateTextButton("[SELECTED AGENT PRINT ALL PROPERTIES .txt]", false, Vector(0.685, 0.555, 0.0), OnPress_PrintAllPropertiesTXT, nil);
     textButton_printAllClassProperties = TLSE_Development_Editor_GUI_CreateTextButton("[SELECTED AGENT PRINT ALL CLASS PROPERTIES .txt]", false, Vector(0.685, 0.570, 0.0), OnPress_PrintAllClassPropertiesTXT, nil);
     textButton_printAllSceneProperties = TLSE_Development_Editor_GUI_CreateTextButton("[SELECTED AGENT PRINT ALL SCENE PROPERTIES .txt]", false, Vector(0.685, 0.585, 0.0), OnPress_PrintAllScenePropertiesTXT, nil);
     textButton_printAllRuntimeProperties = TLSE_Development_Editor_GUI_CreateTextButton("[SELECTED AGENT PRINT ALL RUNTIME PROPERTIES .txt]", false, Vector(0.685, 0.600, 0.0), OnPress_PrintAllRuntimePropertiesTXT, nil);
     textButton_printAllTransientProperties = TLSE_Development_Editor_GUI_CreateTextButton("[SELECTED AGENT PRINT ALL TRANSIENT PROPERTIES .txt]", false, Vector(0.685, 0.615, 0.0), OnPress_PrintAllTransientPropertiesTXT, nil);
 
-
-
     textButton_printAllPropertiesInLua = TLSE_Development_Editor_GUI_CreateTextButton("[SELECTED AGENT PRINT ALL PROPERTIES .lua]", false, Vector(0.685, 0.630, 0.0), OnPress_PrintAllPropertiesLUA, nil);
 
-    label_seperatorText = TLSE_Development_Editor_GUI_CreateLabel("NOTE: These will freeze the editor for quite a while, they are REALLY expensive.", Vector(0.685, 0.650, 0.0));
+    label_seperatorText = TLSE_Development_Editor_GUI_CreateLabel("NOTE: These will freeze the editor for a short period of time, they are expensive.", Vector(0.685, 0.650, 0.0));
 
     textButton_printAllPropertiesWithSymbolMatches = TLSE_Development_Editor_GUI_CreateTextButton("[SELECTED AGENT PRINT ALL PROPERTIES WITH SYMBOL MATCHING .txt]", false, Vector(0.685, 0.665, 0.0), OnPress_PrintAllPropertiesWithSymbolMatchingTXT, nil);
     textButton_printAllPropertiesInLuaWithSymbolMatches = TLSE_Development_Editor_GUI_CreateTextButton("[SELECTED AGENT PRINT ALL PROPERTIES WITH SYMBOL MATCHING .lua]", false, Vector(0.685, 0.680, 0.0), OnPress_PrintAllPropertiesWithSymbolMatchingLUA, nil);

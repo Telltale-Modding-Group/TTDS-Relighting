@@ -85,13 +85,28 @@ TLSE_ColorToRGBAColorToString = function(colorValue)
     return string_color;
 end
 
---gets the key and if it's a symbol it removes the symbol: tag and quotations
 TLSE_KeyToString = function(key)
     local string_key = tostring(key);
     
     --if the string contains symbol: then remove it, otherwise keep the string as is
     if (string.match)(string_key, "symbol: ") then
         string_key = (string.sub)(string_key, 9);
+    else
+        string_key = string_key;
+    end
+    
+    --remove any leftover quotations from the string
+    string_key = string_key:gsub('"','');
+
+    return string_key;
+end
+
+TLSE_CacheObjectToHashString = function(key)
+    local string_key = tostring(key);
+    
+    --if the string contains symbol: then remove it, otherwise keep the string as is
+    if (string.match)(string_key, "Cached Object: ") then
+        string_key = (string.sub)(string_key, 17);
     else
         string_key = string_key;
     end
@@ -111,7 +126,7 @@ TLSE_TimeSecondsFormatted = function(number_timeSecondsValue)
     return string.format("%02d:%02d:%02d:%03d", number_hours, number_minutes, number_seconds, number_milliseconds);
 end
 
-TLSE_ContainerToString = function(containerInterface)
+TLSE_ContainerToString = function(containerInterface, bool_useSymbolDatabase)
     local string_result = "ContainerInterface";
     local number_containerElements = ContainerGetNumElements(containerInterface);
     
@@ -123,8 +138,17 @@ TLSE_ContainerToString = function(containerInterface)
         local string_containerElementName = ContainerGetElementName(containerInterface, index);
         local string_containerElementType = TypeName(containerElement_element);
 
-        string_result = string_result .."    Container Element " .. tostring(index) .. " Name: " .. "(" .. TypeName(string_containerElementName) .. ") " .. tostring(string_containerElementName) .. "\n";
-        string_result = string_result .."    Container Element " .. tostring(index) .. " Value: " .. "(" .. string_containerElementType .. ") " .. tostring(containerElement_element) .. "\n";
+        string_result = string_result .."    Container Element " .. tostring(index) .. " Name: " .. "(" .. TypeName(string_containerElementName) .. ") " .. tostring(string_containerElementName);
+        string_result = string_result .. "\n";
+        string_result = string_result .."    Container Element " .. tostring(index) .. " Value: " .. "(" .. string_containerElementType .. ") " .. tostring(containerElement_element);
+
+        if(bool_useSymbolDatabase) then
+            if(string.match(string_containerElementType, "Handle")) then
+                string_result = string_result .. TLSE_Development_GetCachedObjectMatchesForHash(containerElement_element);
+            end
+        end
+
+        string_result = string_result .. "\n";
     end
 
     string_result = string_result .. "} \n";

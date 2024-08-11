@@ -4,19 +4,29 @@
 
 TLSE_Development_GetSymbolDatabaseMatchesForSymbol = function(symbol_symbolToCheck)
     local string_matches = "";
+    local string_symbolToCheck = TLSE_KeyToString(tostring(symbol_symbolToCheck));
 
-    for index, string_knownSymbol in pairs(TLSE_Development_SymbolDatabase) do
-        if((string.match)(tostring(symbol_symbolToCheck), tostring(StringToSymbol(string_knownSymbol)))) then
-            string_matches = string_matches .. " | " .. string_knownSymbol;
-        end
+    if(TLSE_Development_SymbolKeyValueDatabase[string_symbolToCheck] ~= nil) then
+        string_matches = string_matches .. " | " .. TLSE_Development_SymbolKeyValueDatabase[string_symbolToCheck];
     end
 
-    return string_matches
+    return string_matches;
+end
+
+TLSE_Development_GetCachedObjectMatchesForHash = function(cachedObject_cacheObjectToCheck)
+    local string_matches = "";
+    local string_cachedObjectToCheck = TLSE_CacheObjectToHashString(tostring(cachedObject_cacheObjectToCheck));
+
+    if(TLSE_Development_SymbolKeyValueDatabase[string_cachedObjectToCheck] ~= nil) then
+        string_matches = string_matches .. " | " .. TLSE_Development_SymbolKeyValueDatabase[string_cachedObjectToCheck];
+    end
+
+    return string_matches;
 end
 
 TLSE_Development_GetAllAgentPropertiesToString = function(agent_reference, string_propertySetType, bool_useSymbolDatabase)
     if(bool_useSymbolDatabase) then
-        local symbolDatabase = require("TLSE_Development_SymbolDatabase.lua");
+        local symbolDatabase = require("TLSE_Development_SymbolKeyValueDatabase.lua");
     end
 
     local string_result = "[AGENT NAME]: ".. AgentGetName(agent_reference) .. "\n";
@@ -57,11 +67,17 @@ TLSE_Development_GetAllAgentPropertiesToString = function(agent_reference, strin
         local string_propertyValue = tostring(type_propertyValue);
 
         if(string_propertyValueType == "ContainerInterface") then
-            string_propertyValue = TLSE_ContainerToString(type_propertyValue);
+            string_propertyValue = TLSE_ContainerToString(type_propertyValue, bool_useSymbolDatabase);
         end
 
         string_result = string_result .. "\n";
         string_result = string_result .. string_keyIndex .. " [VALUE]: (" .. string_propertyValueType .. ") " .. string_propertyValue;
+
+        if(bool_useSymbolDatabase) then
+            if(string.match(string_propertyValueType, "Handle")) then
+                string_result = string_result .. TLSE_Development_GetCachedObjectMatchesForHash(type_propertyValue);
+            end
+        end
 
         if (string_propertyValueType == "table") then
             local string_tableType = TLSE_GetTableType(type_propertyValue);

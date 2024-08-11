@@ -905,3 +905,177 @@ TLSE_Development_Editor_RelightLuaExport_ExportSceneChangesToScript = function(s
     main_lua_file:write(string_codeToWrite);
     main_lua_file:close();
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TLSE_Development_Editor_RelightLuaExport_SymbolDatabaseLuaKeyValueTable = function()
+    local symbolDatabase = require("TLSE_Development_SymbolDatabase.lua");
+
+    local string_codeToWrite = "\n";
+
+    string_codeToWrite = string_codeToWrite .. "TLSE_Development_SymbolKeyValueDatabase = \n";
+    string_codeToWrite = string_codeToWrite .. "{ \n";
+
+
+    
+    for index, string_rawString in pairs(TLSE_Development_SymbolDatabase) do
+        local string_hash = TLSE_KeyToString(tostring(StringToSymbol(string_rawString)));
+
+        string_codeToWrite = string_codeToWrite .. "    " .. '"' .. string_hash .. '"' .. " = " .. '"' .. string_rawString .. '"' .. ", \n";
+    end
+
+    string_codeToWrite = string_codeToWrite .. "} \n";
+
+    return string_codeToWrite;
+end
+
+TLSE_Development_Editor_RelightLuaExport_ExportSymbolDatabaseLuaKeyValueTable = function()
+    local luaPath = "TLSEDevelopment/KeyValueTable.lua";
+
+    if(TLSE_FileExists(luaPath) == true) then
+        TLSE_FileDelete(luaPath);
+    else
+        TLSE_DirectoryCreate("TLSEDevelopment");
+    end
+
+    local main_lua_file = io.open(luaPath, "w");
+
+    --||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    local string_codeToWrite = "\n";
+
+    local symbolDatabase = require("TLSE_Development_SymbolDatabase.lua");
+
+    --[[
+    main_lua_file:write("TLSE_Development_SymbolKeyValueDatabase = ", "\n");
+    main_lua_file:write("{", "\n");
+
+    for index, string_rawString in pairs(TLSE_Development_SymbolDatabase) do
+        local string_hash = TLSE_KeyToString(tostring(StringToSymbol(string_rawString)));
+        main_lua_file:write("    { [" .. '"' .. string_hash .. '"' .. "] = " .. '"' .. string_rawString .. '"' .. " }, ", "\n");
+    end
+
+    main_lua_file:write("};", "\n");
+    ]]
+
+    main_lua_file:write("TLSE_Development_SymbolKeyValueDatabase = {};", "\n");
+
+    for index, string_rawString in pairs(TLSE_Development_SymbolDatabase) do
+        local string_hash = TLSE_KeyToString(tostring(StringToSymbol(string_rawString)));
+        main_lua_file:write("TLSE_Development_SymbolKeyValueDatabase[" .. '"' .. string_hash .. '"' .. "] = " .. '"' .. string_rawString .. '"' .. ";", "\n");
+    end
+
+   --string_codeToWrite = string_codeToWrite .. TLSE_Development_Editor_RelightLuaExport_SymbolDatabaseLuaKeyValueTable();
+    --main_lua_file:write(string_codeToWrite);
+    main_lua_file:close();
+end
