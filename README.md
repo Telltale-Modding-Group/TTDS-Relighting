@@ -31,7 +31,7 @@ In addition also this mod ships with development/tools features like freecamera,
 **This only works for 'The Walking Dead Telltale Definitive Edition PC'**
 
 ## Screenshots *(205 Power Station)*
-*NOTE: These are screenshots from Relight V0.2*
+*NOTE: These are screenshots from Relight V0.2 (These are taken with CinematicMode Enabled)*
 
 ![205-1](github-content/205-1.png)
 ![205-2](github-content/205-2.jpg)
@@ -40,7 +40,7 @@ In addition also this mod ships with development/tools features like freecamera,
 ![205-5](github-content/205-5.png)
 
 ## Screenshots *(102 Meat Locker)*
-*NOTE: These are screenshots from Relight V0.2*
+*NOTE: These are screenshots from Relight V0.2 (These are taken with CinematicMode Enabled)*
 
 ![102-1](github-content/102-1.png)
 ![102-2](github-content/102-2.png)
@@ -48,7 +48,7 @@ In addition also this mod ships with development/tools features like freecamera,
 ![102-4](github-content/102-4.png)
 
 ## Screenshots *(TLSE | Telltale Lua Script Extensions | Editor Mode)*
-*NOTE: These are screenshots from Relight V0.2*
+*NOTE: These are screenshots from Relight V0.2 (With EditorMode Enabled)*
 
 ![editor-1](github-content/editor-1.jpg)
 ![editor-2](github-content/editor-2.jpg)
@@ -154,6 +154,9 @@ EditorMode=true
 
 3. **Save the .ini file** and boot into the level that you want to mess with using the editor *(NOTE: The editor mode is active only whenever you boot into a level from Season One/Two/Three/Four)*.
 4. To save any changes you make to a level in editor mode, you have to click a button on the very top left labeled **"Export Scene Changes To Lua"**. This will save your scene changes into a .lua file.
+
+![tlse-editor-export](github-content/help/tlse-editor-export.png)
+
 5. Once you exported your scene changes to a lua file, close out of the game and navigate to your game directory. In your game directory there should now be a new folder called **TLSEDevelopment**. Inside this folder your exported .lua script will be there.
 
 ![tlse-development-folder-select](github-content/help/tlse-development-folder-select.png)
