@@ -102,20 +102,28 @@ If you are intrested in trying out the mod even if there isn't an offical releas
 
 ![script-editor-open-project-file](github-content/help/script-editor-open-project-file.png)
 
-4. In the script editor, there are 3 buttons on the top toolbar. **Click the green hammer icon to build the project** *(This may take some time)*.
+4. In the script editor, there are 3 buttons on the top toolbar. **Click the grey gear icon to configure project** and apply the following settings.
+
+![script-editor-buttons-2](github-content/help/script-editor-buttons-2.png)
+
+![tlse-editor-project-settings](github-content/help/tlse-editor-project-settings.png)
+
+**NOTE:** Your game executable here won't be in the same location as the screenshot.
+
+5. Once you configured the project settings, close it then **click the green hammer icon to build the project** *(This may take some time)*.
 
 ![script-editor-buttons](github-content/help/script-editor-buttons.png)
 
-5. Once the project is finished building, a **Builds** folder will be created in the **File Tree Window** of the script editor. 
+6. Once the project is finished building, a **Builds** folder will be created in the **File Tree Window** of the script editor. 
 If it isn't there then either refresh by right clicking the folder in the application, and click **Refresh**. Or you can right click the folder and click **Open In Explorer** to open the folder in Windows File Explorer. Inside the builds folder there should be a .zip file of the build you just created. 
 
 ![script-editor-build-finished](github-content/help/script-editor-build-finished.png)
 
 ![script-editor-build-finish-zip](github-content/help/script-editor-build-finish-zip.png)
 
-6. To Install the mod, simply extract the contents of that .zip file into your game's **Archives directory**.
-7. ***(TESTING PART 1)*** To make sure you installed the mod correctly, boot into the game and play any scene/level from Season One/Two/Three/Four. Once you do then quickly exit the game and go back to your game directory folder. There should be a new folder created now called **RelightMod** which is where the main configuration files for relight are stored.
-8. After the core of relight is installed, then we need to include the **RelightLevels** folder into the game directory. So in the cloned/downloaded RelightMod folder that you got from github, there is a **RelightLevels** which contains .lua and .ini files for each level. Simply copy this folder *(Copy the entire folder NOT it's contents)* and drop it into the game directory *(NOT into the Archives folder, just the game directory with the .exe)*.
+7. To Install the mod, simply extract the contents of that .zip file into your game's **Archives directory**.
+8. ***(TESTING PART 1)*** To make sure you installed the mod correctly, boot into the game and play any scene/level from Season One/Two/Three/Four. Once you do then quickly exit the game and go back to your game directory folder. There should be a new folder created now called **RelightMod** which is where the main configuration files for relight are stored.
+9. After the core of relight is installed, then we need to include the **RelightLevels** folder into the game directory. So in the cloned/downloaded RelightMod folder that you got from github, there is a **RelightLevels** which contains .lua and .ini files for each level. Simply copy this folder *(Copy the entire folder NOT it's contents)* and drop it into the game directory *(NOT into the Archives folder, just the game directory with the .exe)*.
 
 ![relight-level-folder-in-repo.png](github-content/help/relight-level-folder-in-repo.png)
 
@@ -123,8 +131,8 @@ If it isn't there then either refresh by right clicking the folder in the applic
 
 ![relight-level-folder-game-directory-select](github-content/help/relight-level-folder-game-directory-select.png)
 
-9. When you boot/load into an actual scene in the game *(i.e. any level from Season One/Two/Three/Four)* Relight will automatically create a **RelightMod** folder where the main configuration files for relight are stored.
-10. ***(TESTING PART 2)*** Now if you installed the **RelightLevels** folder correctly, if you boot into the game and play the specific levels that are modified via the .lua scripts in that folder then you should be able to see level with the modified graphics.
+10. When you boot/load into an actual scene in the game *(i.e. any level from Season One/Two/Three/Four)* Relight will automatically create a **RelightMod** folder where the main configuration files for relight are stored.
+11. ***(TESTING PART 2)*** Now if you installed the **RelightLevels** folder correctly, if you boot into the game and play the specific levels that are modified via the .lua scripts in that folder then you should be able to see level with the modified graphics.
 
 ## Making Your Own Level Relight (Developers)
 
