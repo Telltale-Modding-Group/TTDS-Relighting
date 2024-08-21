@@ -4,7 +4,7 @@ Custom Depth of Field Autofocusing system.
 This is a completely custom solution for doing depth of field within telltale.
 It utilizes the oddly 3 different DOF tech that is implemented within the game (Legacy, Modern, Modern + Bokeh).
 It's completely automated and designed mostly to implement DOF effects into Season 1/2 of the game since they don't utilize the tech.
-Given the nature that its also automated, its not 100% perfect and there are some issues that might occur that are very hard to fix.
+Given the nature that its also automated, its not 100% perfect and there are some issues that might occur, and unfortunately might not be able to fix all of them.
 
 --relighting dof autofocus variables
 RELIGHT_DOF_AUTOFOCUS_UseCameraDOF = false;
@@ -14,10 +14,6 @@ RELIGHT_DOF_AUTOFOCUS_Aperture = 4.0;
 RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames = 
 { 
     "cameraAgentName",
-};
-RELIGHT_DOF_AUTOFOCUS_ObjectEntries = 
-{
-    "characterAgentName"
 };
 RELIGHT_DOF_AUTOFOCUS_Settings =
 {
@@ -38,7 +34,7 @@ RELIGHT_DOF_AUTOFOCUS_BokehSettings =
     MaxBokehBufferAmount = 1.0,
 };
 
-Callback_OnPostUpdate:Add(RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus)
+Callback_OnPostUpdate:Add(RELIGHT_DepthOfField_PerformAutofocus)
 ]]--
 
 local agent_sceneAgent = nil;
@@ -88,6 +84,8 @@ local number_previousFarFocusPlane = 0;
 local number_previousFarFalloff = 0;
 local number_previousBokehSize = 0;
 local number_previousBlurStrength = 0;
+
+local stringTable_gameplayCameraNames = {};
 
 --|||||||||||||||||||||||||||||||||||||||||||||||| (VARIABLES) FOCUS TARGETS ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| (VARIABLES) FOCUS TARGETS ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -147,22 +145,6 @@ end
 --|||||||||||||||||||||||||||||||||||||||||||||||| (FUNCTIONS/LOGIC) FOCUS TARGETS ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| (FUNCTIONS/LOGIC) FOCUS TARGETS ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| (FUNCTIONS/LOGIC) FOCUS TARGETS ||||||||||||||||||||||||||||||||||||||||||||||||
-
-local SetupFocusTargets = function()
-    for index, string_objectName in ipairs(RELIGHT_DOF_AUTOFOCUS_ObjectEntries) do
-        local agent_objectEntry = AgentFindInScene(string_objectName, RELIGHT_SceneObject); --Agent type
-
-        if(agent_objectEntry ~= nil) then
-            local agent_focusTarget = AgentCreate("RELIGHT_FocusTarget_" .. string_objectName, "group.prop", Vector(0, 0, 0), Vector(0, 0, 0), RELIGHT_SceneObject, false, false);
-
-            AgentAttachToNode(agent_focusTarget, agent_objectEntry, "head");
-            AgentSetPos(agent_focusTarget, Vector(0, 0, 0));
-            AgentSetRot(agent_focusTarget, Vector(0, 0, 0));
-
-            table.insert(agentTable_focusTargets, agent_focusTarget);
-        end
-    end
-end
 
 local GetValidFocusTargets = function()
     local vector_currentCameraForward = AgentGetForwardVec(agent_currentCamera); --Vector type
@@ -318,16 +300,42 @@ end
 --|||||||||||||||||||||||||||||||||||||||||||||||| PUBLIC FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| PUBLIC FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||
 
-RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF = function(relightConfigLevel)
-    --local bool_dofEnabled = relightConfigLevel.EnableDepthOfField;
-    local bool_dofEnabled = true;
+RELIGHT_DepthOfField_AddGameplayCameraName = function(string_gameplayCameraName)
+    table.insert(stringTable_gameplayCameraNames, string_gameplayCameraName);
+end
 
-    if(bool_dofEnabled == false) then
-        RenderSetFeatureEnabled("dof", false);
-        RenderSetFeatureEnabled("bokeh", false);
-        return;
+RELIGHT_DepthOfField_RemoveGameplayCameraName = function(string_gameplayCameraName)
+    --table.remove(stringTable_gameplayCameraNames, string_gameplayCameraName);
+end
+
+RELIGHT_DepthOfField_AddFocusTarget = function(string_newFocusTargetName)
+    local agent_objectEntry = AgentFindInScene(string_newFocusTargetName, RELIGHT_SceneObject); --Agent type
+
+    if(agent_objectEntry ~= nil) then
+        local agent_focusTarget = AgentCreate("RELIGHT_FocusTarget_" .. string_newFocusTargetName, "group.prop", Vector(0, 0, 0), Vector(0, 0, 0), RELIGHT_SceneObject, false, false);
+
+        AgentAttachToNode(agent_focusTarget, agent_objectEntry, "head");
+        AgentSetPos(agent_focusTarget, Vector(0, 0, 0));
+        AgentSetRot(agent_focusTarget, Vector(0, 0, 0));
+
+        table.insert(agentTable_focusTargets, agent_focusTarget);
     end
+end
 
+RELIGHT_DepthOfField_RemoveFocusTarget = function(string_newFocusTargetName)
+    local agent_focusTarget = AgentFindInScene("RELIGHT_FocusTarget_" .. string_newFocusTargetName, RELIGHT_SceneObject); --Agent type
+
+    if(agent_focusTarget ~= nil) then
+        AgentDestroy(agent_focusTarget);
+    end
+end
+
+RELIGHT_DepthOfField_Disable = function()
+    RenderSetFeatureEnabled("dof", false);
+    RenderSetFeatureEnabled("bokeh", false);
+end
+
+RELIGHT_DepthOfField_Setup = function()
     RenderSetFeatureEnabled("dof", true);
 
     if(RELIGHT_DOF_AUTOFOCUS_UseLegacyDOF == true) then
@@ -345,11 +353,9 @@ RELIGHT_Camera_DepthOfFieldAutofocus_SetupDOF = function(relightConfigLevel)
     end
 
     agent_sceneAgent = AgentFindInScene(RELIGHT_SceneObjectAgentName, RELIGHT_SceneObject);
-
-    SetupFocusTargets();
 end
 
-RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus = function()
+RELIGHT_DepthOfField_Update = function()
     agent_currentCamera = SceneGetCamera(RELIGHT_SceneObject);
     string_currentCameraName = AgentGetName(agent_currentCamera);
     vector_currentCameraPosition = AgentGetWorldPos(agent_currentCamera);
@@ -401,7 +407,7 @@ RELIGHT_Camera_DepthOfFieldAutofocus_PerformAutofocus = function()
     --disable DOF when a gameplay camera is in use
     --if the current active camera is a gameplay camera so to speak, then don't enable DOF
 
-    for i, string_gameplayCameraName in pairs(RELIGHT_DOF_AUTOFOCUS_GameplayCameraNames) do
+    for i, string_gameplayCameraName in pairs(stringTable_gameplayCameraNames) do
         if (string_currentCameraName == string_gameplayCameraName) then
             bool_enableDOF = false;
             break

@@ -32,7 +32,7 @@ local textButton_enableAllLights = nil;
 local textButton_killAllControllers = nil;
 local textButton_keybindHelp = nil;
 
-local bool_showKeybinds = false;
+local bool_showKeybinds = true;
 
 local OnPress_SelectAgentTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "Agent"; end
 local OnPress_SelectEnvLightTab = function(textButton_button) TLSE_Development_GUI_BottomRightWindowTab = "EnvLight"; end

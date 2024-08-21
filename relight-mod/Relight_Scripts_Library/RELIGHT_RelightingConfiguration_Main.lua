@@ -26,6 +26,7 @@ RELIGHT_GenerateNewINI_Main = function(number_configurationVersion)
             ForceGraphicBlackOff = true,
             ForceBloomOff = false,
             EnableMotionBlur = false,
+            ForceVignetteOff = false,
         },
     };
         

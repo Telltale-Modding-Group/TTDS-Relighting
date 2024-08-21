@@ -1,6 +1,8 @@
-print = function(message)
-    if (TLSE_Project_DebugPrinting == true) then
-        os.execute("echo " .. message);
+TLSE_EnablePrinting = false;
+
+print = function(string_message)
+    if(TLSE_EnablePrinting) then
+        os.execute("echo " .. string_message);
     end
 end
 
@@ -10,7 +12,6 @@ TLSE_GetTableType = function(tableValue)
     local colorMatch = 0;
     
     for key, value in pairs(tableValue) do
-        --if the key is a string type
         if (type(key) == "string") then
             --check if the key name matches the variables of the color type
             if (key == "r") or (key == "g") or (key == "b") or (key == "a") then

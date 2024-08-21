@@ -6,6 +6,7 @@ require("TLSE_Development_Freecam.lua");
 require("TLSE_Development_PerformanceMetrics.lua");
 require("TLSE_Development_AxisDebug.lua");
 require("TLSE_Development_CameraInfo.lua");
+require("TLSE_Development_ChoreInfo.lua");
 require("TLSE_Development_Printing.lua");
 
 require("TLSE_Development_Editor.lua");

@@ -33,7 +33,7 @@ RELIGHT_Letterboxing_Update = function()
     local vector_currentCameraPosition = AgentGetWorldPos(agent_currentCamera);
     local vector_currentCameraRotation = AgentGetWorldRot(agent_currentCamera); --Vector type
     local vector_currentCameraForward = AgentGetForwardVec(agent_currentCamera);
-    local number_distanceToCamera = 1;
+    local number_distanceToCamera = 5;
 
     AgentSetProperty(agent_currentCamera, "Field Of View Scale", 1.35);
 
@@ -45,7 +45,7 @@ RELIGHT_Letterboxing_Update = function()
     local number_radiansHorizontalFOV = math.rad(number_finalHorizontalFOV);
     local number_radiansVerticalFOV = math.rad(number_finalVerticalFOV);
 
-    local frustumHeight = 2.0 * math.tan(0.5 * TLSE_Math_Deg2Rad * number_radiansVerticalFOV);
+    local frustumHeight = 2.0 * number_distanceToCamera * math.tan(0.5 * TLSE_Math_Deg2Rad * number_radiansVerticalFOV);
     local scale = frustumHeight * 17;
 
     AgentSetProperty(agent_letterbox, "Render Global Scale", scale);

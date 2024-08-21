@@ -1,4 +1,4 @@
-local agent_text_hierarchyItemCount = 29;
+local agent_text_hierarchyItemCount = 28;
 local agent_text_hierarchyItems = {};
 local number_hierarchyPageIndex = 0;
 
@@ -13,6 +13,7 @@ local textButton_filterParticle = nil;
 local textButton_filterCineLight = nil;
 local textButton_filterCineLightRig = nil;
 local textButton_filterMesh = nil;
+local textButton_filterGroup = nil;
 
 local OnPress_CycleNextHierarchyItems = function(textButton_button) 
     number_hierarchyPageIndex = number_hierarchyPageIndex + 1; 
@@ -56,14 +57,20 @@ local OnPress_FilterMesh = function(textButton_button)
     TLSE_Development_SceneAgents_FilterMesh = not TLSE_Development_SceneAgents_FilterMesh; 
 end
 
+local OnPress_FilterGroup = function(textButton_button) 
+    number_hierarchyPageIndex = 0; 
+    TLSE_Development_SceneAgents_FilterGroup = not TLSE_Development_SceneAgents_FilterGroup; 
+end
+
 TLSE_Development_GUI_TabSceneHierarchyInitalize = function()
-    label_filter = TLSE_Development_Editor_GUI_CreateLabel("Filter:", Vector(0.758, 0.005, 0.0));
+    label_filter = TLSE_Development_Editor_GUI_CreateLabel("Filter:", Vector(0.685, 0.021, 0.0));
     textButton_filterLights = TLSE_Development_Editor_GUI_CreateTextButton("[EnvLight]", true, Vector(0.780, 0.005, 0.0), OnPress_FilterLights, nil);
     textButton_filterFog = TLSE_Development_Editor_GUI_CreateTextButton("[EnvFog]", true, Vector(0.805, 0.005, 0.0), OnPress_FilterFog, nil);
     textButton_filterParticle = TLSE_Development_Editor_GUI_CreateTextButton("[Particle]", true, Vector(0.825, 0.005, 0.0), OnPress_FilterParticle, nil);
     textButton_filterCineLight = TLSE_Development_Editor_GUI_CreateTextButton("[CinLight]", true, Vector(0.860, 0.005, 0.0), OnPress_FilterCineLight, nil);
     textButton_filterCineLightRig = TLSE_Development_Editor_GUI_CreateTextButton("[LightRig]", true, Vector(0.902, 0.005, 0.0), OnPress_FilterCineLightRig, nil);
     textButton_filterMesh = TLSE_Development_Editor_GUI_CreateTextButton("[Renderable]", true, Vector(0.955, 0.005, 0.0), OnPress_FilterMesh, nil);
+    textButton_filterGroup = TLSE_Development_Editor_GUI_CreateTextButton("[Group]", true, Vector(0.955, 0.005, 0.0), OnPress_FilterGroup, nil);
 
     textButton_hierarchyPrevious = TLSE_Development_Editor_GUI_CreateTextButton("[PREVIOUS]", false, Vector(0.685, 0.465, 0.0), OnPress_CyclePreviousHierarchyItems, nil);
     textButton_hierarchyNext = TLSE_Development_Editor_GUI_CreateTextButton("[NEXT]", false, Vector(0.965, 0.465, 0.0), OnPress_CycleNextHierarchyItems, nil);
@@ -72,7 +79,7 @@ TLSE_Development_GUI_TabSceneHierarchyInitalize = function()
     for index = 1, agent_text_hierarchyItemCount do
         local number_yOffset = index * 0.015;
         local string_hierarchyItemContent = "Item" .. tostring(index);
-        local textButton_newButton = TLSE_Development_Editor_GUI_CreateTextButton(string_hierarchyItemContent, true, Vector(0.685, 0.006 + number_yOffset, 0.0), OnPress_SelectHierarchyItem, nil);
+        local textButton_newButton = TLSE_Development_Editor_GUI_CreateTextButton(string_hierarchyItemContent, true, Vector(0.685, 0.024 + number_yOffset, 0.0), OnPress_SelectHierarchyItem, nil);
         textButton_newButton["ParameterData"] = textButton_newButton;
         table.insert(agent_text_hierarchyItems, textButton_newButton);
     end
@@ -119,7 +126,7 @@ TLSE_Development_GUI_TabSceneHierarchyUpdate = function()
     local vector_item4Size = TLSE_TextUI_GetTextScreenSize(textButton_filterParticle["TextAgent"]);
     local vector_item5Size = TLSE_TextUI_GetTextScreenSize(textButton_filterCineLight["TextAgent"]);
     local vector_item6Size = TLSE_TextUI_GetTextScreenSize(textButton_filterCineLightRig["TextAgent"]);
-    --local vector_item7Size = TLSE_TextUI_GetTextScreenSize(textButton_filterMesh["TextAgent"]);
+    local vector_item7Size = TLSE_TextUI_GetTextScreenSize(textButton_filterMesh["TextAgent"]);
  
     local number_horizontalOffset = 0.003;
     local vector_guiOffset = Vector(0, 0, 0);
@@ -145,4 +152,7 @@ TLSE_Development_GUI_TabSceneHierarchyUpdate = function()
 
     vector_guiOffset.x = vector_guiOffset.x + (vector_item6Size.x * 2.0) + number_horizontalOffset;
     textButton_filterMesh["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
+
+    vector_guiOffset.x = vector_guiOffset.x + (vector_item7Size.x * 2.0) + number_horizontalOffset;
+    textButton_filterGroup["ScreenPosition"] = VectorAdd(vector_guiOffset, vector_startScreenPosition);
 end

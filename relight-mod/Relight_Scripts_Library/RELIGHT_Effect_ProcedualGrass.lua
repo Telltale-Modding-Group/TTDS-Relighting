@@ -1,12 +1,25 @@
-local string_grassElementName = "RELIGHT_ProcedualGrassElement";
-local string_grassGroupName = "RELIGHT_ProcedualGrass";
-local agent_grassGroup = nil;
-
 RELIGHT_ProcedualGrass_PropFile = "";
 RELIGHT_ProcedualGrass_DensityPerUnit = 1;
 RELIGHT_ProcedualGrass_GrassScale = 0.45;
 
-RELIGHT_ProcedualGrass_IgnoreZones = {};
+local string_grassElementName = "RELIGHT_ProcedualGrassElement";
+local string_grassGroupName = "RELIGHT_ProcedualGrass";
+local agent_grassGroup = nil;
+
+local number_ignoreZoneCount = 0;
+local ignoreZoneTable_ignoreZones = {};
+
+RELIGHT_ProcedualGrass_AddIgnoreZone = function(vector_position, vector_radius)
+    number_ignoreZoneCount = number_ignoreZoneCount + 1;
+
+    local string_ignoreZoneName = "Zone" .. tostring(number_ignoreZoneCount);
+    local ignoreZone_newZone = {
+        Position = vector_position,
+        Radius = vector_radius
+    }
+
+    ignoreZoneTable_ignoreZones[string_ignoreZoneName] = ignoreZone_newZone;
+end
 
 RELIGHT_ProcedualGrass_Initalize = function(vector_startPosition, vector_size)
     local number_elementsX = vector_size.x / RELIGHT_ProcedualGrass_DensityPerUnit;
@@ -44,6 +57,21 @@ RELIGHT_ProcedualGrass_Initalize = function(vector_startPosition, vector_size)
     end
   
     AgentSetWorldPos(agent_grassGroup,  VectorSubtract(vector_startPosition, vector_startPositionOffset));
+end
+
+RELIGHT_ProcedualGrass_RemoveGrassFromZones = function()
+    local agentTable_grassAgents = AgentGetAttachments(agent_grassGroup);
+
+    for key, ignoreZone_zone in pairs(ignoreZoneTable_ignoreZones) do
+        local vector_ignoreZonePosition = ignoreZone_zone["Position"];
+        local number_ignoreZoneRadius = ignoreZone_zone["Radius"];
+
+        for key, agent_grassAgent in pairs(agentTable_grassAgents) do
+            if(VectorDistance(AgentGetWorldPos(agent_grassAgent), vector_ignoreZonePosition) < number_ignoreZoneRadius) then
+                AgentDestroy(agent_grassAgent);
+            end
+        end
+    end
 end
 
 RELIGHT_ProcedualGrass_Cleanup = function()

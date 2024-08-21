@@ -34,61 +34,59 @@ Any other fog effects in the scene must be disabled for this to be unpolluted an
 5. In addition to issue #4 of the effect not being implemented as a shader, we can't apply noise or dithering to offset samples and reduce aliasing/stepping artifacts.
 This would be a massive help to both improving quality and performance but unfortnautely we have to deal with brute force.
 
+--Relight Volumetrics
 RELIGHT_HackyCameraVolumetrics_Settings = 
 {
-    Samples = 128,
-    SampleOffset = 0.1,
+    Samples = 256,
+    SampleOffset = 0.05,
     SampleStartOffset = 1.0,
-    FogColor = Color(0.1, 0.1, 0.1, 0.1)
+    FogColor = Color(0.05, 0.05, 0.05, 0.05)
 };
-
 ]]--
 
-local RELIGHT_HackyCameraVolumetrics_AgentParentName = "VolumetricParentGroup";
-local RELIGHT_HackyCameraVolumetrics_AgentParent = nil;
-local RELIGHT_HackyCameraVolumetrics_AgentChildName = "Volumetric_";
+local string_elementPropFile = "fx_glowWhite.prop" -- in 201 data
+local string_agentGroupName = "RELIGHT_CameraVolumetricsParentGroup";
+local string_volumePlaneAgentName = "RELIGHT_CameraVolumetricPlane_";
+local agent_group = nil;
 
 RELIGHT_HackyCameraVolumetrics_Initalize = function()
-    local elementPropFile = "fx_glowWhite.prop" -- in 201 data
-    RELIGHT_HackyCameraVolumetrics_AgentParent = AgentCreate(RELIGHT_HackyCameraVolumetrics_AgentParentName, "group.prop", Vector(0,0,0), Vector(0,0,0), RELIGHT_SceneObject, false, false);
+    agent_group = AgentCreate(string_agentGroupName, "group.prop", Vector(0, 0, 0), Vector(0, 0, 0), RELIGHT_SceneObject, false, false);
 
     for index = 1, RELIGHT_HackyCameraVolumetrics_Settings.Samples, 1 do 
 
-        local currentPosition = Vector(0,0,(index * RELIGHT_HackyCameraVolumetrics_Settings.SampleOffset));
-        local currentRotation = Vector(0,180,0);
+        local vector_currentPosition = Vector(0, 0, index * RELIGHT_HackyCameraVolumetrics_Settings.SampleOffset);
+        local vector_currentRotation = Vector(0, 180, 0);
 
-        local currentElementAgentName = RELIGHT_HackyCameraVolumetrics_AgentChildName .. tostring(index);
-        local currentElementAgent = AgentCreate(currentElementAgentName, elementPropFile, currentPosition, currentRotation, RELIGHT_SceneObject, false, false);
+        local string_currentElementAgentName = string_volumePlaneAgentName .. tostring(index);
+        local agent_currentElement = AgentCreate(string_currentElementAgentName, string_elementPropFile, vector_currentPosition, vector_currentRotation, RELIGHT_SceneObject, false, false);
 
         --NOTE: If scale is too small, when the volumetric planes are placed at a great distance from camera you will see a sort of "clipping" of the volumetric lighting which looks awkward.
-        AgentSetProperty(currentElementAgent, "Render Global Scale", 1000.0);
-        AgentSetProperty(currentElementAgent, "Render Cull", false);
-        AgentSetProperty(currentElementAgent, "Render Layer", 25);
-        AgentSetProperty(currentElementAgent, "Render Diffuse Color", RELIGHT_HackyCameraVolumetrics_Settings.FogColor);
-        AgentSetProperty(currentElementAgent, "Render Constant Alpha Multiply", 1);
-        AgentSetProperty(currentElementAgent, "Render After Anti-Aliasing", false);
-        AgentSetProperty(currentElementAgent, "Render EnvLight Shadow Cast Enable", false);
-        AgentSetProperty(currentElementAgent, "Motion Blur Enabled", false);
-        AgentSetProperty(currentElementAgent, "Render Depth Test", true);
-        AgentSetProperty(currentElementAgent, "Camera Facing", false);
-        AgentSetProperty(currentElementAgent, "Render Static", false);
-        AgentSetProperty(currentElementAgent, "Camera Facing Type", 0);
-        AgentSetProperty(currentElementAgent, "Render Depth Write", false);
-        AgentSetProperty(currentElementAgent, "Render Depth Write Alpha", false);
-        AgentSetProperty(currentElementAgent, "Render 3D Alpha", false);
-        AgentSetProperty(currentElementAgent, "Render Color Write", true);
-        AgentSetProperty(currentElementAgent, "Render Force As Alpha", false);
-        AgentSetProperty(currentElementAgent, "Render Depth Test Function", 4);
-        AgentSetProperty(currentElementAgent, "Receive Shadows", true);
-        AgentSetProperty(currentElementAgent, "Render FX Color Enabled", true);
-        AgentSetProperty(currentElementAgent, "Render Shadow Force Visible", false);
-        AgentSetProperty(currentElementAgent, "Render Enlighten Force Visible", false);
-        AgentSetProperty(currentElementAgent, "fx_glowWhite - Texture", "color_fFFFFF");
-        AgentSetProperty(currentElementAgent, "fx_glowWhite - Light Color Diffuse", RELIGHT_HackyCameraVolumetrics_Settings.FogColor);
-        AgentSetProperty(currentElementAgent, "fx_candleFlameNoWickWD - Texture", "color_fFFFFF");
-        AgentSetProperty(currentElementAgent, "fx_candleFlameNoWickWD - Light Color Diffuse", RELIGHT_HackyCameraVolumetrics_Settings.FogColor);
+        AgentSetProperty(agent_currentElement, "Render Global Scale", 1000.0);
+        AgentSetProperty(agent_currentElement, "Render Cull", false);
+        AgentSetProperty(agent_currentElement, "Render Layer", 25);
+        AgentSetProperty(agent_currentElement, "Render Diffuse Color", RELIGHT_HackyCameraVolumetrics_Settings.FogColor);
+        AgentSetProperty(agent_currentElement, "Render Constant Alpha Multiply", 1);
+        AgentSetProperty(agent_currentElement, "Render After Anti-Aliasing", false);
+        AgentSetProperty(agent_currentElement, "Render EnvLight Shadow Cast Enable", false);
+        AgentSetProperty(agent_currentElement, "Motion Blur Enabled", false);
+        AgentSetProperty(agent_currentElement, "Render Depth Test", true);
+        AgentSetProperty(agent_currentElement, "Camera Facing", false);
+        AgentSetProperty(agent_currentElement, "Render Static", false);
+        AgentSetProperty(agent_currentElement, "Camera Facing Type", 0);
+        AgentSetProperty(agent_currentElement, "Render Depth Write", false);
+        AgentSetProperty(agent_currentElement, "Render Depth Write Alpha", false);
+        AgentSetProperty(agent_currentElement, "Render 3D Alpha", false);
+        AgentSetProperty(agent_currentElement, "Render Color Write", true);
+        AgentSetProperty(agent_currentElement, "Render Force As Alpha", false);
+        AgentSetProperty(agent_currentElement, "Render Depth Test Function", 4);
+        AgentSetProperty(agent_currentElement, "Receive Shadows", true);
+        AgentSetProperty(agent_currentElement, "Render FX Color Enabled", true);
+        AgentSetProperty(agent_currentElement, "Render Shadow Force Visible", false);
+        AgentSetProperty(agent_currentElement, "Render Enlighten Force Visible", false);
+        AgentSetProperty(agent_currentElement, "fx_glowWhite - Texture", "color_fFFFFF");
+        AgentSetProperty(agent_currentElement, "fx_glowWhite - Light Color Diffuse", RELIGHT_HackyCameraVolumetrics_Settings.FogColor);
 
-        AgentAttach(currentElementAgent, RELIGHT_HackyCameraVolumetrics_AgentParent);
+        AgentAttach(agent_currentElement, agent_group);
     end
 end
 
@@ -98,8 +96,8 @@ RELIGHT_HackyCameraVolumetrics_Update = function()
     local vector_currentCameraForward = AgentGetForwardVec(agent_currentCamera); --Vector type
     local vector_currentCameraRotation = AgentGetWorldRot(agent_currentCamera); --Vector type
 
-    local vector_volumetricGroupPosition = vector_currentCameraPosition + (vector_currentCameraForward * RELIGHT_HackyCameraVolumetrics_Settings.SampleStartOffset);
+    local vector_volumetricGroupPosition = VectorAdd(vector_currentCameraPosition, VectorScale(vector_currentCameraForward, RELIGHT_HackyCameraVolumetrics_Settings.SampleStartOffset));
 
-    AgentSetWorldPos(RELIGHT_HackyCameraVolumetrics_AgentParent, vector_volumetricGroupPosition);
-    AgentSetRot(RELIGHT_HackyCameraVolumetrics_AgentParent, vector_currentCameraRotation);
+    AgentSetWorldPos(agent_group, vector_volumetricGroupPosition);
+    AgentSetRot(agent_group, vector_currentCameraRotation);
 end

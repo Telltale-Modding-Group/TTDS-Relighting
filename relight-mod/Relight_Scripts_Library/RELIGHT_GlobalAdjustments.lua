@@ -28,12 +28,9 @@ local ApplyFOVAdjustments = function()
 end
 
 local DisablePostOutlines = function()
-    local config_global_DisableOutlines = not RelightConfigGlobal["DisableOutlines"];
-
-    AgentSetProperty(RELIGHT_SceneObjectAgentName, "Generate NPR Lines", config_global_DisableOutlines);
-    AgentSetProperty(RELIGHT_SceneObjectAgentName, "Screen Space Lines - Enabled", config_global_DisableOutlines);
-
-    RenderSetFeatureEnabled("nprlines", config_global_DisableOutlines);
+    AgentSetProperty(RELIGHT_SceneObjectAgentName, "Generate NPR Lines", RelightConfigGlobal["DisableOutlines"]);
+    AgentSetProperty(RELIGHT_SceneObjectAgentName, "Screen Space Lines - Enabled", RelightConfigGlobal["DisableOutlines"]);
+    RenderSetFeatureEnabled("nprlines", RelightConfigGlobal["DisableOutlines"]);
 end
 
 local DisableFog = function()
@@ -119,6 +116,18 @@ local ApplyBlackAndWhiteMode = function()
     AgentSetProperty(RELIGHT_SceneObjectAgentName, "FX Color Opacity", 1);
 end
 
+local ForceVignetteOff = function()
+    if(RelightConfigGlobal["ForceVignetteOff"] == false) then
+        return;
+    end
+
+    AgentSetProperty(RELIGHT_SceneObjectAgentName, "FX Vignette Tint Enabled", false);
+    AgentSetProperty(RELIGHT_SceneObjectAgentName, "FX Vignette Tint", Color(0, 0, 0, 1));
+    AgentSetProperty(RELIGHT_SceneObjectAgentName, "FX Vignette Falloff", 0);
+    AgentSetProperty(RELIGHT_SceneObjectAgentName, "FX Vignette Center", 0);
+    AgentSetProperty(RELIGHT_SceneObjectAgentName, "FX Vignette Corners", 0);
+end
+
 --|||||||||||||||||||||||||||||||||||||||||||||||| PUBLIC FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| PUBLIC FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||
 --|||||||||||||||||||||||||||||||||||||||||||||||| PUBLIC FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||
@@ -131,6 +140,7 @@ RELIGHT_Global_Start = function()
     DisablePostProcessing();
     DisableFog();
     ApplyBlackAndWhiteMode();
+    ForceVignetteOff();
 
     if(RelightConfigGlobal["ForceGraphicBlackOff"] == true) then
         ForceGraphicBlackOffStart();

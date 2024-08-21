@@ -842,6 +842,7 @@ TLSE_Development_Editor_RelightLuaExport_ExportSceneChangesToScript = function(s
 
     string_codeToWrite = string_codeToWrite .. "RELIGHT_ConfigFileName_LevelPreset = RELIGHT_LevelsFolderName .. " .. '"' .. "/" .. iniFileName .. '"' .. "; \n";
     string_codeToWrite = string_codeToWrite .. "RelightConfigData_LevelPreset = nil; \n";
+    string_codeToWrite = string_codeToWrite .. "local RELIGHT_ForceRebuildINI = false; --NOTE: If you are adding new fields to the INI here, best to leave this set to true so the INI file will regenerate with the new fields/values as your developing so issues won't occur. \n";
     string_codeToWrite = string_codeToWrite .. "\n";
 
     string_codeToWrite = string_codeToWrite .. "local RELIGHT_GenerateNewINI_LevelPreset = function(number_configurationVersion) \n";
@@ -854,6 +855,7 @@ TLSE_Development_Editor_RelightLuaExport_ExportSceneChangesToScript = function(s
     string_codeToWrite = string_codeToWrite .. "        Main = \n";
     string_codeToWrite = string_codeToWrite .. "        { \n";
     string_codeToWrite = string_codeToWrite .. "            EnableRelighting = true, \n";
+    string_codeToWrite = string_codeToWrite .. "            ExposureOffset = 0.0, \n";
     string_codeToWrite = string_codeToWrite .. "        }, \n";
     string_codeToWrite = string_codeToWrite .. "    }; \n";
     string_codeToWrite = string_codeToWrite .. "\n";
@@ -871,8 +873,9 @@ TLSE_Development_Editor_RelightLuaExport_ExportSceneChangesToScript = function(s
     string_codeToWrite = string_codeToWrite .. "    RelightConfigData_LevelPreset = TLSE_INI_LoadINIFile(RELIGHT_ConfigFileName_LevelPreset); \n";
     string_codeToWrite = string_codeToWrite .. "\n";
     string_codeToWrite = string_codeToWrite .. "    --do a version check after loading, and if the version number doesn't match, rebuild the ini file (NOTE: this will revert changes to the original ini file) \n";
-    string_codeToWrite = string_codeToWrite .. "    if not (RelightConfigData_LevelPreset[" .. '"' .. "Version" .. '"' .. "][" .. '"' .. "ConfigurationVersion" .. '"' .. "] == RELIGHT_CurrentConfigurationVersion) then \n";
+    string_codeToWrite = string_codeToWrite .. "    if (not (RelightConfigData_LevelPreset[" .. '"' .. "Version" .. '"' .. "][" .. '"' .. "ConfigurationVersion" .. '"' .. "] == RELIGHT_CurrentConfigurationVersion)) or (RELIGHT_ForceRebuildINI == true) then \n";
     string_codeToWrite = string_codeToWrite .. "        TLSE_INI_SaveINIFile(RELIGHT_ConfigFileName_LevelPreset, RELIGHT_GenerateNewINI_LevelPreset(RELIGHT_CurrentConfigurationVersion)); \n";
+    string_codeToWrite = string_codeToWrite .. "        RelightConfigData_LevelPreset = TLSE_INI_LoadINIFile(RELIGHT_ConfigFileName_LevelPreset); \n";
     string_codeToWrite = string_codeToWrite .. "    end \n";
     string_codeToWrite = string_codeToWrite .. "end \n";
 
@@ -895,6 +898,8 @@ TLSE_Development_Editor_RelightLuaExport_ExportSceneChangesToScript = function(s
     string_codeToWrite = string_codeToWrite .. "        RELIGHT_DeleteAgentsInScene(RELIGHT_SceneObject); \n";
     string_codeToWrite = string_codeToWrite .. "        --RELIGHT_DeleteAllOriginalSceneAgents(RELIGHT_SceneObject); --commented out because we don't want to completely purge the scene of everything \n";
     string_codeToWrite = string_codeToWrite .. "    end \n";
+    string_codeToWrite = string_codeToWrite .. "\n";
+    string_codeToWrite = string_codeToWrite .. "    TLSE_SetPropertyOnAllCameras(RELIGHT_SceneObject, " .. '"' .. "Exposure" .. '"' .. ", RelightConfigData_LevelPreset[" .. '"' .. "Main" .. '"' .. "][" .. '"' .. "ExposureOffset" .. '"' .. "]); \n";
     string_codeToWrite = string_codeToWrite .. "end \n";
     string_codeToWrite = string_codeToWrite .. "\n";
     string_codeToWrite = string_codeToWrite .. "--(DO NOT CHANGE FUNCTION NAME OR ADD PARAMETERS) This function gets called every single frame after the start of the level. \n";
