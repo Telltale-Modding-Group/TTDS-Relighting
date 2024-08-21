@@ -181,6 +181,8 @@ EditorMode=true
 
 For example if you modified a scene/level from Season 4 then you need to open the **RelightConfiguration_Season4.ini** file. In the file find the name of the level that you modified and change the **RelightSceneLuaFile** to match the new path/name of your .lua file.
 
+![s4-ini-select](github-content/help/s4-ini-select.png)
+
 **EXAMPLE**: Original path
 
 ```
@@ -210,9 +212,9 @@ Granted that I would agree that some of the features would infact make this more
 
 ### Exported Relight Level Lua Script Notes
 
-The neat part about these lua scripts that get exported by the editor, is the fact that they are just lua code. You can actually write your own logic into these lua scripts to do advanced things. In my level relights I do this to implement logic like volumetric lighting, depth of field autofocusing, and other effects.
+The neat part about these lua scripts that get exported by the editor, is the fact that they are just raw uncompiled lua source code. You can write your own logic into these lua scripts to do whatever you want. In my level relights I do this to implement logic like volumetric lighting, depth of field autofocusing, and other effects. Relight core will load in these files and call the native lua commands from the engine to load and compile these lua files for use in the game.
 
-However you can write your own completely original lua logic if you wish, and go as far as you would want because this functionality is exposed to the user thanks to relight.
+The logic or code you write in the lua scripts are all up to you! You can go as far as you would want because this functionality is exposed to the user thanks to relight. Relight comes with an in-development version of an API extender for the games called ***Telltale Lua Script Extensions (TLSE)***. This contains alot of code *(mostly collected over years of R&D and various modding projects)* that extends the existing Lua API provided by the Telltale Tool engine. The source code for ***TLSE*** is all here in the relight repo, but if your intrested in the native [Telltale lua functions you can check them out here](https://github.com/frostbone25/TelltaleLuaScriptingDocumentation).
 
 In addition also with the lua scripts that are generated, you can actually upload them and share them with others. So for example if you are not a fan of a specific level relight that is shipped natively, you can create your own and upload it publically. So all users need to do is just download that lua file you created, place it in their RelightLevels folder and it will just work!
 
