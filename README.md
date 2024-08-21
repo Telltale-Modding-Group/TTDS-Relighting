@@ -138,7 +138,7 @@ If it isn't there then either refresh by right clicking the folder in the applic
 
 **If you are intresting in making you own level relight, the good news is that you don't need to have any lua programming in order to do it!** *(There is a small caveat to this but we will get to that later)*
 
-NOTE: For this we are going to assume that you already have relight installed and setup correctly.
+***NOTE: For this we are going to assume that you already have relight installed and setup correctly...***
 
 1. Go into the **RelightMod** folder and open the **RelightConfiguration_Development.ini** file.
 
@@ -173,7 +173,7 @@ EditorMode=true
 
 6. To use your Level Relight preset, simply move the .lua file from **TLSEDevelopment** to the **RelightLevels** folder.
 
-![relight-level-folder-in-repo.png](github-content/help/relight-level-folder-in-repo.png)
+![relight-level-folder-game-directory-select](github-content/help/relight-level-folder-game-directory-select.png)
 
 7. Open the game and boot into that level you just modified and you should be able to play with the changes you made!
 
