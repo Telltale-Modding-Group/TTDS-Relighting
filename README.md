@@ -124,7 +124,10 @@ If it isn't there then either refresh by right clicking the folder in the applic
 ![script-editor-build-finish-zip](github-content/help/script-editor-build-finish-zip.png)
 
 7. To Install the mod, simply extract the contents of that .zip file into your game's **Archives directory**.
-8. ***(TESTING PART 1)*** To make sure you installed the mod correctly, boot into the game and play any scene/level from Season One/Two/Three/Four. Once you do then quickly exit the game and go back to your game directory folder. There should be a new folder created now called **RelightMod** which is where the main configuration files for relight are stored.
+8. ***(TESTING PART 1)*** To make sure you installed the mod correctly, boot into the game and play any scene/level from Season One/Two/Three/Four. Once you do then quickly exit the game and go back to your game directory folder. There should be a new folder created now called **RelightMod** which is where the main configuration files for relight are created and stored.
+
+![game-directory-relight-mod-folder](github-content/help/game-directory-relight-mod-folder.png)
+
 9. After the core of relight is installed, then we need to include the **RelightLevels** folder into the game directory. So in the cloned/downloaded RelightMod folder that you got from github, there is a **RelightLevels** which contains .lua and .ini files for each level. Simply copy this folder *(Copy the entire folder NOT it's contents)* and drop it into the game directory *(NOT into the Archives folder, just the game directory with the .exe)*.
 
 ![relight-level-folder-in-repo.png](github-content/help/relight-level-folder-in-repo.png)
