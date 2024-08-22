@@ -72,7 +72,7 @@ NOTE: V0.1 unfortunately creates some bugs/issues with the game where in a coupl
 
 1. Download the zip
 2. Extract the contents of the "MOVE_CONTENTS_TO_ARCHIVE_FOLDER" folder to the game Archives directory.
-3. Extract the contents of the "MOVE_CONTENTS_TO_GAME_FOLDER" folder to the main game directory.
+3. Extract the contents of the "MOVE_CONTENTS_TO_GAME_FOLDER" folder *(The RelightLevels folder specifically)* to the main game directory.
 4. Boot the game and have fun!
 
 ## Mod Compatibility
