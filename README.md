@@ -143,6 +143,8 @@ If it isn't there then either refresh by right clicking the folder in the applic
 
 **If you are intresting in making you own level relight, the good news is that you don't need to have any lua programming in order to do it!** You don't need to also have the script editor at all. *(There is a small caveat to this but we will get to that later)*
 
+As a pre-requiste if you are intrested in doing this, I HIGHLY recomend that you install [Load Any Level](https://www.nexusmods.com/thewalkingdeadthetelltaledefinitiveseries/mods/7) as this will DRASTICALLY speed up your workflow. This mod has functionality that allows you to configure the game to skip the boot/menu screens and load directly into a level.
+
 ***NOTE: For this we are going to assume that you already have relight installed and setup correctly...***
 
 1. Go into the **RelightMod** folder and open the **RelightConfiguration_Development.ini** file.
