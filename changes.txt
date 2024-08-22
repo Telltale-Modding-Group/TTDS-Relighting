@@ -19,15 +19,15 @@ Inital Release
 ===================================================================================================
 ===================================================================================================
 ===================================================================================================
-[v0.2 release] 4/12/22
+[v0.2 release] 8/21/24
 ===== AUTHOR NOTES =====
 Apologies for the lack of updates on this mod, there are numerous reasons for it (Life, Shifting Interests, Modding tools development and general R&D) but at last we have arrived on the long awaited update to relight!
 
-This is now (at the time of writing anyway) the largest mod for a walking dead game yet, and conversely the largest update to relight. We will go over all of the details but in short I have gone back and completely redone all the original scenes that I relit, as well as added many more scenes complete with all new lighting, and a ton of new features and effects to go with it (along with a couple bonus things as well) 
+This is now (at the time of writing anyway) the largest mod for a walking dead game yet, and conversely the largest update to relight. We will go over all of the details but in short I have gone back and completely redone all the original scenes that I relit, and added a ton of new features and effects to go with it (along with a couple bonus things as well).
 
-It’s worth noting that this does not completely cover all of the scenes or seasons in the game yet, especially for relights. Other smaller features will be added in, but eventually all the scenes/episodes/seasons will be complete and have all of the appropriate effects and relights. If you want to know what scenes I touched, I have a list at the end of the release notes. All the other scenes are mostly untouched and unharmed :P
+It’s worth noting that this does not completely cover all of the scenes or seasons in the game yet, especially for relights. As a matter of fact this version covers less scenes than V0.1... but do not be alarmed! This release is essentially an overhaul to the entire mod, but with it comes an entire workflow/pipeline that makes it much easier and faster to add more relit levels to the mod. The eventual goal of course is to cover all the scenes/episodes/seasons will be complete and have all of the appropriate effects and relights. If you want to know what scenes I touched, I have a list at the end of the release notes. All the other scenes are mostly untouched and unharmed :P
 
-Before diving into all of the listed additions/replacements/changes the main new feature of relight I want to highlight above all else is feature is the ini file configuration system. 
+Before diving into all of the listed additions/replacements/changes the main new feature of relight I want to highlight above all else is feature is the ini file configuration system.
 
 The ini file configuration system gives you full control over relight and allows you to fully customize this mod however you wish, and not be locked in to what I've done. So you can choose to play a scene with relighting but disable certain effects, or you can disable relighting for a scene (if your not a fan of it) but instead choose to play with the new effects enabled in the default scene. I could go on and on with the different combinations but you can configure the mod to however you wish to have it, the choice is up to you!
 
@@ -40,75 +40,77 @@ As a reminder there is also a github page for this mod, along with all of my oth
 Now on to the actual release notes...
 
 ===== FIXES =====
-- [Fixed] 201 Campfire animation and progression issues caused by enabling the whole season 4 archive. I did this initially so I could get access to S4 particle effects and use them to replace the crappy S2 rain spheres. However additional playtesting revealed that this broke many things that I didn't notice in my testing. The specific particles and assets are now manually included in the relight game override assets archive to prevent those issues.
-- [Fixed] 102 Motor Inn progression issues caused by removing some important agents in a scene. I avoid removing these agents now and just simply hide/disable them.
 
+[Fixed] 201 Campfire animation and progression issues caused by enabling the whole season 4 archive. I did this initially so I could get access to S4 particle effects and use them to replace the crappy S2 rain spheres. However additional playtesting revealed that this broke many things that I didn't notice in my testing. The specific particles and assets are now manually included in the relight game override assets archive to prevent those issues.
+[Fixed] 102 Motor Inn progression issues caused by removing some important agents in a scene. I avoid removing these agents now and just simply hide/disable them.
 ===== TWEAKS =====
-- [Tweaked] All previous and new scenes now will force graphic black off at the scene start. The reason being that this mod is not designed with graphic black turned on, as it’s rather destructive image quality wise.
 
+[Tweaked] All previous and new scenes now will force graphic black off at the scene start. The reason being that this mod is not designed with graphic black turned on, as it’s rather destructive image quality wise.
 ===== ADDED FEATURES/SETTINGS =====
-- [Added] .ini configuration file for disabling/enabling features.
 
+[Added] .ini configuration file for disabling/enabling features.
 Global Configuration Options
-- [Added] "MotionBlurIntensity" - A value for how intense the motion blur when enabled will be.
-- [Added] "FOVMultiplier" - 1.0 by default, higher values mean all cameras will have a wider field of view, opposite for lower values.
-- [Added] "DisableOutlines" - Disables cel shaded outlines on every scene.
-- [Added] "DisablePostProcessing" - Disables all post processing in every scene (useful especially if you are using reshade and want to inject your own post processing).
-- [Added] "DisableFog" - Disables all fog in every scene (useful especially if you are using reshade and want to inject your own post processing).
-- [Added] "RenderScale" - Exposes an internal telltale render function, this value acts like a multiplier for your current screen resolution. (For example, 1.0 at 1080p is 1080p, 2.0 at 1080p is 3840p, 0.5 at 1080p is 720p)
-- [Added] "CinematicMode" - Adds black bars for a widescreen experience, and widens the camera
-- [Added] "BlackAndWhiteMode" - Desaturates scene colors to be completely black and white.
-- [Added] "HighQualityDepthOfField" - When Depth Of Field is enabled this enables a high quality version of it, which has bokeh sprite generation.
 
-Scene Configuration Options (note that not all of these options are avaliable for every scene for many reasons, mostly due to limitations)
-- [Added] "EnableRelighting" - Enables the main scene relighting, can disable if your not a fan of the new relight style. (NOTE: all other options in relation to a scene will still have an effect even with this disabled).
-- [Added] "EnableDepthOfField" - Enables Depth of Field, which is native to the game, but this uses a custom autofocus system to leverage it for earlier seasons (S1 and S2).
-- [Added] "EnableMotionBlur" - Enables Motion Blur on all scenes (disabled by default, but can be enabled in the ini file).
-- [Added] "ExposureOffset" - Can be adjusted for each scene if it's too dark/bright by the user.
-- [Added] "ForceBloomOff" - Forcibly disables bloom in a scene.
-- [Added] "EnableReplaceWater" - Replaces the original poor quality water effects in a scene with higher quality water effects from S4.
-- [Added] "EnableReplaceRain" - Replaces the original rain effects in a scene with higher quality rain effects from S4.
-- [Added] "EnableSkyReplacement" - Replaces the skydome in a scene with a higher quality realistic one that fits the time of day and/or weather event.
-- [Added] "EnableNewReflections" - In scenes with objects that utilize a reflection cubemap (I.e water) this will replace the original scene cubemap with a higher quality HDRI that best matches the scene.
-- [Added] "EnableProcedualGrass" - Procedural Grass creation and placement in some scenes to improve the detail/quality.
-- [Added] "EnableAdditionalParticles" - Enables additional particle effects for the scene (like dust motes, smoke, leaves, etc.)
-- [Added] "EnableVolumetricLighting" - (EXPERIMENTAL) Adds volumetric shadows/lighting to a scene. Due to the nature of this effect the scene will be lit a little differently than the relight.
-- [Added] "EnableLocalVolumetricLighting" - (EXPERIMENTAL) Adds volumetric shadows/lighting to a scene that is local to a specific spot.
-- [Added] "EnableLensFlares" - Adds lens flares to certain light sources in a scene.
-- [Added] "EnableFlashlights" - Adds flashlights and attaches them to some character's hands in specific appropriate scenes that take place at night.
-- [Added] "RelightingThunderRepeatRate" - For some scenes that are stormy/rainy you can adjust the frequency at which a thunderstrike happens.
-- [Added] "EnableContentRestoration" - This enables/restores some cut content left over in a scene (visuals only, not gameplay stuff)
-- [Added] "FixBotchedMaterialColors" - This enables a fix for material colors in a scene to a proper color.
-- [Added] "EnableCharacterLights" - This creates a light for a character that is attached to their head to lift the exposure of their face, this also has the benifit of creating an eyelight for them.
+[Added] "EnableMotionBlur" - Enables Motion Blur on all scenes (disabled by default, but can be enabled in the ini file).
+[Added] "MotionBlurIntensity" - A value for how intense the motion blur when enabled will be.
+[Added] "FOVMultiplier" - 1.0 by default, higher values mean all cameras will have a wider field of view, opposite for lower values.
+[Added] "DisableOutlines" - Disables cel shaded outlines on every scene.
+[Added] "DisablePostProcessing" - Disables all post processing in every scene (useful especially if you are using reshade and want to inject your own post processing).
+[Added] "DisableFog" - Disables all fog in every scene (useful especially if you are using reshade and want to inject your own post processing).
+[Added] "RenderScale" - Exposes an internal telltale render function, this value acts like a multiplier for your current screen resolution. (For example, 1.0 at 1080p is 1080p, 2.0 at 1080p is 3840p, 0.5 at 1080p is 720p)
+[Added] "CinematicMode" - (EXPERIMENTAL) Adds black bars for a widescreen experience, and widens the camera
+[Added] "BlackAndWhiteMode" - (EXPERIMENTAL) Desaturates scene colors to be completely black and white.
+[Added] "HighQualityDepthOfField" - When Depth Of Field is enabled this enables a high quality version of it, which has bokeh sprite generation.
+[Added] "ForceVignetteOff" - Disables Vignette effects in a scene.
+[Added] "ForceBloomOff" - Disables bloom/glow effects in a scene.
+[Added] "ForceGraphicBlackOff" - Forcibly disables graphic black across the entire game.
+[Added] "OverrideTimeScale" - Enables a time scale override for a scene.
+[Added] "TimeScaleValue" - If enabled, this controls the time scale of a scene. (1.0 is normal speed, 0.5 is half speed, 2 is double)
+Scene Configuration Options (note that not all of these options are avaliable for every scene at the moment for many reasons)
 
+[Added] "EnableRelighting" - Enables the main scene relighting, can disable if your not a fan of the new relight style. (NOTE: all other options in relation to a scene will still have an effect even with this disabled).
+[Added] "EnableDepthOfField" - Enables Depth of Field, which is native to the game, but this uses a custom autofocus system to leverage it for earlier seasons (S1 and S2).
+[Added] "ExposureOffset" - Can be adjusted for each scene if it's too dark/bright by the user.
+[Added] "ForceBloomOff" - Forcibly disables bloom in a scene.
+[Added] "EnableReplaceWater" - Replaces the original poor quality water effects in a scene with higher quality water effects from S4.
+[Added] "EnableReplaceRain" - Replaces the original rain effects in a scene with higher quality rain effects from S4.
+[Added] "EnableSkyReplacement" - Replaces the skydome in a scene with a higher quality realistic one that fits the time of day and/or weather event.
+[Added] "EnableNewReflections" - In scenes with objects that utilize a reflection cubemap (I.e water) this will replace the original scene cubemap with a higher quality HDRI that best matches the scene.
+[Added] "EnableProcedualGrass" - Procedural Grass creation and placement in some scenes to improve the detail/quality.
+[Added] "EnableAdditionalParticles" - Enables additional particle effects for the scene (like dust motes, smoke, leaves, etc.)
+[Added] "EnableVolumetricLighting" - (EXPERIMENTAL) Adds volumetric shadows/lighting to a scene. Due to the nature of this effect the scene will be lit a little differently than the relight.
+[Added] "EnableLocalVolumetricLighting" - (EXPERIMENTAL) Adds volumetric shadows/lighting to a scene that is local to a specific spot.
+[Added] "EnableLensFlares" - Adds lens flares to certain light sources in a scene.
+[Added] "EnableFlashlights" - Adds flashlights and attaches them to some character's hands in specific appropriate scenes that take place at night.
+[Added] "RelightingThunderRepeatRate" - For some scenes that are stormy/rainy you can adjust the frequency at which a thunderstrike happens.
+[Added] "EnableContentRestoration" - This enables/restores some cut content left over in a scene (visuals only, not gameplay stuff)
+[Added] "FixBotchedMaterialColors" - This enables a fix for material colors in a scene to a proper color.
+[Added] "EnableCharacterLights" - This creates a light for a character that is attached to their head to lift the exposure of their face, this also has the benifit of creating an eyelight for them.
 Relight Development Configuration Options
-- [Added] "PerformanceMetrics" - Enables a UI that shows performance statistics provided by the engine.
-- [Added] "EditorMode" - Enables the relight editor mode, where you can fly around and adjust lighting and scene post processing and other various things.
-- [Added] "FreeCameraOnlyMode" - Where you can fly through and explore the scene without any interruptions.
-- [Added] "FreeCameraOnlyMode_StartSceneNormally" - When freecamera mode starts, it will attempt to run the telltale scene normally.
-- [Added] "Camera_SnappyMovement" - (Development Camera) This disables smoothing for positioning on the freecam.
-- [Added] "Camera_SnappyRotation" - (Development Camera) This disables smoothing for rotation on the freecam.
-- [Added] "Camera_SnappyZoom" - (Development Camera) This disables smoothing for zooming on the freecam.
-- [Added] "Camera_PositionIncrementDefault" - (Development Camera) Controls how fast the camera moves when flying normally.
-- [Added] "Camera_PositionIncrementShift" - (Development Camera) Controls how fast the camera moves when holding down shift.
-- [Added] "Camera_PositionLerpFactor" - (Development Camera) The smoothing factor for camera movement (higher values = snappier, lower values = smoother).
-- [Added] "Camera_RotationLerpFactor" - (Development Camera) The smoothing factor for camera rotation (higher values = snappier, lower values = smoother).
-- [Added] "Camera_ZoomLerpFactor" - (Development Camera) The smoothing factor for camera zooming (higher values = snappier, lower values = smoother).
-- [Added] "Camera_FovIncrement" - (Development Camera) Controls how fast the camera zooms.
-- [Added] "Camera_FovMin" - (Development Camera) Sets the minimum limit for the field of view of the camera when zooming in.
-- [Added] "Camera_FovMax" - (Development Camera) Sets the maximum limit for the field of view of the camera when zooming out.
-- [Added] "Camera_FarPlane" - (Development Camera) Sets the maximum distance that the camera will render. (objects beyond the far plane will clip/disappear)
-- [Added] "Camera_NearPlane" - (Development Camera) Sets the minimum distance that the camera will render (objects before the near plane will clip/disappear)
 
+[Added] "PerformanceMetrics" - Enables a UI that shows performance statistics provided by the engine.
+[Added] "EditorMode" - Enables the relight editor mode, where you can fly around and adjust lighting and scene post processing and other various things.
+[Added] "FreeCameraOnlyMode" - Where you can fly through and explore the scene without any interruptions.
+[Added] "FreeCameraOnlyMode_StartSceneNormally" - When freecamera mode starts, it will attempt to run the telltale scene normally.
+[Added] "Camera_SnappyMovement" - (Development Camera) This disables smoothing for positioning on the freecam.
+[Added] "Camera_SnappyRotation" - (Development Camera) This disables smoothing for rotation on the freecam.
+[Added] "Camera_SnappyZoom" - (Development Camera) This disables smoothing for zooming on the freecam.
+[Added] "Camera_PositionIncrementDefault" - (Development Camera) Controls how fast the camera moves when flying normally.
+[Added] "Camera_PositionIncrementShift" - (Development Camera) Controls how fast the camera moves when holding down shift.
+[Added] "Camera_PositionLerpFactor" - (Development Camera) The smoothing factor for camera movement (higher values = snappier, lower values = smoother).
+[Added] "Camera_RotationLerpFactor" - (Development Camera) The smoothing factor for camera rotation (higher values = snappier, lower values = smoother).
+[Added] "Camera_ZoomLerpFactor" - (Development Camera) The smoothing factor for camera zooming (higher values = snappier, lower values = smoother).
+[Added] "Camera_FovIncrement" - (Development Camera) Controls how fast the camera zooms.
+[Added] "Camera_FovMin" - (Development Camera) Sets the minimum limit for the field of view of the camera when zooming in.
+[Added] "Camera_FovMax" - (Development Camera) Sets the maximum limit for the field of view of the camera when zooming out.
+[Added] "Camera_FarPlane" - (Development Camera) Sets the maximum distance that the camera will render. (objects beyond the far plane will clip/disappear)
+[Added] "Camera_NearPlane" - (Development Camera) Sets the minimum distance that the camera will render (objects before the near plane will clip/disappear)
 ===== ADDED RELIGHT SCENES =====
-- [Added] 101 Street Outskirts
-- [Added] 101 Drugstore Exterior
-- [Added] 104 Manor Interior Attic
-- [Added] 201 Clearing Campfire
-- [Added] 201 River Shore
-- [Added] 201 River Camp
-- [Added] 201 Shed Interior
-- [Added] 204 Hardware Store Exterior Rear
-- [Added] 204 Civil War Memorial Center
-- [Added] 205 Stash House Exterior Night
-- [Added] 205 Wellington
+
+[Added] 102 Meat Locker
+[Added] 205 Power Station
+===== REMOVE SCENES =====
+NOTE: These will be revamped and get added back in later releases.
+
+[Removed] 102 Motor Inn
+[Removed] 201 Clearing Campfire

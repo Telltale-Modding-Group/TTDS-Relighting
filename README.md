@@ -4,8 +4,8 @@ Offical Releases
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/changemymindpls/TTDS-Relighting)](https://github.com/changemymindpls/TTDS-Relighting/releases)
 
-### [NEXUS MODS - DOWNLOAD RELIGHT V0.1](https://www.nexusmods.com/thewalkingdeadthetelltaledefinitiveseries/mods/1)
-### [GITHUB - DOWNLOAD RELIGHT V0.1](https://github.com/changemymindpls/TTDS-Relighting/releases)
+### [NEXUS MODS - DOWNLOAD RELIGHT V0.2](https://www.nexusmods.com/thewalkingdeadthetelltaledefinitiveseries/mods/1)
+### [GITHUB - DOWNLOAD RELIGHT V0.2](https://github.com/changemymindpls/TTDS-Relighting/releases)
 
 ***If you want to try out the in development version of relight V0.2 then [click here](#building-the-mod-developers). Beware that since it's in development you will be required to build the mod yourself.***
 
@@ -70,11 +70,10 @@ NOTE: V0.1 unfortunately creates some bugs/issues with the game where in a coupl
 
 ### **How to install Relight v0.2**
 
-*This has not been released offically yet with a precompiled/prepackaged zip file yet unfortunately because it's still in development...*
-
-However if you realllyyy want to try out this version of yourself then you have to follow the instructions [here](#building-the-mod-developers) which are unfortunately a little more complicated for the end user. 
-
-In the meantime you'll have to wait until v0.2 is completed for an offical release to get an easier/more friendly installation.
+1. Download the zip
+2. Extract the contents of the "MOVE_CONTENTS_TO_ARCHIVE_FOLDER" folder to the game Archives directory.
+3. Extract the contents of the "MOVE_CONTENTS_TO_GAME_FOLDER" folder to the main game directory.
+4. Boot the game and have fun!
 
 ## Mod Compatibility
 
