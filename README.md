@@ -7,6 +7,8 @@ Offical Releases
 ### [NEXUS MODS - DOWNLOAD RELIGHT V0.1](https://www.nexusmods.com/thewalkingdeadthetelltaledefinitiveseries/mods/1)
 ### [GITHUB - DOWNLOAD RELIGHT V0.1](https://github.com/changemymindpls/TTDS-Relighting/releases)
 
+***If you want to try out the in development version of relight V0.2 then [click here](#building-the-mod-developers). Beware that since it's in development you will be required to build the mod yourself.***
+
 ## Table Of Contents
 - **[About](#about)**
 - **[Screenshots (205 Power Station)](#screenshots-205-power-station)**
