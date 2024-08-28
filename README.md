@@ -21,6 +21,8 @@ Offical Releases
 - **[Making Your Own Level Relight (Developers)](#making-your-own-level-relight-developers)**
 - **[Reporting Issues/Bugs/Problems](#reporting-issues)**
 - **[Tools Used For Relight Mod](#tools-used-for-relight-mod)**
+- **[Relight Mod .ini Files](#relight-mod-ini-files)**
+- **[Relight Levels .ini Files](#relight-levels-ini-files)**
 
 ## About
 
@@ -243,3 +245,131 @@ This is an immensley helpful mod that RAPIDLY speeds up development time, allowi
 ### [DDS D3DTX Converter](https://github.com/iMrShadow/DDS-D3DTX-Converter)
 
 My original DDS / D3DTX converter, upgraded by iMrShadow to support more games and more complex texture layouts. Very helpful and useful for creating custom texture assets that we can use in the game. Either to serve as visual improvements to the game, or for more utilitarian purposes like creating custom textures that can be utilized by the TLSE editor.
+
+## Relight Mod .ini Files
+
+Documentation for variables that would appear on .ini files that are inside of the ***RelightMod*** folder.
+
+### RelightConfiguration_Development.ini
+
+#### **[Version]**
+- **ConfigurationVersion**: *(DO NOT MODIFY)* Every Relight .ini file has this property, this is checked against Relight's Core. If the value here does not match the coresponding configuration version value of Relight Mod then this file will be regenerated, removing and overriding any values that you have set for this .ini
+
+#### **[DevelopmentTools]**
+- **EditorMode**: ***(true/false)*** This property will enable/disable the TLSE (Telltale Lua Script Extensions) editor that ships with the RelightMod. Allowing you to edit or create your own level Relights. ***[(See here for CRITICAL information on the editor)](#making-your-own-level-relight-developers)***
+- **FreeCameraOnlyMode**: ***(true/false)*** This property will enable/disable freecamera mode that ships with the RelightMod. This destroys all other cameras in the scene and creates a custom user controllable camera that you can fly around in the scene.
+- **FreeCameraOnlyMode_StartSceneNormally**: ***(true/false)*** This property will ***attempt*** to start the scene normally and run the internal level/game logic. However in certain scenes the presence of the freecamera will break the level. *(NOTE: This property is only active when freecamera mode is enabled)*
+- **PerformanceMetrics**: ***(true/false)*** This property will enable/disable a text UI that is displayed on the screen, showing all of the perforance metrics that the engine provides.
+
+#### **[CameraSettings]**
+***(NOTE: The properties here apply to the camera used in freecamera mode, and the editor mode)***
+
+- **Camera_SnappyMovement**: ***(true/false)*** This property will enable/disable smoothing done on movement for the freecamera. 
+- **Camera_SnappyRotation**: ***(true/false)*** This property will enable/disable smoothing done on looking/rotation for the freecamera.
+- **Camera_SnappyZoom**: ***(true/false)*** This property will enable/disable smoothing done on zooming for the freecamera.
+- **Camera_PositionIncrementDefault**: ***(number)*** This property controls the default movement speed of the freecamera.
+- **Camera_PositionIncrementShift**: ***(number)*** This property controls the movement speed of the freecamera when holding down shift.
+- **Camera_FovIncrement**: ***(number)*** This property controls the zoom speed of the freecamera when pressing left mouse button *(zoom in)* or right mouse button *(zoom out)*.
+- **Camera_PositionLerpFactor**: ***(number)*** This property controls the movement smoothing factor of the freecamera. Lower values are smoother, higher values are more responsive. *(NOTE: This only works if Camera_SnappyMovement is set to false)*
+- **Camera_RotationLerpFactor**: ***(number)*** This property controls the rotation/look smoothing factor of the freecamera. Lower values are smoother, higher values are more responsive. *(NOTE: This only works if Camera_SnappyRotation is set to false)*
+- **Camera_ZoomLerpFactor**: ***(number)*** This property controls the zoom smoothing factor of the freecamera. Lower values are smoother, higher values are more responsive. *(NOTE: This only works if Camera_SnappyZoom is set to false)*
+- **Camera_FovMin**: ***(number)*** This property controls the minimum field of view for the camera for the zoom range. Lower values are more zoomed in, higher values are more zoomed out.
+- **Camera_FovMax**: ***(number)*** This property controls the maximum field of view for the camera for the zoom range. Lower values are more zoomed in, higher values are more zoomed out.
+- **Camera_NearPlane**: ***(number)*** This property controls the the minimum distance in which objects are rendered in front of camera. Lower values means less objects close to camera will clip, higher values means you objects closer to camera will clip more.
+- **Camera_FarPlane**: ***(number)*** This property controls the the maximum distance in which objects are rendered in the camera. Lower values means objects far away will clip more, higher values means objects far away will clip less.
+
+### RelightConfiguration_Main.ini
+
+#### **[Version]**
+- **ConfigurationVersion**: *(DO NOT MODIFY)* Every Relight .ini file has this property, this is checked against Relight's Core. If the value here does not match the coresponding configuration version value of Relight Mod then this file will be regenerated, removing and overriding any values that you have set for this .ini
+
+#### **[Global]**
+- **RenderScale**: ***(number)*** This property exposes an internal engine function for setting the scale of the rendering resolution. This acts as a multiplier to your current screen rendering resolution. 1.0 is default, 2.0 means your current screen resolution is doubled, 0.5 means your current screen resolution is halved.
+- **FOVMultiplier**: ***(number)*** This is a property on all cameras in the game. 1.0 is default. Higher values means cameras in the game will render wider than usual. Lower values means cameras in the game will render narrower than usual. *(NOTE: This is disabled when CinematicMode is enabled)*
+- **CinematicMode**: ***(true/false)*** This is an experimental feature that enables/disables letterboxing *(black bars)*, and this will also override FOVMultiplier to match the aspect ratio reflected by the letterboxing. This will create a cinematic presentation of the game, and will widen the normal camera field of views in the game to avoid cropping in an effort to retain original image compositions.
+- **BlackAndWhiteMode**: ***(true/false)*** This is an experimental feature that will override the post processing color filter in scenes to desaturate the image to be black and white.
+- **DisableFog**: ***(true/false)*** This property will forcefully disable any fog effects in scenes.
+- **DisablePostProcessing**: ***(true/false)*** This property will forcefully disable any post processing effects in scenes.
+- **DisableOutlines**: ***(true/false)*** This property will forcefully disable post process cel shaded outlines in scenes. *(NOTE: This does not get rid of any ink lines or black lines that are painted onto textures)*
+- **ForceVignetteOff**: ***(true/false)*** This property will forcefully vignette effects in a scene.
+- **ForceBloomOff**: ***(true/false)*** This property will forcefully bloom/glow effects in a scene.
+- **ForceGraphicBlackOff**: ***(true/false)*** This property will forcefully graphic black effects in a scene.
+- **HighQualityDepthOfField**: ***(true/false)*** This property will enable the engine native bokeh sprite generation for depth of field that increases the visual quality of the depth of field. If disabled the engine will fall back to a classic gaussian blur style depth of field with no bokeh sprites.
+- **EnableMotionBlur**: ***(true/false)*** This property will enable motion blur in all scenes in the game.
+- **MotionBlurIntensity**: ***(number)*** This property will control the intensity of motion blur *(if enabled)* in all scenes of the game. Higher values mean stronger motion blur, lower values mean weaker motion blur.
+- **OverrideTimeScale**: ***(true/false)*** This property exposes an internal engine function for setting the time scale of a scene.
+- **TimeScaleValue**: ***(number)*** This property *(if OverrideTimeScale is enabled)* controls the time scale of scenes in the game. 1.0 is default. 2.0 is double speed, 0.5 is half speed.
+
+### RelightConfiguration_Season1.ini
+
+#### **[Version]**
+- **ConfigurationVersion**: *(DO NOT MODIFY)* Every Relight .ini file has this property, this is checked against Relight's Core. If the value here does not match the coresponding configuration version value of Relight Mod then this file will be regenerated, removing and overriding any values that you have set for this .ini
+
+#### [Level_SeasonAndEpisodeNumber_LevelName] *(Example: Level_101_env_hershelFarmExterior)*
+- **RelightSceneLuaFile**: *(string)* This sets the path of the custom relight .lua file for the scene. If the path does not exist, relight won't use a custom .lua file for the scene. *(NOTE: The path is relative to the game executable)*
+
+By default these properties are configured to something like the following... 
+
+***Example: RelightLevels/RELIGHT_101_adv_hershelFarmExterior.scene.lua***
+
+### RelightConfiguration_Season2.ini
+
+#### **[Version]**
+- **ConfigurationVersion**: *(DO NOT MODIFY)* Every Relight .ini file has this property, this is checked against Relight's Core. If the value here does not match the coresponding configuration version value of Relight Mod then this file will be regenerated, removing and overriding any values that you have set for this .ini
+
+#### [Level_SeasonAndEpisodeNumber_LevelName] *(Example: Level_101_env_hershelFarmExterior)*
+- **RelightSceneLuaFile**: *(string)* This sets the path of the custom relight .lua file for the scene. If the path does not exist, relight won't use a custom .lua file for the scene. *(NOTE: The path is relative to the game executable)*
+
+By default these properties are configured to something like the following... 
+
+***Example: RelightLevels/RELIGHT_101_adv_hershelFarmExterior.scene.lua***
+
+### RelightConfiguration_Season3.ini
+
+#### **[Version]**
+- **ConfigurationVersion**: *(DO NOT MODIFY)* Every Relight .ini file has this property, this is checked against Relight's Core. If the value here does not match the coresponding configuration version value of Relight Mod then this file will be regenerated, removing and overriding any values that you have set for this .ini
+
+#### [Level_SeasonAndEpisodeNumber_LevelName] *(Example: Level_101_env_hershelFarmExterior)*
+- **RelightSceneLuaFile**: *(string)* This sets the path of the custom relight .lua file for the scene. If the path does not exist, relight won't use a custom .lua file for the scene. *(NOTE: The path is relative to the game executable)*
+
+By default these properties are configured to something like the following... 
+
+***Example: RelightLevels/RELIGHT_101_adv_hershelFarmExterior.scene.lua***
+
+### RelightConfiguration_Season4.ini
+
+#### **[Version]**
+- **ConfigurationVersion**: *(DO NOT MODIFY)* Every Relight .ini file has this property, this is checked against Relight's Core. If the value here does not match the coresponding configuration version value of Relight Mod then this file will be regenerated, removing and overriding any values that you have set for this .ini
+
+#### [Level_SeasonAndEpisodeNumber_LevelName] *(Example: Level_101_env_hershelFarmExterior)*
+- **RelightSceneLuaFile**: *(string)* This sets the path of the custom relight .lua file for the scene. If the path does not exist, relight won't use a custom .lua file for the scene. *(NOTE: The path is relative to the game executable)*
+
+By default these properties are configured to something like the following... 
+
+***Example: RelightLevels/RELIGHT_101_adv_hershelFarmExterior.scene.lua***
+
+### RelightConfiguration_SeasonM.ini
+
+***NOTE: Michonne support is currently not implemented...***
+
+## Relight Levels .ini Files
+
+Documentation for variables that would appear on an .ini file coresponding to a level.lua file inside of RelightLevels folder. Keep in mind that not every property here will be on a level .ini file as every scene is different.
+
+**NOTE: These only document variables for levels that shipped with the native relight mod, if you have a custom relight level.lua file that you created, or that you got from somewhere else that do not come from the native relight mod, they will not appear here.**
+
+#### **[Version]**
+- **ConfigurationVersion**: *(DO NOT MODIFY)* Every Relight .ini file has this property, this is checked against Relight's Core. If the value here does not match the coresponding configuration version value of Relight Mod then this file will be regenerated, removing and overriding any values that you have set for this .ini
+
+#### **[Main]**
+- **EnableRelighting**: ***(true/false)*** This property will enable/disable any lighting changes made to the level.
+- **ExposureOffset**: ***(number)*** This property modify the "Exposure" property on all cameras in the scene. The higher the value the brighter the image will be. The lower the value the darker the image will be.
+- **EnableDepthOfField**: ***(true/false)*** This property will enable/disable Depth of Field for the scene.
+- **DepthOfFieldAperture**: ***(number)*** This property controls the strength of the depth of field effect. It is based on actual photography values *(1.4, 2.8, 4.0, 5.6, 8.0)* The lower the number, the stronger the depth of field *(narrows the field of focus)*. The higher the number, the weaker the depth of field *(widens the field of focus)*.
+- **EnableVolumetricLighting**: ***(true/false)*** This property will enable/disable Global Volumetric Lighting for the scene. ***Keep in mind this effect is experimental and is performance heavy.***
+- **EnableLocalVolumetricLighting**: ***(true/false)*** This property will enable/disable Localized Volumetric Lighting for the scene. ***Keep in mind this effect is experimental and is performance heavy.***
+- **EnableProcedualGrass**: ***(true/false)*** This property will enable/disable procedual grass generation for the given scene, adding extra detail to the ground.
+- **EnableSkydomeReplacement**: ***(true/false)*** This property will enable/disable skydome replacements. Replacing the sky mesh and texture with a more realistic one for the scene.
+- **EnableCharacterLights**: ***(true/false)*** This property will enable/disable character lights. This creates a light for each character and attaches it to a characters face in an effort to lift the brightness of their face in a non ideal lighting situation. This also has the added bonus of creating a shine for character eyes.
+- **ForceShadowCastingOnAllMeshes**: ***(true/false)*** This property will attempt to force shadow casting on all meshes in the scene.
+- **FixBotchedMaterialColors**: ***(true/false)*** This property will fix improperly set material colors on certain objects in a scene.
