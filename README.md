@@ -4,8 +4,8 @@ Offical Releases
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/changemymindpls/TTDS-Relighting)](https://github.com/changemymindpls/TTDS-Relighting/releases)
 
-### [NEXUS MODS - DOWNLOAD RELIGHT V0.2](https://www.nexusmods.com/thewalkingdeadthetelltaledefinitiveseries/mods/1)
-### [GITHUB - DOWNLOAD RELIGHT V0.2](https://github.com/changemymindpls/TTDS-Relighting/releases)
+### [NEXUS MODS - DOWNLOAD RELIGHT](https://www.nexusmods.com/thewalkingdeadthetelltaledefinitiveseries/mods/1)
+### [GITHUB - DOWNLOAD RELIGHT](https://github.com/changemymindpls/TTDS-Relighting/releases)
 
 ***If you want to try out the in development version of relight V0.2 then [click here](#building-the-mod-developers). Beware that since it's in development you will be required to build the mod yourself.***
 
