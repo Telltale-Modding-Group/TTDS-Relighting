@@ -291,9 +291,9 @@ Documentation for variables that would appear on .ini files that are inside of t
 - **DisableFog**: ***(true/false)*** This property will forcefully disable any fog effects in scenes.
 - **DisablePostProcessing**: ***(true/false)*** This property will forcefully disable any post processing effects in scenes.
 - **DisableOutlines**: ***(true/false)*** This property will forcefully disable post process cel shaded outlines in scenes. *(NOTE: This does not get rid of any ink lines or black lines that are painted onto textures)*
-- **ForceVignetteOff**: ***(true/false)*** This property will forcefully vignette effects in a scene.
-- **ForceBloomOff**: ***(true/false)*** This property will forcefully bloom/glow effects in a scene.
-- **ForceGraphicBlackOff**: ***(true/false)*** This property will forcefully graphic black effects in a scene.
+- **ForceVignetteOff**: ***(true/false)*** This property will forcefully disable vignette effects in a scene.
+- **ForceBloomOff**: ***(true/false)*** This property will forcefully disable bloom/glow effects in a scene.
+- **ForceGraphicBlackOff**: ***(true/false)*** This property will forcefully disable graphic black effects in a scene.
 - **HighQualityDepthOfField**: ***(true/false)*** This property will enable the engine native bokeh sprite generation for depth of field that increases the visual quality of the depth of field. If disabled the engine will fall back to a classic gaussian blur style depth of field with no bokeh sprites.
 - **EnableMotionBlur**: ***(true/false)*** This property will enable motion blur in all scenes in the game.
 - **MotionBlurIntensity**: ***(number)*** This property will control the intensity of motion blur *(if enabled)* in all scenes of the game. Higher values mean stronger motion blur, lower values mean weaker motion blur.
