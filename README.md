@@ -300,43 +300,7 @@ Documentation for variables that would appear on .ini files that are inside of t
 - **OverrideTimeScale**: ***(true/false)*** This property exposes an internal engine function for setting the time scale of a scene.
 - **TimeScaleValue**: ***(number)*** This property *(if OverrideTimeScale is enabled)* controls the time scale of scenes in the game. 1.0 is default. 2.0 is double speed, 0.5 is half speed.
 
-### RelightConfiguration_Season1.ini
-
-#### **[Version]**
-- **ConfigurationVersion**: *(DO NOT MODIFY)* Every Relight .ini file has this property, this is checked against Relight's Core. If the value here does not match the coresponding configuration version value of Relight Mod then this file will be regenerated, removing and overriding any values that you have set for this .ini
-
-#### [Level_SeasonAndEpisodeNumber_LevelName] *(Example: Level_101_env_hershelFarmExterior)*
-- **RelightSceneLuaFile**: *(string)* This sets the path of the custom relight .lua file for the scene. If the path does not exist, relight won't use a custom .lua file for the scene. *(NOTE: The path is relative to the game executable)*
-
-By default these properties are configured to something like the following... 
-
-***Example: RelightLevels/RELIGHT_101_adv_hershelFarmExterior.scene.lua***
-
-### RelightConfiguration_Season2.ini
-
-#### **[Version]**
-- **ConfigurationVersion**: *(DO NOT MODIFY)* Every Relight .ini file has this property, this is checked against Relight's Core. If the value here does not match the coresponding configuration version value of Relight Mod then this file will be regenerated, removing and overriding any values that you have set for this .ini
-
-#### [Level_SeasonAndEpisodeNumber_LevelName] *(Example: Level_101_env_hershelFarmExterior)*
-- **RelightSceneLuaFile**: *(string)* This sets the path of the custom relight .lua file for the scene. If the path does not exist, relight won't use a custom .lua file for the scene. *(NOTE: The path is relative to the game executable)*
-
-By default these properties are configured to something like the following... 
-
-***Example: RelightLevels/RELIGHT_101_adv_hershelFarmExterior.scene.lua***
-
-### RelightConfiguration_Season3.ini
-
-#### **[Version]**
-- **ConfigurationVersion**: *(DO NOT MODIFY)* Every Relight .ini file has this property, this is checked against Relight's Core. If the value here does not match the coresponding configuration version value of Relight Mod then this file will be regenerated, removing and overriding any values that you have set for this .ini
-
-#### [Level_SeasonAndEpisodeNumber_LevelName] *(Example: Level_101_env_hershelFarmExterior)*
-- **RelightSceneLuaFile**: *(string)* This sets the path of the custom relight .lua file for the scene. If the path does not exist, relight won't use a custom .lua file for the scene. *(NOTE: The path is relative to the game executable)*
-
-By default these properties are configured to something like the following... 
-
-***Example: RelightLevels/RELIGHT_101_adv_hershelFarmExterior.scene.lua***
-
-### RelightConfiguration_Season4.ini
+### RelightConfiguration_Season1.ini | RelightConfiguration_Season2.ini | RelightConfiguration_Season3.ini | RelightConfiguration_Season4.ini
 
 #### **[Version]**
 - **ConfigurationVersion**: *(DO NOT MODIFY)* Every Relight .ini file has this property, this is checked against Relight's Core. If the value here does not match the coresponding configuration version value of Relight Mod then this file will be regenerated, removing and overriding any values that you have set for this .ini
