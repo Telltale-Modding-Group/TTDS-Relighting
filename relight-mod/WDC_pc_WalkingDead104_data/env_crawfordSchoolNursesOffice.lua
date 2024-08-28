@@ -115,6 +115,6 @@ end
 
 SceneOpen(kScene, kScript)
 
-if not (RelightConfigDevelopment.EditorMode == true or RelightConfigDevelopment.FreeCameraOnlyMode == false) then
+if not (RelightConfigDevelopment.EditorMode == true or RelightConfigDevelopment.FreeCameraOnlyMode == true) then
   SceneAdd("fx_overlayScreenDigitalCam")
 end

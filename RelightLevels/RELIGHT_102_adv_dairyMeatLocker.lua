@@ -1578,7 +1578,7 @@ local RELIGHT_GenerateNewINI_LevelPreset = function(number_configurationVersion)
         { 
             EnableRelighting = true, 
             EnableDepthOfField = true,
-            EnableVolumetricLighting = true,
+            EnableVolumetricLighting = false,
             EnableCharacterLights = true,
             ExposureOffset = 0.0,
             DepthOfFieldAperture = 2.8,
